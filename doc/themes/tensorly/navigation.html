@@ -1,0 +1,63 @@
+<nav class="navbar is-dark has-shadow top" id="top">
+    <div class="navbar-brand">
+        <!-- <a class="navbar-item navbar-title" href="{{ pathto(master_doc) }}">
+            {{ project }}
+		</a> -->
+        <a class="navbar-item navbar-logo" href="{{ pathto(master_doc) }}">
+            <img src="{{ pathto('_static/' + logo, 1) }}" class="navbar-logo" alt="{{ project }}" height=30>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="{{pathto(master_doc)}}">
+            <i class="fa fa-home" aria-hidden="true"></i>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="{{theme_github_url}}" target="_blank">
+            <span class="icon"><i class="fa fa-github"></i></span>
+        </a>
+
+		<span class="navbar-burger" data-target="NavbarMenu" >
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+
+    </div>
+
+	<div id="NavbarMenu" class="navbar-menu">
+		<div class="navbar-start">
+
+			<a class="navbar-item" href="{{pathto('install')}}">
+				Install
+			</a>
+			<a class="navbar-item" href="{{pathto('user_guide/index')}}">
+				User Guide
+			</a>
+			<a class="navbar-item" href="{{pathto('modules/api')}}">
+				API
+			</a>
+			{# Comment for now
+				<a class="navbar-item" href="{{pathto('auto_examples/index')}}">
+					Examples
+				</a>
+			#}
+			<a class="navbar-item" href="{{pathto('about')}}">
+				About Us
+			</a>
+
+		</div>
+
+		<div class="navbar-end">
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="{{pathto(master_doc)}}">
+				<i class="fa fa-home" aria-hidden="true"></i>
+				<span class="tooltiptext">Home page</span>
+			</a>
+
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="{{theme_github_url}}" target="_blank">
+				<span class="tooltiptext">Open project on Github</span>
+				<span class="icon"><i class="fa fa-github"></i></span>
+			</a>
+
+		</div>
+    </div>
+</nav>
+
