@@ -6,9 +6,9 @@ Installing tensorly-Torch
 Pre-requisite
 =============
 
-You will need to have Python 3 installed, as well as NumPy, Scipy and `TensorLy <tensorly.org/dev>`_.
+You will need to have Python 3 installed, as well as NumPy, Scipy and `TensorLy <http://tensorly.org/dev>`_.
 If you are starting with Python or generally want a pain-free experience, I recommend you install the `Anaconda distribiution <https://www.anaconda.com/download/>`_. It comes with all you need shipped-in and ready to use!
-   
+
 
 Installing with pip (recommended)
 =================================
