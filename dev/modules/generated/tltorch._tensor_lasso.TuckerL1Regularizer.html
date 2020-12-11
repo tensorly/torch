@@ -1,0 +1,384 @@
+
+
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="keywords" content="tensor learning, tensor decomposition, tensor factorization, tensor operations, deep learning, tensorly, pytorch, tensorization, machine learning">
+        <meta name="description" content="TensorLy-Torch: Deep Tensor Learning in Python with TensorLy and PyTorch">
+
+        
+        <meta name="author" content="Jean Kossaifi">
+        <title>TensorLy-Torch: Deep Tensor Learning</title>
+        
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../_static/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../_static/favicon/favicon-16x16.png">
+        <link rel="manifest" href="../../_static/favicon/site.webmanifest">
+        <link rel="mask-icon" href="../../_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="../../_static/favicon/favicon.ico">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../../_static/bulma.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../_static/base.min.css" />
+        <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+        
+        
+
+        
+        
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFGGEBX0FR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RFGGEBX0FR');
+</script>
+
+    </head>
+
+    <body>
+        
+        <nav class="navbar is-dark has-shadow top" id="top">
+    <div class="navbar-brand">
+        <!-- <a class="navbar-item navbar-title" href="../../index.html">
+            TensorLy-Torch
+		</a> -->
+        <a class="navbar-item navbar-logo" href="../../index.html">
+            <img src="../../_static/tensorly-torch-logo.png" class="navbar-logo" alt="TensorLy-Torch" height=30>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="../../index.html">
+            <i class="fa fa-home" aria-hidden="true"></i>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+            <span class="icon"><i class="fa fa-github"></i></span>
+        </a>
+
+		<span class="navbar-burger" data-target="NavbarMenu" >
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+
+    </div>
+
+	<div id="NavbarMenu" class="navbar-menu">
+		<div class="navbar-start">
+
+			<a class="navbar-item" href="../../install.html">
+				Install
+			</a>
+			<a class="navbar-item" href="../../user_guide/index.html">
+				User Guide
+			</a>
+			<a class="navbar-item" href="../api.html">
+				API
+			</a>
+			
+			<a class="navbar-item" href="../../about.html">
+				About Us
+			</a>
+
+		</div>
+
+		<div class="navbar-end">
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="../../index.html">
+				<i class="fa fa-home" aria-hidden="true"></i>
+				<span class="tooltiptext">Home page</span>
+			</a>
+
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+				<span class="tooltiptext">Open project on Github</span>
+				<span class="icon"><i class="fa fa-github"></i></span>
+			</a>
+
+		</div>
+    </div>
+</nav>
+ 
+
+        
+        
+
+            
+        
+        <div class="columns is-centered"><div class="column is-one-quarter is-hidden-mobile aside">
+    <div class="sidebar" id="sidebar">
+        
+        <div class="search">
+            <div class="search-title">
+                Search in TensorLy-Torch
+            </div>
+
+            <script>
+              (function() {
+                var cx = '002285679029256671182:5tfqz3cvmm8';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:searchbox-only></gcse:searchbox-only>
+            
+        </div>
+
+        <div class="toc">
+        
+        
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing tensorly-Torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-regression-layers">Tensor Regression Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-contraction-layers">Tensor Contraction Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-linear-layers">Factorized Linear Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-convolutions">Factorized Convolutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch._tensor_dropout">Tensor Dropout</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#l1-regularization">L1 Regularization</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch._tensor_lasso</span></code>.TuckerL1Regularizer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tltorch._tensor_lasso.CPL1Regularizer.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch._tensor_lasso</span></code>.CPL1Regularizer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tltorch._tensor_lasso.TTL1Regularizer.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch._tensor_lasso</span></code>.TTL1Regularizer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.init">Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#internal">Internal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_guide/index.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About Us</a></li>
+</ul>
+
+        
+        
+        </div>
+        
+    </div>
+</div>
+
+            
+            <div class="column is-three-quarters main-column">
+                <div class="content main-content">
+
+                    
+
+  <div class="section" id="tltorch-tensor-lasso-tuckerl1regularizer">
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch._tensor_lasso</span></code>.TuckerL1Regularizer</h1>
+<dl class="py class">
+<dt id="tltorch._tensor_lasso.TuckerL1Regularizer">
+<em class="property">class </em><code class="descclassname">tltorch._tensor_lasso.</code><code class="descname">TuckerL1Regularizer</code><span class="sig-paren">(</span><em><span class="n">penalty</span><span class="o">=</span><span class="default_value">0.01</span></em>, <em><span class="n">clamp_weights</span><span class="o">=</span><span class="default_value">True</span></em>, <em><span class="n">threshold</span><span class="o">=</span><span class="default_value">1e-06</span></em>, <em><span class="n">normalize_loss</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_lasso.html#TuckerL1Regularizer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Decomposition Hook for Tensor Lasso on Tucker tensors</p>
+<blockquote>
+<div>Applies a generalized Lasso (l1 regularization) on the tensor layers the regularization it is applied to.</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>penalty</strong><span class="classifier">float, default is 0.01</span></dt><dd><p>scaling factor for the loss</p>
+</dd>
+<dt><strong>clamp_weights</strong><span class="classifier">bool, default is True</span></dt><dd><p>if True, the lasso weights are clamp between -1 and 1</p>
+</dd>
+<dt><strong>threshold</strong><span class="classifier">float, default is 1e-6</span></dt><dd><p>if a lasso weight is lower than the set threshold, it is set to 0</p>
+</dd>
+<dt><strong>normalize_loss</strong><span class="classifier">bool, default is True</span></dt><dd><p>If True, the loss will be between 0 and 1.
+Otherwise, the raw sum of absolute weights will be returned.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<p>First you need to create an instance of the regularizer:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">regularizer</span> <span class="o">=</span> <span class="n">TuckerL1Regularizer</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="n">penalty</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can apply the regularizer to one or several layers:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">trl</span> <span class="o">=</span> <span class="n">TRL</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trl2</span> <span class="o">=</span> <span class="n">TRL</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">),</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regularizer</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">trl</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regularizer</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">trl2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The lasso is automatically applied:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">trl</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pred</span> <span class="o">=</span> <span class="n">trl2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span> <span class="o">=</span> <span class="n">your_loss_function</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Add the Lasso loss:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span> <span class="o">+</span> <span class="n">regularizer</span><span class="o">.</span><span class="n">loss</span>
+</pre></div>
+</div>
+<p>You can now backpropagate through your loss as usual:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span><span class="o">.</span><span class="n">backwards</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>After you finish updating the weights, don’t forget to reset the regularizer, 
+otherwise it will keep accumulating values!</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can also remove the regularizer with <cite>regularizer.remove(trl)</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Attributes:</th><td class="field-body"><dl class="first last docutils">
+<dt><a class="reference internal" href="#tltorch._tensor_lasso.TuckerL1Regularizer.loss" title="tltorch._tensor_lasso.TuckerL1Regularizer.loss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loss</span></code></a></dt><dd><p>Returns the current Lasso (l1) loss for the layers that have been called so far.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils align-default">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code>(module,&nbsp;tucker_tensor)</td>
+<td>Call self as a function.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#tltorch._tensor_lasso.TuckerL1Regularizer.apply" title="tltorch._tensor_lasso.TuckerL1Regularizer.apply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply</span></code></a>(module)</td>
+<td>Apply an instance of the L1Regularizer to a tensor module</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#tltorch._tensor_lasso.TuckerL1Regularizer.apply_lasso" title="tltorch._tensor_lasso.TuckerL1Regularizer.apply_lasso"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_lasso</span></code></a>(tucker_tensor,&nbsp;lasso_weights)</td>
+<td>Applies the lasso to a decomposed tensor</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#tltorch._tensor_lasso.TuckerL1Regularizer.remove" title="tltorch._tensor_lasso.TuckerL1Regularizer.remove"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove</span></code></a>(module)</td>
+<td>Remove the Regularization from a module.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#tltorch._tensor_lasso.TuckerL1Regularizer.reset" title="tltorch._tensor_lasso.TuckerL1Regularizer.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>()</td>
+<td>Reset the loss, should be called at the end of each iteration.</td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="tltorch._tensor_lasso.TuckerL1Regularizer.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_lasso.html#TuckerL1Regularizer.reset"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Reset the loss, should be called at the end of each iteration.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tltorch._tensor_lasso.TuckerL1Regularizer.loss">
+<em class="property">property </em><code class="descname">loss</code></dt>
+<dd><p>Returns the current Lasso (l1) loss for the layers that have been called so far.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt>float</dt><dd><p>l1 regularization on the tensor layers the regularization has been applied to.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tltorch._tensor_lasso.TuckerL1Regularizer.apply_lasso">
+<code class="descname">apply_lasso</code><span class="sig-paren">(</span><em><span class="n">tucker_tensor</span></em>, <em><span class="n">lasso_weights</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_lasso.html#TuckerL1Regularizer.apply_lasso"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Applies the lasso to a decomposed tensor</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tltorch._tensor_lasso.TuckerL1Regularizer.apply">
+<code class="descname">apply</code><span class="sig-paren">(</span><em><span class="n">module</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_lasso.html#TuckerL1Regularizer.apply"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Apply an instance of the L1Regularizer to a tensor module</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>module</strong><span class="classifier">TensorModule</span></dt><dd><p>module on which to add the regularization</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt>TensorModule (with Regularization hook)</dt><dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tltorch._tensor_lasso.TuckerL1Regularizer.remove">
+<code class="descname">remove</code><span class="sig-paren">(</span><em><span class="n">module</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_lasso.html#TuckerL1Regularizer.remove"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Remove the Regularization from a module.</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="clearer"></div></div>
+
+
+
+
+                    <nav class="pagination">
+    
+    
+    <a class="button is-medium pagination-previous" href="tltorch._tensor_dropout.remove_tt_dropout.html" title="tltorch._tensor_dropout.remove_tt_dropout" accesskey="p">
+        <span class="icon">
+            <i class="fa fa-arrow-circle-left"></i>
+        </span>
+        <span>Previous</span>
+    </a>
+    
+    
+    <a class="button is-medium pagination-next" href="tltorch._tensor_lasso.CPL1Regularizer.html" title="tltorch._tensor_lasso.CPL1Regularizer" accesskey="n">
+        <span>Next </span>
+        <span class="icon">
+            <i class="fa fa-arrow-circle-right"></i>
+        </span>
+    </a>
+    
+</nav>
+
+                </div>
+
+                <footer class="footer">
+    <div class="container has-text-centered">
+
+        <p>
+                &copy; 2020, Jean Kossaifi.
+        </p>
+            Built with <a href="http://sphinx-doc.org/">Sphinx</a> using the <a href="https://github.com/tensorly/tensorly">TensorLy</a> theme. 
+    </div>
+</footer>
+            </div>
+        </div>
+
+        
+        
+        
+
+        
+
+        <script src="../../_static/navigation.min.js"></script>
+
+    </body>
+</html>

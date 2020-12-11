@@ -1,0 +1,303 @@
+
+
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="keywords" content="tensor learning, tensor decomposition, tensor factorization, tensor operations, deep learning, tensorly, pytorch, tensorization, machine learning">
+        <meta name="description" content="TensorLy-Torch: Deep Tensor Learning in Python with TensorLy and PyTorch">
+
+        
+        <meta name="author" content="Jean Kossaifi">
+        <title>TensorLy-Torch: Deep Tensor Learning</title>
+        
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../_static/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../_static/favicon/favicon-16x16.png">
+        <link rel="manifest" href="../_static/favicon/site.webmanifest">
+        <link rel="mask-icon" href="../_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="../_static/favicon/favicon.ico">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../_static/bulma.min.css" />
+        <link rel="stylesheet" type="text/css" href="../_static/base.min.css" />
+        <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+        
+        
+
+        
+        
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFGGEBX0FR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RFGGEBX0FR');
+</script>
+
+    </head>
+
+    <body>
+        
+        <nav class="navbar is-dark has-shadow top" id="top">
+    <div class="navbar-brand">
+        <!-- <a class="navbar-item navbar-title" href="../index.html">
+            TensorLy-Torch
+		</a> -->
+        <a class="navbar-item navbar-logo" href="../index.html">
+            <img src="../_static/tensorly-torch-logo.png" class="navbar-logo" alt="TensorLy-Torch" height=30>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="../index.html">
+            <i class="fa fa-home" aria-hidden="true"></i>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+            <span class="icon"><i class="fa fa-github"></i></span>
+        </a>
+
+		<span class="navbar-burger" data-target="NavbarMenu" >
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+
+    </div>
+
+	<div id="NavbarMenu" class="navbar-menu">
+		<div class="navbar-start">
+
+			<a class="navbar-item" href="../install.html">
+				Install
+			</a>
+			<a class="navbar-item" href="index.html">
+				User Guide
+			</a>
+			<a class="navbar-item" href="../modules/api.html">
+				API
+			</a>
+			
+			<a class="navbar-item" href="../about.html">
+				About Us
+			</a>
+
+		</div>
+
+		<div class="navbar-end">
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="../index.html">
+				<i class="fa fa-home" aria-hidden="true"></i>
+				<span class="tooltiptext">Home page</span>
+			</a>
+
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+				<span class="tooltiptext">Open project on Github</span>
+				<span class="icon"><i class="fa fa-github"></i></span>
+			</a>
+
+		</div>
+    </div>
+</nav>
+ 
+
+        
+        
+
+            
+        
+        <div class="columns is-centered"><div class="column is-one-quarter is-hidden-mobile aside">
+    <div class="sidebar" id="sidebar">
+        
+        <div class="search">
+            <div class="search-title">
+                Search in TensorLy-Torch
+            </div>
+
+            <script>
+              (function() {
+                var cx = '002285679029256671182:5tfqz3cvmm8';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:searchbox-only></gcse:searchbox-only>
+            
+        </div>
+
+        <div class="toc">
+        
+        
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing tensorly-Torch</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="trl.html">Tensor Regression Layers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Factorized Convolutional Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-factorized-convolutions">Creating Factorized Convolutions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#efficient-convolutional-blocks">Efficient Convolutional Blocks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tensorized_linear.html">Tensorized Linear Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensor_hooks.html">Tensor Hooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+
+        
+        
+        </div>
+        
+    </div>
+</div>
+
+            
+            <div class="column is-three-quarters main-column">
+                <div class="content main-content">
+
+                    
+
+  <div class="section" id="factorized-convolutional-layers">
+<h1>Factorized Convolutional Layers</h1>
+<p>It is possible to apply low-rank tensor factorization to convolution
+kernels to compress the network and reduce the number of parameters.</p>
+<p>In TensorLy-Torch, you can easily try factorized convolutions: first, let’s
+import the library:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tltorch</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+</pre></div>
+</div>
+<p>Let’s now create some random data to try our modules: we can choose the
+size of the convolutions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">device</span><span class="o">=</span><span class="s1">&#39;cpu&#39;</span>
+<span class="n">input_channels</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">output_channels</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">kernel_size</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">size</span> <span class="o">=</span> <span class="mi">24</span>
+<span class="n">order</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">input_channels</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="p">)</span><span class="o">*</span><span class="n">order</span>
+<span class="n">kernel_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">output_channels</span><span class="p">,</span> <span class="n">input_channels</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">kernel_size</span><span class="p">,</span> <span class="p">)</span><span class="o">*</span><span class="n">order</span>
+</pre></div>
+</div>
+<p>We can create some random input data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">input_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="creating-factorized-convolutions">
+<h2>Creating Factorized Convolutions</h2>
+<div class="section" id="from-random">
+<h3>From Random</h3>
+<p>In PyTorch, you would create a convolution as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">conv</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">input_channels</span><span class="p">,</span> <span class="n">output_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In TensorLy Torch, it is exactly the same except that factorized
+convolutions are by default of any order: either you specify the kernel
+size or your specify the order</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">conv</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">TuckerConv</span><span class="p">(</span><span class="n">input_channels</span><span class="p">,</span> <span class="n">output_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">conv</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">input_channels</span><span class="p">,</span> <span class="n">output_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In TensorLy-Torch, factorized convolutions can be of any order, so you
+have to specify the order at creation (in Pytorch, you specify it
+through the class name, e.g.&nbsp;Conv2d or Conv3d):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fact_conv</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">CPConv</span><span class="p">(</span><span class="n">input_channels</span><span class="p">,</span> <span class="n">output_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or, you can specify the order directly by passing a tuple as kernel_size
+(in which case, <code class="docutils literal notranslate"><span class="pre">order</span> <span class="pre">=</span> <span class="pre">len(kernel_size)</span></code> is used).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fact_conv</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">CPConv</span><span class="p">(</span><span class="n">input_channels</span><span class="p">,</span> <span class="n">output_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="from-an-existing-convolution">
+<h3>From an existing Convolution</h3>
+<p>You can create a Factorized convolution from an existing (PyTorch)
+convolution:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fact_conv</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">CPConv</span><span class="o">.</span><span class="n">from_conv</span><span class="p">(</span><span class="n">conv</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">decompose_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="efficient-convolutional-blocks">
+<h2>Efficient Convolutional Blocks</h2>
+<p>If you compress a convolutional kernel, you can get efficient
+convolutional blocks by applying tensor factorization. For instance, if
+you apply CP decomposition, you can get a MobileNet-v2 block:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fact_conv</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">CPConv</span><span class="o">.</span><span class="n">from_conv</span><span class="p">(</span><span class="n">conv</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="s1">&#39;mobilenet&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Similarly, if you apply Tucker decomposition, you can get a ResNet
+BottleNeck block:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fact_conv</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">TuckerConv</span><span class="o">.</span><span class="n">from_conv</span><span class="p">(</span><span class="n">conv</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="s1">&#39;factorized&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+
+
+                    <nav class="pagination">
+    
+    
+    <a class="button is-medium pagination-previous" href="trl.html" title="Tensor Regression Layers" accesskey="p">
+        <span class="icon">
+            <i class="fa fa-arrow-circle-left"></i>
+        </span>
+        <span>Previous</span>
+    </a>
+    
+    
+    <a class="button is-medium pagination-next" href="tensorized_linear.html" title="Tensorized Linear Layers" accesskey="n">
+        <span>Next </span>
+        <span class="icon">
+            <i class="fa fa-arrow-circle-right"></i>
+        </span>
+    </a>
+    
+</nav>
+
+                </div>
+
+                <footer class="footer">
+    <div class="container has-text-centered">
+
+        <p>
+                &copy; 2020, Jean Kossaifi.
+        </p>
+            Built with <a href="http://sphinx-doc.org/">Sphinx</a> using the <a href="https://github.com/tensorly/tensorly">TensorLy</a> theme. 
+    </div>
+</footer>
+            </div>
+        </div>
+
+        
+        
+        
+
+        
+
+        <script src="../_static/navigation.min.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,263 @@
+
+
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="keywords" content="tensor learning, tensor decomposition, tensor factorization, tensor operations, deep learning, tensorly, pytorch, tensorization, machine learning">
+        <meta name="description" content="TensorLy-Torch: Deep Tensor Learning in Python with TensorLy and PyTorch">
+
+        
+        <meta name="author" content="Jean Kossaifi">
+        <title>TensorLy-Torch: Deep Tensor Learning</title>
+        
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../_static/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../_static/favicon/favicon-16x16.png">
+        <link rel="manifest" href="../../_static/favicon/site.webmanifest">
+        <link rel="mask-icon" href="../../_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="../../_static/favicon/favicon.ico">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../../_static/bulma.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../_static/base.min.css" />
+        <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+        
+        
+
+        
+        
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFGGEBX0FR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RFGGEBX0FR');
+</script>
+
+    </head>
+
+    <body>
+        
+        <nav class="navbar is-dark has-shadow top" id="top">
+    <div class="navbar-brand">
+        <!-- <a class="navbar-item navbar-title" href="../../index.html">
+            TensorLy-Torch
+		</a> -->
+        <a class="navbar-item navbar-logo" href="../../index.html">
+            <img src="../../_static/tensorly-torch-logo.png" class="navbar-logo" alt="TensorLy-Torch" height=30>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="../../index.html">
+            <i class="fa fa-home" aria-hidden="true"></i>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+            <span class="icon"><i class="fa fa-github"></i></span>
+        </a>
+
+		<span class="navbar-burger" data-target="NavbarMenu" >
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+
+    </div>
+
+	<div id="NavbarMenu" class="navbar-menu">
+		<div class="navbar-start">
+
+			<a class="navbar-item" href="../../install.html">
+				Install
+			</a>
+			<a class="navbar-item" href="../../user_guide/index.html">
+				User Guide
+			</a>
+			<a class="navbar-item" href="../api.html">
+				API
+			</a>
+			
+			<a class="navbar-item" href="../../about.html">
+				About Us
+			</a>
+
+		</div>
+
+		<div class="navbar-end">
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="../../index.html">
+				<i class="fa fa-home" aria-hidden="true"></i>
+				<span class="tooltiptext">Home page</span>
+			</a>
+
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+				<span class="tooltiptext">Open project on Github</span>
+				<span class="icon"><i class="fa fa-github"></i></span>
+			</a>
+
+		</div>
+    </div>
+</nav>
+ 
+
+        
+        
+
+            
+        
+        <div class="columns is-centered"><div class="column is-one-quarter is-hidden-mobile aside">
+    <div class="sidebar" id="sidebar">
+        
+        <div class="search">
+            <div class="search-title">
+                Search in TensorLy-Torch
+            </div>
+
+            <script>
+              (function() {
+                var cx = '002285679029256671182:5tfqz3cvmm8';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:searchbox-only></gcse:searchbox-only>
+            
+        </div>
+
+        <div class="toc">
+        
+        
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing tensorly-Torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-regression-layers">Tensor Regression Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-contraction-layers">Tensor Contraction Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-linear-layers">Factorized Linear Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-convolutions">Factorized Convolutions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-tltorch._tensor_dropout">Tensor Dropout</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../api.html#classes">Classes</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../api.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#l1-regularization">L1 Regularization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.init">Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#internal">Internal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_guide/index.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About Us</a></li>
+</ul>
+
+        
+        
+        </div>
+        
+    </div>
+</div>
+
+            
+            <div class="column is-three-quarters main-column">
+                <div class="content main-content">
+
+                    
+
+  <div class="section" id="tltorch-tensor-dropout-tucker-dropout">
+<h1>tltorch._tensor_dropout.tucker_dropout</h1>
+<dl class="py function">
+<dt id="tltorch._tensor_dropout.tucker_dropout">
+<code class="descclassname">tltorch._tensor_dropout.</code><code class="descname">tucker_dropout</code><span class="sig-paren">(</span><em><span class="n">module</span></em>, <em><span class="n">p</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_dropout.html#tucker_dropout"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Tucker Dropout</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>module</strong><span class="classifier">tltorch.TensorModule</span></dt><dd><p>the tensor module parametrized by the tensor decomposition to which to apply tensor dropout</p>
+</dd>
+<dt><strong>p</strong><span class="classifier">float</span></dt><dd><p>dropout probability
+if 0, no dropout is applied
+if 1, all the components but 1 are dropped in the latent space</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt>TensorModule</dt><dd><p>the module to which tensor dropout has been attached</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">trl</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">TuckerTRL</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">),</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trl</span> <span class="o">=</span> <span class="n">tucker_dropout</span><span class="p">(</span><span class="n">trl</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">remove_tucker_dropout</span><span class="p">(</span><span class="n">trl</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+
+
+                    <nav class="pagination">
+    
+    
+    <a class="button is-medium pagination-previous" href="tltorch._tensor_dropout.TTDropout.html" title="tltorch._tensor_dropout.TTDropout" accesskey="p">
+        <span class="icon">
+            <i class="fa fa-arrow-circle-left"></i>
+        </span>
+        <span>Previous</span>
+    </a>
+    
+    
+    <a class="button is-medium pagination-next" href="tltorch._tensor_dropout.cp_dropout.html" title="tltorch._tensor_dropout.cp_dropout" accesskey="n">
+        <span>Next </span>
+        <span class="icon">
+            <i class="fa fa-arrow-circle-right"></i>
+        </span>
+    </a>
+    
+</nav>
+
+                </div>
+
+                <footer class="footer">
+    <div class="container has-text-centered">
+
+        <p>
+                &copy; 2020, Jean Kossaifi.
+        </p>
+            Built with <a href="http://sphinx-doc.org/">Sphinx</a> using the <a href="https://github.com/tensorly/tensorly">TensorLy</a> theme. 
+    </div>
+</footer>
+            </div>
+        </div>
+
+        
+        
+        
+
+        
+
+        <script src="../../_static/navigation.min.js"></script>
+
+    </body>
+</html>

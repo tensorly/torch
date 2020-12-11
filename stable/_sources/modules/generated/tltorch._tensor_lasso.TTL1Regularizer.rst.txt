@@ -1,0 +1,11 @@
+﻿:mod:`tltorch._tensor_lasso`.TTL1Regularizer
+===================================================
+
+.. currentmodule:: tltorch._tensor_lasso
+
+.. autoclass:: TTL1Regularizer
+   :members:
+
+.. raw:: html
+
+    <div class="clearer"></div>

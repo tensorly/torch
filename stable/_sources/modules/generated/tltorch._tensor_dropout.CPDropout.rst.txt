@@ -1,0 +1,11 @@
+﻿:mod:`tltorch._tensor_dropout`.CPDropout
+===============================================
+
+.. currentmodule:: tltorch._tensor_dropout
+
+.. autoclass:: CPDropout
+   :members:
+
+.. raw:: html
+
+    <div class="clearer"></div>

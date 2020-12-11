@@ -1,0 +1,11 @@
+﻿:mod:`tltorch.factorized_conv`.TTConv
+============================================
+
+.. currentmodule:: tltorch.factorized_conv
+
+.. autoclass:: TTConv
+   :members:
+
+.. raw:: html
+
+    <div class="clearer"></div>

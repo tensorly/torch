@@ -1,0 +1,12 @@
+﻿:mod:`tltorch.init`.tucker_init
+============================================
+
+.. currentmodule:: tltorch.init
+
+.. autofunction:: tucker_init
+
+.. include:: tltorch.init.tucker_init.examples
+
+.. raw:: html
+
+    <div class="clearer"></div>

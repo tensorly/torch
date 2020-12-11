@@ -1,0 +1,715 @@
+
+
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="keywords" content="tensor learning, tensor decomposition, tensor factorization, tensor operations, deep learning, tensorly, pytorch, tensorization, machine learning">
+        <meta name="description" content="TensorLy-Torch: Deep Tensor Learning in Python with TensorLy and PyTorch">
+
+        
+        <meta name="author" content="Jean Kossaifi">
+        <title>TensorLy-Torch: Deep Tensor Learning</title>
+        
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../_static/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../_static/favicon/favicon-16x16.png">
+        <link rel="manifest" href="../../_static/favicon/site.webmanifest">
+        <link rel="mask-icon" href="../../_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="../../_static/favicon/favicon.ico">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../../_static/bulma.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../_static/base.min.css" />
+        <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+        
+        
+
+        
+        
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFGGEBX0FR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RFGGEBX0FR');
+</script>
+
+    </head>
+
+    <body>
+        
+        <nav class="navbar is-dark has-shadow top" id="top">
+    <div class="navbar-brand">
+        <!-- <a class="navbar-item navbar-title" href="../../index.html">
+            TensorLy-Torch
+		</a> -->
+        <a class="navbar-item navbar-logo" href="../../index.html">
+            <img src="../../_static/tensorly-torch-logo.png" class="navbar-logo" alt="TensorLy-Torch" height=30>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="../../index.html">
+            <i class="fa fa-home" aria-hidden="true"></i>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+            <span class="icon"><i class="fa fa-github"></i></span>
+        </a>
+
+		<span class="navbar-burger" data-target="NavbarMenu" >
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+
+    </div>
+
+	<div id="NavbarMenu" class="navbar-menu">
+		<div class="navbar-start">
+
+			<a class="navbar-item" href="../../install.html">
+				Install
+			</a>
+			<a class="navbar-item" href="../../user_guide/index.html">
+				User Guide
+			</a>
+			<a class="navbar-item" href="../../modules/api.html">
+				API
+			</a>
+			
+			<a class="navbar-item" href="../../about.html">
+				About Us
+			</a>
+
+		</div>
+
+		<div class="navbar-end">
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="../../index.html">
+				<i class="fa fa-home" aria-hidden="true"></i>
+				<span class="tooltiptext">Home page</span>
+			</a>
+
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+				<span class="tooltiptext">Open project on Github</span>
+				<span class="icon"><i class="fa fa-github"></i></span>
+			</a>
+
+		</div>
+    </div>
+</nav>
+ 
+
+        
+        
+
+            
+        
+        <div class="columns is-centered"><div class="column is-one-quarter is-hidden-mobile aside">
+    <div class="sidebar" id="sidebar">
+        
+        <div class="search">
+            <div class="search-title">
+                Search in TensorLy-Torch
+            </div>
+
+            <script>
+              (function() {
+                var cx = '002285679029256671182:5tfqz3cvmm8';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:searchbox-only></gcse:searchbox-only>
+            
+        </div>
+
+        <div class="toc">
+        
+        
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing tensorly-Torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_guide/index.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About Us</a></li>
+</ul>
+
+        
+        
+        </div>
+        
+    </div>
+</div>
+
+            
+            <div class="column is-three-quarters main-column">
+                <div class="content main-content">
+
+                    
+
+  <h1>Source code for tltorch._factorized_linear</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Tensor Regression Layers</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># Author: Jean Kossaifi</span>
+<span class="c1"># License: BSD 3 clause</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+
+<span class="kn">import</span> <span class="nn">tensorly</span> <span class="k">as</span> <span class="nn">tl</span>
+<span class="n">tl</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="s1">&#39;pytorch&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">tensorly</span> <span class="kn">import</span> <span class="n">tenalg</span>
+<span class="kn">from</span> <span class="nn">tensorly.random</span> <span class="kn">import</span> <span class="n">random_tucker</span><span class="p">,</span> <span class="n">random_cp</span><span class="p">,</span> <span class="n">random_tt</span><span class="p">,</span> <span class="n">random_tt_matrix</span>
+<span class="kn">from</span> <span class="nn">tensorly.decomposition</span> <span class="kn">import</span> <span class="n">parafac</span><span class="p">,</span> <span class="n">tucker</span><span class="p">,</span> <span class="n">tensor_train</span><span class="p">,</span> <span class="n">tensor_train_matrix</span>
+<span class="kn">from</span> <span class="nn">tensorly</span> <span class="kn">import</span> <span class="n">random</span>
+<span class="kn">from</span> <span class="nn">tensorly</span> <span class="kn">import</span> <span class="n">testing</span>
+<span class="kn">from</span> <span class="nn">tensorly</span> <span class="kn">import</span> <span class="p">(</span><span class="n">validate_tt_rank</span><span class="p">,</span> <span class="n">validate_cp_rank</span><span class="p">,</span> 
+                      <span class="n">validate_tucker_rank</span><span class="p">,</span> <span class="n">validate_tt_matrix_rank</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">TensorModule</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">init</span>
+
+
+<span class="k">class</span> <span class="nc">BaseFactorizedLinear</span><span class="p">(</span><span class="n">TensorModule</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Tensorized Fully-Connected Layers</span>
+
+<span class="sd">        The weight matrice is tensorized to a tensor of size `tensorized_shape`.</span>
+<span class="sd">        That tensor is expressed as a low-rank tensor.</span>
+<span class="sd">        During inference, the full tensor is reconstructed, and unfolded back into a matrix, </span>
+<span class="sd">        used for the forward pass in a regular linear layer.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    in_features : int</span>
+<span class="sd">    out_features : int</span>
+<span class="sd">    tensorized_shape : int tuple</span>
+<span class="sd">    rank : int tuple or str</span>
+<span class="sd">    bias : bool, default is True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_features</span> <span class="o">=</span> <span class="n">in_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_features</span> <span class="o">=</span> <span class="n">out_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span> <span class="o">=</span> <span class="n">tensorized_shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">out_features</span><span class="p">,</span> <span class="n">in_features</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">rank</span>
+        <span class="k">if</span> <span class="n">bias</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">out_features</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">register_parameter</span><span class="p">(</span><span class="s1">&#39;bias&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_linear</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">linear</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Class method to create an instance from an existing linear layer</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        linear : torch.nn.Linear</span>
+<span class="sd">            layer to tensorize</span>
+<span class="sd">        tensorized_shape : tuple</span>
+<span class="sd">            shape to tensorized the weight matrix to.</span>
+<span class="sd">            Must verify np.prod(tensorized_shape) == np.prod(linear.weight.shape)</span>
+<span class="sd">        rank :  {rank of the decomposition, &#39;same&#39;, float}</span>
+<span class="sd">            if float, percentage of parameters of the original weights to use</span>
+<span class="sd">            if &#39;same&#39; use the same number of parameters</span>
+<span class="sd">        bias : bool, default is True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">out_features</span><span class="p">,</span> <span class="n">in_features</span> <span class="o">=</span> <span class="n">linear</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="o">=</span><span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">)</span>
+        <span class="n">instance</span><span class="o">.</span><span class="n">init_from_tensor</span><span class="p">(</span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">linear</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">instance</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;Factorized </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> with </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">in_features</span><span class="si">}</span><span class="s1"> inputs and </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_features</span><span class="si">}</span><span class="s1"> outputs.</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;  Weight (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_features</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">in_features</span><span class="si">}</span><span class="s1">) tensorized to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="si">}</span><span class="s1"> with rank </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="si">}</span><span class="s1">.&#39;</span>
+        <span class="k">return</span> <span class="n">msg</span> 
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Hack for PyTorch to be able to use the full reconstructed weight in attention layers</span>
+
+<span class="sd">        Simply defining a property `weight` is not sufficient as PyTorch will first look </span>
+<span class="sd">        in self._parameters</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;weight&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">full_weight</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getattr__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    
+<div class="viewcode-block" id="TuckerLinear"><a class="viewcode-back" href="../../modules/generated/tltorch.TuckerLinear.html#tltorch.TuckerLinear">[docs]</a><span class="k">class</span> <span class="nc">TuckerLinear</span><span class="p">(</span><span class="n">BaseFactorizedLinear</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Tensorized Fully-Connected Layers</span>
+
+<span class="sd">        The weight matrice is tensorized to a tensor of size `tensorized_shape`.</span>
+<span class="sd">        That tensor is expressed as a low-rank (Tucker) tensor.</span>
+<span class="sd">        During inference, the full tensor is reconstructed, and unfolded back into a matrix, </span>
+<span class="sd">        used for the forward pass in a regular linear layer.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    in_features : int</span>
+<span class="sd">    out_features : int</span>
+<span class="sd">    tensorized_shape : int tuple</span>
+<span class="sd">    rank : int tuple or str</span>
+<span class="sd">    bias : bool, default is True</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    TTLinear</span>
+<span class="sd">    CPLinear</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">validate_tucker_rank</span><span class="p">(</span><span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">)</span>           
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">core</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">factors</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ParameterList</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">r</span><span class="p">))</span>\
+                                        <span class="k">for</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">tensorized_shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_from_random</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TuckerLinear.forward"><a class="viewcode-back" href="../../modules/generated/tltorch.TuckerLinear.html#tltorch.TuckerLinear.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Inference using the tensorized and factorized weight matrix&quot;&quot;&quot;</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">tucker_to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_decomposition</span><span class="p">())</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight_shape</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TuckerLinear.init_from_random"><a class="viewcode-back" href="../../modules/generated/tltorch.TuckerLinear.html#tltorch.TuckerLinear.init_from_random">[docs]</a>    <span class="k">def</span> <span class="nf">init_from_random</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">decompose_full_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the factorization randomly</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        decompose_full_weight : bool, default is True</span>
+<span class="sd">            if True, a full weight is created and decomposed to initialize the factors</span>
+<span class="sd">            otherwise, the factors of the decomposition are directly initialized</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">decompose_full_weight</span><span class="p">:</span>
+            <span class="n">full_weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">weight_shape</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">init_from_tensor</span><span class="p">(</span><span class="n">full_weight</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">init</span><span class="o">.</span><span class="n">tucker_init</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TuckerLinear.init_from_decomposition"><a class="viewcode-back" href="../../modules/generated/tltorch.TuckerLinear.html#tltorch.TuckerLinear.init_from_decomposition">[docs]</a>    <span class="k">def</span> <span class="nf">init_from_decomposition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tucker_tensor</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the factorization from the given decomposition</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tucker_tensor : (core, factors)</span>
+<span class="sd">            values to initialize the decomposition parametrizing the layer to</span>
+<span class="sd">        bias : torch.Tensor or None, default is None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">core</span><span class="p">,</span> <span class="n">factors</span> <span class="o">=</span> <span class="n">tucker_tensor</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">factors</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">f</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">core</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">bias</span></div>
+
+<div class="viewcode-block" id="TuckerLinear.init_from_tensor"><a class="viewcode-back" href="../../modules/generated/tltorch.TuckerLinear.html#tltorch.TuckerLinear.init_from_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">init_from_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">decomposition_kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the layer by decomposing a full tensor</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tensor : torch.Tensor</span>
+<span class="sd">            must be either a matrix or a tensor</span>
+<span class="sd">            must verify ``np.prod(tensor.shape) == np.prod(self.tensorized_shape)``</span>
+<span class="sd">        bias : torch.Tensor or None, default is None</span>
+<span class="sd">        decomposition_kwargs : dict</span>
+<span class="sd">            dictionary of parameters passed directly to TensorLy for the decomposition</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="p">)</span>
+            <span class="n">tucker_tensor</span> <span class="o">=</span> <span class="n">tucker</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_from_decomposition</span><span class="p">(</span><span class="n">tucker_tensor</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">full_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the reconstruced matrix weight of the linear layer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">tl</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">tl</span><span class="o">.</span><span class="n">tucker_to_tensor</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_shape</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TuckerLinear.get_decomposition"><a class="viewcode-back" href="../../modules/generated/tltorch.TuckerLinear.html#tltorch.TuckerLinear.get_decomposition">[docs]</a>    <span class="k">def</span> <span class="nf">get_decomposition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the decomposition parametrizing the layer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span></div></div>
+
+<div class="viewcode-block" id="CPLinear"><a class="viewcode-back" href="../../modules/generated/tltorch.CPLinear.html#tltorch.CPLinear">[docs]</a><span class="k">class</span> <span class="nc">CPLinear</span><span class="p">(</span><span class="n">BaseFactorizedLinear</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Tensorized Fully-Connected Layers</span>
+
+<span class="sd">        The weight matrice is tensorized to a tensor of size `tensorized_shape`.</span>
+<span class="sd">        That tensor is expressed as a low-rank (CP) tensor.</span>
+<span class="sd">        During inference, the full tensor is reconstructed, and unfolded back into a matrix, </span>
+<span class="sd">        used for the forward pass in a regular linear layer.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    in_features : int</span>
+<span class="sd">    out_features : int</span>
+<span class="sd">    tensorized_shape : int tuple</span>
+<span class="sd">    rank : int tuple or str</span>
+<span class="sd">    bias : bool, default is True</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    TTLinear</span>
+<span class="sd">    TuckerLinear</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">validate_cp_rank</span><span class="p">(</span><span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">)</span>           
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">factors</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ParameterList</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">))</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">tensorized_shape</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_from_random</span><span class="p">(</span><span class="n">decompose_full_weight</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CPLinear.forward"><a class="viewcode-back" href="../../modules/generated/tltorch.CPLinear.html#tltorch.CPLinear.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Inference using the tensorized and factorized weight matrix&quot;&quot;&quot;</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">cp_to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_decomposition</span><span class="p">())</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight_shape</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CPLinear.init_from_random"><a class="viewcode-back" href="../../modules/generated/tltorch.CPLinear.html#tltorch.CPLinear.init_from_random">[docs]</a>    <span class="k">def</span> <span class="nf">init_from_random</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">decompose_full_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the factorization randomly</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        decompose_full_weight : bool, default is True</span>
+<span class="sd">            if True, a full weight is created and decomposed to initialize the factors</span>
+<span class="sd">            otherwise, the factors of the decomposition are directly initialized</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">decompose_full_weight</span><span class="p">:</span>
+            <span class="n">full_weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">weight_shape</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">init_from_tensor</span><span class="p">(</span><span class="n">full_weight</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">init</span><span class="o">.</span><span class="n">cp_init</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="CPLinear.init_from_decomposition"><a class="viewcode-back" href="../../modules/generated/tltorch.CPLinear.html#tltorch.CPLinear.init_from_decomposition">[docs]</a>    <span class="k">def</span> <span class="nf">init_from_decomposition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cp_tensor</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the factorization from the given decomposition</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tucker_tensor : (weights, factors)</span>
+<span class="sd">            values to initialize the decomposition parametrizing the layer to</span>
+<span class="sd">        bias : torch.Tensor or None, default is None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">weights</span><span class="p">,</span> <span class="n">factors</span> <span class="o">=</span> <span class="n">cp_tensor</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">factors</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">f</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">weights</span>
+            
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">bias</span></div>
+
+<div class="viewcode-block" id="CPLinear.init_from_tensor"><a class="viewcode-back" href="../../modules/generated/tltorch.CPLinear.html#tltorch.CPLinear.init_from_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">init_from_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">decomposition_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the layer by decomposing a full tensor</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tensor : torch.Tensor</span>
+<span class="sd">            must be either a matrix or a tensor</span>
+<span class="sd">            must verify ``np.prod(tensor.shape) == np.prod(self.tensorized_shape)``</span>
+<span class="sd">        bias : torch.Tensor or None, default is None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">cp_tensor</span> <span class="o">=</span> <span class="n">parafac</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span> <span class="o">**</span><span class="n">decomposition_kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_from_decomposition</span><span class="p">(</span><span class="n">cp_tensor</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CPLinear.get_decomposition"><a class="viewcode-back" href="../../modules/generated/tltorch.CPLinear.html#tltorch.CPLinear.get_decomposition">[docs]</a>    <span class="k">def</span> <span class="nf">get_decomposition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the decomposition parametrizing the layer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">full_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the reconstruced matrix weight of the linear layer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">tl</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">tl</span><span class="o">.</span><span class="n">cp_to_tensor</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">)),</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_shape</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TTLinear"><a class="viewcode-back" href="../../modules/generated/tltorch.TTLinear.html#tltorch.TTLinear">[docs]</a><span class="k">class</span> <span class="nc">TTLinear</span><span class="p">(</span><span class="n">BaseFactorizedLinear</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Tensorized Fully-Connected Layers</span>
+
+<span class="sd">        The weight matrice is tensorized to a tensor of size `tensorized_shape`.</span>
+<span class="sd">        That tensor is expressed as a low-rank (TT) tensor.</span>
+<span class="sd">        During inference, the full tensor is reconstructed, and unfolded back into a matrix, </span>
+<span class="sd">        used for the forward pass in a regular linear layer.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    in_features : int</span>
+<span class="sd">    out_features : int</span>
+<span class="sd">    tensorized_shape : int tuple</span>
+<span class="sd">    rank : int tuple or str</span>
+<span class="sd">    bias : bool, default is True</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    TuckerLinear</span>
+<span class="sd">    CPLinear</span>
+<span class="sd">    TTMLinear</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This is very similar to [1]_ except that the weight matrix is simply **reshaped** into a tensor,</span>
+<span class="sd">    while in [1]_, the dimensions are then also permuted in order to jointly compress input and outputs.</span>
+<span class="sd">    The original [1]_ is implemented in :func:`tltorch.TTMLinear` .</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] Tensorizing Neural Networks, Alexander Novikov, Dmitry Podoprikhin, Anton Osokin, Dmitry Vetrov</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">validate_tt_rank</span><span class="p">(</span><span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">)</span>           
+        <span class="bp">self</span><span class="o">.</span><span class="n">factors</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ParameterList</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])))</span>
+
+        <span class="c1"># Things like setting the tt_shape above are the init is not in the base class</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_from_random</span><span class="p">(</span><span class="n">decompose_full_weight</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TTLinear.forward"><a class="viewcode-back" href="../../modules/generated/tltorch.TTLinear.html#tltorch.TTLinear.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Inference using the tensorized and factorized weight matrix&quot;&quot;&quot;</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">tt_to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_decomposition</span><span class="p">())</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight_shape</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TTLinear.init_from_random"><a class="viewcode-back" href="../../modules/generated/tltorch.TTLinear.html#tltorch.TTLinear.init_from_random">[docs]</a>    <span class="k">def</span> <span class="nf">init_from_random</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">decompose_full_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the factorization randomly</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        decompose_full_weight : bool, default is True</span>
+<span class="sd">            if True, a full weight is created and decomposed to initialize the factors</span>
+<span class="sd">            otherwise, the factors of the decomposition are directly initialized</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">decompose_full_weight</span><span class="p">:</span>
+            <span class="n">full_weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">init_from_tensor</span><span class="p">(</span><span class="n">full_weight</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">init</span><span class="o">.</span><span class="n">tt_init</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TTLinear.init_from_decomposition"><a class="viewcode-back" href="../../modules/generated/tltorch.TTLinear.html#tltorch.TTLinear.init_from_decomposition">[docs]</a>    <span class="k">def</span> <span class="nf">init_from_decomposition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tt_tensor</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the factorization from the given decomposition</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tucker_tensor : (factors)</span>
+<span class="sd">            values to initialize the decomposition parametrizing the layer to</span>
+<span class="sd">        bias : torch.Tensor or None, default is None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">factors</span> <span class="o">=</span> <span class="n">tt_tensor</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">factor</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">factors</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">factor</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">bias</span></div>
+
+<div class="viewcode-block" id="TTLinear.init_from_tensor"><a class="viewcode-back" href="../../modules/generated/tltorch.TTLinear.html#tltorch.TTLinear.init_from_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">init_from_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">decomposition_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">()):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the layer by decomposing a full tensor</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tensor : torch.Tensor</span>
+<span class="sd">            must be either a matrix or a tensor</span>
+<span class="sd">            must verify ``np.prod(tensor.shape) == np.prod(self.tensorized_shape)``</span>
+<span class="sd">        bias : torch.Tensor or None, default is None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="p">)</span>
+            <span class="n">tt_tensor</span> <span class="o">=</span> <span class="n">tensor_train</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span> <span class="o">**</span><span class="n">decomposition_kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_from_decomposition</span><span class="p">(</span><span class="n">tt_tensor</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TTLinear.get_decomposition"><a class="viewcode-back" href="../../modules/generated/tltorch.TTLinear.html#tltorch.TTLinear.get_decomposition">[docs]</a>    <span class="k">def</span> <span class="nf">get_decomposition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the decomposition parametrizing the layer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">full_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the reconstruced matrix weight of the linear layer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">tl</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">tl</span><span class="o">.</span><span class="n">tt_to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_shape</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="TTMLinear"><a class="viewcode-back" href="../../modules/generated/tltorch.TTMLinear.html#tltorch.TTMLinear">[docs]</a><span class="k">class</span> <span class="nc">TTMLinear</span><span class="p">(</span><span class="n">BaseFactorizedLinear</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Tensorized Fully-Connected Layers in the TT-Matrix format [1]_</span>
+
+<span class="sd">        The weight matrice is tensorized to a tensor of size `tensorized_shape`.</span>
+<span class="sd">        That tensor is expressed as a low-rank TT-Matrix by jointly compressing inputs and outputs.</span>
+<span class="sd">        During inference, the full tensor is reconstructed, and unfolded back into a matrix, </span>
+<span class="sd">        used for the forward pass in a regular linear layer.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    in_features : int</span>
+<span class="sd">    out_features : int</span>
+<span class="sd">    tensorized_shape : int tuple</span>
+<span class="sd">        should be left_shape + right_shape correponsding to a weight matrix of size left x right</span>
+<span class="sd">    rank : int tuple or str, default is &#39;same&#39;</span>
+<span class="sd">    bias : bool, default is True</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    TuckerLinear</span>
+<span class="sd">    CPLinear</span>
+<span class="sd">    TTLinear</span>
+<span class="sd">    </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This layer permutes the dimensions of the weight matrix after it has been reshaped into </span>
+<span class="sd">    a higher-order tensor of shape `tensorized_shape`.</span>
+
+<span class="sd">    For a linear layer with `out_feature = O_1 * O_2 * O_3` and `in_features = I_1 * I_2 * I_3`</span>
+<span class="sd">    and `tensorized_shape = (O_1, O_2, O_3, I_1, I_2, I_3)` and rank `R = (R_1, R_2, R_3, R_4)` with `R_1 = R_4 = 1`.</span>
+<span class="sd">    the inputs and outputs will be jointly compressed by each tt-matrix core.</span>
+<span class="sd">    In other words, the k-th core will be of shape `(R_k, O_k, I_k, R_{k+1})`.</span>
+
+<span class="sd">    By contrast, :func:`tltorch.TTLinear` simply reshapes the matrix to `tensorized_shape` </span>
+<span class="sd">    and compresses with a tensor-train decomposition.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] Tensorizing Neural Networks, Alexander Novikov, Dmitry Podoprikhin, Anton Osokin, Dmitry Vetrov</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">validate_tt_matrix_rank</span><span class="p">(</span><span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">)</span>           
+        <span class="bp">self</span><span class="o">.</span><span class="n">factors</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ParameterList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensorized_shape</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_shape</span> <span class="o">=</span> <span class="n">tensorized_shape</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">in_shape</span> <span class="o">=</span> <span class="n">tensorized_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ndim</span><span class="p">:]</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">s_out</span><span class="p">,</span> <span class="n">s_in</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">out_shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_shape</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">s_out</span><span class="p">,</span> <span class="n">s_in</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])))</span>
+
+        <span class="c1"># Things like setting the tt_shape above are the init is not in the base class</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_from_random</span><span class="p">(</span><span class="n">decompose_full_weight</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TTMLinear.forward"><a class="viewcode-back" href="../../modules/generated/tltorch.TTMLinear.html#tltorch.TTMLinear.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Inference using the tensorized and factorized weight matrix&quot;&quot;&quot;</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">tt_matrix_to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_decomposition</span><span class="p">())</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight_shape</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TTMLinear.init_from_random"><a class="viewcode-back" href="../../modules/generated/tltorch.TTMLinear.html#tltorch.TTMLinear.init_from_random">[docs]</a>    <span class="k">def</span> <span class="nf">init_from_random</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">decompose_full_weight</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the factorization randomly</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        decompose_full_weight : bool, default is True</span>
+<span class="sd">            if True, a full weight is created and decomposed to initialize the factors</span>
+<span class="sd">            otherwise, the factors of the decomposition are directly initialized</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">decompose_full_weight</span><span class="p">:</span>
+            <span class="n">full_weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">init_from_tensor</span><span class="p">(</span><span class="n">full_weight</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">init</span><span class="o">.</span><span class="n">tt_matrix_init</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="TTMLinear.init_from_decomposition"><a class="viewcode-back" href="../../modules/generated/tltorch.TTMLinear.html#tltorch.TTMLinear.init_from_decomposition">[docs]</a>    <span class="k">def</span> <span class="nf">init_from_decomposition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tt_matrix</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the factorization from the given decomposition</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tucker_tensor : (factors)</span>
+<span class="sd">            values to initialize the decomposition parametrizing the layer to</span>
+<span class="sd">        bias : torch.Tensor or None, default is None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">factors</span> <span class="o">=</span> <span class="n">tt_matrix</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">factor</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">factors</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">factor</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">bias</span></div>
+
+<div class="viewcode-block" id="TTMLinear.init_from_tensor"><a class="viewcode-back" href="../../modules/generated/tltorch.TTMLinear.html#tltorch.TTMLinear.init_from_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">init_from_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initializes the layer by decomposing a full tensor</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        tensor : torch.Tensor</span>
+<span class="sd">            must be either a matrix or a tensor</span>
+<span class="sd">            must verify ``np.prod(tensor.shape) == np.prod(self.tensorized_shape)``</span>
+<span class="sd">        bias : torch.Tensor or None, default is None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="p">)</span>
+            <span class="n">tt_matrix</span> <span class="o">=</span> <span class="n">tensor_train_matrix</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_from_decomposition</span><span class="p">(</span><span class="n">tt_matrix</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TTMLinear.get_decomposition"><a class="viewcode-back" href="../../modules/generated/tltorch.TTMLinear.html#tltorch.TTMLinear.get_decomposition">[docs]</a>    <span class="k">def</span> <span class="nf">get_decomposition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the decomposition parametrizing the layer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">full_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the reconstruced matrix weight of the linear layer</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">tl</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">tl</span><span class="o">.</span><span class="n">tt_matrix_to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_shape</span><span class="p">)</span></div>
+</pre></div>
+
+
+
+                    <nav class="pagination">
+    
+    
+    
+</nav>
+
+                </div>
+
+                <footer class="footer">
+    <div class="container has-text-centered">
+
+        <p>
+                &copy; 2020, Jean Kossaifi.
+        </p>
+            Built with <a href="http://sphinx-doc.org/">Sphinx</a> using the <a href="https://github.com/tensorly/tensorly">TensorLy</a> theme. 
+    </div>
+</footer>
+            </div>
+        </div>
+
+        
+        
+        
+
+        
+
+        <script src="../../_static/navigation.min.js"></script>
+
+    </body>
+</html>

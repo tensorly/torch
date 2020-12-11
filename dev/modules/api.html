@@ -1,0 +1,451 @@
+
+
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="keywords" content="tensor learning, tensor decomposition, tensor factorization, tensor operations, deep learning, tensorly, pytorch, tensorization, machine learning">
+        <meta name="description" content="TensorLy-Torch: Deep Tensor Learning in Python with TensorLy and PyTorch">
+
+        
+        <meta name="author" content="Jean Kossaifi">
+        <title>TensorLy-Torch: Deep Tensor Learning</title>
+        
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../_static/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../_static/favicon/favicon-16x16.png">
+        <link rel="manifest" href="../_static/favicon/site.webmanifest">
+        <link rel="mask-icon" href="../_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="../_static/favicon/favicon.ico">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../_static/bulma.min.css" />
+        <link rel="stylesheet" type="text/css" href="../_static/base.min.css" />
+        <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+        
+        
+
+        
+        
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFGGEBX0FR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RFGGEBX0FR');
+</script>
+
+    </head>
+
+    <body>
+        
+        <nav class="navbar is-dark has-shadow top" id="top">
+    <div class="navbar-brand">
+        <!-- <a class="navbar-item navbar-title" href="../index.html">
+            TensorLy-Torch
+		</a> -->
+        <a class="navbar-item navbar-logo" href="../index.html">
+            <img src="../_static/tensorly-torch-logo.png" class="navbar-logo" alt="TensorLy-Torch" height=30>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="../index.html">
+            <i class="fa fa-home" aria-hidden="true"></i>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+            <span class="icon"><i class="fa fa-github"></i></span>
+        </a>
+
+		<span class="navbar-burger" data-target="NavbarMenu" >
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+
+    </div>
+
+	<div id="NavbarMenu" class="navbar-menu">
+		<div class="navbar-start">
+
+			<a class="navbar-item" href="../install.html">
+				Install
+			</a>
+			<a class="navbar-item" href="../user_guide/index.html">
+				User Guide
+			</a>
+			<a class="navbar-item" href="#">
+				API
+			</a>
+			
+			<a class="navbar-item" href="../about.html">
+				About Us
+			</a>
+
+		</div>
+
+		<div class="navbar-end">
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="../index.html">
+				<i class="fa fa-home" aria-hidden="true"></i>
+				<span class="tooltiptext">Home page</span>
+			</a>
+
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+				<span class="tooltiptext">Open project on Github</span>
+				<span class="icon"><i class="fa fa-github"></i></span>
+			</a>
+
+		</div>
+    </div>
+</nav>
+ 
+
+        
+        
+
+            
+        
+        <div class="columns is-centered"><div class="column is-one-quarter is-hidden-mobile aside">
+    <div class="sidebar" id="sidebar">
+        
+        <div class="search">
+            <div class="search-title">
+                Search in TensorLy-Torch
+            </div>
+
+            <script>
+              (function() {
+                var cx = '002285679029256671182:5tfqz3cvmm8';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:searchbox-only></gcse:searchbox-only>
+            
+        </div>
+
+        <div class="toc">
+        
+        
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing tensorly-Torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#tensor-regression-layers">Tensor Regression Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch.TuckerTRL.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.TuckerTRL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch.CPTRL.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.CPTRL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch.TensorTrainTRL.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.TensorTrainTRL</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tensor-contraction-layers">Tensor Contraction Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch.TCL.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.TCL</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#factorized-linear-layers">Factorized Linear Layers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch.TTLinear.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.TTLinear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch.TTMLinear.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.TTMLinear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch.CPLinear.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.CPLinear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch.TuckerLinear.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.TuckerLinear</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#factorized-convolutions">Factorized Convolutions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch.factorized_conv.TuckerConv.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_conv</span></code>.TuckerConv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch.factorized_conv.CPConv.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_conv</span></code>.CPConv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch.factorized_conv.TTConv.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_conv</span></code>.TTConv</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tltorch._tensor_dropout">Tensor Dropout</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classes">Classes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#l1-regularization">L1 Regularization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch._tensor_lasso.TuckerL1Regularizer.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch._tensor_lasso</span></code>.TuckerL1Regularizer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch._tensor_lasso.CPL1Regularizer.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch._tensor_lasso</span></code>.CPL1Regularizer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch._tensor_lasso.TTL1Regularizer.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch._tensor_lasso</span></code>.TTL1Regularizer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tltorch.init">Initialization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch.init.cp_init.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.init</span></code>.cp_init</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch.init.tucker_init.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.init</span></code>.tucker_init</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch.init.tt_init.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.init</span></code>.tt_init</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#internal">Internal</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/tltorch.base.TensorModule.html">tltorch.base.TensorModule</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+
+        
+        
+        </div>
+        
+    </div>
+</div>
+
+            
+            <div class="column is-three-quarters main-column">
+                <div class="content main-content">
+
+                    
+
+  <div class="section" id="api-reference">
+<h1>API reference</h1>
+<p><a class="reference internal" href="#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>: Tensorized Deep Neural Networks</p>
+<span class="target" id="module-tltorch"></span><div class="section" id="tensor-regression-layers">
+<span id="trl-ref"></span><h2>Tensor Regression Layers</h2>
+<table border="1" class="longtable docutils align-default">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch.TuckerTRL.html#tltorch.TuckerTRL" title="tltorch.TuckerTRL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TuckerTRL</span></code></a>(input_shape,&nbsp;output_shape,&nbsp;rank[,&nbsp;…])</td>
+<td>Tensor Regression Layer with Tucker weights <a class="reference internal" href="generated/tltorch.TuckerTRL.html#rd83a5f2390c0-1" id="id1"><span>[Rd83a5f2390c0-1]</span></a></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/tltorch.CPTRL.html#tltorch.CPTRL" title="tltorch.CPTRL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPTRL</span></code></a>(input_shape,&nbsp;output_shape,&nbsp;rank[,&nbsp;…])</td>
+<td>Tensor Regression Layer with CP weights <a class="reference internal" href="generated/tltorch.CPTRL.html#rbacc2ed11ff5-1" id="id2"><span>[Rbacc2ed11ff5-1]</span></a>, <a class="reference internal" href="generated/tltorch.CPTRL.html#rbacc2ed11ff5-2" id="id3"><span>[Rbacc2ed11ff5-2]</span></a></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch.TensorTrainTRL.html#tltorch.TensorTrainTRL" title="tltorch.TensorTrainTRL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorTrainTRL</span></code></a>(input_shape,&nbsp;output_shape,&nbsp;rank)</td>
+<td>Tensor Regression Layer with Tensor-Train weights <a class="reference internal" href="generated/tltorch.TensorTrainTRL.html#ra045891b45b0-1" id="id4"><span>[Ra045891b45b0-1]</span></a>, <a class="reference internal" href="generated/tltorch.TensorTrainTRL.html#ra045891b45b0-2" id="id5"><span>[Ra045891b45b0-2]</span></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="tensor-contraction-layers">
+<span id="tcl-ref"></span><h2>Tensor Contraction Layers</h2>
+<table border="1" class="longtable docutils align-default">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch.TCL.html#tltorch.TCL" title="tltorch.TCL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TCL</span></code></a>(input_shape,&nbsp;rank[,&nbsp;verbose,&nbsp;bias])</td>
+<td>Tensor Contraction Layer <a class="reference internal" href="generated/tltorch.TCL.html#r66a7d0bed82d-1" id="id6"><span>[R66a7d0bed82d-1]</span></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="factorized-linear-layers">
+<span id="factorized-linear-ref"></span><h2>Factorized Linear Layers</h2>
+<table border="1" class="longtable docutils align-default">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch.TTLinear.html#tltorch.TTLinear" title="tltorch.TTLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TTLinear</span></code></a>(in_features,&nbsp;out_features,&nbsp;…[,&nbsp;bias])</td>
+<td>Tensorized Fully-Connected Layers</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/tltorch.TTMLinear.html#tltorch.TTMLinear" title="tltorch.TTMLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TTMLinear</span></code></a>(in_features,&nbsp;out_features,&nbsp;…[,&nbsp;…])</td>
+<td>Tensorized Fully-Connected Layers in the TT-Matrix format <a class="reference internal" href="generated/tltorch.TTMLinear.html#r34bd7c4440a9-1" id="id7"><span>[R34bd7c4440a9-1]</span></a></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch.CPLinear.html#tltorch.CPLinear" title="tltorch.CPLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPLinear</span></code></a>(in_features,&nbsp;out_features,&nbsp;…[,&nbsp;bias])</td>
+<td>Tensorized Fully-Connected Layers</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/tltorch.TuckerLinear.html#tltorch.TuckerLinear" title="tltorch.TuckerLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TuckerLinear</span></code></a>(in_features,&nbsp;out_features,&nbsp;…)</td>
+<td>Tensorized Fully-Connected Layers</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="factorized-convolutions">
+<span id="factorized-conv-ref"></span><h2>Factorized Convolutions</h2>
+<p><a class="reference internal" href="#module-tltorch.factorized_conv" title="tltorch.factorized_conv"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_conv</span></code></a>: General N-Dimensional convolutions in Factorized forms</p>
+<span class="target" id="module-tltorch.factorized_conv"></span><table border="1" class="longtable docutils align-default">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch.factorized_conv.TuckerConv.html#tltorch.factorized_conv.TuckerConv" title="tltorch.factorized_conv.TuckerConv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TuckerConv</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td>Create a convolution of arbitrary order with a Tucker kernel</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/tltorch.factorized_conv.CPConv.html#tltorch.factorized_conv.CPConv" title="tltorch.factorized_conv.CPConv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPConv</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td>Create a Factorized CP convolution of arbitrary order.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch.factorized_conv.TTConv.html#tltorch.factorized_conv.TTConv" title="tltorch.factorized_conv.TTConv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TTConv</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td>Create a convolution of arbitrary order with a Tucker kernel.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-tltorch._tensor_dropout">
+<span id="tensor-dropout"></span><span id="tensor-dropout-ref"></span><h2>Tensor Dropout</h2>
+<p>Tensor Dropout for TensorModules</p>
+<div class="section" id="classes">
+<h3>Classes</h3>
+<p>Unless you have a particular use for the classes, you should use the convenient functions provided instead.</p>
+<table border="1" class="longtable docutils align-default">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch._tensor_dropout.TuckerDropout.html#tltorch._tensor_dropout.TuckerDropout" title="tltorch._tensor_dropout.TuckerDropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TuckerDropout</span></code></a>(proba[,&nbsp;min_dim])</td>
+<td>Decomposition Hook for Tensor Dropout on Tucker tensors</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/tltorch._tensor_dropout.CPDropout.html#tltorch._tensor_dropout.CPDropout" title="tltorch._tensor_dropout.CPDropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPDropout</span></code></a>(proba[,&nbsp;min_dim])</td>
+<td>Decomposition Hook for Tensor Dropout on Tucker tensors</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch._tensor_dropout.TTDropout.html#tltorch._tensor_dropout.TTDropout" title="tltorch._tensor_dropout.TTDropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TTDropout</span></code></a>(proba[,&nbsp;min_dim])</td>
+<td>Decomposition Hook for Tensor Dropout on Tucker tensors</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions</h3>
+<p>Convenience functions to easily add or remove tensor dropout from tensor layers.</p>
+<table border="1" class="longtable docutils align-default">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch._tensor_dropout.tucker_dropout.html#tltorch._tensor_dropout.tucker_dropout" title="tltorch._tensor_dropout.tucker_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tucker_dropout</span></code></a>(module,&nbsp;p)</td>
+<td>Tucker Dropout</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/tltorch._tensor_dropout.cp_dropout.html#tltorch._tensor_dropout.cp_dropout" title="tltorch._tensor_dropout.cp_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cp_dropout</span></code></a>(module,&nbsp;p)</td>
+<td>CP Dropout</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch._tensor_dropout.tt_dropout.html#tltorch._tensor_dropout.tt_dropout" title="tltorch._tensor_dropout.tt_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tt_dropout</span></code></a>(module,&nbsp;p)</td>
+<td>TT Dropout</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/tltorch._tensor_dropout.remove_tucker_dropout.html#tltorch._tensor_dropout.remove_tucker_dropout" title="tltorch._tensor_dropout.remove_tucker_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_tucker_dropout</span></code></a>(module)</td>
+<td>Removes the tensor dropout from a TensorModule</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch._tensor_dropout.remove_cp_dropout.html#tltorch._tensor_dropout.remove_cp_dropout" title="tltorch._tensor_dropout.remove_cp_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_cp_dropout</span></code></a>(module)</td>
+<td>Removes the tensor dropout from a TensorModule</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/tltorch._tensor_dropout.remove_tt_dropout.html#tltorch._tensor_dropout.remove_tt_dropout" title="tltorch._tensor_dropout.remove_tt_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_tt_dropout</span></code></a>(module)</td>
+<td>Removes the tensor dropout from a TensorModule</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="l1-regularization">
+<span id="tensor-lasso-ref"></span><h2>L1 Regularization</h2>
+<p>L1 Regularization on tensor modules.</p>
+<table border="1" class="longtable docutils align-default">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch._tensor_lasso.TuckerL1Regularizer.html#tltorch._tensor_lasso.TuckerL1Regularizer" title="tltorch._tensor_lasso.TuckerL1Regularizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TuckerL1Regularizer</span></code></a>([penalty,&nbsp;…])</td>
+<td>Decomposition Hook for Tensor Lasso on Tucker tensors</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/tltorch._tensor_lasso.CPL1Regularizer.html#tltorch._tensor_lasso.CPL1Regularizer" title="tltorch._tensor_lasso.CPL1Regularizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPL1Regularizer</span></code></a>([penalty,&nbsp;clamp_weights,&nbsp;…])</td>
+<td>Decomposition Hook for Tensor Lasso on TT tensors</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch._tensor_lasso.TTL1Regularizer.html#tltorch._tensor_lasso.TTL1Regularizer" title="tltorch._tensor_lasso.TTL1Regularizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TTL1Regularizer</span></code></a>([penalty,&nbsp;clamp_weights,&nbsp;…])</td>
+<td>Decomposition Hook for Tensor Lasso on TT tensors</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-tltorch.init">
+<span id="initialization"></span><span id="init-ref"></span><h2>Initialization</h2>
+<p>Module for initializing tensor decompositions</p>
+<table border="1" class="longtable docutils align-default">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch.init.cp_init.html#tltorch.init.cp_init" title="tltorch.init.cp_init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cp_init</span></code></a>(weights,&nbsp;factors[,&nbsp;std])</td>
+<td>Initializes directly the weights and factors of a CP decomposition so the reconstruction has the specified std and 0 mean</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/tltorch.init.tucker_init.html#tltorch.init.tucker_init" title="tltorch.init.tucker_init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tucker_init</span></code></a>(core,&nbsp;factors[,&nbsp;std])</td>
+<td>Initializes directly the weights and factors of a Tucker decomposition so the reconstruction has the specified std and 0 mean</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch.init.tt_init.html#tltorch.init.tt_init" title="tltorch.init.tt_init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tt_init</span></code></a>(factors[,&nbsp;std])</td>
+<td>Initializes directly the weights and factors of a TT decomposition so the reconstruction has the specified std and 0 mean</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="internal">
+<span id="internal-ref"></span><h2>Internal</h2>
+<table border="1" class="longtable docutils align-default">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/tltorch.base.TensorModule.html#tltorch.base.TensorModule" title="tltorch.base.TensorModule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorModule</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td>A PyTorch module augmented for tensor parametrization</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+
+
+                    <nav class="pagination">
+    
+    
+    <a class="button is-medium pagination-previous" href="../user_guide/tensor_hooks.html" title="Tensor Hooks" accesskey="p">
+        <span class="icon">
+            <i class="fa fa-arrow-circle-left"></i>
+        </span>
+        <span>Previous</span>
+    </a>
+    
+    
+    <a class="button is-medium pagination-next" href="generated/tltorch.TuckerTRL.html" title="tltorch.TuckerTRL" accesskey="n">
+        <span>Next </span>
+        <span class="icon">
+            <i class="fa fa-arrow-circle-right"></i>
+        </span>
+    </a>
+    
+</nav>
+
+                </div>
+
+                <footer class="footer">
+    <div class="container has-text-centered">
+
+        <p>
+                &copy; 2020, Jean Kossaifi.
+        </p>
+            Built with <a href="http://sphinx-doc.org/">Sphinx</a> using the <a href="https://github.com/tensorly/tensorly">TensorLy</a> theme. 
+    </div>
+</footer>
+            </div>
+        </div>
+
+        
+        
+        
+
+        
+
+        <script src="../_static/navigation.min.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,277 @@
+
+
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="keywords" content="tensor learning, tensor decomposition, tensor factorization, tensor operations, deep learning, tensorly, pytorch, tensorization, machine learning">
+        <meta name="description" content="TensorLy-Torch: Deep Tensor Learning in Python with TensorLy and PyTorch">
+
+        
+        <meta name="author" content="Jean Kossaifi">
+        <title>TensorLy-Torch: Deep Tensor Learning</title>
+        
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../_static/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../_static/favicon/favicon-16x16.png">
+        <link rel="manifest" href="../_static/favicon/site.webmanifest">
+        <link rel="mask-icon" href="../_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="../_static/favicon/favicon.ico">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../_static/bulma.min.css" />
+        <link rel="stylesheet" type="text/css" href="../_static/base.min.css" />
+        <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+        
+        
+
+        
+        
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFGGEBX0FR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RFGGEBX0FR');
+</script>
+
+    </head>
+
+    <body>
+        
+        <nav class="navbar is-dark has-shadow top" id="top">
+    <div class="navbar-brand">
+        <!-- <a class="navbar-item navbar-title" href="../index.html">
+            TensorLy-Torch
+		</a> -->
+        <a class="navbar-item navbar-logo" href="../index.html">
+            <img src="../_static/tensorly-torch-logo.png" class="navbar-logo" alt="TensorLy-Torch" height=30>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="../index.html">
+            <i class="fa fa-home" aria-hidden="true"></i>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+            <span class="icon"><i class="fa fa-github"></i></span>
+        </a>
+
+		<span class="navbar-burger" data-target="NavbarMenu" >
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+
+    </div>
+
+	<div id="NavbarMenu" class="navbar-menu">
+		<div class="navbar-start">
+
+			<a class="navbar-item" href="../install.html">
+				Install
+			</a>
+			<a class="navbar-item" href="index.html">
+				User Guide
+			</a>
+			<a class="navbar-item" href="../modules/api.html">
+				API
+			</a>
+			
+			<a class="navbar-item" href="../about.html">
+				About Us
+			</a>
+
+		</div>
+
+		<div class="navbar-end">
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="../index.html">
+				<i class="fa fa-home" aria-hidden="true"></i>
+				<span class="tooltiptext">Home page</span>
+			</a>
+
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+				<span class="tooltiptext">Open project on Github</span>
+				<span class="icon"><i class="fa fa-github"></i></span>
+			</a>
+
+		</div>
+    </div>
+</nav>
+ 
+
+        
+        
+
+            
+        
+        <div class="columns is-centered"><div class="column is-one-quarter is-hidden-mobile aside">
+    <div class="sidebar" id="sidebar">
+        
+        <div class="search">
+            <div class="search-title">
+                Search in TensorLy-Torch
+            </div>
+
+            <script>
+              (function() {
+                var cx = '002285679029256671182:5tfqz3cvmm8';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:searchbox-only></gcse:searchbox-only>
+            
+        </div>
+
+        <div class="toc">
+        
+        
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing tensorly-Torch</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="trl.html">Tensor Regression Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="factorized_conv.html">Factorized Convolutional Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensorized_linear.html">Tensorized Linear Layers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tensor Hooks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tensor-dropout">Tensor dropout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lasso-rank-regularization">Lasso rank regularization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initializing-tensor-decomposition">Initializing tensor decomposition</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+
+        
+        
+        </div>
+        
+    </div>
+</div>
+
+            
+            <div class="column is-three-quarters main-column">
+                <div class="content main-content">
+
+                    
+
+  <div class="section" id="tensor-hooks">
+<h1>Tensor Hooks</h1>
+<p>TensorLy-Torch also makes it very easy to manipulate the tensor decomposition parametrizing a tensor module.</p>
+<div class="section" id="tensor-dropout">
+<h2>Tensor dropout</h2>
+<p>For instance, you can apply very easily tensor dropout: let’s first create a simple TRL layer.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tltorch</span>
+<span class="n">trl</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">TuckerTRL</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">),</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To add tensor dropout, simply apply the helper function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trl</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">tucker_dropout</span><span class="p">(</span><span class="n">trl</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Similarly, to remove tensor dropout:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tltorch</span><span class="o">.</span><span class="n">remove_tucker_dropout</span><span class="p">(</span><span class="n">trl</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="lasso-rank-regularization">
+<h2>Lasso rank regularization</h2>
+<p>Rank selection is a hard problem. One way to choose the rank while training is to apply
+an l1 penalty (Lasso) on the rank.</p>
+<p>This was used previously for CP decomposition, and we extended it in TensorLy-Torch to Tucker and Tensor-Train,
+by introducing new weights in the decomposition.</p>
+<p>To use is, you can define a regularizer object that will take care of everything.
+Using our previously defined TRL:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">l1_reg</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">TuckerL1Regularizer</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">l1_reg</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">trl</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">trl</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="n">my_loss</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">l1_reg</span><span class="o">.</span><span class="n">loss</span>
+<span class="n">l1_reg</span><span class="o">.</span><span class="n">res</span>
+</pre></div>
+</div>
+<p>After each iteration, don’t forget to reset the loss so you don’t keep accumulating:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">l1_reg</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="initializing-tensor-decomposition">
+<h2>Initializing tensor decomposition</h2>
+<p>Another issue is that of initializing tensor decompositions:
+if you simply initialize randomly each component without care,
+the reconstructed (full) tensor can have arbitrarily large or small values
+potentially leading to gradient vanishing or exploding during training.</p>
+<p>In TensorLy-Torch, we provide a module for initialization that will
+properly initialize the factors of the decomposition
+so that the reconstruction has zero mean and the specified standard deviation!</p>
+<p>For instance, for a CP tensor <code class="docutils literal notranslate"><span class="pre">(weights,</span> <span class="pre">factors)</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tltorch</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">cp_init</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">factors</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+
+
+                    <nav class="pagination">
+    
+    
+    <a class="button is-medium pagination-previous" href="tensorized_linear.html" title="Tensorized Linear Layers" accesskey="p">
+        <span class="icon">
+            <i class="fa fa-arrow-circle-left"></i>
+        </span>
+        <span>Previous</span>
+    </a>
+    
+    
+    <a class="button is-medium pagination-next" href="../modules/api.html" title="API reference" accesskey="n">
+        <span>Next </span>
+        <span class="icon">
+            <i class="fa fa-arrow-circle-right"></i>
+        </span>
+    </a>
+    
+</nav>
+
+                </div>
+
+                <footer class="footer">
+    <div class="container has-text-centered">
+
+        <p>
+                &copy; 2020, Jean Kossaifi.
+        </p>
+            Built with <a href="http://sphinx-doc.org/">Sphinx</a> using the <a href="https://github.com/tensorly/tensorly">TensorLy</a> theme. 
+    </div>
+</footer>
+            </div>
+        </div>
+
+        
+        
+        
+
+        
+
+        <script src="../_static/navigation.min.js"></script>
+
+    </body>
+</html>

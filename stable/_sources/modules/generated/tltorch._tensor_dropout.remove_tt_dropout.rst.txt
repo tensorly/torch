@@ -1,0 +1,6 @@
+﻿tltorch.\_tensor\_dropout.remove\_tt\_dropout
+=============================================
+
+.. currentmodule:: tltorch._tensor_dropout
+
+.. autofunction:: remove_tt_dropout

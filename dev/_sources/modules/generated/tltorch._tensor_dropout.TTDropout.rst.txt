@@ -1,0 +1,11 @@
+﻿:mod:`tltorch._tensor_dropout`.TTDropout
+===============================================
+
+.. currentmodule:: tltorch._tensor_dropout
+
+.. autoclass:: TTDropout
+   :members:
+
+.. raw:: html
+
+    <div class="clearer"></div>

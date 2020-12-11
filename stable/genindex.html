@@ -1,0 +1,561 @@
+
+
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="keywords" content="tensor learning, tensor decomposition, tensor factorization, tensor operations, deep learning, tensorly, pytorch, tensorization, machine learning">
+        <meta name="description" content="TensorLy-Torch: Deep Tensor Learning in Python with TensorLy and PyTorch">
+
+        
+        <meta name="author" content="Jean Kossaifi">
+        <title>TensorLy-Torch: Deep Tensor Learning</title>
+        
+
+        <link rel="apple-touch-icon" sizes="180x180" href="_static/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon/favicon-16x16.png">
+        <link rel="manifest" href="_static/favicon/site.webmanifest">
+        <link rel="mask-icon" href="_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="_static/favicon/favicon.ico">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="_static/bulma.min.css" />
+        <link rel="stylesheet" type="text/css" href="_static/base.min.css" />
+        <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+        
+        
+
+        
+        
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFGGEBX0FR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RFGGEBX0FR');
+</script>
+
+    </head>
+
+    <body>
+        
+        <nav class="navbar is-dark has-shadow top" id="top">
+    <div class="navbar-brand">
+        <!-- <a class="navbar-item navbar-title" href="index.html">
+            TensorLy-Torch
+		</a> -->
+        <a class="navbar-item navbar-logo" href="index.html">
+            <img src="_static/tensorly-torch-logo.png" class="navbar-logo" alt="TensorLy-Torch" height=30>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="index.html">
+            <i class="fa fa-home" aria-hidden="true"></i>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+            <span class="icon"><i class="fa fa-github"></i></span>
+        </a>
+
+		<span class="navbar-burger" data-target="NavbarMenu" >
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+
+    </div>
+
+	<div id="NavbarMenu" class="navbar-menu">
+		<div class="navbar-start">
+
+			<a class="navbar-item" href="install.html">
+				Install
+			</a>
+			<a class="navbar-item" href="user_guide/index.html">
+				User Guide
+			</a>
+			<a class="navbar-item" href="modules/api.html">
+				API
+			</a>
+			
+			<a class="navbar-item" href="about.html">
+				About Us
+			</a>
+
+		</div>
+
+		<div class="navbar-end">
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="index.html">
+				<i class="fa fa-home" aria-hidden="true"></i>
+				<span class="tooltiptext">Home page</span>
+			</a>
+
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+				<span class="tooltiptext">Open project on Github</span>
+				<span class="icon"><i class="fa fa-github"></i></span>
+			</a>
+
+		</div>
+    </div>
+</nav>
+ 
+
+        
+        
+
+            
+        
+        <div class="columns is-centered"><div class="column is-one-quarter is-hidden-mobile aside">
+    <div class="sidebar" id="sidebar">
+        
+        <div class="search">
+            <div class="search-title">
+                Search in TensorLy-Torch
+            </div>
+
+            <script>
+              (function() {
+                var cx = '002285679029256671182:5tfqz3cvmm8';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:searchbox-only></gcse:searchbox-only>
+            
+        </div>
+
+        <div class="toc">
+        
+        
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing tensorly-Torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/index.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev_guide/index.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About Us</a></li>
+</ul>
+
+        
+        
+        </div>
+        
+    </div>
+</div>
+
+            
+            <div class="column is-three-quarters main-column">
+                <div class="content main-content">
+
+                    
+
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#_"><strong>_</strong></a>
+ | <a href="#A"><strong>A</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ 
+</div>
+<h2 id="_">_</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/generated/tltorch.base.TensorModule.html#tltorch.base.TensorModule.__init__">__init__() (tltorch.base.TensorModule method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/generated/tltorch._tensor_lasso.CPL1Regularizer.html#tltorch._tensor_lasso.CPL1Regularizer.apply">apply() (tltorch._tensor_lasso.CPL1Regularizer method)</a>
+
+      <ul>
+        <li><a href="modules/generated/tltorch._tensor_lasso.TTL1Regularizer.html#tltorch._tensor_lasso.TTL1Regularizer.apply">(tltorch._tensor_lasso.TTL1Regularizer method)</a>
+</li>
+        <li><a href="modules/generated/tltorch._tensor_lasso.TuckerL1Regularizer.html#tltorch._tensor_lasso.TuckerL1Regularizer.apply">(tltorch._tensor_lasso.TuckerL1Regularizer method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/generated/tltorch._tensor_lasso.TTL1Regularizer.html#tltorch._tensor_lasso.TTL1Regularizer.apply_lasso">apply_lasso() (tltorch._tensor_lasso.TTL1Regularizer method)</a>
+
+      <ul>
+        <li><a href="modules/generated/tltorch._tensor_lasso.TuckerL1Regularizer.html#tltorch._tensor_lasso.TuckerL1Regularizer.apply_lasso">(tltorch._tensor_lasso.TuckerL1Regularizer method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/generated/tltorch._tensor_dropout.cp_dropout.html#tltorch._tensor_dropout.cp_dropout">cp_dropout() (in module tltorch._tensor_dropout)</a>
+</li>
+      <li><a href="modules/generated/tltorch.init.cp_init.html#tltorch.init.cp_init">cp_init() (in module tltorch.init)</a>
+</li>
+      <li><a href="modules/generated/tltorch.factorized_conv.CPConv.html#tltorch.factorized_conv.CPConv">CPConv (class in tltorch.factorized_conv)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/generated/tltorch._tensor_dropout.CPDropout.html#tltorch._tensor_dropout.CPDropout">CPDropout (class in tltorch._tensor_dropout)</a>
+</li>
+      <li><a href="modules/generated/tltorch._tensor_lasso.CPL1Regularizer.html#tltorch._tensor_lasso.CPL1Regularizer">CPL1Regularizer (class in tltorch._tensor_lasso)</a>
+</li>
+      <li><a href="modules/generated/tltorch.CPLinear.html#tltorch.CPLinear">CPLinear (class in tltorch)</a>
+</li>
+      <li><a href="modules/generated/tltorch.CPTRL.html#tltorch.CPTRL">CPTRL (class in tltorch)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/generated/tltorch.CPLinear.html#tltorch.CPLinear.forward">forward() (tltorch.CPLinear method)</a>
+
+      <ul>
+        <li><a href="modules/generated/tltorch.CPTRL.html#tltorch.CPTRL.forward">(tltorch.CPTRL method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TCL.html#tltorch.TCL.forward">(tltorch.TCL method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TensorTrainTRL.html#tltorch.TensorTrainTRL.forward">(tltorch.TensorTrainTRL method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TTLinear.html#tltorch.TTLinear.forward">(tltorch.TTLinear method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TTMLinear.html#tltorch.TTMLinear.forward">(tltorch.TTMLinear method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TuckerLinear.html#tltorch.TuckerLinear.forward">(tltorch.TuckerLinear method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TuckerTRL.html#tltorch.TuckerTRL.forward">(tltorch.TuckerTRL method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/generated/tltorch.CPLinear.html#tltorch.CPLinear.full_weight">full_weight() (tltorch.CPLinear property)</a>
+
+      <ul>
+        <li><a href="modules/generated/tltorch.CPTRL.html#tltorch.CPTRL.full_weight">(tltorch.CPTRL method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TensorTrainTRL.html#tltorch.TensorTrainTRL.full_weight">(tltorch.TensorTrainTRL method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TTLinear.html#tltorch.TTLinear.full_weight">(tltorch.TTLinear property)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TTMLinear.html#tltorch.TTMLinear.full_weight">(tltorch.TTMLinear property)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TuckerLinear.html#tltorch.TuckerLinear.full_weight">(tltorch.TuckerLinear property)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TuckerTRL.html#tltorch.TuckerTRL.full_weight">(tltorch.TuckerTRL method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/generated/tltorch.factorized_conv.TTConv.html#tltorch.factorized_conv.TTConv.full_weights">full_weights() (tltorch.factorized_conv.TTConv method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/generated/tltorch.CPLinear.html#tltorch.CPLinear.get_decomposition">get_decomposition() (tltorch.CPLinear method)</a>
+
+      <ul>
+        <li><a href="modules/generated/tltorch.CPTRL.html#tltorch.CPTRL.get_decomposition">(tltorch.CPTRL method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.factorized_conv.CPConv.html#tltorch.factorized_conv.CPConv.get_decomposition">(tltorch.factorized_conv.CPConv method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.factorized_conv.TTConv.html#tltorch.factorized_conv.TTConv.get_decomposition">(tltorch.factorized_conv.TTConv method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.factorized_conv.TuckerConv.html#tltorch.factorized_conv.TuckerConv.get_decomposition">(tltorch.factorized_conv.TuckerConv method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TensorTrainTRL.html#tltorch.TensorTrainTRL.get_decomposition">(tltorch.TensorTrainTRL method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TTLinear.html#tltorch.TTLinear.get_decomposition">(tltorch.TTLinear method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TTMLinear.html#tltorch.TTMLinear.get_decomposition">(tltorch.TTMLinear method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TuckerLinear.html#tltorch.TuckerLinear.get_decomposition">(tltorch.TuckerLinear method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TuckerTRL.html#tltorch.TuckerTRL.get_decomposition">(tltorch.TuckerTRL method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/generated/tltorch.CPLinear.html#tltorch.CPLinear.init_from_decomposition">init_from_decomposition() (tltorch.CPLinear method)</a>
+
+      <ul>
+        <li><a href="modules/generated/tltorch.CPTRL.html#tltorch.CPTRL.init_from_decomposition">(tltorch.CPTRL method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.factorized_conv.CPConv.html#tltorch.factorized_conv.CPConv.init_from_decomposition">(tltorch.factorized_conv.CPConv method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.factorized_conv.TTConv.html#tltorch.factorized_conv.TTConv.init_from_decomposition">(tltorch.factorized_conv.TTConv method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.factorized_conv.TuckerConv.html#tltorch.factorized_conv.TuckerConv.init_from_decomposition">(tltorch.factorized_conv.TuckerConv method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TensorTrainTRL.html#tltorch.TensorTrainTRL.init_from_decomposition">(tltorch.TensorTrainTRL method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TTLinear.html#tltorch.TTLinear.init_from_decomposition">(tltorch.TTLinear method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TTMLinear.html#tltorch.TTMLinear.init_from_decomposition">(tltorch.TTMLinear method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TuckerLinear.html#tltorch.TuckerLinear.init_from_decomposition">(tltorch.TuckerLinear method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TuckerTRL.html#tltorch.TuckerTRL.init_from_decomposition">(tltorch.TuckerTRL method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/generated/tltorch.CPTRL.html#tltorch.CPTRL.init_from_linear">init_from_linear() (tltorch.CPTRL method)</a>
+
+      <ul>
+        <li><a href="modules/generated/tltorch.TensorTrainTRL.html#tltorch.TensorTrainTRL.init_from_linear">(tltorch.TensorTrainTRL method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TuckerTRL.html#tltorch.TuckerTRL.init_from_linear">(tltorch.TuckerTRL method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/generated/tltorch.CPLinear.html#tltorch.CPLinear.init_from_random">init_from_random() (tltorch.CPLinear method)</a>
+
+      <ul>
+        <li><a href="modules/generated/tltorch.CPTRL.html#tltorch.CPTRL.init_from_random">(tltorch.CPTRL method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.factorized_conv.CPConv.html#tltorch.factorized_conv.CPConv.init_from_random">(tltorch.factorized_conv.CPConv method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.factorized_conv.TTConv.html#tltorch.factorized_conv.TTConv.init_from_random">(tltorch.factorized_conv.TTConv method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.factorized_conv.TuckerConv.html#tltorch.factorized_conv.TuckerConv.init_from_random">(tltorch.factorized_conv.TuckerConv method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TensorTrainTRL.html#tltorch.TensorTrainTRL.init_from_random">(tltorch.TensorTrainTRL method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TTLinear.html#tltorch.TTLinear.init_from_random">(tltorch.TTLinear method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TTMLinear.html#tltorch.TTMLinear.init_from_random">(tltorch.TTMLinear method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TuckerLinear.html#tltorch.TuckerLinear.init_from_random">(tltorch.TuckerLinear method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TuckerTRL.html#tltorch.TuckerTRL.init_from_random">(tltorch.TuckerTRL method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/generated/tltorch.CPLinear.html#tltorch.CPLinear.init_from_tensor">init_from_tensor() (tltorch.CPLinear method)</a>
+
+      <ul>
+        <li><a href="modules/generated/tltorch.CPTRL.html#tltorch.CPTRL.init_from_tensor">(tltorch.CPTRL method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.factorized_conv.CPConv.html#tltorch.factorized_conv.CPConv.init_from_tensor">(tltorch.factorized_conv.CPConv method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.factorized_conv.TTConv.html#tltorch.factorized_conv.TTConv.init_from_tensor">(tltorch.factorized_conv.TTConv method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.factorized_conv.TuckerConv.html#tltorch.factorized_conv.TuckerConv.init_from_tensor">(tltorch.factorized_conv.TuckerConv method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TensorTrainTRL.html#tltorch.TensorTrainTRL.init_from_tensor">(tltorch.TensorTrainTRL method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TTLinear.html#tltorch.TTLinear.init_from_tensor">(tltorch.TTLinear method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TTMLinear.html#tltorch.TTMLinear.init_from_tensor">(tltorch.TTMLinear method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TuckerLinear.html#tltorch.TuckerLinear.init_from_tensor">(tltorch.TuckerLinear method)</a>
+</li>
+        <li><a href="modules/generated/tltorch.TuckerTRL.html#tltorch.TuckerTRL.init_from_tensor">(tltorch.TuckerTRL method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/generated/tltorch._tensor_lasso.CPL1Regularizer.html#tltorch._tensor_lasso.CPL1Regularizer.loss">loss() (tltorch._tensor_lasso.CPL1Regularizer property)</a>
+
+      <ul>
+        <li><a href="modules/generated/tltorch._tensor_lasso.TTL1Regularizer.html#tltorch._tensor_lasso.TTL1Regularizer.loss">(tltorch._tensor_lasso.TTL1Regularizer property)</a>
+</li>
+        <li><a href="modules/generated/tltorch._tensor_lasso.TuckerL1Regularizer.html#tltorch._tensor_lasso.TuckerL1Regularizer.loss">(tltorch._tensor_lasso.TuckerL1Regularizer property)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    module
+
+      <ul>
+        <li><a href="modules/api.html#module-tltorch">tltorch</a>
+</li>
+        <li><a href="modules/api.html#module-tltorch._tensor_dropout">tltorch._tensor_dropout</a>
+</li>
+        <li><a href="modules/api.html#module-tltorch.factorized_conv">tltorch.factorized_conv</a>
+</li>
+        <li><a href="modules/api.html#module-tltorch.init">tltorch.init</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/generated/tltorch._tensor_lasso.CPL1Regularizer.html#tltorch._tensor_lasso.CPL1Regularizer.remove">remove() (tltorch._tensor_lasso.CPL1Regularizer method)</a>
+
+      <ul>
+        <li><a href="modules/generated/tltorch._tensor_lasso.TTL1Regularizer.html#tltorch._tensor_lasso.TTL1Regularizer.remove">(tltorch._tensor_lasso.TTL1Regularizer method)</a>
+</li>
+        <li><a href="modules/generated/tltorch._tensor_lasso.TuckerL1Regularizer.html#tltorch._tensor_lasso.TuckerL1Regularizer.remove">(tltorch._tensor_lasso.TuckerL1Regularizer method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/generated/tltorch._tensor_dropout.remove_cp_dropout.html#tltorch._tensor_dropout.remove_cp_dropout">remove_cp_dropout() (in module tltorch._tensor_dropout)</a>
+</li>
+      <li><a href="modules/generated/tltorch._tensor_dropout.remove_tt_dropout.html#tltorch._tensor_dropout.remove_tt_dropout">remove_tt_dropout() (in module tltorch._tensor_dropout)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/generated/tltorch._tensor_dropout.remove_tucker_dropout.html#tltorch._tensor_dropout.remove_tucker_dropout">remove_tucker_dropout() (in module tltorch._tensor_dropout)</a>
+</li>
+      <li><a href="modules/generated/tltorch._tensor_lasso.CPL1Regularizer.html#tltorch._tensor_lasso.CPL1Regularizer.reset">reset() (tltorch._tensor_lasso.CPL1Regularizer method)</a>
+
+      <ul>
+        <li><a href="modules/generated/tltorch._tensor_lasso.TTL1Regularizer.html#tltorch._tensor_lasso.TTL1Regularizer.reset">(tltorch._tensor_lasso.TTL1Regularizer method)</a>
+</li>
+        <li><a href="modules/generated/tltorch._tensor_lasso.TuckerL1Regularizer.html#tltorch._tensor_lasso.TuckerL1Regularizer.reset">(tltorch._tensor_lasso.TuckerL1Regularizer method)</a>
+</li>
+      </ul></li>
+      <li><a href="modules/generated/tltorch.TCL.html#tltorch.TCL.reset_parameters">reset_parameters() (tltorch.TCL method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/generated/tltorch.TCL.html#tltorch.TCL">TCL (class in tltorch)</a>
+</li>
+      <li><a href="modules/generated/tltorch.base.TensorModule.html#tltorch.base.TensorModule">TensorModule (class in tltorch.base)</a>
+</li>
+      <li><a href="modules/generated/tltorch.TensorTrainTRL.html#tltorch.TensorTrainTRL">TensorTrainTRL (class in tltorch)</a>
+</li>
+      <li>
+    tltorch
+
+      <ul>
+        <li><a href="modules/api.html#module-tltorch">module</a>
+</li>
+      </ul></li>
+      <li>
+    tltorch._tensor_dropout
+
+      <ul>
+        <li><a href="modules/api.html#module-tltorch._tensor_dropout">module</a>
+</li>
+      </ul></li>
+      <li>
+    tltorch.factorized_conv
+
+      <ul>
+        <li><a href="modules/api.html#module-tltorch.factorized_conv">module</a>
+</li>
+      </ul></li>
+      <li>
+    tltorch.init
+
+      <ul>
+        <li><a href="modules/api.html#module-tltorch.init">module</a>
+</li>
+      </ul></li>
+      <li><a href="modules/generated/tltorch.factorized_conv.CPConv.html#tltorch.factorized_conv.CPConv.transduct">transduct() (tltorch.factorized_conv.CPConv method)</a>
+
+      <ul>
+        <li><a href="modules/generated/tltorch.factorized_conv.TTConv.html#tltorch.factorized_conv.TTConv.transduct">(tltorch.factorized_conv.TTConv method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/generated/tltorch._tensor_dropout.tt_dropout.html#tltorch._tensor_dropout.tt_dropout">tt_dropout() (in module tltorch._tensor_dropout)</a>
+</li>
+      <li><a href="modules/generated/tltorch.init.tt_init.html#tltorch.init.tt_init">tt_init() (in module tltorch.init)</a>
+</li>
+      <li><a href="modules/generated/tltorch.factorized_conv.TTConv.html#tltorch.factorized_conv.TTConv">TTConv (class in tltorch.factorized_conv)</a>
+</li>
+      <li><a href="modules/generated/tltorch._tensor_dropout.TTDropout.html#tltorch._tensor_dropout.TTDropout">TTDropout (class in tltorch._tensor_dropout)</a>
+</li>
+      <li><a href="modules/generated/tltorch._tensor_lasso.TTL1Regularizer.html#tltorch._tensor_lasso.TTL1Regularizer">TTL1Regularizer (class in tltorch._tensor_lasso)</a>
+</li>
+      <li><a href="modules/generated/tltorch.TTLinear.html#tltorch.TTLinear">TTLinear (class in tltorch)</a>
+</li>
+      <li><a href="modules/generated/tltorch.TTMLinear.html#tltorch.TTMLinear">TTMLinear (class in tltorch)</a>
+</li>
+      <li><a href="modules/generated/tltorch._tensor_dropout.tucker_dropout.html#tltorch._tensor_dropout.tucker_dropout">tucker_dropout() (in module tltorch._tensor_dropout)</a>
+</li>
+      <li><a href="modules/generated/tltorch.init.tucker_init.html#tltorch.init.tucker_init">tucker_init() (in module tltorch.init)</a>
+</li>
+      <li><a href="modules/generated/tltorch.factorized_conv.TuckerConv.html#tltorch.factorized_conv.TuckerConv">TuckerConv (class in tltorch.factorized_conv)</a>
+</li>
+      <li><a href="modules/generated/tltorch._tensor_dropout.TuckerDropout.html#tltorch._tensor_dropout.TuckerDropout">TuckerDropout (class in tltorch._tensor_dropout)</a>
+</li>
+      <li><a href="modules/generated/tltorch._tensor_lasso.TuckerL1Regularizer.html#tltorch._tensor_lasso.TuckerL1Regularizer">TuckerL1Regularizer (class in tltorch._tensor_lasso)</a>
+</li>
+      <li><a href="modules/generated/tltorch.TuckerLinear.html#tltorch.TuckerLinear">TuckerLinear (class in tltorch)</a>
+</li>
+      <li><a href="modules/generated/tltorch.TuckerTRL.html#tltorch.TuckerTRL">TuckerTRL (class in tltorch)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+
+
+
+
+                    <nav class="pagination">
+    
+    
+    
+</nav>
+
+                </div>
+
+                <footer class="footer">
+    <div class="container has-text-centered">
+
+        <p>
+                &copy; 2020, Jean Kossaifi.
+        </p>
+            Built with <a href="http://sphinx-doc.org/">Sphinx</a> using the <a href="https://github.com/tensorly/tensorly">TensorLy</a> theme. 
+    </div>
+</footer>
+            </div>
+        </div>
+
+        
+        
+        
+
+        
+
+        <script src="_static/navigation.min.js"></script>
+
+    </body>
+</html>

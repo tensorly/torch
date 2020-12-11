@@ -1,0 +1,388 @@
+
+
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="keywords" content="tensor learning, tensor decomposition, tensor factorization, tensor operations, deep learning, tensorly, pytorch, tensorization, machine learning">
+        <meta name="description" content="TensorLy-Torch: Deep Tensor Learning in Python with TensorLy and PyTorch">
+
+        
+        <meta name="author" content="Jean Kossaifi">
+        <title>TensorLy-Torch: Deep Tensor Learning</title>
+        
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../_static/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../_static/favicon/favicon-16x16.png">
+        <link rel="manifest" href="../../_static/favicon/site.webmanifest">
+        <link rel="mask-icon" href="../../_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="../../_static/favicon/favicon.ico">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../../_static/bulma.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../_static/base.min.css" />
+        <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+        
+        
+
+        
+        
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFGGEBX0FR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RFGGEBX0FR');
+</script>
+
+    </head>
+
+    <body>
+        
+        <nav class="navbar is-dark has-shadow top" id="top">
+    <div class="navbar-brand">
+        <!-- <a class="navbar-item navbar-title" href="../../index.html">
+            TensorLy-Torch
+		</a> -->
+        <a class="navbar-item navbar-logo" href="../../index.html">
+            <img src="../../_static/tensorly-torch-logo.png" class="navbar-logo" alt="TensorLy-Torch" height=30>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="../../index.html">
+            <i class="fa fa-home" aria-hidden="true"></i>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+            <span class="icon"><i class="fa fa-github"></i></span>
+        </a>
+
+		<span class="navbar-burger" data-target="NavbarMenu" >
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+
+    </div>
+
+	<div id="NavbarMenu" class="navbar-menu">
+		<div class="navbar-start">
+
+			<a class="navbar-item" href="../../install.html">
+				Install
+			</a>
+			<a class="navbar-item" href="../../user_guide/index.html">
+				User Guide
+			</a>
+			<a class="navbar-item" href="../api.html">
+				API
+			</a>
+			
+			<a class="navbar-item" href="../../about.html">
+				About Us
+			</a>
+
+		</div>
+
+		<div class="navbar-end">
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="../../index.html">
+				<i class="fa fa-home" aria-hidden="true"></i>
+				<span class="tooltiptext">Home page</span>
+			</a>
+
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+				<span class="tooltiptext">Open project on Github</span>
+				<span class="icon"><i class="fa fa-github"></i></span>
+			</a>
+
+		</div>
+    </div>
+</nav>
+ 
+
+        
+        
+
+            
+        
+        <div class="columns is-centered"><div class="column is-one-quarter is-hidden-mobile aside">
+    <div class="sidebar" id="sidebar">
+        
+        <div class="search">
+            <div class="search-title">
+                Search in TensorLy-Torch
+            </div>
+
+            <script>
+              (function() {
+                var cx = '002285679029256671182:5tfqz3cvmm8';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:searchbox-only></gcse:searchbox-only>
+            
+        </div>
+
+        <div class="toc">
+        
+        
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing tensorly-Torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-regression-layers">Tensor Regression Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-contraction-layers">Tensor Contraction Layers</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#factorized-linear-layers">Factorized Linear Layers</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.TTLinear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tltorch.TTMLinear.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.TTMLinear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tltorch.CPLinear.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.CPLinear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tltorch.TuckerLinear.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.TuckerLinear</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-convolutions">Factorized Convolutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch._tensor_dropout">Tensor Dropout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#l1-regularization">L1 Regularization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.init">Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#internal">Internal</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_guide/index.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About Us</a></li>
+</ul>
+
+        
+        
+        </div>
+        
+    </div>
+</div>
+
+            
+            <div class="column is-three-quarters main-column">
+                <div class="content main-content">
+
+                    
+
+  <div class="section" id="tltorch-ttlinear">
+<h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.TTLinear</h1>
+<dl class="py class">
+<dt id="tltorch.TTLinear">
+<em class="property">class </em><code class="descclassname">tltorch.</code><code class="descname">TTLinear</code><span class="sig-paren">(</span><em><span class="n">in_features</span></em>, <em><span class="n">out_features</span></em>, <em><span class="n">tensorized_shape</span></em>, <em><span class="n">rank</span></em>, <em><span class="n">bias</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TTLinear"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Tensorized Fully-Connected Layers</p>
+<blockquote>
+<div>The weight matrice is tensorized to a tensor of size <cite>tensorized_shape</cite>.
+That tensor is expressed as a low-rank (TT) tensor.
+During inference, the full tensor is reconstructed, and unfolded back into a matrix, 
+used for the forward pass in a regular linear layer.</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>in_features</strong><span class="classifier">int</span></dt><dd></dd>
+<dt><strong>out_features</strong><span class="classifier">int</span></dt><dd></dd>
+<dt><strong>tensorized_shape</strong><span class="classifier">int tuple</span></dt><dd></dd>
+<dt><strong>rank</strong><span class="classifier">int tuple or str</span></dt><dd></dd>
+<dt><strong>bias</strong><span class="classifier">bool, default is True</span></dt><dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><a class="reference internal" href="tltorch.TuckerLinear.html#tltorch.TuckerLinear" title="tltorch.TuckerLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TuckerLinear</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="tltorch.CPLinear.html#tltorch.CPLinear" title="tltorch.CPLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPLinear</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="tltorch.TTMLinear.html#tltorch.TTMLinear" title="tltorch.TTMLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TTMLinear</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>This is very similar to <a class="reference internal" href="#r8a6133ea6146-1" id="id1">[1]</a> except that the weight matrix is simply <strong>reshaped</strong> into a tensor,
+while in <a class="reference internal" href="#r8a6133ea6146-1" id="id2">[1]</a>, the dimensions are then also permuted in order to jointly compress input and outputs.
+The original <a class="reference internal" href="#r8a6133ea6146-1" id="id3">[1]</a> is implemented in <a class="reference internal" href="tltorch.TTMLinear.html#tltorch.TTMLinear" title="tltorch.TTMLinear"><code class="xref py py-func docutils literal notranslate"><span class="pre">tltorch.TTMLinear()</span></code></a> .</p>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r8a6133ea6146-1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>, <a class="fn-backref" href="#id3">3</a>)</em> Tensorizing Neural Networks, Alexander Novikov, Dmitry Podoprikhin, Anton Osokin, Dmitry Vetrov</td></tr>
+</tbody>
+</table>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Attributes:</th><td class="field-body"><dl class="first last docutils">
+<dt><a class="reference internal" href="#tltorch.TTLinear.full_weight" title="tltorch.TTLinear.full_weight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">full_weight</span></code></a></dt><dd><p>Returns the reconstruced matrix weight of the linear layer</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils align-default">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#tltorch.TTLinear.forward" title="tltorch.TTLinear.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(input)</td>
+<td>Inference using the tensorized and factorized weight matrix</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#tltorch.TTLinear.get_decomposition" title="tltorch.TTLinear.get_decomposition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_decomposition</span></code></a>()</td>
+<td>Returns the decomposition parametrizing the layer</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#tltorch.TTLinear.init_from_decomposition" title="tltorch.TTLinear.init_from_decomposition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_from_decomposition</span></code></a>(tt_tensor[,&nbsp;bias])</td>
+<td>Initializes the factorization from the given decomposition</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#tltorch.TTLinear.init_from_random" title="tltorch.TTLinear.init_from_random"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_from_random</span></code></a>([decompose_full_weight])</td>
+<td>Initializes the factorization randomly</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#tltorch.TTLinear.init_from_tensor" title="tltorch.TTLinear.init_from_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_from_tensor</span></code></a>(tensor[,&nbsp;bias,&nbsp;…])</td>
+<td>Initializes the layer by decomposing a full tensor</td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt id="tltorch.TTLinear.forward">
+<code class="descname">forward</code><span class="sig-paren">(</span><em><span class="n">input</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TTLinear.forward"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Inference using the tensorized and factorized weight matrix</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tltorch.TTLinear.init_from_random">
+<code class="descname">init_from_random</code><span class="sig-paren">(</span><em><span class="n">decompose_full_weight</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TTLinear.init_from_random"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Initializes the factorization randomly</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>decompose_full_weight</strong><span class="classifier">bool, default is True</span></dt><dd><p>if True, a full weight is created and decomposed to initialize the factors
+otherwise, the factors of the decomposition are directly initialized</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tltorch.TTLinear.init_from_decomposition">
+<code class="descname">init_from_decomposition</code><span class="sig-paren">(</span><em><span class="n">tt_tensor</span></em>, <em><span class="n">bias</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TTLinear.init_from_decomposition"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Initializes the factorization from the given decomposition</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>tucker_tensor</strong><span class="classifier">(factors)</span></dt><dd><p>values to initialize the decomposition parametrizing the layer to</p>
+</dd>
+<dt><strong>bias</strong><span class="classifier">torch.Tensor or None, default is None</span></dt><dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tltorch.TTLinear.init_from_tensor">
+<code class="descname">init_from_tensor</code><span class="sig-paren">(</span><em><span class="n">tensor</span></em>, <em><span class="n">bias</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">decomposition_kwargs</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TTLinear.init_from_tensor"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Initializes the layer by decomposing a full tensor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>tensor</strong><span class="classifier">torch.Tensor</span></dt><dd><p>must be either a matrix or a tensor
+must verify <code class="docutils literal notranslate"><span class="pre">np.prod(tensor.shape)</span> <span class="pre">==</span> <span class="pre">np.prod(self.tensorized_shape)</span></code></p>
+</dd>
+<dt><strong>bias</strong><span class="classifier">torch.Tensor or None, default is None</span></dt><dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tltorch.TTLinear.get_decomposition">
+<code class="descname">get_decomposition</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TTLinear.get_decomposition"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Returns the decomposition parametrizing the layer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tltorch.TTLinear.full_weight">
+<em class="property">property </em><code class="descname">full_weight</code></dt>
+<dd><p>Returns the reconstruced matrix weight of the linear layer</p>
+</dd></dl>
+
+</dd></dl>
+
+<div class="clearer"></div></div>
+
+
+
+
+                    <nav class="pagination">
+    
+    
+    <a class="button is-medium pagination-previous" href="tltorch.TCL.html" title="tltorch.TCL" accesskey="p">
+        <span class="icon">
+            <i class="fa fa-arrow-circle-left"></i>
+        </span>
+        <span>Previous</span>
+    </a>
+    
+    
+    <a class="button is-medium pagination-next" href="tltorch.TTMLinear.html" title="tltorch.TTMLinear" accesskey="n">
+        <span>Next </span>
+        <span class="icon">
+            <i class="fa fa-arrow-circle-right"></i>
+        </span>
+    </a>
+    
+</nav>
+
+                </div>
+
+                <footer class="footer">
+    <div class="container has-text-centered">
+
+        <p>
+                &copy; 2020, Jean Kossaifi.
+        </p>
+            Built with <a href="http://sphinx-doc.org/">Sphinx</a> using the <a href="https://github.com/tensorly/tensorly">TensorLy</a> theme. 
+    </div>
+</footer>
+            </div>
+        </div>
+
+        
+        
+        
+
+        
+
+        <script src="../../_static/navigation.min.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,249 @@
+
+
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="keywords" content="tensor learning, tensor decomposition, tensor factorization, tensor operations, deep learning, tensorly, pytorch, tensorization, machine learning">
+        <meta name="description" content="TensorLy-Torch: Deep Tensor Learning in Python with TensorLy and PyTorch">
+
+        
+        <meta name="author" content="Jean Kossaifi">
+        <title>TensorLy-Torch: Deep Tensor Learning</title>
+        
+
+        <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../_static/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../_static/favicon/favicon-16x16.png">
+        <link rel="manifest" href="../_static/favicon/site.webmanifest">
+        <link rel="mask-icon" href="../_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="../_static/favicon/favicon.ico">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../_static/bulma.min.css" />
+        <link rel="stylesheet" type="text/css" href="../_static/base.min.css" />
+        <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+        
+        
+
+        
+        
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFGGEBX0FR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RFGGEBX0FR');
+</script>
+
+    </head>
+
+    <body>
+        
+        <nav class="navbar is-dark has-shadow top" id="top">
+    <div class="navbar-brand">
+        <!-- <a class="navbar-item navbar-title" href="../index.html">
+            TensorLy-Torch
+		</a> -->
+        <a class="navbar-item navbar-logo" href="../index.html">
+            <img src="../_static/tensorly-torch-logo.png" class="navbar-logo" alt="TensorLy-Torch" height=30>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="../index.html">
+            <i class="fa fa-home" aria-hidden="true"></i>
+        </a>
+
+        <a class="navbar-item is-tab is-hidden-desktop" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+            <span class="icon"><i class="fa fa-github"></i></span>
+        </a>
+
+		<span class="navbar-burger" data-target="NavbarMenu" >
+			<span></span>
+			<span></span>
+			<span></span>
+		</span>
+
+    </div>
+
+	<div id="NavbarMenu" class="navbar-menu">
+		<div class="navbar-start">
+
+			<a class="navbar-item" href="../install.html">
+				Install
+			</a>
+			<a class="navbar-item" href="#">
+				User Guide
+			</a>
+			<a class="navbar-item" href="../modules/api.html">
+				API
+			</a>
+			
+			<a class="navbar-item" href="../about.html">
+				About Us
+			</a>
+
+		</div>
+
+		<div class="navbar-end">
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="../index.html">
+				<i class="fa fa-home" aria-hidden="true"></i>
+				<span class="tooltiptext">Home page</span>
+			</a>
+
+			<a class="navbar-item is-tab tooltip is-hidden-touch" href="https://github.com/tensorly/tensorly-torch" target="_blank">
+				<span class="tooltiptext">Open project on Github</span>
+				<span class="icon"><i class="fa fa-github"></i></span>
+			</a>
+
+		</div>
+    </div>
+</nav>
+ 
+
+        
+        
+
+            
+        
+        <div class="columns is-centered"><div class="column is-one-quarter is-hidden-mobile aside">
+    <div class="sidebar" id="sidebar">
+        
+        <div class="search">
+            <div class="search-title">
+                Search in TensorLy-Torch
+            </div>
+
+            <script>
+              (function() {
+                var cx = '002285679029256671182:5tfqz3cvmm8';
+                var gcse = document.createElement('script');
+                gcse.type = 'text/javascript';
+                gcse.async = true;
+                gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(gcse, s);
+              })();
+            </script>
+            <gcse:searchbox-only></gcse:searchbox-only>
+            
+        </div>
+
+        <div class="toc">
+        
+        
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing tensorly-Torch</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="trl.html">Tensor Regression Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="factorized_conv.html">Factorized Convolutional Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensorized_linear.html">Tensorized Linear Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensor_hooks.html">Tensor Hooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+
+        
+        
+        </div>
+        
+    </div>
+</div>
+
+            
+            <div class="column is-three-quarters main-column">
+                <div class="content main-content">
+
+                    
+
+  <div class="section" id="user-guide">
+<span id="id1"></span><h1>User guide</h1>
+<p>TensorLy-Torch was written to provide out-of-the-box Tensor layers that can be readily used within any PyTorch network or code.
+It builds on top of <a class="reference external" href="tensorly.org">TensorLy</a> and enables anyone to use tensor methods within deep networks, even without a deep knowledge of tensor algebra.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="trl.html">Tensor Regression Layers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="trl.html#trl-in-tensorly-torch">TRL in TensorLy-Torch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trl.html#random-trl">Random TRL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trl.html#from-a-linear-layer">From a Linear layer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="factorized_conv.html">Factorized Convolutional Layers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="factorized_conv.html#creating-factorized-convolutions">Creating Factorized Convolutions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="factorized_conv.html#from-random">From Random</a></li>
+<li class="toctree-l3"><a class="reference internal" href="factorized_conv.html#from-an-existing-convolution">From an existing Convolution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="factorized_conv.html#efficient-convolutional-blocks">Efficient Convolutional Blocks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tensorized_linear.html">Tensorized Linear Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tensor_hooks.html">Tensor Hooks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tensor_hooks.html#tensor-dropout">Tensor dropout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensor_hooks.html#lasso-rank-regularization">Lasso rank regularization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensor_hooks.html#initializing-tensor-decomposition">Initializing tensor decomposition</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+
+
+                    <nav class="pagination">
+    
+    
+    <a class="button is-medium pagination-previous" href="../install.html" title="Installing tensorly-Torch" accesskey="p">
+        <span class="icon">
+            <i class="fa fa-arrow-circle-left"></i>
+        </span>
+        <span>Previous</span>
+    </a>
+    
+    
+    <a class="button is-medium pagination-next" href="trl.html" title="Tensor Regression Layers" accesskey="n">
+        <span>Next </span>
+        <span class="icon">
+            <i class="fa fa-arrow-circle-right"></i>
+        </span>
+    </a>
+    
+</nav>
+
+                </div>
+
+                <footer class="footer">
+    <div class="container has-text-centered">
+
+        <p>
+                &copy; 2020, Jean Kossaifi.
+        </p>
+            Built with <a href="http://sphinx-doc.org/">Sphinx</a> using the <a href="https://github.com/tensorly/tensorly">TensorLy</a> theme. 
+    </div>
+</footer>
+            </div>
+        </div>
+
+        
+        
+        
+
+        
+
+        <script src="../_static/navigation.min.js"></script>
+
+    </body>
+</html>

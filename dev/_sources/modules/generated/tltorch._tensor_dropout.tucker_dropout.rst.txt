@@ -1,0 +1,6 @@
+﻿tltorch.\_tensor\_dropout.tucker\_dropout
+=========================================
+
+.. currentmodule:: tltorch._tensor_dropout
+
+.. autofunction:: tucker_dropout

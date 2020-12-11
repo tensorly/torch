@@ -1,0 +1,11 @@
+﻿:mod:`tltorch`.TTLinear
+==============================
+
+.. currentmodule:: tltorch
+
+.. autoclass:: TTLinear
+   :members:
+
+.. raw:: html
+
+    <div class="clearer"></div>

@@ -1,0 +1,11 @@
+﻿:mod:`tltorch.factorized_conv`.CPConv
+============================================
+
+.. currentmodule:: tltorch.factorized_conv
+
+.. autoclass:: CPConv
+   :members:
+
+.. raw:: html
+
+    <div class="clearer"></div>
