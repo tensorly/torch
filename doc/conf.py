@@ -102,7 +102,7 @@ html_logo = '_static/logos/tensorly-torch-logo.png'
 html_static_path = ['_static']
 
 html_theme_options = {
-    'github_url': 'https://github.com/tensorly/tensorly-torch'
+    'github_url': 'https://github.com/tensorly/torch'
 }
 
 # -- Options for LaTeX output ---------------------------------------------
