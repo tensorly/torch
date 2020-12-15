@@ -40,7 +40,7 @@ class TuckerConv(BaseFactorizedConv):
         strategy to use for the forward pass: 
         - factorized : the Tucker conv is expressed as a series of smaller convolutions
         - reconstructed : full kernel is reconstructed from the decomposition. 
-          the reconstruction is used to perform a regular forward pass
+        the reconstruction is used to perform a regular forward pass
     stride : int, default is 1
     padding : int, default is 0
     dilation : int, default is 0

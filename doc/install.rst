@@ -26,8 +26,8 @@ Cloning the github repository
 
 Clone the repository and cd there::
 
-   git clone https://github.com/tensorly/tensorly-torch
-   cd tensorly-torch
+   git clone https://github.com/tensorly/torch
+   cd torch
 
 Then install the package (here in editable mode with `-e` or equivalently `--editable`::
 

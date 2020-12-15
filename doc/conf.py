@@ -39,12 +39,11 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
+    "myst_nb",
     # 'jupyter_sphinx',
     # 'matplotlib.sphinxext.plot_directive',
     'sphinx.ext.imgmath', #'sphinx.ext.mathjax',
     'numpydoc.numpydoc',
-    # 'myst_nb',
-    #'sphinx.ext.napoleon'
 ]
 
 html4_writer=True
