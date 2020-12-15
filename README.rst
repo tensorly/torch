@@ -7,8 +7,8 @@ builds on top of `TensorLy <https://github.com/tensorly/tensorly/>`_
 and `PyTorch <https://pytorch.org/>`_.
 It allows to easily leverage tensor methods in a deep learning setting.
 
-- **Website:** http://tensorly.org/tensorly-torch/
-- **Source-code:**  https://github.com/tensorly/tensorly-torch
+- **Website:** http://tensorly.org/torch/
+- **Source-code:**  https://github.com/tensorly/torch
 
 ----------------------------
 
