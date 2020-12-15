@@ -84,7 +84,7 @@ class TuckerConv(BaseFactorizedConv):
         else:
             self.modes_fixed_rank = modes_fixed_rank
 
-        self.core = nn.Parameter(torch.Tensor(self.rank))
+        self.core = nn.Parameter(torch.Tensor(*self.rank))
         self.factors = nn.ParameterList(nn.Parameter(torch.Tensor(s, r))\
                                         for (s, r) in zip(self.kernel_shape, self.rank))
 
