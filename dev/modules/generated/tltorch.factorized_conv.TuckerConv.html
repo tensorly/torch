@@ -109,7 +109,6 @@
  
 
         
-        
 
             
         
@@ -199,10 +198,8 @@ if int list, then the conv will use order = len(kernel_size)</p>
 </dd>
 <dt><strong>implementation = {‘factorized’, ‘reconstructed’}</strong></dt><dd><p>strategy to use for the forward pass: 
 - factorized : the Tucker conv is expressed as a series of smaller convolutions
-- reconstructed : full kernel is reconstructed from the decomposition.</p>
-<blockquote>
-<div><p>the reconstruction is used to perform a regular forward pass</p>
-</div></blockquote>
+- reconstructed : full kernel is reconstructed from the decomposition. 
+the reconstruction is used to perform a regular forward pass</p>
 </dd>
 <dt><strong>stride</strong><span class="classifier">int, default is 1</span></dt><dd></dd>
 <dt><strong>padding</strong><span class="classifier">int, default is 0</span></dt><dd></dd>

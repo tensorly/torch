@@ -21,7 +21,7 @@ Guidelines
 
 For each function or class, we expect helpful docstrings in the NumPy format, 
 as well as unit-tests to make sure it is working as expected
- (especially helpful for future refactoring to make sure no exising code is broken!)
+(especially helpful for future refactoring to make sure no exising code is broken!)
 
 Check the existing code for examples, 
 and don't hesitate to contact us if you are unsure or have any question! 
