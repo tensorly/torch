@@ -249,7 +249,7 @@ class BaseFactorizedConv(TensorModule, metaclass=MetaFactorizedConv):
             else:
                 bias = None
 
-            instance.init_from_tensor(kernel_tensor, bias=bias, decomposition_kwarg=decomposition_kwargs)
+            instance.init_from_tensor(kernel_tensor, bias=bias, decomposition_kwargs=decomposition_kwargs)
 
         return instance
     
