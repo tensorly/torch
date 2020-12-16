@@ -289,7 +289,7 @@ class BaseFactorizedConv(TensorModule, metaclass=MetaFactorizedConv):
             raise NotImplementedError()
 
     def __repr__(self):
-        msg = f'{self.__class__.__name__},'
+        msg = f'{self.__class__.__name__}({self.in_channels}, {self.out_channels}, '
         msg += f' order={self.order}, rank={self.rank}, kernel_size={self.kernel_size},'
         msg += f' padding={self.padding}, stride={self.stride}, bias={self.bias is not None}.'
         return msg
