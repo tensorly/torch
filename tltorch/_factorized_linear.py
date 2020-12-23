@@ -4,19 +4,14 @@
 # Author: Jean Kossaifi
 # License: BSD 3 clause
 
-import math
+import tensorly as tl
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-import tensorly as tl
 tl.set_backend('pytorch')
-from tensorly import tenalg
-from tensorly.random import random_tucker, random_cp, random_tt, random_tt_matrix
 from tensorly.decomposition import parafac, tucker, tensor_train, tensor_train_matrix
-from tensorly import random
-from tensorly import testing
-from tensorly import (validate_tt_rank, validate_cp_rank, 
+from tensorly import (validate_tt_rank, validate_cp_rank,
                       validate_tucker_rank, validate_tt_matrix_rank)
 
 from .base import TensorModule
