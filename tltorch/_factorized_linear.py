@@ -1,14 +1,15 @@
-"""Tensor Regression Layers
+"""Tensor Linear Layers
 """
 
 # Author: Jean Kossaifi
 # License: BSD 3 clause
 
-import tensorly as tl
+import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+import tensorly as tl
 tl.set_backend('pytorch')
 from tensorly.decomposition import parafac, tucker, tensor_train, tensor_train_matrix
 from tensorly import (validate_tt_rank, validate_cp_rank,
@@ -138,6 +139,24 @@ class TuckerLinear(BaseFactorizedLinear):
         if self.bias is not None:
             self.bias.data.zero_()
 
+    def init_xavier(self):
+        """Initializes the factorization so that the reconstructed weight matri
+        is initialized as described in `Understanding the difficulty of training
+        deep feedforward neural networks` - Glorot, X. & Bengio, Y. (2010),
+        using a normal distribution.
+        """
+        std = math.sqrt(2 / (self.in_features + self.out_features))
+        init.tucker_init(self.factors, std=std)
+
+    def init_kaiming(self):
+        """Initializes the factorization so that the reconstructed weight matrix
+        is initialized as described in `Delving deep into rectifiers:
+        Surpassing human-level performance on ImageNet classification` - He, K. et al. (2015),
+        using a normal distribution.
+        """
+        std = math.sqrt(2 / self.in_features)
+        init.tucker_init(self.factors, std=std)
+
     def init_from_decomposition(self, tucker_tensor, bias=None):
         """Initializes the factorization from the given decomposition
 
@@ -238,6 +257,24 @@ class CPLinear(BaseFactorizedLinear):
             init.cp_init(self.weights, self.factors)
         if self.bias is not None:
             self.bias.data.zero_()
+
+    def init_xavier(self):
+        """Initializes the factorization so that the reconstructed weight matri
+        is initialized as described in `Understanding the difficulty of training
+        deep feedforward neural networks` - Glorot, X. & Bengio, Y. (2010),
+        using a normal distribution.
+        """
+        std = math.sqrt(2 / (self.in_features + self.out_features))
+        init.cp_init(self.factors, std=std)
+
+    def init_kaiming(self):
+        """Initializes the factorization so that the reconstructed weight matrix
+        is initialized as described in `Delving deep into rectifiers:
+        Surpassing human-level performance on ImageNet classification` - He, K. et al. (2015),
+        using a normal distribution.
+        """
+        std = math.sqrt(2 / self.in_features)
+        init.cp_init(self.factors, std=std)
 
     def init_from_decomposition(self, cp_tensor, bias=None):
         """Initializes the factorization from the given decomposition
@@ -350,6 +387,24 @@ class TTLinear(BaseFactorizedLinear):
             init.tt_init(self.factors)
         if self.bias is not None:
             self.bias.data.zero_()
+
+    def init_xavier(self):
+        """Initializes the factorization so that the reconstructed weight matri
+        is initialized as described in `Understanding the difficulty of training
+        deep feedforward neural networks` - Glorot, X. & Bengio, Y. (2010),
+        using a normal distribution.
+        """
+        std = math.sqrt(2 / (self.in_features + self.out_features))
+        init.tt_init(self.factors, std=std)
+
+    def init_kaiming(self):
+        """Initializes the factorization so that the reconstructed weight matrix
+        is initialized as described in `Delving deep into rectifiers:
+        Surpassing human-level performance on ImageNet classification` - He, K. et al. (2015),
+        using a normal distribution.
+        """
+        std = math.sqrt(2 / self.in_features)
+        init.tt_init(self.factors, std=std)
 
     def init_from_decomposition(self, tt_tensor, bias=None):
         """Initializes the factorization from the given decomposition
@@ -471,6 +526,24 @@ class TTMLinear(BaseFactorizedLinear):
             init.tt_matrix_init(self.factors)
         if self.bias is not None:
             self.bias.data.zero_()
+
+    def init_xavier(self):
+        """Initializes the factorization so that the reconstructed weight matri
+        is initialized as described in `Understanding the difficulty of training
+        deep feedforward neural networks` - Glorot, X. & Bengio, Y. (2010),
+        using a normal distribution.
+        """
+        std = math.sqrt(2 / (self.in_features + self.out_features))
+        init.tt_matrix_init(self.factors, std=std)
+
+    def init_kaiming(self):
+        """Initializes the factorization so that the reconstructed weight matrix
+        is initialized as described in `Delving deep into rectifiers:
+        Surpassing human-level performance on ImageNet classification` - He, K. et al. (2015),
+        using a normal distribution.
+        """
+        std = math.sqrt(2 / self.in_features)
+        init.tt_matrix_init(self.factors, std=std)
 
     def init_from_decomposition(self, tt_matrix, bias=None):
         """Initializes the factorization from the given decomposition
