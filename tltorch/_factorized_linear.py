@@ -140,7 +140,7 @@ class TuckerLinear(BaseFactorizedLinear):
             self.bias.data.zero_()
 
     def init_xavier(self):
-        """Initializes the factorization so that the reconstructed weight matri
+        """Initializes the factorization so that the reconstructed weight matrix
         is initialized as described in `Understanding the difficulty of training
         deep feedforward neural networks` - Glorot, X. & Bengio, Y. (2010),
         using a normal distribution.
@@ -259,7 +259,7 @@ class CPLinear(BaseFactorizedLinear):
             self.bias.data.zero_()
 
     def init_xavier(self):
-        """Initializes the factorization so that the reconstructed weight matri
+        """Initializes the factorization so that the reconstructed weight matrix
         is initialized as described in `Understanding the difficulty of training
         deep feedforward neural networks` - Glorot, X. & Bengio, Y. (2010),
         using a normal distribution.
@@ -389,7 +389,7 @@ class TTLinear(BaseFactorizedLinear):
             self.bias.data.zero_()
 
     def init_xavier(self):
-        """Initializes the factorization so that the reconstructed weight matri
+        """Initializes the factorization so that the reconstructed weight matrix
         is initialized as described in `Understanding the difficulty of training
         deep feedforward neural networks` - Glorot, X. & Bengio, Y. (2010),
         using a normal distribution.
@@ -528,7 +528,7 @@ class TTMLinear(BaseFactorizedLinear):
             self.bias.data.zero_()
 
     def init_xavier(self):
-        """Initializes the factorization so that the reconstructed weight matri
+        """Initializes the factorization so that the reconstructed weight matrix
         is initialized as described in `Understanding the difficulty of training
         deep feedforward neural networks` - Glorot, X. & Bengio, Y. (2010),
         using a normal distribution.
