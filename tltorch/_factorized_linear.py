@@ -70,7 +70,7 @@ class BaseFactorizedLinear(TensorModule):
     def __repr__(self):
         msg = f'Factorized {self.__class__.__name__} with {self.in_features} inputs and {self.out_features} outputs.\n'
         msg += f'  Weight ({self.out_features}, {self.in_features}) tensorized to {self.tensorized_shape} with rank {self.rank}.'
-        return msg 
+        return msg
 
     def __getattr__(self, name):
         """Hack for PyTorch to be able to use the full reconstructed weight in attention layers
@@ -83,7 +83,7 @@ class BaseFactorizedLinear(TensorModule):
         else:
             return super().__getattr__(name)
 
-    
+
 class TuckerLinear(BaseFactorizedLinear):
     """Tensorized Fully-Connected Layers
 
@@ -107,10 +107,10 @@ class TuckerLinear(BaseFactorizedLinear):
     """
     def __init__(self, in_features, out_features, tensorized_shape, rank, bias=True):
         super().__init__(in_features, out_features, tensorized_shape, rank, bias=bias)
-        self.rank = validate_tucker_rank(tensorized_shape, rank=rank)           
+        self.rank = validate_tucker_rank(tensorized_shape, rank=rank)
 
         self.core = nn.Parameter(torch.Tensor(*self.rank))
-        self.factors = nn.ParameterList(nn.Parameter(torch.Tensor(s, r))\
+        self.factors = nn.ParameterList(nn.Parameter(torch.Tensor(s, r)) \
                                         for (s, r) in zip(tensorized_shape, self.rank))
 
         self.init_from_random(False)
@@ -118,7 +118,7 @@ class TuckerLinear(BaseFactorizedLinear):
     def forward(self, input):
         """Inference using the tensorized and factorized weight matrix"""
         weight = tl.tucker_to_tensor(self._process_decomposition()).reshape(self.weight_shape)
-        
+
         return F.linear(input, weight, self.bias)
 
     def init_from_random(self, decompose_full_weight=True):
@@ -147,6 +147,7 @@ class TuckerLinear(BaseFactorizedLinear):
             values to initialize the decomposition parametrizing the layer to
         bias : torch.Tensor or None, default is None
         """
+        _, _ = tl.tucker_tensor._validate_tucker_tensor(tucker_tensor)
         core, factors = tucker_tensor
         with torch.no_grad():
             for i, f in enumerate(factors):
@@ -184,6 +185,7 @@ class TuckerLinear(BaseFactorizedLinear):
         """
         return self.core, self.factors
 
+
 class CPLinear(BaseFactorizedLinear):
     """Tensorized Fully-Connected Layers
 
@@ -207,7 +209,7 @@ class CPLinear(BaseFactorizedLinear):
     """
     def __init__(self, in_features, out_features, tensorized_shape, rank, bias=True):
         super().__init__(in_features, out_features, tensorized_shape, rank, bias=bias)
-        self.rank = validate_cp_rank(tensorized_shape, rank=rank)           
+        self.rank = validate_cp_rank(tensorized_shape, rank=rank)
 
         self.weights = nn.Parameter(torch.Tensor(self.rank))
         self.factors = nn.ParameterList(nn.Parameter(torch.Tensor(s, self.rank)) for s in tensorized_shape)
@@ -217,7 +219,7 @@ class CPLinear(BaseFactorizedLinear):
     def forward(self, input):
         """Inference using the tensorized and factorized weight matrix"""
         weight = tl.cp_to_tensor(self._process_decomposition()).reshape(self.weight_shape)
-        
+
         return F.linear(input, weight, self.bias)
 
     def init_from_random(self, decompose_full_weight=True):
@@ -246,12 +248,13 @@ class CPLinear(BaseFactorizedLinear):
             values to initialize the decomposition parametrizing the layer to
         bias : torch.Tensor or None, default is None
         """
+        _, _ = tl.cp_tensor._validate_cp_tensor(cp_tensor)
         weights, factors = cp_tensor
         with torch.no_grad():
             for i, f in enumerate(factors):
                 self.factors[i].data = f
             self.weights.data = weights
-            
+
             if self.bias is not None and bias is not None:
                 self.bias.data = bias
 
@@ -317,10 +320,10 @@ class TTLinear(BaseFactorizedLinear):
     """
     def __init__(self, in_features, out_features, tensorized_shape, rank, bias=True):
         super().__init__(in_features, out_features, tensorized_shape, rank, bias=bias)
-        self.rank = validate_tt_rank(tensorized_shape, rank=rank)           
+        self.rank = validate_tt_rank(tensorized_shape, rank=rank)
         self.factors = nn.ParameterList()
         for i, s in enumerate(self.tensorized_shape):
-            self.factors.append(nn.Parameter(torch.Tensor(self.rank[i], s, self.rank[i+1])))
+            self.factors.append(nn.Parameter(torch.Tensor(self.rank[i], s, self.rank[i + 1])))
 
         # Things like setting the tt_shape above are the init is not in the base class
         self.init_from_random(decompose_full_weight=False)
@@ -328,7 +331,7 @@ class TTLinear(BaseFactorizedLinear):
     def forward(self, input):
         """Inference using the tensorized and factorized weight matrix"""
         weight = tl.tt_to_tensor(self._process_decomposition()).reshape(self.weight_shape)
-        
+
         return F.linear(input, weight, self.bias)
 
     def init_from_random(self, decompose_full_weight=True):
@@ -357,6 +360,7 @@ class TTLinear(BaseFactorizedLinear):
             values to initialize the decomposition parametrizing the layer to
         bias : torch.Tensor or None, default is None
         """
+        _, _ = tl.tt_tensor._validate_tt_tensor(tt_tensor)
         factors = tt_tensor
         for i, factor in enumerate(factors):
             self.factors[i].data = factor
@@ -433,14 +437,14 @@ class TTMLinear(BaseFactorizedLinear):
     """
     def __init__(self, in_features, out_features, tensorized_shape, rank='same', bias=True):
         super().__init__(in_features, out_features, tensorized_shape, rank, bias=bias)
-        self.rank = validate_tt_matrix_rank(tensorized_shape, rank=rank)           
+        self.rank = validate_tt_matrix_rank(tensorized_shape, rank=rank)
         self.factors = nn.ParameterList()
         self.ndim = len(tensorized_shape) // 2
         self.out_shape = tensorized_shape[:self.ndim]
         self.in_shape = tensorized_shape[self.ndim:]
 
         for i, (s_out, s_in) in enumerate(zip(self.out_shape, self.in_shape)):
-            self.factors.append(nn.Parameter(torch.Tensor(self.rank[i], s_out, s_in, self.rank[i+1])))
+            self.factors.append(nn.Parameter(torch.Tensor(self.rank[i], s_out, s_in, self.rank[i + 1])))
 
         # Things like setting the tt_shape above are the init is not in the base class
         self.init_from_random(decompose_full_weight=False)
@@ -448,7 +452,7 @@ class TTMLinear(BaseFactorizedLinear):
     def forward(self, input):
         """Inference using the tensorized and factorized weight matrix"""
         weight = tl.tt_matrix_to_tensor(self._process_decomposition()).reshape(self.weight_shape)
-        
+
         return F.linear(input, weight, self.bias)
 
     def init_from_random(self, decompose_full_weight=True):
@@ -477,6 +481,7 @@ class TTMLinear(BaseFactorizedLinear):
             values to initialize the decomposition parametrizing the layer to
         bias : torch.Tensor or None, default is None
         """
+        _, _ = tl.tt_matrix._validate_tt_matrix(tt_matrix)
         factors = tt_matrix
         for i, factor in enumerate(factors):
             self.factors[i].data = factor
