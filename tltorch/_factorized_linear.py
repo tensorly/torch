@@ -242,7 +242,7 @@ class CPLinear(BaseFactorizedLinear):
 
         Parameters
         ----------
-        tucker_tensor : (weights, factors)
+        cp_tensor : (weights, factors)
             values to initialize the decomposition parametrizing the layer to
         bias : torch.Tensor or None, default is None
         """
@@ -353,7 +353,7 @@ class TTLinear(BaseFactorizedLinear):
 
         Parameters
         ----------
-        tucker_tensor : (factors)
+        tt_tensor : (factors)
             values to initialize the decomposition parametrizing the layer to
         bias : torch.Tensor or None, default is None
         """
@@ -473,7 +473,7 @@ class TTMLinear(BaseFactorizedLinear):
 
         Parameters
         ----------
-        tucker_tensor : (factors)
+        tt_matrix : (factors)
             values to initialize the decomposition parametrizing the layer to
         bias : torch.Tensor or None, default is None
         """
