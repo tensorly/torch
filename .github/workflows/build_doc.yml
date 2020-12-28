@@ -42,5 +42,7 @@ jobs:
           git rm -r dev/*
           cp -r doc/_build/html/* dev
           git add dev
-          git commit -m "Deployed to GitHub Pages"
+          # If the doc is up to date, the script shouldn't fail, hence --allow-empty
+          # Might be a cleaner way to check 
+          git commit --allow-empty -m "Deployed to GitHub Pages"
           git push --force origin gh-pages
