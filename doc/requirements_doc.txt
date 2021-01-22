@@ -4,3 +4,4 @@ rcssmin
 numpydoc
 sphinx-gallery
 myst-nb
+tensorly_sphinx_theme
