@@ -46,8 +46,6 @@ extensions = [
     'numpydoc.numpydoc',
 ]
 
-html4_writer=True
-
 # Remove the permalinks ("¶" symbols)
 html_add_permalinks = ""
 
@@ -92,8 +90,7 @@ primary_domain = 'py'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme_path = ['themes']
-html_theme = 'tensorly'
+html_theme = 'tensorly_sphinx_theme'
 html_logo = '_static/logos/tensorly-torch-logo.png'
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -102,7 +99,13 @@ html_logo = '_static/logos/tensorly-torch-logo.png'
 html_static_path = ['_static']
 
 html_theme_options = {
-    'github_url': 'https://github.com/tensorly/torch'
+    'github_url': 'https://github.com/tensorly/torch',
+    'google_analytics' : 'G-RFGGEBX0FR',
+    'nav_links' : [('Install', 'install'),
+                   ('User Guide', 'user_guide/index'),
+                   ('API', 'modules/api'),
+                   ('About Us', 'about')],
+    'external_nav_links' : [('TensorLy', 'http://tensorly.org/dev')]
 }
 
 # -- Options for LaTeX output ---------------------------------------------
