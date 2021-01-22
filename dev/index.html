@@ -1,41 +1,36 @@
 
+<!DOCTYPE html>
 
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deep Tensorized Learning &#8212; TensorLy-Torch 0.1.0 documentation</title> 
+<link rel="stylesheet" href="_static/tensorly_style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="_static/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="_static/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="_static/favicon/favicon-16x16.png">
+<link rel="manifest" href="_static/favicon/site.webmanifest">
+<link rel="mask-icon" href="_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="_static/favicon/favicon.ico">
+<meta name="theme-color" content="#ffffff">
 
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/tensorly_style.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
 
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <meta name="keywords" content="tensor learning, tensor decomposition, tensor factorization, tensor operations, deep learning, tensorly, pytorch, tensorization, machine learning">
-        <meta name="description" content="TensorLy-Torch: Deep Tensor Learning in Python with TensorLy and PyTorch">
-
-        
-        <meta name="author" content="Jean Kossaifi">
-        <title>TensorLy-Torch: Deep Tensor Learning</title>
-        
-
-        <link rel="apple-touch-icon" sizes="180x180" href="_static/favicon/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon/favicon-16x16.png">
-        <link rel="manifest" href="_static/favicon/site.webmanifest">
-        <link rel="mask-icon" href="_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
-        <link rel="shortcut icon" href="_static/favicon/favicon.ico">
-        <meta name="theme-color" content="#ffffff">
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="_static/bulma.min.css" />
-        <link rel="stylesheet" type="text/css" href="_static/base.min.css" />
-        <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-        
-        
-
-        
-        
-
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFGGEBX0FR"></script>
+  
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+ <script src="_static/navbar_burger.js"></script>
+ <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+ 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3V91QCZR03"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -43,95 +38,122 @@
 
   gtag('config', 'G-RFGGEBX0FR');
 </script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installing tensorly-Torch" href="install.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    </head>
+  </head>
+<body  class="has-navbar-fixed-top">
 
-    <body>
+  <header>
+    <navbar>
+      <nav class="navbar top-navbar is-fixed-top has-shadow is-flex-wrap-wrap" role="navigation" aria-label="main top navigation">
+        <div class="navbar-brand">
+        <!-- Always displayed, last item has to be navbar-burger -->
+
+          <a class="navbar-item" href="#">
+            <img src="_static/tensorly-torch-logo.png" height="28">
+          </a>
+
+          <!-- <a class="navbar-item is-hidden-desktop" href="#">
+            <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+          </a> -->
+          <a class="navbar-item is-hidden-desktop" href="https://github.com/tensorly/torch" target="_blank">
+              <span class="icon"><i class="fab fa-github"></i></span>
+          </a>
+
+          <a role="button" class="navbar-burger" data-target="top-nav-menu" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+
+        </div>
         
-        <nav class="navbar is-dark has-shadow top" id="top">
-    <div class="navbar-brand">
-        <!-- <a class="navbar-item navbar-title" href="#">
-            TensorLy-Torch
-		</a> -->
-        <a class="navbar-item navbar-logo" href="#">
-            <img src="_static/tensorly-torch-logo.png" class="navbar-logo" alt="TensorLy-Torch" height=30>
-        </a>
+        <div class="navbar-menu" id="top-nav-menu">
+        <!-- only on larger displays (> 1024px) -->
 
-        <a class="navbar-item is-tab is-hidden-desktop" href="#">
-            <i class="fa fa-home" aria-hidden="true"></i>
-        </a>
+          <div class="navbar-start">
+          <!-- RIGHT -->
+            <a class="navbar-item" href="install.html">
+              Install
+            </a>
+            <a class="navbar-item" href="user_guide/index.html">
+              User Guide
+            </a>
+            <a class="navbar-item" href="modules/api.html">
+              API
+            </a>
+            <a class="navbar-item" href="about.html">
+              About Us
+            </a>
+            <a class="navbar-item" href="http://tensorly.org/dev" target="_blank">
+              TensorLy
+            </a>
 
-        <a class="navbar-item is-tab is-hidden-desktop" href="https://github.com/tensorly/torch" target="_blank">
-            <span class="icon"><i class="fa fa-github"></i></span>
-        </a>
+          </div>
+        
+          <div class="navbar-end">
+            <div class="navbar-item">
+            <!-- LEFT -->
 
-		<span class="navbar-burger" data-target="NavbarMenu" >
-			<span></span>
-			<span></span>
-			<span></span>
-		</span>
+            <!-- <a class="navbar-item is-hidden-touch" href="#">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa fa-home"></i>
+                </span>
+                <span>Home</span>
+              </span>
+              <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+            </a> -->
+            <a class="button is-hidden-touch is-dark" href="https://github.com/tensorly/torch" target="_blank">
+              <span class="icon-text">
+                <span class="icon is-large">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Github</span>
+              </span>
+                <!-- <span class="icon"><i class="fab fa-github"></i></span> -->
+            </a>
 
-    </div>
+            </div> <!-- navbar item -->
+          </div> <!-- navbar end -->
+        </div> <!-- only large items -->
 
-	<div id="NavbarMenu" class="navbar-menu">
-		<div class="navbar-start">
+      </nav>
+      
+    </navbar>
+  </header>
 
-			<a class="navbar-item" href="install.html">
-				Install
-			</a>
-			<a class="navbar-item" href="user_guide/index.html">
-				User Guide
-			</a>
-			<a class="navbar-item" href="modules/api.html">
-				API
-			</a>
-			
-			<a class="navbar-item" href="about.html">
-				About Us
-			</a>
+  <div id="column-container">
+  <div class="columns is-mobile is-centered">
+  
 
-		</div>
+    <div class="column main-column">
 
-		<div class="navbar-end">
-			<a class="navbar-item is-tab tooltip is-hidden-touch" href="#">
-				<i class="fa fa-home" aria-hidden="true"></i>
-				<span class="tooltiptext">Home page</span>
-			</a>
+      <!-- Main content  -->
+      <section class="main-content">
 
-			<a class="navbar-item is-tab tooltip is-hidden-touch" href="https://github.com/tensorly/torch" target="_blank">
-				<span class="tooltiptext">Open project on Github</span>
-				<span class="icon"><i class="fa fa-github"></i></span>
-			</a>
-
-		</div>
-    </div>
-</nav>
- 
-
+        <!-- Toggle menu button -->
         
 
-        
-
-        
-        <div class="columns is-centered">
-            
-            <div class="column is-centered is-three-quarters">
-                <div class="content main-content">
-
-                    
-
-  <br/><br/><a class="reference internal image-reference" href="_images/tensorly-torch-logo.png"><img alt="_images/tensorly-torch-logo.png" class="align-center" src="_images/tensorly-torch-logo.png" style="width: 500px;" /></a>
+        <div class="content">
+          
+  <div class="container content">
+<br/><br/><a class="reference internal image-reference" href="_images/tensorly-torch-logo.png"><img alt="_images/tensorly-torch-logo.png" class="align-center" src="_images/tensorly-torch-logo.png" style="width: 500px;" /></a>
 <div class="has-text-centered">
    <h3> Tensor Batteries Included </h3>
 </div>
 <br/><br/><p><strong>TensorLy-Torch</strong> is a PyTorch only library that builds on top of <a class="reference external" href="http://tensorly.org/dev">TensorLy</a> and provides out-of-the-box tensor layers.
 It comes with all batteries included and tries to make it as easy as possible to use tensor methods within your deep networks.</p>
 <ul class="simple">
-<li><strong>Leverage structure in your data</strong>: with tensor layers, you can easily leverage the structure in your data, through <code class="xref py py-mod docutils literal notranslate"><span class="pre">TRL</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">TCL</span></code>, <a class="reference internal" href="modules/api.html#module-tltorch.factorized_conv" title="tltorch.factorized_conv"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Factorized</span> <span class="pre">convolutions</span></code></a> and more!</li>
-<li><strong>Built-in tensor layers</strong>: all you have to do is import tensorly torch and include the layers we provide directly within your PyTorch models!</li>
-<li><strong>Initialization</strong>: initializing tensor decompositions can be tricky. We take care of it all, whether you want to initialize randomly using our <a class="reference internal" href="modules/api.html#module-tltorch.init" title="tltorch.init"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.init</span></code></a> module or from a pretrained layer.</li>
-<li><strong>Tensor hooks</strong>: you can easily augment your architectures with our built-in hooks. Robustify your network with <a class="reference internal" href="modules/api.html#module-tltorch._tensor_dropout" title="tltorch._tensor_dropout"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Tensor</span> <span class="pre">Dropout</span></code></a>. Automatically select the rank end-to-end with L1 Regularization!</li>
-<li><strong>All the methods available</strong>: we are always adding more methods to make it easy to compare between the performance of various deep tensor based methods!</li>
+<li><p><strong>Leverage structure in your data</strong>: with tensor layers, you can easily leverage the structure in your data, through <code class="xref py py-mod docutils literal notranslate"><span class="pre">TRL</span></code>, <code class="xref py py-mod docutils literal notranslate"><span class="pre">TCL</span></code>, <a class="reference internal" href="modules/api.html#module-tltorch.factorized_conv" title="tltorch.factorized_conv"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Factorized</span> <span class="pre">convolutions</span></code></a> and more!</p></li>
+<li><p><strong>Built-in tensor layers</strong>: all you have to do is import tensorly torch and include the layers we provide directly within your PyTorch models!</p></li>
+<li><p><strong>Initialization</strong>: initializing tensor decompositions can be tricky. We take care of it all, whether you want to initialize randomly using our <a class="reference internal" href="modules/api.html#module-tltorch.init" title="tltorch.init"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.init</span></code></a> module or from a pretrained layer.</p></li>
+<li><p><strong>Tensor hooks</strong>: you can easily augment your architectures with our built-in hooks. Robustify your network with <a class="reference internal" href="modules/api.html#module-tltorch._tensor_dropout" title="tltorch._tensor_dropout"><code class="xref py py-mod docutils literal notranslate"><span class="pre">Tensor</span> <span class="pre">Dropout</span></code></a>. Automatically select the rank end-to-end with L1 Regularization!</p></li>
+<li><p><strong>All the methods available</strong>: we are always adding more methods to make it easy to compare between the performance of various deep tensor based methods!</p></li>
 </ul>
 <div class="section" id="deep-tensorized-learning">
 <h1>Deep Tensorized Learning</h1>
@@ -170,32 +192,50 @@ tensorized linear layers, tensor dropout and more!</p>
 </a>
 </div>
 
-<br/> <br/></div>
+</div></div>
 </div>
 
 
-
-
-                </div>
-            </div>
         </div>
+
+        
+
+      </section>
+
         <footer class="footer">
-    <div class="container has-text-centered">
-
-        <p>
-                &copy; 2020, Jean Kossaifi.
-        </p>
-            Built with <a href="http://sphinx-doc.org/">Sphinx</a> using the <a href="https://github.com/tensorly/tensorly">TensorLy</a> theme. 
+    <div class="content has-text-centered">
+        <div class="block">
+          &copy; Copyright 2021, Jean Kossaifi.<br/>
+        </div>
+      <div class="block">
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="tensorly.org"><strong>TensorLy</strong></a> theme by <a href="jeankossaifi.com">Jean Kossaifi</a>.
+      </div>
     </div>
-</footer>
+  </footer>
 
-        
-        
-        
+    </div>
 
-        
+    
 
-        <script src="_static/navigation.min.js"></script>
+  </div>
+  </div>
 
-    </body>
+  <!-- Include here scripts that need to be added after the page is loaded -->
+  <script>
+    function toggle_sidebar() {
+        var element = document.getElementById("sidebar");
+        var container = document.getElementById("column-container");
+        var localtoccolumn = document.getElementById("localtoc-column");
+        element.classList.toggle("hide-tablet");
+        element.classList.toggle("is-hidden-mobile");
+        container.classList.toggle("sidemenu-hidden");
+        localtoccolumn.classList.toggle("is-one-fifth-widescreen");
+        localtoccolumn.classList.toggle("is-2-desktop");
+        localtoccolumn.classList.toggle("is-3-desktop");
+    }
+  </script> 
+
+
+
+  </body>
 </html>

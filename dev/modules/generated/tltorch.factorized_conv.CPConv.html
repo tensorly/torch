@@ -1,41 +1,36 @@
 
+<!DOCTYPE html>
 
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tltorch.factorized_conv.CPConv &#8212; TensorLy-Torch 0.1.0 documentation</title> 
+<link rel="stylesheet" href="../../_static/tensorly_style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../_static/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../_static/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../_static/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="../../_static/favicon/favicon.ico">
+<meta name="theme-color" content="#ffffff">
 
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/tensorly_style.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
 
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <meta name="keywords" content="tensor learning, tensor decomposition, tensor factorization, tensor operations, deep learning, tensorly, pytorch, tensorization, machine learning">
-        <meta name="description" content="TensorLy-Torch: Deep Tensor Learning in Python with TensorLy and PyTorch">
-
-        
-        <meta name="author" content="Jean Kossaifi">
-        <title>TensorLy-Torch: Deep Tensor Learning</title>
-        
-
-        <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="../../_static/favicon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="../../_static/favicon/favicon-16x16.png">
-        <link rel="manifest" href="../../_static/favicon/site.webmanifest">
-        <link rel="mask-icon" href="../../_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
-        <link rel="shortcut icon" href="../../_static/favicon/favicon.ico">
-        <meta name="theme-color" content="#ffffff">
-
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-        <link rel="stylesheet" type="text/css" href="../../_static/bulma.min.css" />
-        <link rel="stylesheet" type="text/css" href="../../_static/base.min.css" />
-        <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-
-        
-        
-
-        
-        
-
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RFGGEBX0FR"></script>
+  
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+ <script src="../../_static/navbar_burger.js"></script>
+ <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+ 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3V91QCZR03"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -43,116 +38,126 @@
 
   gtag('config', 'G-RFGGEBX0FR');
 </script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="tltorch.factorized_conv.TTConv" href="tltorch.factorized_conv.TTConv.html" />
+    <link rel="prev" title="tltorch.factorized_conv.TuckerConv" href="tltorch.factorized_conv.TuckerConv.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    </head>
+  </head>
+<body  class="has-navbar-fixed-top">
 
-    <body>
-        
-        <nav class="navbar is-dark has-shadow top" id="top">
-    <div class="navbar-brand">
-        <!-- <a class="navbar-item navbar-title" href="../../index.html">
-            TensorLy-Torch
-		</a> -->
-        <a class="navbar-item navbar-logo" href="../../index.html">
-            <img src="../../_static/tensorly-torch-logo.png" class="navbar-logo" alt="TensorLy-Torch" height=30>
-        </a>
+  <header>
+    <navbar>
+      <nav class="navbar top-navbar is-fixed-top has-shadow is-flex-wrap-wrap" role="navigation" aria-label="main top navigation">
+        <div class="navbar-brand">
+        <!-- Always displayed, last item has to be navbar-burger -->
 
-        <a class="navbar-item is-tab is-hidden-desktop" href="../../index.html">
-            <i class="fa fa-home" aria-hidden="true"></i>
-        </a>
+          <a class="navbar-item" href="../../index.html">
+            <img src="../../_static/tensorly-torch-logo.png" height="28">
+          </a>
 
-        <a class="navbar-item is-tab is-hidden-desktop" href="https://github.com/tensorly/torch" target="_blank">
-            <span class="icon"><i class="fa fa-github"></i></span>
-        </a>
+          <!-- <a class="navbar-item is-hidden-desktop" href="../../index.html">
+            <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+          </a> -->
+          <a class="navbar-item is-hidden-desktop" href="https://github.com/tensorly/torch" target="_blank">
+              <span class="icon"><i class="fab fa-github"></i></span>
+          </a>
 
-		<span class="navbar-burger" data-target="NavbarMenu" >
-			<span></span>
-			<span></span>
-			<span></span>
-		</span>
+          <a role="button" class="navbar-burger" data-target="top-nav-menu" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
 
-    </div>
-
-	<div id="NavbarMenu" class="navbar-menu">
-		<div class="navbar-start">
-
-			<a class="navbar-item" href="../../install.html">
-				Install
-			</a>
-			<a class="navbar-item" href="../../user_guide/index.html">
-				User Guide
-			</a>
-			<a class="navbar-item" href="../api.html">
-				API
-			</a>
-			
-			<a class="navbar-item" href="../../about.html">
-				About Us
-			</a>
-
-		</div>
-
-		<div class="navbar-end">
-			<a class="navbar-item is-tab tooltip is-hidden-touch" href="../../index.html">
-				<i class="fa fa-home" aria-hidden="true"></i>
-				<span class="tooltiptext">Home page</span>
-			</a>
-
-			<a class="navbar-item is-tab tooltip is-hidden-touch" href="https://github.com/tensorly/torch" target="_blank">
-				<span class="tooltiptext">Open project on Github</span>
-				<span class="icon"><i class="fa fa-github"></i></span>
-			</a>
-
-		</div>
-    </div>
-</nav>
- 
-
-        
-
-            
-        
-        <div class="columns is-centered"><div class="column is-one-quarter is-hidden-mobile aside">
-    <div class="sidebar" id="sidebar">
-        
-        <div class="search">
-            <div class="search-title">
-                Search in TensorLy-Torch
-            </div>
-
-            <script>
-              (function() {
-                var cx = '002285679029256671182:5tfqz3cvmm8';
-                var gcse = document.createElement('script');
-                gcse.type = 'text/javascript';
-                gcse.async = true;
-                gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(gcse, s);
-              })();
-            </script>
-            <gcse:searchbox-only></gcse:searchbox-only>
-            
         </div>
+        
+        <div class="navbar-menu" id="top-nav-menu">
+        <!-- only on larger displays (> 1024px) -->
 
-        <div class="toc">
+          <div class="navbar-start">
+          <!-- RIGHT -->
+            <a class="navbar-item" href="../../install.html">
+              Install
+            </a>
+            <a class="navbar-item" href="../../user_guide/index.html">
+              User Guide
+            </a>
+            <a class="navbar-item" href="../api.html">
+              API
+            </a>
+            <a class="navbar-item" href="../../about.html">
+              About Us
+            </a>
+            <a class="navbar-item" href="http://tensorly.org/dev" target="_blank">
+              TensorLy
+            </a>
+
+          </div>
         
-        
-        
-        
-            <ul class="current">
+          <div class="navbar-end">
+            <div class="navbar-item">
+            <!-- LEFT -->
+
+            <!-- <a class="navbar-item is-hidden-touch" href="../../index.html">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa fa-home"></i>
+                </span>
+                <span>Home</span>
+              </span>
+              <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+            </a> -->
+            <a class="button is-hidden-touch is-dark" href="https://github.com/tensorly/torch" target="_blank">
+              <span class="icon-text">
+                <span class="icon is-large">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Github</span>
+              </span>
+                <!-- <span class="icon"><i class="fab fa-github"></i></span> -->
+            </a>
+
+            </div> <!-- navbar item -->
+          </div> <!-- navbar end -->
+        </div> <!-- only large items -->
+
+      </nav>
+      
+    </navbar>
+  </header>
+
+  <div id="column-container">
+  <div class="columns is-mobile is-centered">
+      
+      <div class="column is-10-mobile is-one-third-tablet is-3-desktop is-hidden-mobile" id="sidebar">
+    <!-- Side menu  -->
+    <aside class="sticky-nav sidebar-menu">
+<div class="sidebar-search">
+  <form class="field" id="searchbox" role="search" action="../../search.html" method="get">
+    <!-- <label class="label" id="searchlabel">Quick search</label> -->
+    <div class="field has-addons">
+      <div class="control is-expanded">
+        <input class="input" type="text" placeholder="Search the doc" name="q" aria-labelledby="searchlabel">
+      </div>
+      <div class="control">
+        <input class="button is-info" type="submit" value="Go" />
+      </div>
+    </div>
+  </form>
+  <script>$('#searchbox').show(0);</script>
+</div>
+      
+      <div class="sidebar-menu-toc">
+      <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing tensorly-Torch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-regression-layers">Tensor Regression Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-contraction-layers">Tensor Contraction Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-linear-layers">Factorized Linear Layers</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#factorized-convolutions">Factorized Convolutions</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="tltorch.factorized_conv.TuckerConv.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_conv</span></code>.TuckerConv</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_conv</span></code>.CPConv</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tltorch.factorized_conv.TTConv.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_conv</span></code>.TTConv</a></li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#factorized-convolutions">Factorized Convolutions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch._tensor_dropout">Tensor Dropout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#l1-regularization">L1 Regularization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.init">Initialization</a></li>
@@ -162,31 +167,38 @@
 <li class="toctree-l1"><a class="reference internal" href="../../dev_guide/index.html">Development guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About Us</a></li>
 </ul>
+ 
+      </div>
+    </aside>
+  </div>
+  
 
-        
-        
+    <div class="column main-column">
+
+      <!-- Main content  -->
+      <section class="main-content">
+
+        <!-- Toggle menu button -->
+            
+        <div class="side-menu-toggle">
+          <button class="button" id="toggle-sidebar" onclick="toggle_sidebar()">
+            <span class="icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
+            <span>menu</span> 
+          </button>
         </div>
         
-    </div>
-</div>
 
-            
-            <div class="column is-three-quarters main-column">
-                <div class="content main-content">
-
-                    
-
+        <div class="content">
+          
   <div class="section" id="tltorch-factorized-conv-cpconv">
 <h1><a class="reference internal" href="../api.html#module-tltorch.factorized_conv" title="tltorch.factorized_conv"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_conv</span></code></a>.CPConv</h1>
 <dl class="py class">
 <dt id="tltorch.factorized_conv.CPConv">
-<em class="property">class </em><code class="descclassname">tltorch.factorized_conv.</code><code class="descname">CPConv</code><span class="sig-paren">(</span><em><span class="o">*</span><span class="n">args</span></em>, <em><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">tltorch.factorized_conv.</code><code class="sig-name descname">CPConv</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Create a Factorized CP convolution of arbitrary order.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
 <dt><strong>in_channels</strong><span class="classifier">int</span></dt><dd></dd>
 <dt><strong>out_channels</strong><span class="classifier">int</span></dt><dd></dd>
 <dt><strong>kernel_size</strong><span class="classifier">int or int list</span></dt><dd><p>if int, order MUST be specified
@@ -198,156 +210,133 @@ if int list, then the conv will use order = len(kernel_size)</p>
 </dd>
 <dt><strong>implementation = {‘factorized’, ‘reconstructed’, ‘mobilenet’}</strong></dt><dd><p>Strategy to use for the forward pass. Options are:</p>
 <ul class="simple">
-<li>factorized : the CP conv is expressed as a series of 1D convolutions</li>
-<li><dl class="first docutils">
-<dt>reconstructed<span class="classifier">full kernel is reconstructed from the decomposition. </span></dt><dd>the reconstruction is used to perform a regular forward pass</dd>
+<li><p>factorized : the CP conv is expressed as a series of 1D convolutions</p></li>
+<li><dl class="simple">
+<dt>reconstructed<span class="classifier">full kernel is reconstructed from the decomposition. </span></dt><dd><p>the reconstruction is used to perform a regular forward pass</p>
+</dd>
 </dl>
 </li>
-<li>mobilenet : the equivalent formulation of CP as a MobileNet block is used</li>
+<li><p>mobilenet : the equivalent formulation of CP as a MobileNet block is used</p></li>
 </ul>
 </dd>
 <dt><strong>stride</strong><span class="classifier">int, default is 1</span></dt><dd></dd>
 <dt><strong>padding</strong><span class="classifier">int, default is 0</span></dt><dd></dd>
 <dt><strong>dilation</strong><span class="classifier">int, default is 0</span></dt><dd></dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<dl class="last docutils">
+<p class="admonition-title">See also</p>
+<dl class="simple">
 <dt><a class="reference internal" href="tltorch.factorized_conv.TuckerConv.html#tltorch.factorized_conv.TuckerConv" title="tltorch.factorized_conv.TuckerConv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TuckerConv</span></code></a></dt><dd></dd>
 <dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">TTConvs</span></code></dt><dd></dd>
 </dl>
 </div>
 <p class="rubric">References</p>
-<table class="docutils citation" frame="void" id="rebf7bbf4dc4a-1" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[1]</td><td>Vadim Lebedev, Yaroslav Ganin, Maksim Rakhuba, Ivan V.Oseledets, and Victor S. Lempitsky.
-Speeding-up convolu-tional neural networks using fine-tuned cp-decomposition. InICLR, 2015.</td></tr>
-</tbody>
-</table>
-<table class="docutils citation" frame="void" id="rebf7bbf4dc4a-2" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label">[2]</td><td>Jean Kossaifi, Antoine Toisoul, Adrian Bulat, Yannis Panagakis, Timothy M. Hospedales, Maja Pantic; 
-Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2020, pp. 6060-6069</td></tr>
-</tbody>
-</table>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Attributes:</th><td class="field-body"><dl class="first last docutils">
+<dl class="citation">
+<dt class="label" id="rebf7bbf4dc4a-1"><span class="brackets">1</span></dt>
+<dd><p>Vadim Lebedev, Yaroslav Ganin, Maksim Rakhuba, Ivan V.Oseledets, and Victor S. Lempitsky.
+Speeding-up convolu-tional neural networks using fine-tuned cp-decomposition. InICLR, 2015.</p>
+</dd>
+<dt class="label" id="rebf7bbf4dc4a-2"><span class="brackets">2</span></dt>
+<dd><p>Jean Kossaifi, Antoine Toisoul, Adrian Bulat, Yannis Panagakis, Timothy M. Hospedales, Maja Pantic; 
+Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2020, pp. 6060-6069</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
 <dt><strong>kernel_shape</strong><span class="classifier">int tuple</span></dt><dd><p>shape of the kernel weight parametrizing the full convolution</p>
 </dd>
 <dt><strong>rank</strong><span class="classifier">int</span></dt><dd><p>rank of the CP decomposition</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils align-default">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#tltorch.factorized_conv.CPConv.get_decomposition" title="tltorch.factorized_conv.CPConv.get_decomposition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_decomposition</span></code></a>([return_bias])</td>
-<td>Returns a CP Tensor parametrizing the convolution</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.factorized_conv.CPConv.get_decomposition" title="tltorch.factorized_conv.CPConv.get_decomposition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_decomposition</span></code></a>([return_bias])</p></td>
+<td><p>Returns a CP Tensor parametrizing the convolution</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#tltorch.factorized_conv.CPConv.init_from_decomposition" title="tltorch.factorized_conv.CPConv.init_from_decomposition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_from_decomposition</span></code></a>(cp_tensor[,&nbsp;bias])</td>
-<td>Transpose the factors from a CP Tensor to the factorized version</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.factorized_conv.CPConv.init_from_decomposition" title="tltorch.factorized_conv.CPConv.init_from_decomposition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_from_decomposition</span></code></a>(cp_tensor[, bias])</p></td>
+<td><p>Transpose the factors from a CP Tensor to the factorized version</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#tltorch.factorized_conv.CPConv.init_from_random" title="tltorch.factorized_conv.CPConv.init_from_random"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_from_random</span></code></a>([decompose_full_weight])</td>
-<td>Initialize the factorized convolution’s parameter randomly</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.factorized_conv.CPConv.init_from_random" title="tltorch.factorized_conv.CPConv.init_from_random"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_from_random</span></code></a>([decompose_full_weight])</p></td>
+<td><p>Initialize the factorized convolution’s parameter randomly</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#tltorch.factorized_conv.CPConv.init_from_tensor" title="tltorch.factorized_conv.CPConv.init_from_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_from_tensor</span></code></a>(kernel_tensor[,&nbsp;bias,&nbsp;…])</td>
-<td>Initialize the factorized convolutional layer from a full tensor</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.factorized_conv.CPConv.init_from_tensor" title="tltorch.factorized_conv.CPConv.init_from_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_from_tensor</span></code></a>(kernel_tensor[, bias, …])</p></td>
+<td><p>Initialize the factorized convolutional layer from a full tensor</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#tltorch.factorized_conv.CPConv.transduct" title="tltorch.factorized_conv.CPConv.transduct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transduct</span></code></a>(kernel_size[,&nbsp;mode,&nbsp;padding,&nbsp;stride])</td>
-<td>Transduction of the factorized convolution to add a new dimension</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.factorized_conv.CPConv.transduct" title="tltorch.factorized_conv.CPConv.transduct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transduct</span></code></a>(kernel_size[, mode, padding, stride])</p></td>
+<td><p>Transduction of the factorized convolution to add a new dimension</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py method">
 <dt id="tltorch.factorized_conv.CPConv.init_from_random">
-<code class="descname">init_from_random</code><span class="sig-paren">(</span><em><span class="n">decompose_full_weight</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.init_from_random"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname">init_from_random</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">decompose_full_weight</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.init_from_random"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Initialize the factorized convolution’s parameter randomly</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
 <dt><strong>decompose_full_weight</strong><span class="classifier">bool</span></dt><dd><p>If True, a full weight is randomly created and decomposed to intialize the parameters (slower)
 Otherwise, the parameters are initialized directly (faster) so the reconstruction has a set variance.</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tltorch.factorized_conv.CPConv.init_from_decomposition">
-<code class="descname">init_from_decomposition</code><span class="sig-paren">(</span><em><span class="n">cp_tensor</span></em>, <em><span class="n">bias</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.init_from_decomposition"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname">init_from_decomposition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cp_tensor</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.init_from_decomposition"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Transpose the factors from a CP Tensor to the factorized version</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
 <dt><strong>factors</strong><span class="classifier">cp_tensor</span></dt><dd></dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tltorch.factorized_conv.CPConv.init_from_tensor">
-<code class="descname">init_from_tensor</code><span class="sig-paren">(</span><em><span class="n">kernel_tensor</span></em>, <em><span class="n">bias</span><span class="o">=</span><span class="default_value">None</span></em>, <em><span class="n">decomposition_kwargs</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.init_from_tensor"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname">init_from_tensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">kernel_tensor</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">decomposition_kwargs</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.init_from_tensor"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Initialize the factorized convolutional layer from a full tensor</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tltorch.factorized_conv.CPConv.get_decomposition">
-<code class="descname">get_decomposition</code><span class="sig-paren">(</span><em><span class="n">return_bias</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.get_decomposition"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname">get_decomposition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">return_bias</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.get_decomposition"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Returns a CP Tensor parametrizing the convolution</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
 <dt><strong>return_bias</strong><span class="classifier">bool, default is False</span></dt><dd><p>if True also return the bias</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
 <dt>weights, factors, bias</dt><dd></dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tltorch.factorized_conv.CPConv.transduct">
-<code class="descname">transduct</code><span class="sig-paren">(</span><em><span class="n">kernel_size</span></em>, <em><span class="n">mode</span><span class="o">=</span><span class="default_value">0</span></em>, <em><span class="n">padding</span><span class="o">=</span><span class="default_value">0</span></em>, <em><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.transduct"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname">transduct</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">kernel_size</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">padding</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.transduct"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Transduction of the factorized convolution to add a new dimension</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
 <dt><strong>kernel_size</strong><span class="classifier">int</span></dt><dd><p>size of the additional dimension</p>
 </dd>
 <dt><strong>mode</strong><span class="classifier">where to insert the new dimension, after the channels, default is 0</span></dt><dd><p>by default, insert the new dimensions before the existing ones
@@ -356,15 +345,13 @@ Otherwise, the parameters are initialized directly (faster) so the reconstructio
 <dt><strong>padding</strong><span class="classifier">int, default is 0</span></dt><dd></dd>
 <dt><strong>stride</strong><span class="classifier">int: default is 1</span></dt><dd></dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
 <dt>self</dt><dd></dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -372,21 +359,21 @@ Otherwise, the parameters are initialized directly (faster) so the reconstructio
 <div class="clearer"></div></div>
 
 
+        </div>
 
-
-                    <nav class="pagination">
+            
+        <nav class="pagination" role="navigation" aria-label="pagination">
     
-    
-    <a class="button is-medium pagination-previous" href="tltorch.factorized_conv.TuckerConv.html" title="tltorch.factorized_conv.TuckerConv" accesskey="p">
+    <a class="button is-medium pagination-previous" href="tltorch.factorized_conv.TuckerConv.html" title="previous chapter" accesskey="p">
         <span class="icon">
             <i class="fa fa-arrow-circle-left"></i>
         </span>
-        <span>Previous</span>
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_conv</span></code>.TuckerConv</span>
     </a>
     
     
-    <a class="button is-medium pagination-next" href="tltorch.factorized_conv.TTConv.html" title="tltorch.factorized_conv.TTConv" accesskey="n">
-        <span>Next </span>
+    <a class="button is-medium pagination-next" href="tltorch.factorized_conv.TTConv.html" title="next chapter" accesskey="n">
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_conv</span></code>.TTConv </span>
         <span class="icon">
             <i class="fa fa-arrow-circle-right"></i>
         </span>
@@ -394,27 +381,47 @@ Otherwise, the parameters are initialized directly (faster) so the reconstructio
     
 </nav>
 
-                </div>
+        
 
-                <footer class="footer">
-    <div class="container has-text-centered">
+      </section>
 
-        <p>
-                &copy; 2020, Jean Kossaifi.
-        </p>
-            Built with <a href="http://sphinx-doc.org/">Sphinx</a> using the <a href="https://github.com/tensorly/tensorly">TensorLy</a> theme. 
-    </div>
-</footer>
-            </div>
+        <footer class="footer">
+    <div class="content has-text-centered">
+        <div class="block">
+          &copy; Copyright 2021, Jean Kossaifi.<br/>
         </div>
+      <div class="block">
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="tensorly.org"><strong>TensorLy</strong></a> theme by <a href="jeankossaifi.com">Jean Kossaifi</a>.
+      </div>
+    </div>
+  </footer>
+
+    </div>
 
         
-        
-        
+    
 
-        
+    
 
-        <script src="../../_static/navigation.min.js"></script>
+  </div>
+  </div>
 
-    </body>
+  <!-- Include here scripts that need to be added after the page is loaded -->
+  <script>
+    function toggle_sidebar() {
+        var element = document.getElementById("sidebar");
+        var container = document.getElementById("column-container");
+        var localtoccolumn = document.getElementById("localtoc-column");
+        element.classList.toggle("hide-tablet");
+        element.classList.toggle("is-hidden-mobile");
+        container.classList.toggle("sidemenu-hidden");
+        localtoccolumn.classList.toggle("is-one-fifth-widescreen");
+        localtoccolumn.classList.toggle("is-2-desktop");
+        localtoccolumn.classList.toggle("is-3-desktop");
+    }
+  </script> 
+
+
+
+  </body>
 </html>

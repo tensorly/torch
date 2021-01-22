@@ -1,4 +1,6 @@
 :no-toc:
+:no-localtoc:
+:no-pagination:
 
 .. TensorLy-Torch documentation
 
@@ -6,6 +8,7 @@
 
    .. raw:: html
 
+      <div class="container content">
       <br/><br/>
 
 .. image:: _static/logos/tensorly-torch-logo.png
@@ -102,4 +105,4 @@ tensorized linear layers, tensor dropout and more!
       </a>
       </div>
       
-      <br/> <br/>
+      </div>
