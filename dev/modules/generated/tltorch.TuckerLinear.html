@@ -191,10 +191,10 @@
         <div class="content">
           
   <div class="section" id="tltorch-tuckerlinear">
-<h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.TuckerLinear</h1>
+<h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.TuckerLinear<a class="headerlink" href="#tltorch-tuckerlinear" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="tltorch.TuckerLinear">
-<em class="property">class </em><code class="sig-prename descclassname">tltorch.</code><code class="sig-name descname">TuckerLinear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_features</span></em>, <em class="sig-param"><span class="n">out_features</span></em>, <em class="sig-param"><span class="n">tensorized_shape</span></em>, <em class="sig-param"><span class="n">rank</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TuckerLinear"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">tltorch.</span></code><code class="sig-name descname"><span class="pre">TuckerLinear</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensorized_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TuckerLinear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TuckerLinear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tensorized Fully-Connected Layers</p>
 <blockquote>
 <div><p>The weight matrice is tensorized to a tensor of size <cite>tensorized_shape</cite>.
@@ -254,13 +254,13 @@ used for the forward pass in a regular linear layer.</p>
 </table>
 <dl class="py method">
 <dt id="tltorch.TuckerLinear.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TuckerLinear.forward"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">forward</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TuckerLinear.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TuckerLinear.forward" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inference using the tensorized and factorized weight matrix</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tltorch.TuckerLinear.init_from_random">
-<code class="sig-name descname">init_from_random</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">decompose_full_weight</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TuckerLinear.init_from_random"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">init_from_random</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decompose_full_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TuckerLinear.init_from_random"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TuckerLinear.init_from_random" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes the factorization randomly</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -275,7 +275,7 @@ otherwise, the factors of the decomposition are directly initialized</p>
 
 <dl class="py method">
 <dt id="tltorch.TuckerLinear.init_from_decomposition">
-<code class="sig-name descname">init_from_decomposition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tucker_tensor</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TuckerLinear.init_from_decomposition"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">init_from_decomposition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tucker_tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TuckerLinear.init_from_decomposition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TuckerLinear.init_from_decomposition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes the factorization from the given decomposition</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -290,7 +290,7 @@ otherwise, the factors of the decomposition are directly initialized</p>
 
 <dl class="py method">
 <dt id="tltorch.TuckerLinear.init_from_tensor">
-<code class="sig-name descname">init_from_tensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensor</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">decomposition_kwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TuckerLinear.init_from_tensor"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">init_from_tensor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TuckerLinear.init_from_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TuckerLinear.init_from_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes the layer by decomposing a full tensor</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -308,13 +308,13 @@ must verify <code class="docutils literal notranslate"><span class="pre">np.prod
 
 <dl class="py method">
 <dt id="tltorch.TuckerLinear.full_weight">
-<em class="property">property </em><code class="sig-name descname">full_weight</code></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">full_weight</span></code><a class="headerlink" href="#tltorch.TuckerLinear.full_weight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the reconstruced matrix weight of the linear layer</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tltorch.TuckerLinear.get_decomposition">
-<code class="sig-name descname">get_decomposition</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TuckerLinear.get_decomposition"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">get_decomposition</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_factorized_linear.html#TuckerLinear.get_decomposition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TuckerLinear.get_decomposition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the decomposition parametrizing the layer</p>
 </dd></dl>
 

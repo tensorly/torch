@@ -191,10 +191,10 @@
         <div class="content">
           
   <div class="section" id="tltorch-factorized-conv-cpconv">
-<h1><a class="reference internal" href="../api.html#module-tltorch.factorized_conv" title="tltorch.factorized_conv"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_conv</span></code></a>.CPConv</h1>
+<h1><a class="reference internal" href="../api.html#module-tltorch.factorized_conv" title="tltorch.factorized_conv"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_conv</span></code></a>.CPConv<a class="headerlink" href="#tltorch-factorized-conv-cpconv" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="tltorch.factorized_conv.CPConv">
-<em class="property">class </em><code class="sig-prename descclassname">tltorch.factorized_conv.</code><code class="sig-name descname">CPConv</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">tltorch.factorized_conv.</span></code><code class="sig-name descname"><span class="pre">CPConv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.factorized_conv.CPConv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a Factorized CP convolution of arbitrary order.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -279,7 +279,7 @@ Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognitio
 </table>
 <dl class="py method">
 <dt id="tltorch.factorized_conv.CPConv.init_from_random">
-<code class="sig-name descname">init_from_random</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">decompose_full_weight</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.init_from_random"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">init_from_random</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decompose_full_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.init_from_random"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.factorized_conv.CPConv.init_from_random" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize the factorized convolution’s parameter randomly</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -294,7 +294,7 @@ Otherwise, the parameters are initialized directly (faster) so the reconstructio
 
 <dl class="py method">
 <dt id="tltorch.factorized_conv.CPConv.init_from_decomposition">
-<code class="sig-name descname">init_from_decomposition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cp_tensor</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.init_from_decomposition"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">init_from_decomposition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cp_tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.init_from_decomposition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.factorized_conv.CPConv.init_from_decomposition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transpose the factors from a CP Tensor to the factorized version</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -307,13 +307,13 @@ Otherwise, the parameters are initialized directly (faster) so the reconstructio
 
 <dl class="py method">
 <dt id="tltorch.factorized_conv.CPConv.init_from_tensor">
-<code class="sig-name descname">init_from_tensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">kernel_tensor</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">decomposition_kwargs</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.init_from_tensor"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">init_from_tensor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.init_from_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.factorized_conv.CPConv.init_from_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize the factorized convolutional layer from a full tensor</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tltorch.factorized_conv.CPConv.get_decomposition">
-<code class="sig-name descname">get_decomposition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">return_bias</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.get_decomposition"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">get_decomposition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">return_bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.get_decomposition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.factorized_conv.CPConv.get_decomposition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a CP Tensor parametrizing the convolution</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -332,7 +332,7 @@ Otherwise, the parameters are initialized directly (faster) so the reconstructio
 
 <dl class="py method">
 <dt id="tltorch.factorized_conv.CPConv.transduct">
-<code class="sig-name descname">transduct</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">kernel_size</span></em>, <em class="sig-param"><span class="n">mode</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">padding</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">stride</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.transduct"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">transduct</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_conv/_cp_conv.html#CPConv.transduct"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.factorized_conv.CPConv.transduct" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transduction of the factorized convolution to add a new dimension</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

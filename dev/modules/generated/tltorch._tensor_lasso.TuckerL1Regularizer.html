@@ -191,10 +191,10 @@
         <div class="content">
           
   <div class="section" id="tltorch-tensor-lasso-tuckerl1regularizer">
-<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch._tensor_lasso</span></code>.TuckerL1Regularizer</h1>
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch._tensor_lasso</span></code>.TuckerL1Regularizer<a class="headerlink" href="#tltorch-tensor-lasso-tuckerl1regularizer" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="tltorch._tensor_lasso.TuckerL1Regularizer">
-<em class="property">class </em><code class="sig-prename descclassname">tltorch._tensor_lasso.</code><code class="sig-name descname">TuckerL1Regularizer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">penalty</span><span class="o">=</span><span class="default_value">0.01</span></em>, <em class="sig-param"><span class="n">clamp_weights</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">threshold</span><span class="o">=</span><span class="default_value">1e-06</span></em>, <em class="sig-param"><span class="n">normalize_loss</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_lasso.html#TuckerL1Regularizer"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">tltorch._tensor_lasso.</span></code><code class="sig-name descname"><span class="pre">TuckerL1Regularizer</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clamp_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize_loss</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_lasso.html#TuckerL1Regularizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch._tensor_lasso.TuckerL1Regularizer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decomposition Hook for Tensor Lasso on Tucker tensors</p>
 <blockquote>
 <div><p>Applies a generalized Lasso (l1 regularization) on the tensor layers the regularization it is applied to.</p>
@@ -280,13 +280,13 @@ otherwise it will keep accumulating values!</p>
 </table>
 <dl class="py method">
 <dt id="tltorch._tensor_lasso.TuckerL1Regularizer.reset">
-<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_lasso.html#TuckerL1Regularizer.reset"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">reset</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_lasso.html#TuckerL1Regularizer.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch._tensor_lasso.TuckerL1Regularizer.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset the loss, should be called at the end of each iteration.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tltorch._tensor_lasso.TuckerL1Regularizer.loss">
-<em class="property">property </em><code class="sig-name descname">loss</code></dt>
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">loss</span></code><a class="headerlink" href="#tltorch._tensor_lasso.TuckerL1Regularizer.loss" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the current Lasso (l1) loss for the layers that have been called so far.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -300,13 +300,13 @@ otherwise it will keep accumulating values!</p>
 
 <dl class="py method">
 <dt id="tltorch._tensor_lasso.TuckerL1Regularizer.apply_lasso">
-<code class="sig-name descname">apply_lasso</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tucker_tensor</span></em>, <em class="sig-param"><span class="n">lasso_weights</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_lasso.html#TuckerL1Regularizer.apply_lasso"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">apply_lasso</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tucker_tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lasso_weights</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_lasso.html#TuckerL1Regularizer.apply_lasso"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch._tensor_lasso.TuckerL1Regularizer.apply_lasso" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the lasso to a decomposed tensor</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tltorch._tensor_lasso.TuckerL1Regularizer.apply">
-<code class="sig-name descname">apply</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">module</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_lasso.html#TuckerL1Regularizer.apply"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">apply</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_lasso.html#TuckerL1Regularizer.apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch._tensor_lasso.TuckerL1Regularizer.apply" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply an instance of the L1Regularizer to a tensor module</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -325,7 +325,7 @@ otherwise it will keep accumulating values!</p>
 
 <dl class="py method">
 <dt id="tltorch._tensor_lasso.TuckerL1Regularizer.remove">
-<code class="sig-name descname">remove</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">module</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_lasso.html#TuckerL1Regularizer.remove"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">remove</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_tensor_lasso.html#TuckerL1Regularizer.remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch._tensor_lasso.TuckerL1Regularizer.remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove the Regularization from a module.</p>
 </dd></dl>
 

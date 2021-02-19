@@ -187,10 +187,10 @@
         <div class="content">
           
   <div class="section" id="tensor-hooks">
-<h1>Tensor Hooks</h1>
+<h1>Tensor Hooks<a class="headerlink" href="#tensor-hooks" title="Permalink to this headline">¶</a></h1>
 <p>TensorLy-Torch also makes it very easy to manipulate the tensor decomposition parametrizing a tensor module.</p>
 <div class="section" id="tensor-dropout">
-<h2>Tensor dropout</h2>
+<h2>Tensor dropout<a class="headerlink" href="#tensor-dropout" title="Permalink to this headline">¶</a></h2>
 <p>For instance, you can apply very easily tensor dropout: let’s first create a simple TRL layer.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tltorch</span>
 <span class="n">trl</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">TuckerTRL</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">),</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
@@ -206,7 +206,7 @@
 </div>
 </div>
 <div class="section" id="lasso-rank-regularization">
-<h2>Lasso rank regularization</h2>
+<h2>Lasso rank regularization<a class="headerlink" href="#lasso-rank-regularization" title="Permalink to this headline">¶</a></h2>
 <p>Rank selection is a hard problem. One way to choose the rank while training is to apply
 an l1 penalty (Lasso) on the rank.</p>
 <p>This was used previously for CP decomposition, and we extended it in TensorLy-Torch to Tucker and Tensor-Train,
@@ -226,7 +226,7 @@ Using our previously defined TRL:</p>
 </div>
 </div>
 <div class="section" id="initializing-tensor-decomposition">
-<h2>Initializing tensor decomposition</h2>
+<h2>Initializing tensor decomposition<a class="headerlink" href="#initializing-tensor-decomposition" title="Permalink to this headline">¶</a></h2>
 <p>Another issue is that of initializing tensor decompositions:
 if you simply initialize randomly each component without care,
 the reconstructed (full) tensor can have arbitrarily large or small values

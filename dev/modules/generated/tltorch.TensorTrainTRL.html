@@ -191,10 +191,10 @@
         <div class="content">
           
   <div class="section" id="tltorch-tensortraintrl">
-<h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.TensorTrainTRL</h1>
+<h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.TensorTrainTRL<a class="headerlink" href="#tltorch-tensortraintrl" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="tltorch.TensorTrainTRL">
-<em class="property">class </em><code class="sig-prename descclassname">tltorch.</code><code class="sig-name descname">TensorTrainTRL</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_shape</span></em>, <em class="sig-param"><span class="n">output_shape</span></em>, <em class="sig-param"><span class="n">rank</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">tltorch.</span></code><code class="sig-name descname"><span class="pre">TensorTrainTRL</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorTrainTRL" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tensor Regression Layer with Tensor-Train weights <a class="reference internal" href="#ra045891b45b0-1" id="id1">[1]</a>, <a class="reference internal" href="#ra045891b45b0-2" id="id2">[2]</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -262,13 +262,13 @@ Xingwei Cao, Guillaume Rabusseau, 2018</p>
 </table>
 <dl class="py method">
 <dt id="tltorch.TensorTrainTRL.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL.forward"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">forward</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorTrainTRL.forward" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs a forward pass</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tltorch.TensorTrainTRL.init_from_random">
-<code class="sig-name descname">init_from_random</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">decompose_full_weight</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL.init_from_random"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">init_from_random</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">decompose_full_weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL.init_from_random"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorTrainTRL.init_from_random" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize the module randomly</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -283,7 +283,7 @@ otherwise, the factors are directly initialized randomlys</p>
 
 <dl class="py method">
 <dt id="tltorch.TensorTrainTRL.init_from_decomposition">
-<code class="sig-name descname">init_from_decomposition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">factors</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL.init_from_decomposition"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">init_from_decomposition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL.init_from_decomposition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorTrainTRL.init_from_decomposition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes the factorization from the given decomposition</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -298,7 +298,7 @@ otherwise, the factors are directly initialized randomlys</p>
 
 <dl class="py method">
 <dt id="tltorch.TensorTrainTRL.init_from_tensor">
-<code class="sig-name descname">init_from_tensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">weight</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">decomposition_kwargs</span><span class="o">=</span><span class="default_value">{}</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL.init_from_tensor"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">init_from_tensor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL.init_from_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorTrainTRL.init_from_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes the layer by decomposing a full tensor</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -316,13 +316,13 @@ must verify <code class="docutils literal notranslate"><span class="pre">np.prod
 
 <dl class="py method">
 <dt id="tltorch.TensorTrainTRL.init_from_linear">
-<code class="sig-name descname">init_from_linear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">weight</span></em>, <em class="sig-param"><span class="n">bias</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL.init_from_linear"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">init_from_linear</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL.init_from_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorTrainTRL.init_from_linear" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialise the TRL from the weights of a fully connected layer</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tltorch.TensorTrainTRL.full_weight">
-<code class="sig-name descname">full_weight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL.full_weight"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">full_weight</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL.full_weight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorTrainTRL.full_weight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the reconstructed weights from the low_rank</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -336,7 +336,7 @@ must verify <code class="docutils literal notranslate"><span class="pre">np.prod
 
 <dl class="py method">
 <dt id="tltorch.TensorTrainTRL.get_decomposition">
-<code class="sig-name descname">get_decomposition</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL.get_decomposition"><span class="viewcode-link">[source]</span></a></dt>
+<code class="sig-name descname"><span class="pre">get_decomposition</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/_trl.html#TensorTrainTRL.get_decomposition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorTrainTRL.get_decomposition" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the decomposition parametrizing the layer</p>
 </dd></dl>
 
