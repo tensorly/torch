@@ -6,6 +6,7 @@ Higher Order Convolution with CP decompositon
 # License: BSD 3 clause
 
 from ._base_conv import Conv1D, BaseFactorizedConv
+from ..base import ParameterList
 from .. import init
 from tensorly import validate_cp_rank
 import torch
@@ -76,7 +77,7 @@ class CPConv(BaseFactorizedConv):
         self.rank = validate_cp_rank(self.kernel_shape, rank=self.rank)
 
         self.weights = nn.Parameter(torch.Tensor(self.rank))
-        self.factors = nn.ParameterList([nn.Parameter(torch.Tensor(s, self.rank)) for s in self.kernel_shape])
+        self.factors = ParameterList([nn.Parameter(torch.Tensor(s, self.rank)) for s in self.kernel_shape])
 
         self.init_from_random(decompose_full_weight=False)
 

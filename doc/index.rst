@@ -90,7 +90,7 @@ tensorized linear layers, tensor dropout and more!
    modules/api
    dev_guide/index
    about
-   /tensor_regression_layers
+
 
 .. only:: html
 

@@ -7,6 +7,7 @@ Higher Order Convolution with Tensor-Train decompositon
 
 from ._base_conv import Conv1D, BaseFactorizedConv
 from .. import init
+from ..base import ParameterList
 
 from tensorly import validate_tt_rank
 import torch
@@ -76,7 +77,7 @@ class TTConv(BaseFactorizedConv):
         self.tt_shape = tuple(tt_shape)
         self.rank = tl.tt_tensor.validate_tt_rank(self.tt_shape, rank)
 
-        self.factors = nn.ParameterList()
+        self.factors = ParameterList()
         for i, s in enumerate(self.tt_shape):
             self.factors.append(nn.Parameter(torch.Tensor(self.rank[i], s, self.rank[i+1])))
 

@@ -19,7 +19,7 @@ from tensorly import testing
 from tensorly import (validate_tt_rank, validate_cp_rank, 
                       validate_tucker_rank, validate_tt_matrix_rank)
 
-from .base import TensorModule
+from .base import TensorModule, ParameterList
 from . import init
 
 
@@ -115,7 +115,7 @@ class TuckerLinear(BaseFactorizedLinear):
         self.rank = validate_tucker_rank(tensorized_shape, rank=rank)           
 
         self.core = nn.Parameter(torch.Tensor(*self.rank))
-        self.factors = nn.ParameterList(nn.Parameter(torch.Tensor(s, r))\
+        self.factors = ParameterList(nn.Parameter(torch.Tensor(s, r))\
                                         for (s, r) in zip(tensorized_shape, self.rank))
 
         self.init_from_random(False)
@@ -215,7 +215,7 @@ class CPLinear(BaseFactorizedLinear):
         self.rank = validate_cp_rank(tensorized_shape, rank=rank)           
 
         self.weights = nn.Parameter(torch.Tensor(self.rank))
-        self.factors = nn.ParameterList(nn.Parameter(torch.Tensor(s, self.rank)) for s in tensorized_shape)
+        self.factors = ParameterList(nn.Parameter(torch.Tensor(s, self.rank)) for s in tensorized_shape)
 
         self.init_from_random(decompose_full_weight=False)
 
@@ -323,7 +323,7 @@ class TTLinear(BaseFactorizedLinear):
     def __init__(self, in_features, out_features, tensorized_shape, rank, bias=True):
         super().__init__(in_features, out_features, tensorized_shape, rank, bias=bias)
         self.rank = validate_tt_rank(tensorized_shape, rank=rank)           
-        self.factors = nn.ParameterList()
+        self.factors = ParameterList()
         for i, s in enumerate(self.tensorized_shape):
             self.factors.append(nn.Parameter(torch.Tensor(self.rank[i], s, self.rank[i+1])))
 
@@ -439,7 +439,7 @@ class TTMLinear(BaseFactorizedLinear):
     def __init__(self, in_features, out_features, tensorized_shape, rank='same', bias=True):
         super().__init__(in_features, out_features, tensorized_shape, rank, bias=bias)
         self.rank = validate_tt_matrix_rank(tensorized_shape, rank=rank)           
-        self.factors = nn.ParameterList()
+        self.factors = ParameterList()
         self.ndim = len(tensorized_shape) // 2
         self.out_shape = tensorized_shape[:self.ndim]
         self.in_shape = tensorized_shape[self.ndim:]

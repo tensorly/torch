@@ -39,12 +39,18 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
-    "myst_nb",
+    # "nbsphinx",
+    # "myst_nb",
+    # "sphinx_nbexamples",
     # 'jupyter_sphinx',
     # 'matplotlib.sphinxext.plot_directive',
-    'sphinx.ext.imgmath', #'sphinx.ext.mathjax',
+    'sphinx.ext.mathjax', #'sphinx.ext.imgmath',
     'numpydoc.numpydoc',
 ]
+
+# # # Sphinx-nbexamples
+# process_examples = False
+# example_gallery_config = dict(pattern='+/+.ipynb')
 
 # Remove the permalinks ("¶" symbols)
 html_add_permalinks = ""

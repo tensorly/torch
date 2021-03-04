@@ -6,6 +6,7 @@ Higher Order Convolution with Tucker decompositon
 # License: BSD 3 clause
 
 from ._base_conv import Conv1D, BaseFactorizedConv
+from ..base import ParameterList
 from .. import init
 
 
@@ -85,7 +86,7 @@ class TuckerConv(BaseFactorizedConv):
             self.modes_fixed_rank = modes_fixed_rank
 
         self.core = nn.Parameter(torch.Tensor(*self.rank))
-        self.factors = nn.ParameterList(nn.Parameter(torch.Tensor(s, r))\
+        self.factors = ParameterList(nn.Parameter(torch.Tensor(s, r))\
                                         for (s, r) in zip(self.kernel_shape, self.rank))
 
         self.init_from_random(decompose_full_weight=False)

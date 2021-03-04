@@ -20,7 +20,7 @@ import pytest
 def single_conv_test(FactorizedConv, implementation, random_tensor_generator, reconstruction_fun,
               order=2, rank=None, rng=None, input_channels=2, output_channels=4,
               kernel_size=3, batch_size=1, activation_size=8, device='cpu'):
-    rng = random.check_random_state(rng)
+    rng = tl.check_random_state(rng)
     input_shape = (batch_size, input_channels) + (activation_size, )*order
     kernel_shape = (output_channels, input_channels) + (kernel_size, )*order
 

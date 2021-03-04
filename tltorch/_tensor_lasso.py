@@ -10,6 +10,7 @@ from torch import nn
 from torch.nn import functional as F
 
 import tltorch as tltorch
+from .base import ParameterList
 
 # Author: Jean Kossaifi
 # License: BSD 3 clause
@@ -149,7 +150,7 @@ class TuckerL1Regularizer():
 
         rank = module.rank
         context = tl.context(module.core)
-        lasso_weights = nn.ParameterList([nn.Parameter(torch.ones(r, **context)) for r in rank])
+        lasso_weights = ParameterList([nn.Parameter(torch.ones(r, **context)) for r in rank])
         setattr(module, 'lasso_weights', lasso_weights)
         handle = module.register_decomposition_forward_pre_hook(self, 'L1Regularizer')
         return module
@@ -288,7 +289,7 @@ class TTL1Regularizer():
         TensorModule (with Regularization hook)
         """
         rank = module.rank[1:-1]
-        lasso_weights = nn.ParameterList([nn.Parameter(torch.ones(1, 1, r)) for r in rank])
+        lasso_weights = ParameterList([nn.Parameter(torch.ones(1, 1, r)) for r in rank])
         setattr(module, 'lasso_weights', lasso_weights)
         handle = module.register_decomposition_forward_pre_hook(self, 'L1Regularizer')
         return module

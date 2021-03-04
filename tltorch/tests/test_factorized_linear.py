@@ -10,7 +10,7 @@ from tensorly import testing
 @pytest.mark.parametrize('FactorizedLinear', [TuckerLinear, CPLinear, TTLinear, TTMLinear])
 def test_FactorizedLinear(FactorizedLinear):
     random_state = 12345
-    rng = random.check_random_state(random_state)
+    rng = tl.check_random_state(random_state)
     batch_size = 2
     in_features = 9
     out_features = 16

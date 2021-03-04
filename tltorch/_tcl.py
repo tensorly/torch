@@ -15,6 +15,8 @@ import math
 import tensorly as tl
 tl.set_backend('pytorch')
 
+from .base import ParameterList
+
 
 class TCL(nn.Module):
     """Tensor Contraction Layer [1]_
@@ -55,7 +57,7 @@ class TCL(nn.Module):
         self.contraction_modes = list(range(1, self.n_input + 1))
         factors = [nn.Parameter(torch.Tensor(r, s))
                    for (s, r) in zip(self.input_shape, self.rank)]
-        self.factors = nn.ParameterList(parameters=factors)
+        self.factors = ParameterList(parameters=factors)
         if bias:
             self.bias = nn.Parameter(
                 tl.tensor(self.output_shape), requires_grad=True)

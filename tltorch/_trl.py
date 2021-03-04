@@ -15,7 +15,7 @@ from tensorly.random import random_tucker, random_cp, random_tt
 from tensorly.decomposition import parafac, tucker, tensor_train
 from tensorly import validate_tt_rank, validate_cp_rank, validate_tucker_rank
 
-from .base import TensorModule
+from .base import TensorModule, ParameterList
 from . import init
 
 class BaseTRL(TensorModule):
@@ -145,7 +145,7 @@ class TuckerTRL(BaseTRL):
         self.project_input = project_input
 
         self.core = nn.Parameter(torch.Tensor(*self.rank))
-        self.factors = nn.ParameterList(nn.Parameter(torch.Tensor(s, r))\
+        self.factors = ParameterList(nn.Parameter(torch.Tensor(s, r))\
                                         for (s, r) in zip(self.weight_shape, self.rank))
 
         self.n_factor = len(self.factors)
@@ -289,7 +289,7 @@ class CPTRL(BaseTRL):
         self.rank = validate_cp_rank(self.weight_shape, rank=rank)           
 
         self.weights = nn.Parameter(torch.Tensor(self.rank))
-        self.factors = nn.ParameterList(nn.Parameter(torch.Tensor(s, self.rank)) for s in self.weight_shape)
+        self.factors = ParameterList(nn.Parameter(torch.Tensor(s, self.rank)) for s in self.weight_shape)
 
         self.init_from_random(decompose_full_weight=False)
 
@@ -386,7 +386,7 @@ class TensorTrainTRL(BaseTRL):
 
         self.rank = validate_tt_rank(self.weight_shape, rank=rank)           
 
-        self.factors = nn.ParameterList()
+        self.factors = ParameterList()
         for i, s in enumerate(self.weight_shape):
             self.factors.append(nn.Parameter(torch.Tensor(self.rank[i], s, self.rank[i+1])))
 
