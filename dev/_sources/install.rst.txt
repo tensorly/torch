@@ -54,3 +54,4 @@ You are now ready to build the doc (here in html)::
    make html
 
 The results will be in `_build/html`
+
