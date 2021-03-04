@@ -71,7 +71,7 @@ def test_trl(TRL, random_tensor, true_rank, rank):
     # fix the random seed for reproducibility
     random_state = 12345
 
-    rng = tl.check_random_state(random_state)
+    rng = random.check_random_state(random_state)
     tol = 0.08
 
     # Generate a random tensor
@@ -119,7 +119,7 @@ def test_TuckerTRL(order, project_input, learn_pool):
 
     # fix the random seed for reproducibility and create random input
     random_state = 12345
-    rng = tl.check_random_state(random_state)
+    rng = random.check_random_state(random_state)
     data = tl.tensor(rng.random_sample((batch_size, in_features) + (spatial_size, )*order))
 
     # Build a simple net with avg-pool, flatten + fully-connected
@@ -168,7 +168,7 @@ def test_TRL_from_linear(TRL, bias):
 
     # fix the random seed for reproducibility and create random input
     random_state = 12345
-    rng = tl.check_random_state(random_state)
+    rng = random.check_random_state(random_state)
     data = tl.tensor(rng.random_sample((batch_size, in_features)))
     fc = nn.Linear(in_features, out_features, bias=bias)
     res_fc = fc(tl.copy(data))

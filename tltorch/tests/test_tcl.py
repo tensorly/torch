@@ -8,7 +8,7 @@ tl.set_backend('pytorch')
 
 def test_tcl():
     random_state = 12345
-    rng = tl.check_random_state(random_state)
+    rng = random.check_random_state(random_state)
     batch_size = 2
     in_shape = (4, 5, 6)
     out_shape = (2, 3, 5)
