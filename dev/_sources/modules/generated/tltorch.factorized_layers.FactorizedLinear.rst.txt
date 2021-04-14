@@ -1,0 +1,11 @@
+﻿:mod:`tltorch.factorized_layers`.FactorizedLinear
+========================================================
+
+.. currentmodule:: tltorch.factorized_layers
+
+.. autoclass:: FactorizedLinear
+   :members:
+
+.. raw:: html
+
+    <div class="clearer"></div>

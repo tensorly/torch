@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tltorch.tensor_hooks.tensor_lasso &#8212; TensorLy-Torch 0.2.0 documentation</title> 
+<link rel="stylesheet" href="../../_static/tensorly_style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../_static/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../_static/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../_static/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="../../_static/favicon/favicon.ico">
+<meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/tensorly_style.css" type="text/css" />
+
+  
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+ <script src="../../_static/navbar_burger.js"></script>
+ <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+ 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3V91QCZR03"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RFGGEBX0FR');
+</script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="tltorch.tensor_hooks.remove_tensor_lasso" href="tltorch.tensor_hooks.remove_tensor_lasso.html" />
+    <link rel="prev" title="tltorch.tensor_hooks.TensorDropout" href="tltorch.tensor_hooks.TensorDropout.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  </head>
+<body  class="has-navbar-fixed-top">
+
+  <header>
+    <navbar>
+      <nav class="navbar top-navbar is-fixed-top has-shadow is-flex-wrap-wrap" role="navigation" aria-label="main top navigation">
+        <div class="navbar-brand">
+        <!-- Always displayed, last item has to be navbar-burger -->
+
+          <a class="navbar-item" href="../../index.html">
+            <img src="../../_static/tensorly-torch-logo.png" height="28">
+          </a>
+
+          <!-- <a class="navbar-item is-hidden-desktop" href="../../index.html">
+            <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+          </a> -->
+          <a class="navbar-item is-hidden-desktop" href="https://github.com/tensorly/torch" target="_blank">
+              <span class="icon"><i class="fab fa-github"></i></span>
+          </a>
+
+          <a role="button" class="navbar-burger" data-target="top-nav-menu" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+
+        </div>
+        
+        <div class="navbar-menu" id="top-nav-menu">
+        <!-- only on larger displays (> 1024px) -->
+
+          <div class="navbar-start">
+          <!-- RIGHT -->
+            <a class="navbar-item" href="../../install.html">
+              Install
+            </a>
+            <a class="navbar-item" href="../../user_guide/index.html">
+              User Guide
+            </a>
+            <a class="navbar-item" href="../api.html">
+              API
+            </a>
+            <a class="navbar-item" href="../../about.html">
+              About Us
+            </a>
+            <a class="navbar-item" href="http://tensorly.org/dev" target="_blank">
+              TensorLy
+            </a>
+
+          </div>
+        
+          <div class="navbar-end">
+            <div class="navbar-item">
+            <!-- LEFT -->
+
+            <!-- <a class="navbar-item is-hidden-touch" href="../../index.html">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fa fa-home"></i>
+                </span>
+                <span>Home</span>
+              </span>
+              <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+            </a> -->
+            <a class="button is-hidden-touch is-dark" href="https://github.com/tensorly/torch" target="_blank">
+              <span class="icon-text">
+                <span class="icon is-large">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Github</span>
+              </span>
+                <!-- <span class="icon"><i class="fab fa-github"></i></span> -->
+            </a>
+
+            </div> <!-- navbar item -->
+          </div> <!-- navbar end -->
+        </div> <!-- only large items -->
+
+      </nav>
+      
+    </navbar>
+  </header>
+
+  <div id="column-container">
+  <div class="columns is-mobile is-centered">
+      
+      <div class="column is-10-mobile is-one-third-tablet is-3-desktop is-hidden-mobile" id="sidebar">
+    <!-- Side menu  -->
+    <aside class="sticky-nav sidebar-menu">
+<div class="sidebar-search">
+  <form class="field" id="searchbox" role="search" action="../../search.html" method="get">
+    <!-- <label class="label" id="searchlabel">Quick search</label> -->
+    <div class="field has-addons">
+      <div class="control is-expanded">
+        <input class="input" type="text" placeholder="Search the doc" name="q" aria-labelledby="searchlabel">
+      </div>
+      <div class="control">
+        <input class="button is-info" type="submit" value="Go" />
+      </div>
+    </div>
+  </form>
+  <script>$('#searchbox').show(0);</script>
+</div>
+      
+      <div class="sidebar-menu-toc">
+      <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing tensorly-Torch</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-tensors">Factorized Tensors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#tensorized-matrices">Tensorized Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.init">Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.factorized_layers">Tensor Regression Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-contraction-layers">Tensor Contraction Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-linear-layers">Factorized Linear Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-convolutions">Factorized Convolutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.tensor_hooks">Tensor Dropout</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#l1-regularization">L1 Regularization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../dev_guide/index.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About Us</a></li>
+</ul>
+ 
+      </div>
+    </aside>
+  </div>
+  
+
+    <div class="column main-column">
+
+      <!-- Main content  -->
+      <section class="main-content">
+
+        <!-- Toggle menu button -->
+            
+        <div class="side-menu-toggle">
+          <button class="button" id="toggle-sidebar" onclick="toggle_sidebar()">
+            <span class="icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
+            <span>menu</span> 
+          </button>
+        </div>
+        
+
+        <div class="content">
+          
+  <div class="section" id="tltorch-tensor-hooks-tensor-lasso">
+<h1><a class="reference internal" href="../api.html#module-tltorch.tensor_hooks" title="tltorch.tensor_hooks"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.tensor_hooks</span></code></a>.tensor_lasso<a class="headerlink" href="#tltorch-tensor-hooks-tensor-lasso" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="tltorch.tensor_hooks.tensor_lasso">
+<code class="sig-prename descclassname"><span class="pre">tltorch.tensor_hooks.</span></code><code class="sig-name descname"><span class="pre">tensor_lasso</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CP'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clamp_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize_loss</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/tensor_hooks/_tensor_lasso.html#tensor_lasso"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.tensor_hooks.tensor_lasso" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generalized Tensor Lasso from a factorized tensors</p>
+<blockquote>
+<div><p>Applies a generalized Lasso (l1 regularization) on a factorized tensor.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>factorization</strong><span class="classifier">str</span></dt><dd></dd>
+<dt><strong>penalty</strong><span class="classifier">float, default is 0.01</span></dt><dd><p>scaling factor for the loss</p>
+</dd>
+<dt><strong>clamp_weights</strong><span class="classifier">bool, default is True</span></dt><dd><p>if True, the lasso weights are clamp between -1 and 1</p>
+</dd>
+<dt><strong>threshold</strong><span class="classifier">float, default is 1e-6</span></dt><dd><p>if a lasso weight is lower than the set threshold, it is set to 0</p>
+</dd>
+<dt><strong>normalize_loss</strong><span class="classifier">bool, default is True</span></dt><dd><p>If True, the loss will be between 0 and 1.
+Otherwise, the raw sum of absolute weights will be returned.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Let’s say you have a set of factorized (here, CP) tensors:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tensor</span> <span class="o">=</span> <span class="n">FactorizedTensor</span><span class="o">.</span><span class="n">new</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">normal_</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tensor2</span> <span class="o">=</span> <span class="n">FactorizedTensor</span><span class="o">.</span><span class="n">new</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">normal_</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>First you need to create an instance of the regularizer:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">regularizer</span> <span class="o">=</span> <span class="n">TensorLasso</span><span class="p">(</span><span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;cp&#39;</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="n">penalty</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can apply the regularizer to one or several layers:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">regularizer</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regularizer</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">tensor2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The lasso is automatically applied:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">sum</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">tensor</span><span class="p">()</span> <span class="o">+</span> <span class="n">tensor2</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>You can access the Lasso loss from your instance:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">l1_loss</span> <span class="o">=</span> <span class="n">regularizer</span><span class="o">.</span><span class="n">loss</span>
+</pre></div>
+</div>
+<p>You can optimize and backpropagate through your loss as usual.</p>
+<p>After you finish updating the weights, don’t forget to reset the regularizer, 
+otherwise it will keep accumulating values!</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">regularizer</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can also remove the regularizer with <cite>regularizer.remove(tensor)</cite>, 
+or <cite>remove_tensor_lasso(tensor)</cite>.</p>
+</dd></dl>
+
+<div class="clearer"></div></div>
+
+
+        </div>
+
+            
+        <nav class="pagination" role="navigation" aria-label="pagination">
+    
+    <a class="button is-medium pagination-previous" href="tltorch.tensor_hooks.TensorDropout.html" title="previous chapter" accesskey="p">
+        <span class="icon">
+            <i class="fa fa-arrow-circle-left"></i>
+        </span>
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.tensor_hooks</span></code>.TensorDropout</span>
+    </a>
+    
+    
+    <a class="button is-medium pagination-next" href="tltorch.tensor_hooks.remove_tensor_lasso.html" title="next chapter" accesskey="n">
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.tensor_hooks</span></code>.remove_tensor_lasso </span>
+        <span class="icon">
+            <i class="fa fa-arrow-circle-right"></i>
+        </span>
+    </a>
+    
+</nav>
+
+        
+
+      </section>
+
+        <footer class="footer">
+    <div class="content has-text-centered">
+        <div class="block">
+          &copy; Copyright 2021, Jean Kossaifi.<br/>
+        </div>
+      <div class="block">
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="tensorly.org"><strong>TensorLy</strong></a> theme by <a href="jeankossaifi.com">Jean Kossaifi</a>.
+      </div>
+    </div>
+  </footer>
+
+    </div>
+
+        
+    
+
+    
+
+  </div>
+  </div>
+
+  <!-- Include here scripts that need to be added after the page is loaded -->
+  <script>
+    function toggle_sidebar() {
+        var element = document.getElementById("sidebar");
+        var container = document.getElementById("column-container");
+        var localtoccolumn = document.getElementById("localtoc-column");
+        element.classList.toggle("hide-tablet");
+        element.classList.toggle("is-hidden-mobile");
+        container.classList.toggle("sidemenu-hidden");
+        localtoccolumn.classList.toggle("is-one-fifth-widescreen");
+        localtoccolumn.classList.toggle("is-2-desktop");
+        localtoccolumn.classList.toggle("is-3-desktop");
+    }
+  </script> 
+
+
+
+  </body>
+</html>

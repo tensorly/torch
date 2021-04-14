@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tensor Hooks &#8212; TensorLy-Torch 0.1.0 documentation</title> 
+    <title>Tensor Hooks &#8212; TensorLy-Torch 0.2.0 documentation</title> 
 <link rel="stylesheet" href="../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../_static/favicon/favicon-32x32.png">
@@ -37,7 +37,7 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="API reference" href="../modules/api.html" />
+    <link rel="next" title="Development guide" href="../dev_guide/index.html" />
     <link rel="prev" title="Tensorized Linear Layers" href="tensorized_linear.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -148,6 +148,7 @@
       <div class="sidebar-menu-toc">
       <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing tensorly-Torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/api.html">API reference</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="trl.html">Tensor Regression Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="factorized_conv.html">Factorized Convolutional Layers</a></li>
@@ -155,7 +156,6 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Tensor Hooks</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/api.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Development guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
 </ul>
@@ -187,17 +187,17 @@
 <p>TensorLy-Torch also makes it very easy to manipulate the tensor decomposition parametrizing a tensor module.</p>
 <div class="section" id="tensor-dropout">
 <h2>Tensor dropout<a class="headerlink" href="#tensor-dropout" title="Permalink to this headline">¶</a></h2>
-<p>For instance, you can apply very easily tensor dropout: let’s first create a simple TRL layer.</p>
+<p>For instance, you can apply very easily tensor dropout to any tensor factorization: let’s first create a simple TRL layer.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tltorch</span>
-<span class="n">trl</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">TuckerTRL</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">),</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
+<span class="n">trl</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">TRL</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="p">),</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>To add tensor dropout, simply apply the helper function:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trl</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">tucker_dropout</span><span class="p">(</span><span class="n">trl</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">trl</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">tucker_dropout</span><span class="p">(</span><span class="n">trl</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Similarly, to remove tensor dropout:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tltorch</span><span class="o">.</span><span class="n">remove_tucker_dropout</span><span class="p">(</span><span class="n">trl</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tltorch</span><span class="o">.</span><span class="n">remove_tucker_dropout</span><span class="p">(</span><span class="n">trl</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -210,7 +210,7 @@ by introducing new weights in the decomposition.</p>
 <p>To use is, you can define a regularizer object that will take care of everything.
 Using our previously defined TRL:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">l1_reg</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">TuckerL1Regularizer</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
-<span class="n">l1_reg</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">trl</span><span class="p">)</span>
+<span class="n">l1_reg</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">trl</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">trl</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">loss</span> <span class="o">=</span> <span class="n">my_loss</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">l1_reg</span><span class="o">.</span><span class="n">loss</span>
 <span class="n">l1_reg</span><span class="o">.</span><span class="n">res</span>
@@ -230,8 +230,8 @@ potentially leading to gradient vanishing or exploding during training.</p>
 <p>In TensorLy-Torch, we provide a module for initialization that will
 properly initialize the factors of the decomposition
 so that the reconstruction has zero mean and the specified standard deviation!</p>
-<p>For instance, for a CP tensor <code class="docutils literal notranslate"><span class="pre">(weights,</span> <span class="pre">factors)</span></code>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tltorch</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">cp_init</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">factors</span><span class="p">)</span>
+<p>For any tensor factorization <code class="docutils literal notranslate"><span class="pre">fact_tensor</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fact_tensor</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -251,8 +251,8 @@ so that the reconstruction has zero mean and the specified standard deviation!</
     </a>
     
     
-    <a class="button is-medium pagination-next" href="../modules/api.html" title="next chapter" accesskey="n">
-        <span>API reference </span>
+    <a class="button is-medium pagination-next" href="../dev_guide/index.html" title="next chapter" accesskey="n">
+        <span>Development guide </span>
         <span class="icon">
             <i class="fa fa-arrow-circle-right"></i>
         </span>

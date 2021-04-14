@@ -8,18 +8,78 @@ API reference
     :no-members:
     :no-inherited-members:
 
-.. _trl_ref:
+.. _factorized_tensor_ref:
 
-Tensor Regression Layers
-========================
+Factorized Tensors
+==================
+
+TensorLy-Torch builds on top of TensorLy and provides out of the box PyTorch layers for tensor based operations.
+The core of this is the concept of factorized tensors, which factorize our layers, instead of regular, dense PyTorch tensors.
+
+You can create any factorized tensor through the main class, or directly create a specific subclass:
 
 .. autosummary::
     :toctree: generated
     :template: class.rst
 
-    TuckerTRL
-    CPTRL
-    TensorTrainTRL
+    FactorizedTensor
+    CPTensor
+    TuckerTensor
+    TTTensor
+
+.. _factorized_matrix_ref:
+
+Tensorized Matrices
+===================
+
+In TensorLy-Torch , you can also represent matrices in *tensorized* form, as low-rank tensors . 
+
+.. autosummary::
+    :toctree: generated
+    :template: class.rst
+
+    TensorizedMatrix
+    CPMatrix
+    TuckerMatrix
+    TTMatrix
+
+.. _init_ref:
+
+Initialization
+==============
+
+.. automodule:: tltorch.init
+    :no-members:
+    :no-inherited-members:
+
+.. currentmodule:: tltorch.init
+
+.. autosummary::
+    :toctree: generated
+    :template: function.rst
+
+    tensor_init
+    cp_init
+    tucker_init
+    tt_init
+
+
+.. _trl_ref:
+
+Tensor Regression Layers
+========================
+
+.. automodule:: tltorch.factorized_layers
+    :no-members:
+    :no-inherited-members:
+
+.. currentmodule:: tltorch.factorized_layers
+
+.. autosummary::
+    :toctree: generated
+    :template: class.rst
+
+    TRL
 
 .. _tcl_ref:
 
@@ -41,74 +101,50 @@ Factorized Linear Layers
     :toctree: generated
     :template: class.rst
 
-    TTLinear
-    TTMLinear
-    CPLinear
-    TuckerLinear
+    FactorizedLinear
 
 .. _factorized_conv_ref:
 
 Factorized Convolutions
 =======================
 
-:mod:`tltorch.factorized_conv`: General N-Dimensional convolutions in Factorized forms
-
-.. automodule:: tltorch.factorized_conv
-    :no-members:
-    :no-inherited-members:
-
-.. currentmodule:: tltorch.factorized_conv
+General N-Dimensional convolutions in Factorized forms
 
 .. autosummary::
     :toctree: generated
     :template: class.rst
 
-    TuckerConv
-    CPConv
-    TTConv
-
+    FactorizedConv
 
 .. _tensor_dropout_ref:
 
 Tensor Dropout
 ==============
 
-.. currentmodule:: tltorch._tensor_dropout
+.. currentmodule:: tltorch.tensor_hooks
 
-.. automodule:: tltorch._tensor_dropout
+.. automodule:: tltorch.tensor_hooks
     :no-members:
     :no-inherited-members:
 
-Classes
--------
+These functions allow you to easily add or remove tensor dropout from tensor layers.
 
-Unless you have a particular use for the classes, you should use the convenient functions provided instead.
+
+.. autosummary::
+    :toctree: generated
+    :template: function.rst
+
+    tensor_dropout
+    remove_tensor_dropout
+
+
+You can also use the class API below but unless you have a particular use for the classes, you should use the convenient functions provided instead.
 
 .. autosummary::
     :toctree: generated
     :template: class.rst
 
-    TuckerDropout
-    CPDropout
-    TTDropout
-
-
-Functions
----------
-
-Convenience functions to easily add or remove tensor dropout from tensor layers.
-
-
-.. autosummary::
-    :toctree: generated
-
-    tucker_dropout
-    cp_dropout
-    tt_dropout
-    remove_tucker_dropout
-    remove_cp_dropout
-    remove_tt_dropout
-
+    TensorDropout
 
 .. _tensor_lasso_ref:
 
@@ -117,46 +153,11 @@ L1 Regularization
 
 L1 Regularization on tensor modules. 
 
-.. currentmodule:: tltorch._tensor_lasso
-
-
-.. autosummary::
-    :toctree: generated
-    :template: class.rst
-
-    TuckerL1Regularizer
-    CPL1Regularizer
-    TTL1Regularizer
-
-.. _init_ref:
-
-Initialization
-==============
-
-.. automodule:: tltorch.init
-    :no-members:
-    :no-inherited-members:
-
-.. currentmodule:: tltorch.init
+.. currentmodule:: tltorch.tensor_hooks
 
 .. autosummary::
     :toctree: generated
     :template: function.rst
 
-    cp_init
-    tucker_init
-    tt_init
-
-
-.. _internal_ref:
-
-Internal
-========
-
-.. currentmodule:: tltorch.base
-
-.. autosummary::
-    :toctree: generated
-    :template: class
-
-    TensorModule
+    tensor_lasso
+    remove_tensor_lasso

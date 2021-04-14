@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API reference &#8212; TensorLy-Torch 0.1.0 documentation</title> 
+    <title>API reference &#8212; TensorLy-Torch 0.2.0 documentation</title> 
 <link rel="stylesheet" href="../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../_static/favicon/favicon-32x32.png">
@@ -37,8 +37,8 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="tltorch.TuckerTRL" href="generated/tltorch.TuckerTRL.html" />
-    <link rel="prev" title="Tensor Hooks" href="../user_guide/tensor_hooks.html" />
+    <link rel="next" title="tltorch.FactorizedTensor" href="generated/tltorch.FactorizedTensor.html" />
+    <link rel="prev" title="Installing tensorly-Torch" href="../install.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   </head>
@@ -148,18 +148,19 @@
       <div class="sidebar-menu-toc">
       <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing tensorly-Torch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User guide</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#tensor-regression-layers">Tensor Regression Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#factorized-tensors">Factorized Tensors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tensorized-matrices">Tensorized Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tltorch.init">Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tltorch.factorized_layers">Tensor Regression Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tensor-contraction-layers">Tensor Contraction Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#factorized-linear-layers">Factorized Linear Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#factorized-convolutions">Factorized Convolutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-tltorch._tensor_dropout">Tensor Dropout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tltorch.tensor_hooks">Tensor Dropout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#l1-regularization">L1 Regularization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-tltorch.init">Initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#internal">Internal</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Development guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
 </ul>
@@ -189,156 +190,52 @@
   <div class="section" id="api-reference">
 <h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference internal" href="#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>: Tensorized Deep Neural Networks</p>
-<span class="target" id="module-tltorch"></span><div class="section" id="tensor-regression-layers">
-<span id="trl-ref"></span><h2>Tensor Regression Layers<a class="headerlink" href="#tensor-regression-layers" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-tltorch"></span><div class="section" id="factorized-tensors">
+<span id="factorized-tensor-ref"></span><h2>Factorized Tensors<a class="headerlink" href="#factorized-tensors" title="Permalink to this headline">¶</a></h2>
+<p>TensorLy-Torch builds on top of TensorLy and provides out of the box PyTorch layers for tensor based operations.
+The core of this is the concept of factorized tensors, which factorize our layers, instead of regular, dense PyTorch tensors.</p>
+<p>You can create any factorized tensor through the main class, or directly create a specific subclass:</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.TuckerTRL.html#tltorch.TuckerTRL" title="tltorch.TuckerTRL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TuckerTRL</span></code></a>(input_shape, output_shape, rank[, …])</p></td>
-<td><p>Tensor Regression Layer with Tucker weights <a class="reference internal" href="generated/tltorch.TuckerTRL.html#rd83a5f2390c0-1" id="id1"><span>[Rd83a5f2390c0-1]</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor" title="tltorch.FactorizedTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FactorizedTensor</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Tensor Factorization</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.CPTRL.html#tltorch.CPTRL" title="tltorch.CPTRL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPTRL</span></code></a>(input_shape, output_shape, rank[, …])</p></td>
-<td><p>Tensor Regression Layer with CP weights <a class="reference internal" href="generated/tltorch.CPTRL.html#rbacc2ed11ff5-1" id="id2"><span>[Rbacc2ed11ff5-1]</span></a>, <a class="reference internal" href="generated/tltorch.CPTRL.html#rbacc2ed11ff5-2" id="id3"><span>[Rbacc2ed11ff5-2]</span></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.CPTensor.html#tltorch.CPTensor" title="tltorch.CPTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPTensor</span></code></a>(*args, **kwargs)</p></td>
+<td><p>CP Factorization</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.TensorTrainTRL.html#tltorch.TensorTrainTRL" title="tltorch.TensorTrainTRL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorTrainTRL</span></code></a>(input_shape, output_shape, rank)</p></td>
-<td><p>Tensor Regression Layer with Tensor-Train weights <a class="reference internal" href="generated/tltorch.TensorTrainTRL.html#ra045891b45b0-1" id="id4"><span>[Ra045891b45b0-1]</span></a>, <a class="reference internal" href="generated/tltorch.TensorTrainTRL.html#ra045891b45b0-2" id="id5"><span>[Ra045891b45b0-2]</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.TuckerTensor.html#tltorch.TuckerTensor" title="tltorch.TuckerTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TuckerTensor</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Tucker Factorization</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.TTTensor.html#tltorch.TTTensor" title="tltorch.TTTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TTTensor</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Tensor-Train (Matrix-Product-State) Factorization</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="tensor-contraction-layers">
-<span id="tcl-ref"></span><h2>Tensor Contraction Layers<a class="headerlink" href="#tensor-contraction-layers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="tensorized-matrices">
+<span id="factorized-matrix-ref"></span><h2>Tensorized Matrices<a class="headerlink" href="#tensorized-matrices" title="Permalink to this headline">¶</a></h2>
+<p>In TensorLy-Torch , you can also represent matrices in <em>tensorized</em> form, as low-rank tensors .</p>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.TCL.html#tltorch.TCL" title="tltorch.TCL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TCL</span></code></a>(input_shape, rank[, verbose, bias])</p></td>
-<td><p>Tensor Contraction Layer <a class="reference internal" href="generated/tltorch.TCL.html#r66a7d0bed82d-1" id="id6"><span>[R66a7d0bed82d-1]</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.TensorizedMatrix.html#tltorch.TensorizedMatrix" title="tltorch.TensorizedMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorizedMatrix</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Tensor representing one or a batch of tensorized vectors/matrices/tensors</p></td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="factorized-linear-layers">
-<span id="factorized-linear-ref"></span><h2>Factorized Linear Layers<a class="headerlink" href="#factorized-linear-layers" title="Permalink to this headline">¶</a></h2>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.TTLinear.html#tltorch.TTLinear" title="tltorch.TTLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TTLinear</span></code></a>(in_features, out_features, …[, bias])</p></td>
-<td><p>Tensorized Fully-Connected Layers</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.CPMatrix.html#tltorch.CPMatrix" title="tltorch.CPMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPMatrix</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Tensorized Matrix in CP Form</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.TTMLinear.html#tltorch.TTMLinear" title="tltorch.TTMLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TTMLinear</span></code></a>(in_features, out_features, …[, …])</p></td>
-<td><p>Tensorized Fully-Connected Layers in the TT-Matrix format <a class="reference internal" href="generated/tltorch.TTMLinear.html#r34bd7c4440a9-1" id="id7"><span>[R34bd7c4440a9-1]</span></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.TuckerMatrix.html#tltorch.TuckerMatrix" title="tltorch.TuckerMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TuckerMatrix</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Tensorized Matrix in Tucker Form</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.CPLinear.html#tltorch.CPLinear" title="tltorch.CPLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPLinear</span></code></a>(in_features, out_features, …[, bias])</p></td>
-<td><p>Tensorized Fully-Connected Layers</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.TuckerLinear.html#tltorch.TuckerLinear" title="tltorch.TuckerLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TuckerLinear</span></code></a>(in_features, out_features, …)</p></td>
-<td><p>Tensorized Fully-Connected Layers</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="factorized-convolutions">
-<span id="factorized-conv-ref"></span><h2>Factorized Convolutions<a class="headerlink" href="#factorized-convolutions" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="#module-tltorch.factorized_conv" title="tltorch.factorized_conv"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_conv</span></code></a>: General N-Dimensional convolutions in Factorized forms</p>
-<span class="target" id="module-tltorch.factorized_conv"></span><table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_conv.TuckerConv.html#tltorch.factorized_conv.TuckerConv" title="tltorch.factorized_conv.TuckerConv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TuckerConv</span></code></a>(*args, **kwargs)</p></td>
-<td><p>Create a convolution of arbitrary order with a Tucker kernel</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.factorized_conv.CPConv.html#tltorch.factorized_conv.CPConv" title="tltorch.factorized_conv.CPConv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPConv</span></code></a>(*args, **kwargs)</p></td>
-<td><p>Create a Factorized CP convolution of arbitrary order.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_conv.TTConv.html#tltorch.factorized_conv.TTConv" title="tltorch.factorized_conv.TTConv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TTConv</span></code></a>(*args, **kwargs)</p></td>
-<td><p>Create a convolution of arbitrary order with a Tucker kernel.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="module-tltorch._tensor_dropout">
-<span id="tensor-dropout"></span><span id="tensor-dropout-ref"></span><h2>Tensor Dropout<a class="headerlink" href="#module-tltorch._tensor_dropout" title="Permalink to this headline">¶</a></h2>
-<p>Tensor Dropout for TensorModules</p>
-<div class="section" id="classes">
-<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
-<p>Unless you have a particular use for the classes, you should use the convenient functions provided instead.</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch._tensor_dropout.TuckerDropout.html#tltorch._tensor_dropout.TuckerDropout" title="tltorch._tensor_dropout.TuckerDropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TuckerDropout</span></code></a>(proba[, min_dim])</p></td>
-<td><p>Decomposition Hook for Tensor Dropout on Tucker tensors</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch._tensor_dropout.CPDropout.html#tltorch._tensor_dropout.CPDropout" title="tltorch._tensor_dropout.CPDropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPDropout</span></code></a>(proba[, min_dim])</p></td>
-<td><p>Decomposition Hook for Tensor Dropout on Tucker tensors</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch._tensor_dropout.TTDropout.html#tltorch._tensor_dropout.TTDropout" title="tltorch._tensor_dropout.TTDropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TTDropout</span></code></a>(proba[, min_dim])</p></td>
-<td><p>Decomposition Hook for Tensor Dropout on Tucker tensors</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section" id="functions">
-<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
-<p>Convenience functions to easily add or remove tensor dropout from tensor layers.</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch._tensor_dropout.tucker_dropout.html#tltorch._tensor_dropout.tucker_dropout" title="tltorch._tensor_dropout.tucker_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tucker_dropout</span></code></a>(module, p)</p></td>
-<td><p>Tucker Dropout</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch._tensor_dropout.cp_dropout.html#tltorch._tensor_dropout.cp_dropout" title="tltorch._tensor_dropout.cp_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cp_dropout</span></code></a>(module, p)</p></td>
-<td><p>CP Dropout</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch._tensor_dropout.tt_dropout.html#tltorch._tensor_dropout.tt_dropout" title="tltorch._tensor_dropout.tt_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tt_dropout</span></code></a>(module, p)</p></td>
-<td><p>TT Dropout</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch._tensor_dropout.remove_tucker_dropout.html#tltorch._tensor_dropout.remove_tucker_dropout" title="tltorch._tensor_dropout.remove_tucker_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_tucker_dropout</span></code></a>(module)</p></td>
-<td><p>Removes the tensor dropout from a TensorModule</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch._tensor_dropout.remove_cp_dropout.html#tltorch._tensor_dropout.remove_cp_dropout" title="tltorch._tensor_dropout.remove_cp_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_cp_dropout</span></code></a>(module)</p></td>
-<td><p>Removes the tensor dropout from a TensorModule</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch._tensor_dropout.remove_tt_dropout.html#tltorch._tensor_dropout.remove_tt_dropout" title="tltorch._tensor_dropout.remove_tt_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_tt_dropout</span></code></a>(module)</p></td>
-<td><p>Removes the tensor dropout from a TensorModule</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="section" id="l1-regularization">
-<span id="tensor-lasso-ref"></span><h2>L1 Regularization<a class="headerlink" href="#l1-regularization" title="Permalink to this headline">¶</a></h2>
-<p>L1 Regularization on tensor modules.</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch._tensor_lasso.TuckerL1Regularizer.html#tltorch._tensor_lasso.TuckerL1Regularizer" title="tltorch._tensor_lasso.TuckerL1Regularizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TuckerL1Regularizer</span></code></a>([penalty, …])</p></td>
-<td><p>Decomposition Hook for Tensor Lasso on Tucker tensors</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch._tensor_lasso.CPL1Regularizer.html#tltorch._tensor_lasso.CPL1Regularizer" title="tltorch._tensor_lasso.CPL1Regularizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPL1Regularizer</span></code></a>([penalty, clamp_weights, …])</p></td>
-<td><p>Decomposition Hook for Tensor Lasso on TT tensors</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch._tensor_lasso.TTL1Regularizer.html#tltorch._tensor_lasso.TTL1Regularizer" title="tltorch._tensor_lasso.TTL1Regularizer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TTL1Regularizer</span></code></a>([penalty, clamp_weights, …])</p></td>
-<td><p>Decomposition Hook for Tensor Lasso on TT tensors</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.TTMatrix.html#tltorch.TTMatrix" title="tltorch.TTMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TTMatrix</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Tensorized Matrix in the Tensor-Train Matrix (MPO) Form</p></td>
 </tr>
 </tbody>
 </table>
@@ -352,28 +249,122 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.init.cp_init.html#tltorch.init.cp_init" title="tltorch.init.cp_init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cp_init</span></code></a>(weights, factors[, std])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor_init</span></code>(tensor[, std])</p></td>
+<td><p>Initializes directly the parameters of a factorized tensor so the reconstruction has the specified standard deviation and 0 mean</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cp_init</span></code>(cp_tensor[, std])</p></td>
 <td><p>Initializes directly the weights and factors of a CP decomposition so the reconstruction has the specified std and 0 mean</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.init.tucker_init.html#tltorch.init.tucker_init" title="tltorch.init.tucker_init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tucker_init</span></code></a>(core, factors[, std])</p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tucker_init</span></code>(tucker_tensor[, std])</p></td>
 <td><p>Initializes directly the weights and factors of a Tucker decomposition so the reconstruction has the specified std and 0 mean</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.init.tt_init.html#tltorch.init.tt_init" title="tltorch.init.tt_init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tt_init</span></code></a>(factors[, std])</p></td>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tt_init</span></code>(tt_tensor[, std])</p></td>
 <td><p>Initializes directly the weights and factors of a TT decomposition so the reconstruction has the specified std and 0 mean</p></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="internal">
-<span id="internal-ref"></span><h2>Internal<a class="headerlink" href="#internal" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-tltorch.factorized_layers">
+<span id="tensor-regression-layers"></span><span id="trl-ref"></span><h2>Tensor Regression Layers<a class="headerlink" href="#module-tltorch.factorized_layers" title="Permalink to this headline">¶</a></h2>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.base.TensorModule.html#tltorch.base.TensorModule" title="tltorch.base.TensorModule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorModule</span></code></a>(*args, **kwargs)</p></td>
-<td><p>A PyTorch module augmented for tensor parametrization</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_layers.TRL.html#tltorch.factorized_layers.TRL" title="tltorch.factorized_layers.TRL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TRL</span></code></a>(input_shape, output_shape[, bias, …])</p></td>
+<td><p>Base class for Tensor Regression Layers</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="tensor-contraction-layers">
+<span id="tcl-ref"></span><h2>Tensor Contraction Layers<a class="headerlink" href="#tensor-contraction-layers" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_layers.TCL.html#tltorch.factorized_layers.TCL" title="tltorch.factorized_layers.TCL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TCL</span></code></a>(input_shape, rank[, verbose, bias])</p></td>
+<td><p>Tensor Contraction Layer <a class="reference internal" href="generated/tltorch.factorized_layers.TCL.html#r4c5b93526459-1" id="id1"><span>[R4c5b93526459-1]</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="factorized-linear-layers">
+<span id="factorized-linear-ref"></span><h2>Factorized Linear Layers<a class="headerlink" href="#factorized-linear-layers" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear" title="tltorch.factorized_layers.FactorizedLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FactorizedLinear</span></code></a>(in_tensorized_features, …)</p></td>
+<td><p>Tensorized Fully-Connected Layers</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="factorized-convolutions">
+<span id="factorized-conv-ref"></span><h2>Factorized Convolutions<a class="headerlink" href="#factorized-convolutions" title="Permalink to this headline">¶</a></h2>
+<p>General N-Dimensional convolutions in Factorized forms</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv" title="tltorch.factorized_layers.FactorizedConv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FactorizedConv</span></code></a>(in_channels, out_channels, …)</p></td>
+<td><p>Create a factorized convolution of arbitrary order</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-tltorch.tensor_hooks">
+<span id="tensor-dropout"></span><span id="tensor-dropout-ref"></span><h2>Tensor Dropout<a class="headerlink" href="#module-tltorch.tensor_hooks" title="Permalink to this headline">¶</a></h2>
+<p>These functions allow you to easily add or remove tensor dropout from tensor layers.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.tensor_hooks.tensor_dropout.html#tltorch.tensor_hooks.tensor_dropout" title="tltorch.tensor_hooks.tensor_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor_dropout</span></code></a>(factorized_tensor[, p])</p></td>
+<td><p>Tensor Dropout</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.tensor_hooks.remove_tensor_dropout.html#tltorch.tensor_hooks.remove_tensor_dropout" title="tltorch.tensor_hooks.remove_tensor_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_tensor_dropout</span></code></a>(factorized_tensor)</p></td>
+<td><p>Removes the tensor dropout from a TensorModule</p></td>
+</tr>
+</tbody>
+</table>
+<p>You can also use the class API below but unless you have a particular use for the classes, you should use the convenient functions provided instead.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.tensor_hooks.TensorDropout.html#tltorch.tensor_hooks.TensorDropout" title="tltorch.tensor_hooks.TensorDropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorDropout</span></code></a>(proba[, min_dim])</p></td>
+<td><p>Decomposition Hook for Tensor Dropout on FactorizedTensor</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="l1-regularization">
+<span id="tensor-lasso-ref"></span><h2>L1 Regularization<a class="headerlink" href="#l1-regularization" title="Permalink to this headline">¶</a></h2>
+<p>L1 Regularization on tensor modules.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.tensor_hooks.tensor_lasso.html#tltorch.tensor_hooks.tensor_lasso" title="tltorch.tensor_hooks.tensor_lasso"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor_lasso</span></code></a>([factorization, penalty, …])</p></td>
+<td><p>Generalized Tensor Lasso from a factorized tensors</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.tensor_hooks.remove_tensor_lasso.html#tltorch.tensor_hooks.remove_tensor_lasso" title="tltorch.tensor_hooks.remove_tensor_lasso"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_tensor_lasso</span></code></a>(factorized_tensor)</p></td>
+<td><p>Removes the tensor lasso from a TensorModule</p></td>
 </tr>
 </tbody>
 </table>
@@ -386,16 +377,16 @@
             
         <nav class="pagination" role="navigation" aria-label="pagination">
     
-    <a class="button is-medium pagination-previous" href="../user_guide/tensor_hooks.html" title="previous chapter" accesskey="p">
+    <a class="button is-medium pagination-previous" href="../install.html" title="previous chapter" accesskey="p">
         <span class="icon">
             <i class="fa fa-arrow-circle-left"></i>
         </span>
-        <span>Tensor Hooks</span>
+        <span>Installing tensorly-Torch</span>
     </a>
     
     
-    <a class="button is-medium pagination-next" href="generated/tltorch.TuckerTRL.html" title="next chapter" accesskey="n">
-        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.TuckerTRL </span>
+    <a class="button is-medium pagination-next" href="generated/tltorch.FactorizedTensor.html" title="next chapter" accesskey="n">
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.FactorizedTensor </span>
         <span class="icon">
             <i class="fa fa-arrow-circle-right"></i>
         </span>
@@ -429,18 +420,17 @@
         <p class="menu-label">On this page</p>
         <ul>
 <li><a class="reference internal" href="#">API reference</a><ul>
-<li><a class="reference internal" href="#tensor-regression-layers">Tensor Regression Layers</a></li>
+<li><a class="reference internal" href="#factorized-tensors">Factorized Tensors</a></li>
+<li><a class="reference internal" href="#tensorized-matrices">Tensorized Matrices</a></li>
+<li><a class="reference internal" href="#module-tltorch.init">Initialization</a></li>
+<li><a class="reference internal" href="#module-tltorch.factorized_layers">Tensor Regression Layers</a></li>
 <li><a class="reference internal" href="#tensor-contraction-layers">Tensor Contraction Layers</a></li>
 <li><a class="reference internal" href="#factorized-linear-layers">Factorized Linear Layers</a></li>
 <li><a class="reference internal" href="#factorized-convolutions">Factorized Convolutions</a></li>
-<li><a class="reference internal" href="#module-tltorch._tensor_dropout">Tensor Dropout</a><ul>
-<li><a class="reference internal" href="#classes">Classes</a></li>
-<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#module-tltorch.tensor_hooks">Tensor Dropout</a><ul>
 </ul>
 </li>
 <li><a class="reference internal" href="#l1-regularization">L1 Regularization</a></li>
-<li><a class="reference internal" href="#module-tltorch.init">Initialization</a></li>
-<li><a class="reference internal" href="#internal">Internal</a></li>
 </ul>
 </li>
 </ul>

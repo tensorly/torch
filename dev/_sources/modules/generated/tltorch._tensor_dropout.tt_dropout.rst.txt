@@ -1,6 +1,0 @@
-﻿tltorch.\_tensor\_dropout.tt\_dropout
-=====================================
-
-.. currentmodule:: tltorch._tensor_dropout
-
-.. autofunction:: tt_dropout

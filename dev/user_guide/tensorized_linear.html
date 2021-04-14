@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tensorized Linear Layers &#8212; TensorLy-Torch 0.1.0 documentation</title> 
+    <title>Tensorized Linear Layers &#8212; TensorLy-Torch 0.2.0 documentation</title> 
 <link rel="stylesheet" href="../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../_static/favicon/favicon-32x32.png">
@@ -148,6 +148,7 @@
       <div class="sidebar-menu-toc">
       <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing tensorly-Torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/api.html">API reference</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="trl.html">Tensor Regression Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="factorized_conv.html">Factorized Convolutional Layers</a></li>
@@ -155,7 +156,6 @@
 <li class="toctree-l2"><a class="reference internal" href="tensor_hooks.html">Tensor Hooks</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/api.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Development guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
 </ul>
@@ -201,15 +201,16 @@ to compress them.</p>
 </pre></div>
 </div>
 <p>You can easily compress it into a tensorized linear layer:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fact_linear</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">CPLinear</span><span class="o">.</span><span class="n">from_linear</span><span class="p">(</span><span class="n">linear</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fact_linear</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">FactorizedLinear</span><span class="o">.</span><span class="n">from_linear</span><span class="p">(</span><span class="n">linear</span><span class="p">,</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>You can also create tensorized layers from scratch:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fact_linear</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">CPLinear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                               <span class="n">tensorized_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fact_linear</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">FactorizedLinear</span><span class="p">(</span><span class="n">in_tensorized_features</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+                                       <span class="n">out_tensorized_features</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+                                       <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;tucker&#39;</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

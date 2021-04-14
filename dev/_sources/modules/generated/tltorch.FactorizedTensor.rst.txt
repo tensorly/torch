@@ -1,0 +1,11 @@
+﻿:mod:`tltorch`.FactorizedTensor
+======================================
+
+.. currentmodule:: tltorch
+
+.. autoclass:: FactorizedTensor
+   :members:
+
+.. raw:: html
+
+    <div class="clearer"></div>

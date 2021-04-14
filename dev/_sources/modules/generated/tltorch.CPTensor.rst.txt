@@ -1,0 +1,11 @@
+﻿:mod:`tltorch`.CPTensor
+==============================
+
+.. currentmodule:: tltorch
+
+.. autoclass:: CPTensor
+   :members:
+
+.. raw:: html
+
+    <div class="clearer"></div>

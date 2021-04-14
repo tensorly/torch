@@ -9,9 +9,11 @@ It is part of the TensorLy project and builds on top of the core TensorLy in ord
 
 Core team
 ---------
-* `Jean Kossaifi`_
+
 * `Anima Anandkumar`_
 * `Wonmin Byeon`_
+* `Jean Kossaifi`_
+* `Saurav Muralidharan`_
 
 Supporters
 ----------
@@ -36,3 +38,4 @@ The TensorLy project is supported by:
 .. _Jean Kossaifi: http://jeankossaifi.com/
 .. _Anima Anandkumar: http://tensorlab.cms.caltech.edu/users/anima/
 .. _Wonmin Byeon: https://wonmin-byeon.github.io/
+.. _Saurav Muralidharan: https://www.sauravm.com

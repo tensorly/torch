@@ -1,0 +1,10 @@
+﻿:mod:`tltorch`.init.tensor_init
+============================================
+
+.. currentmodule:: tltorch
+
+.. autofunction:: init.tensor_init
+
+.. raw:: html
+
+    <div class="clearer"></div>

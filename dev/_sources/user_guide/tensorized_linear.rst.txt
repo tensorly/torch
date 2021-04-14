@@ -28,7 +28,7 @@ You can easily compress it into a tensorized linear layer:
 
 .. code-block:: python
 
-    fact_linear = tltorch.CPLinear.from_linear(linear, tensorized_shape=(4, 4, 2, 5), rank=0.5)
+    fact_linear = tltorch.FactorizedLinear.from_linear(linear, (4, 4), (2, 5), rank=0.5)
 
 
 .. parsed-literal::
@@ -40,5 +40,6 @@ You can also create tensorized layers from scratch:
 
 .. code-block:: python
 
-    fact_linear = tltorch.CPLinear(in_features=16, out_features=10,
-                                   tensorized_shape=(4, 4, 2, 5), rank=0.5)
+    fact_linear = tltorch.FactorizedLinear(in_tensorized_features=(4, 4), 
+                                           out_tensorized_features=(2, 5), 
+                                           factorization='tucker', rank=0.5)

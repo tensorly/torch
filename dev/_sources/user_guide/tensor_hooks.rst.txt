@@ -5,29 +5,30 @@ TensorLy-Torch also makes it very easy to manipulate the tensor decomposition pa
 
 Tensor dropout
 --------------
-For instance, you can apply very easily tensor dropout: let's first create a simple TRL layer.
+For instance, you can apply very easily tensor dropout to any tensor factorization: let's first create a simple TRL layer.
 
 .. code:: python
 
    import tltorch
-   trl = tltorch.TuckerTRL((10, 10), (10, ), rank='same')
+   trl = tltorch.TRL((10, 10), (10, ), rank='same')
 
 To add tensor dropout, simply apply the helper function:
 
 .. code:: python
 
-   trl = tltorch.tucker_dropout(trl, p=0.5)
+   trl = tltorch.tucker_dropout(trl.weight, p=0.5)
 
 
 Similarly, to remove tensor dropout:
 
 .. code:: python
 
-   tltorch.remove_tucker_dropout(trl)
+   tltorch.remove_tucker_dropout(trl.weight)
 
 
 Lasso rank regularization
 -------------------------
+
 Rank selection is a hard problem. One way to choose the rank while training is to apply 
 an l1 penalty (Lasso) on the rank.
 
@@ -40,7 +41,7 @@ Using our previously defined TRL:
 .. code:: python
 
    l1_reg = tltorch.TuckerL1Regularizer(penalty=0.01)
-   l1_reg.apply(trl)
+   l1_reg.apply(trl.weight)
    x = trl(x)
    loss = my_loss(x) + l1_reg.loss
    l1_reg.res
@@ -63,10 +64,10 @@ In TensorLy-Torch, we provide a module for initialization that will
 properly initialize the factors of the decomposition 
 so that the reconstruction has zero mean and the specified standard deviation!
 
-For instance, for a CP tensor ``(weights, factors)``:
+For any tensor factorization ``fact_tensor``:
 
 .. code:: python
 
-   tltorch.init.cp_init(weights, factors)
+   fact_tensor.normal_(0, 0.02)
 
 

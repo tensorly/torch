@@ -1,6 +1,0 @@
-﻿tltorch.\_tensor\_dropout.remove\_tucker\_dropout
-=================================================
-
-.. currentmodule:: tltorch._tensor_dropout
-
-.. autofunction:: remove_tucker_dropout

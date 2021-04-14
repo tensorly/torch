@@ -1,0 +1,11 @@
+﻿:mod:`tltorch.factorized_layers`.TRL
+===========================================
+
+.. currentmodule:: tltorch.factorized_layers
+
+.. autoclass:: TRL
+   :members:
+
+.. raw:: html
+
+    <div class="clearer"></div>

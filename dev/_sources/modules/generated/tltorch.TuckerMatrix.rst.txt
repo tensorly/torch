@@ -1,0 +1,11 @@
+﻿:mod:`tltorch`.TuckerMatrix
+==================================
+
+.. currentmodule:: tltorch
+
+.. autoclass:: TuckerMatrix
+   :members:
+
+.. raw:: html
+
+    <div class="clearer"></div>

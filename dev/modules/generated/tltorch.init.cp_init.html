@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tltorch.init.cp_init &#8212; TensorLy-Torch 0.1.0 documentation</title> 
+    <title>tltorch.init.cp_init &#8212; TensorLy-Torch 0.2.0 documentation</title> 
 <link rel="stylesheet" href="../../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../../_static/favicon/favicon-32x32.png">
@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="tltorch.init.tucker_init" href="tltorch.init.tucker_init.html" />
-    <link rel="prev" title="tltorch._tensor_lasso.TTL1Regularizer" href="tltorch._tensor_lasso.TTL1Regularizer.html" />
+    <link rel="prev" title="tltorch.init.tensor_init" href="tltorch.init.tensor_init.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   </head>
@@ -148,18 +148,19 @@
       <div class="sidebar-menu-toc">
       <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing tensorly-Torch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-regression-layers">Tensor Regression Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-tensors">Factorized Tensors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#tensorized-matrices">Tensorized Matrices</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-tltorch.init">Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.factorized_layers">Tensor Regression Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-contraction-layers">Tensor Contraction Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-linear-layers">Factorized Linear Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-convolutions">Factorized Convolutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch._tensor_dropout">Tensor Dropout</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.tensor_hooks">Tensor Dropout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#l1-regularization">L1 Regularization</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-tltorch.init">Initialization</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#internal">Internal</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../dev_guide/index.html">Development guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../about.html">About Us</a></li>
 </ul>
@@ -187,25 +188,7 @@
         <div class="content">
           
   <div class="section" id="tltorch-init-cp-init">
-<h1><a class="reference internal" href="../api.html#module-tltorch.init" title="tltorch.init"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.init</span></code></a>.cp_init<a class="headerlink" href="#tltorch-init-cp-init" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt id="tltorch.init.cp_init">
-<code class="sig-prename descclassname"><span class="pre">tltorch.init.</span></code><code class="sig-name descname"><span class="pre">cp_init</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/init.html#cp_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.init.cp_init" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes directly the weights and factors of a CP decomposition so the reconstruction has the specified std and 0 mean</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>weights</strong><span class="classifier">1D tensor</span></dt><dd></dd>
-<dt><strong>factors</strong><span class="classifier">list of 2D factors of size (dim_i, rank)</span></dt><dd></dd>
-<dt><strong>std</strong><span class="classifier">float, default is 0.02</span></dt><dd><p>the desired standard deviation of the full (reconstructed) tensor</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>We assume the given (weights, factors) form a correct CP decomposition, no checks are done here.</p>
-</dd></dl>
-
+<h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.init.cp_init<a class="headerlink" href="#tltorch-init-cp-init" title="Permalink to this headline">¶</a></h1>
 <div class="clearer"></div></div>
 
 
@@ -214,16 +197,16 @@
             
         <nav class="pagination" role="navigation" aria-label="pagination">
     
-    <a class="button is-medium pagination-previous" href="tltorch._tensor_lasso.TTL1Regularizer.html" title="previous chapter" accesskey="p">
+    <a class="button is-medium pagination-previous" href="tltorch.init.tensor_init.html" title="previous chapter" accesskey="p">
         <span class="icon">
             <i class="fa fa-arrow-circle-left"></i>
         </span>
-        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch._tensor_lasso</span></code>.TTL1Regularizer</span>
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.init.tensor_init</span>
     </a>
     
     
     <a class="button is-medium pagination-next" href="tltorch.init.tucker_init.html" title="next chapter" accesskey="n">
-        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.init</span></code>.tucker_init </span>
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.init.tucker_init </span>
         <span class="icon">
             <i class="fa fa-arrow-circle-right"></i>
         </span>

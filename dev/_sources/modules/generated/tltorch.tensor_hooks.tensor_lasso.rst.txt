@@ -1,0 +1,10 @@
+﻿:mod:`tltorch.tensor_hooks`.tensor_lasso
+=====================================================
+
+.. currentmodule:: tltorch.tensor_hooks
+
+.. autofunction:: tensor_lasso
+
+.. raw:: html
+
+    <div class="clearer"></div>

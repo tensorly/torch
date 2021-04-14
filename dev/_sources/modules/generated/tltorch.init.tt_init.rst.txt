@@ -1,9 +1,9 @@
-﻿:mod:`tltorch.init`.tt_init
+﻿:mod:`tltorch`.init.tt_init
 ========================================
 
-.. currentmodule:: tltorch.init
+.. currentmodule:: tltorch
 
-.. autofunction:: tt_init
+.. autofunction:: init.tt_init
 
 .. raw:: html
 

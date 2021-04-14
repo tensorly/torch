@@ -1,0 +1,11 @@
+﻿:mod:`tltorch`.TensorizedMatrix
+======================================
+
+.. currentmodule:: tltorch
+
+.. autoclass:: TensorizedMatrix
+   :members:
+
+.. raw:: html
+
+    <div class="clearer"></div>

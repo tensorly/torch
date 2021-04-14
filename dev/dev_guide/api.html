@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Style and API &#8212; TensorLy-Torch 0.1.0 documentation</title> 
+    <title>Style and API &#8212; TensorLy-Torch 0.2.0 documentation</title> 
 <link rel="stylesheet" href="../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../_static/favicon/favicon-32x32.png">
@@ -148,8 +148,8 @@
       <div class="sidebar-menu-toc">
       <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing tensorly-Torch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules/api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Development guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Style and API</a></li>
@@ -185,31 +185,6 @@
 <p>In TensorLy-Torch (and more generally in the TensorLy project),
 we try to maintain a simple and consistent API.</p>
 <p>Here are some elements to consider.</p>
-<div class="section" id="tensormodules">
-<h2>TensorModules<a class="headerlink" href="#tensormodules" title="Permalink to this headline">¶</a></h2>
-<p><code class="xref py py-class docutils literal notranslate"><span class="pre">tltorch.TensorModule</span></code> is a base class we provide
-for PyTorch modules parametrized by a tensor decomposition.</p>
-<dl class="simple">
-<dt>They must implement <cite>get_decomposition()</cite></dt><dd><p>which returns the decomposition parametrizing the tensor layer.</p>
-</dd>
-<dt>In the forward pass, the decomposition should be accessed</dt><dd><dl class="simple">
-<dt>through <code class="xref py py-meth docutils literal notranslate"><span class="pre">tltorch.TensorModule._process_decomposition()</span></code>,</dt><dd><p>not directly as <cite>module.factors</cite> for instance.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p>This is to make sure all the decomposition hooks are applied first
-(i.e. <a class="reference internal" href="../modules/api.html#module-tltorch._tensor_dropout" title="tltorch._tensor_dropout"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tensor</span> <span class="pre">dropout</span></code></a>).</p>
-</div>
-<div class="section" id="initialization">
-<h2>Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline">¶</a></h2>
-<dl class="simple">
-<dt>Modules should follow the following API for initialization: for initializating an instance,</dt><dd><p>use <cite>init_from_random</cite>, <cite>init_from_decompostion</cite> and <cite>init_from_tensor</cite>.</p>
-</dd>
-</dl>
-<p>Class method should be used to create an instance
-and initialize it from existing weights or module (e.g. <cite>Class.from_tensor</cite>, etc).</p>
-</div>
 </div>
 
 
@@ -254,22 +229,6 @@ and initialize it from existing weights or module (e.g. <cite>Class.from_tensor<
 
         
     
-    <div class="column is-hidden-touch is-2-desktop is-one-fifth-widescreen" id="localtoc-column">
-
-    <aside class="sticky-nav localtoc">  
-        <div class="menu menu-list">
-        <p class="menu-label">On this page</p>
-        <ul>
-<li><a class="reference internal" href="#">Style and API</a><ul>
-<li><a class="reference internal" href="#tensormodules">TensorModules</a></li>
-<li><a class="reference internal" href="#initialization">Initialization</a></li>
-</ul>
-</li>
-</ul>
-
-        </div>
-    </aside>
-    </div>
 
     
 

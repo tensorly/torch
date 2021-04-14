@@ -1,9 +1,9 @@
-﻿:mod:`tltorch.init`.cp_init
+﻿:mod:`tltorch`.init.cp_init
 ========================================
 
-.. currentmodule:: tltorch.init
+.. currentmodule:: tltorch
 
-.. autofunction:: cp_init
+.. autofunction:: init.cp_init
 
 .. raw:: html
 
