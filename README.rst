@@ -76,7 +76,6 @@ From source
   cd tensorly-torch
   pip install -e .
   
-----------------------------
 
 
 
