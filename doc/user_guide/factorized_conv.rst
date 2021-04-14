@@ -52,7 +52,7 @@ size or your specify the order
 
 .. code:: python
 
-   conv = tltorch.TuckerConv(input_channels, output_channels, kernel_size, order=2, rank='same')
+   conv = tltorch.FactorizedConv(input_channels, output_channels, kernel_size, order=2, rank='same', factorization='cp')
 
 .. code:: python
 
@@ -64,7 +64,7 @@ through the class name, e.g. Conv2d or Conv3d):
 
 .. code:: python
 
-    fact_conv = tltorch.CPConv(input_channels, output_channels, kernel_size=3, order=2, rank='same')
+    fact_conv = tltorch.FactorizedConv(input_channels, output_channels, kernel_size=3, order=2, rank='same')
 
 
 Or, you can specify the order directly by passing a tuple as kernel_size
@@ -72,7 +72,7 @@ Or, you can specify the order directly by passing a tuple as kernel_size
 
 .. code:: python
 
-    fact_conv = tltorch.CPConv(input_channels, output_channels, kernel_size=(3, 3), rank='same')
+    fact_conv = tltorch.FactorizedConv(input_channels, output_channels, kernel_size=(3, 3), rank='same')
 
 From an existing Convolution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,7 +82,7 @@ convolution:
 
 .. code:: python
 
-    fact_conv = tltorch.CPConv.from_conv(conv, rank=0.5, decompose_weights=True)
+    fact_conv = tltorch.FactorizedConv.from_conv(conv, rank=0.5, decompose_weights=True, factorization='tucker')
 
 Efficient Convolutional Blocks
 ------------------------------
@@ -93,7 +93,7 @@ you apply CP decomposition, you can get a MobileNet-v2 block:
 
 .. code:: python
 
-    fact_conv = tltorch.CPConv.from_conv(conv, rank=0.5, implementation='mobilenet')
+    fact_conv = tltorch.FactorizedConv.from_conv(conv, rank=0.5, factorization='cp', implementation='mobilenet')
 
 
 Similarly, if you apply Tucker decomposition, you can get a ResNet
@@ -101,4 +101,4 @@ BottleNeck block:
 
 .. code:: python
 
-    fact_conv = tltorch.TuckerConv.from_conv(conv, rank=0.5, implementation='factorized')
+    fact_conv = tltorch.FactorizedConv.from_conv(conv, rank=0.5, factorization='tucker', implementation='factorized')

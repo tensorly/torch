@@ -7,17 +7,34 @@
 import torch
 import math
 import numpy as np
+from .factorized_tensor import FactorizedTensor
+
 import tensorly as tl
 tl.set_backend('pytorch')
 
+def tensor_init(tensor, std=0.02):
+    """Initializes directly the parameters of a factorized tensor so the reconstruction has the specified standard deviation and 0 mean
 
-def cp_init(weights, factors, std=0.02):
+    Parameters
+    ----------
+    tensor : torch.Tensor or FactorizedTensor
+    std : float, default is 0.02
+        the desired standard deviation of the full (reconstructed) tensor
+    """
+    if isinstance(tensor, FactorizedTensor):
+        tensor.normal_(0, std)
+    elif torch.is_tensor(tensor):
+        tensor.normal_(0, std)
+    else:
+        raise ValueError(f'Got tensor of class {tensor.__class__.__name__} but expected torch.Tensor or FactorizedWeight.')
+
+
+def cp_init(cp_tensor, std=0.02):
     """Initializes directly the weights and factors of a CP decomposition so the reconstruction has the specified std and 0 mean
 
     Parameters
     ----------
-    weights : 1D tensor
-    factors : list of 2D factors of size (dim_i, rank)
+    cp_tensor : CPTensor
     std : float, default is 0.02
         the desired standard deviation of the full (reconstructed) tensor
 
@@ -25,23 +42,22 @@ def cp_init(weights, factors, std=0.02):
     -----
     We assume the given (weights, factors) form a correct CP decomposition, no checks are done here.
     """
-    rank = factors[0].shape[1] # We assume we are given a valid CP 
-    order = len(factors)
+    rank = cp_tensor.rank # We assume we are given a valid CP 
+    order = cp_tensor.orders
     std_factors = (std/math.sqrt(rank))**(1/order)
 
     with torch.no_grad():
-        weights.fill_(1)
-        for i in range(len(factors)):
-            factors[i].normal_(0, std_factors)
-    return weights, factors
+        cp_tensor.weights.fill_(1)
+        for factor in cp_tensor.factors:
+            factor.normal_(0, std_factors)
+    return cp_tensor
 
-def tucker_init(core, factors, std=0.02):
+def tucker_init(tucker_tensor, std=0.02):
     """Initializes directly the weights and factors of a Tucker decomposition so the reconstruction has the specified std and 0 mean
 
     Parameters
     ----------
-    weights : 1D tensor
-    factors : list of 2D factors of size (dim_i, rank)
+    tucker_tensor : TuckerTensor
     std : float, default is 0.02
         the desired standard deviation of the full (reconstructed) tensor
     
@@ -49,23 +65,22 @@ def tucker_init(core, factors, std=0.02):
     -----
     We assume the given (core, factors) form a correct Tucker decomposition, no checks are done here.
     """
-    order = len(factors)
-    rank = tl.shape(core)
+    order = tucker_tensor.order
+    rank = tucker_tensor.rank
     r = np.prod([math.sqrt(r) for r in rank])
     std_factors = (std/r)**(1/(order+1))
     with torch.no_grad():
-        core.normal_(0, std_factors)
-        for i in range(len(factors)):
-            factors[i].normal_(0, std_factors)
-    return core, factors
+        tucker_tensor.core.normal_(0, std_factors)
+        for factor in tucker_tensor.factors:
+            factor.normal_(0, std_factors)
+    return tucker_tensor
 
-def tt_init(factors, std=0.02):
+def tt_init(tt_tensor, std=0.02):
     """Initializes directly the weights and factors of a TT decomposition so the reconstruction has the specified std and 0 mean
 
     Parameters
     ----------
-    weights : 1D tensor
-    factors : list of 2D factors of size (dim_i, rank)
+    tt_tensor : TTTensor
     std : float, default is 0.02
         the desired standard deviation of the full (reconstructed) tensor
     
@@ -73,21 +88,21 @@ def tt_init(factors, std=0.02):
     -----
     We assume the given factors form a correct TT decomposition, no checks are done here.
     """
-    order = len(factors)
-    r = np.prod([math.sqrt(f.shape[2]) for f in factors[:-1]])
+    order = tt_tensor.order
+    r = np.prod(tt_tensor.rank)
     std_factors = (std/r)**(1/order)
     with torch.no_grad():
-        for i in range(len(factors)):
-            factors[i].normal_(0, std_factors)
-    return factors
+        for factor in tt_tensor.factors:
+            factor.normal_(0, std_factors)
+    return tt_tensor
 
-def tt_matrix_init(factors, std=0.02):
+
+def tt_matrix_init(tt_matrix, std=0.02):
     """Initializes directly the weights and factors of a TT-Matrix decomposition so the reconstruction has the specified std and 0 mean
 
     Parameters
     ----------
-    weights : 1D tensor
-    factors : list of 2D factors of size (dim_i, rank)
+    tt_matrix : Matrix in the tensor-train format
     std : float, default is 0.02
         the desired standard deviation of the full (reconstructed) tensor
     
@@ -95,4 +110,4 @@ def tt_matrix_init(factors, std=0.02):
     -----
     We assume the given factors form a correct TT-Matrix decomposition, no checks are done here.
     """
-    return tt_init(factors, std=std)
+    return tt_init(tt_matrix, std=std)

@@ -1,12 +1,6 @@
 name: Deploy to Pypi
 
 on:
-  workflow_dispatch:
-    inputs:
-      pypi_repo:
-        description: 'Repo to upload to (testpypi or pypi)'
-        default: 'testpypi'
-        required: true
   push:
     tags:
     - '*'
@@ -43,10 +37,8 @@ jobs:
           user: __token__ 
           password: ${{ secrets.PYPI_PASSWORD }}
           repository_url: https://test.pypi.org/legacy/
-        if: ${{ github.event.inputs.pypi_repo }} == 'testpypi'
       - name: Publish package to PyPI
         uses: pypa/gh-action-pypi-publish@master
         with:
           user: __token__ 
           password: ${{ secrets.PYPI_PASSWORD }}
-        if: ${{ github.event.inputs.pypi_repo }} == 'pypi'

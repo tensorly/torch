@@ -1,13 +1,13 @@
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 
-from ._tcl import TCL
-from ._trl import TuckerTRL, TensorTrainTRL, CPTRL
-from ._factorized_linear import CPLinear, TuckerLinear, TTLinear, TTMLinear
-from .factorized_conv import Conv1D, BaseFactorizedConv
-from .factorized_conv import CPConv, TuckerConv, TTConv
-from ._tensor_dropout import TuckerDropout, CPDropout, TTDropout
-from ._tensor_dropout import (cp_dropout, remove_cp_dropout,
-                              tucker_dropout, remove_tucker_dropout,
-                              tt_dropout, remove_tt_dropout)
-from ._tensor_lasso import TuckerL1Regularizer, CPL1Regularizer, TTL1Regularizer
-from .base import TensorModule
+from . import utils
+from . import tensor_factorizations
+from .tensor_factorizations import init
+from . import functional
+from . import factorized_layers
+
+from .factorized_layers import FactorizedLinear, FactorizedConv, TRL, TCL
+from .tensor_factorizations import FactorizedTensor, CPTensor, TTTensor, TuckerTensor, tensor_init
+from .tensor_factorizations import TensorizedMatrix, CPMatrix, TuckerMatrix, TTMatrix
+from .tensor_hooks import (tensor_lasso, remove_tensor_lasso,
+                           tensor_dropout, remove_tensor_dropout)

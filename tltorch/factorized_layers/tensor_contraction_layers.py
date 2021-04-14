@@ -15,8 +15,6 @@ import math
 import tensorly as tl
 tl.set_backend('pytorch')
 
-from .base import ParameterList
-
 
 class TCL(nn.Module):
     """Tensor Contraction Layer [1]_
@@ -46,18 +44,19 @@ class TCL(nn.Module):
         else:
             self.input_shape = tuple(input_shape)
 
-        self.n_input = len(self.input_shape)
+        self.order = len(input_shape)
 
         if isinstance(rank, int):
-            self.rank = (rank, )*self.n_input
+            self.rank = (rank, )*self.order
         else:
             self.rank = tuple(rank)
 
         # Start at 1 as the batch-size is not projected
-        self.contraction_modes = list(range(1, self.n_input + 1))
-        factors = [nn.Parameter(torch.Tensor(r, s))
-                   for (s, r) in zip(self.input_shape, self.rank)]
-        self.factors = ParameterList(parameters=factors)
+        self.contraction_modes = list(range(1, self.order + 1))
+        for i, (s, r) in enumerate(zip(self.input_shape, self.rank)):
+            self.register_parameter(f'factor_{i}', nn.Parameter(torch.Tensor(r, s)))
+        
+        # self.factors = ParameterList(parameters=factors)
         if bias:
             self.bias = nn.Parameter(
                 tl.tensor(self.output_shape), requires_grad=True)
@@ -65,6 +64,10 @@ class TCL(nn.Module):
             self.register_parameter('bias', None)
 
         self.reset_parameters()
+
+    @property
+    def factors(self):
+        return [getattr(self, f'factor_{i}') for i in range(self.order)]
 
     def forward(self, x):
         """Performs a forward pass"""
@@ -83,7 +86,7 @@ class TCL(nn.Module):
         ----
         This may be renamed to init_from_random for consistency with TensorModules
         """
-        for i in range(self.n_input):
+        for i in range(self.order):
             init.kaiming_uniform_(self.factors[i], a=math.sqrt(5))
         if self.bias is not None:
             bound = 1 / math.sqrt(self.input_shape[0])
