@@ -27,8 +27,6 @@ In fact, it is the ability of deep convolutional neural networks to preserve and
 Tensor methods allow to further leverage and preserve that structure, for individual layers or whole networks. 
 
 .. image:: ./doc/_static/tensorly-torch-pyramid.png
-   :align: center
-   :width: 800
 
 TensorLy is a Python library that aims at making tensor learning simple and accessible.
 It provides a high-level API for tensor methods, including core tensor operations, tensor decomposition and regression. 
@@ -51,8 +49,6 @@ using tensor decomposition. Using a CP decomposition results in a separable conv
 and you can replace your original convolution with a series of small efficient ones: 
 
 .. image:: ./doc/_static/cp-conv.png 
-   :width: 500
-   :align: center
 
 These can be easily perform with FactorizedConv in TensorLy-Torch.
 We also have Tucker convolutions and new tensor-train convolutions!
