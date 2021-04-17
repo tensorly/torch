@@ -5,7 +5,7 @@ import tensorly as tl
 tl.set_backend('pytorch')
 from tensorly import tenalg
 
-from ..tensor_factorizations import CPTensor, TTTensor, TuckerTensor
+from ..factorized_tensors import CPTensor, TTTensor, TuckerTensor
 
 # Author: Jean Kossaifi
 # License: BSD 3 clause

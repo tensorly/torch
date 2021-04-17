@@ -1,4 +1,4 @@
-from ..tensor_factorizations import FactorizedTensor, TuckerTensor
+from ..factorized_tensors import FactorizedTensor, TuckerTensor
 
 import tensorly as tl
 tl.set_backend('pytorch')

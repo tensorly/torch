@@ -4,7 +4,7 @@ from torch import nn
 import torch
 
 from ..functional import factorized_linear
-from ..tensor_factorizations import TensorizedMatrix
+from ..factorized_tensors import TensorizedMatrix
 
 # Author: Jean Kossaifi
 # License: BSD 3 clause

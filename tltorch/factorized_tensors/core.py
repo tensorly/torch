@@ -323,7 +323,11 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
         args = [t.to_tensor() if hasattr(t, 'to_tensor') else t for t in args]
         return func(*args, **kwargs)
 
-
+    @property
+    def name(self):
+        """Factorization name ('tucker', 'tt', 'cp', ...)
+        """
+        return self._name
 
 class TensorizedMatrix(nn.Module, metaclass=MetaFactorizedTensor):
     """Tensor representing one or a batch of tensorized vectors/matrices/tensors
@@ -561,6 +565,11 @@ class TensorizedMatrix(nn.Module, metaclass=MetaFactorizedTensor):
         if kwargs is None:
             kwargs = {}
 
-        args = [t.to_matrix() if hasattr(t, 'to_tensor') else t for t in args]
+        args = [t.to_matrix() if hasattr(t, 'to_matrix') else t for t in args]
         return func(*args, **kwargs)
     
+    @property
+    def name(self):
+        """Factorization name ('tucker', 'tt', 'cp', ...)
+        """
+        return self._name

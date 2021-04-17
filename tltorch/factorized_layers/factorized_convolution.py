@@ -16,7 +16,7 @@ import tensorly as tl
 tl.set_backend('pytorch')
 
 from ..functional.convolution import _get_factorized_conv
-from ..tensor_factorizations import FactorizedTensor, CPTensor, TTTensor
+from ..factorized_tensors import FactorizedTensor, CPTensor, TTTensor
 
 
 def _ensure_list(order, value):

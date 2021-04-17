@@ -1,7 +1,7 @@
 import numpy as np
 import torch
 import torch.nn.functional as F
-from ..tensor_factorizations import TensorizedMatrix
+from ..factorized_tensors import TensorizedMatrix
 
 import tensorly as tl
 tl.set_backend('pytorch')

@@ -6,7 +6,7 @@
 import tensorly as tl
 tl.set_backend('pytorch')
 import torch
-from ..tensor_factorizations import TuckerTensor, CPTensor, TTTensor
+from ..factorized_tensors import TuckerTensor, CPTensor, TTTensor
 
 
 class TensorDropout():

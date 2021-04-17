@@ -11,11 +11,11 @@ import tensorly as tl
 tl.set_backend('pytorch')
 from ..functional.tensor_regression import trl
 
-from ..tensor_factorizations import FactorizedTensor
+from ..factorized_tensors import FactorizedTensor
 
 class TRL(nn.Module):
-    """Base class for Tensor Regression Layers 
-    
+    """Tensor Regression Layers 
+        
     Parameters
     -----------
     input_shape : int iterable
@@ -24,6 +24,11 @@ class TRL(nn.Module):
         shape of the output, excluding batch size
     verbose : int, default is 0
         level of verbosity
+
+    References
+    ----------
+    .. [1] Tensor Regression Networks, Jean Kossaifi, Zachary C. Lipton, Arinbjorn Kolbeinsson, 
+        Aran Khanna, Tommaso Furlanello, Anima Anandkumar, JMLR, 2020. 
     """
     def __init__(self, input_shape, output_shape, bias=False, verbose=0, 
                 factorization='cp', rank='same', n_layers=1, **kwargs):
@@ -61,6 +66,7 @@ class TRL(nn.Module):
             self.weight = factorization
         else:
             self.weight = FactorizedTensor.new(factorization_shape, rank=rank, factorization=factorization)
+        self.factorization = self.weight.name
 
     def forward(self, x):
         """Performs a forward pass"""

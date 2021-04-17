@@ -6,7 +6,7 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from ..tensor_factorizations import TuckerTensor, TTTensor, CPTensor
+from ..factorized_tensors import TuckerTensor, TTTensor, CPTensor
 from ..utils import ParameterList
 
 # Author: Jean Kossaifi

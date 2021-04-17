@@ -107,3 +107,4 @@ def test_trl(factorization, true_rank, rank):
     testing.assert_(rec_loss <= tol, msg=f'Rec_loss of the weights={rec_loss} higher than tolerance={tol}')
     testing.assert_(bias_rec_loss <= tol, msg=f'Rec_loss of the bias={bias_rec_loss} higher than tolerance={tol}')
 
+
