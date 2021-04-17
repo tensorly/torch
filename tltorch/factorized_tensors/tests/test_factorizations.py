@@ -55,3 +55,21 @@ def test_transduction(factorization):
         indices = [slice(None)]*mode
         for i in range(new_dim):
             testing.assert_allclose(original_rec, rec[tuple(indices + [i])])
+
+@pytest.mark.parametrize('unsqueezed_init', ['average', 1.2])
+def test_tucker_init_unsqueezed_modes(unsqueezed_init):
+    """Test for Tucker Factorization init from tensor with unsqueezed_modes
+    """
+    tensor = FactorizedTensor.new((4, 4, 4), rank=(4, 1, 4), factorization='tucker')
+    mat = torch.randn((4, 4))
+    
+    tensor.init_from_tensor(mat, unsqueezed_modes=[1], unsqueezed_init=unsqueezed_init)
+    rec = tensor.to_tensor()
+
+    if unsqueezed_init == 'average':
+        coef = 1/4
+    else:
+        coef = unsqueezed_init
+
+    for i in range(4):
+        testing.assert_allclose(rec[:, i], mat*coef)

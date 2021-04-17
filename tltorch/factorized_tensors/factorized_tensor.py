@@ -189,10 +189,50 @@ class TuckerTensor(FactorizedTensor, name='Tucker'):
         
         return cls(nn.Parameter(core.contiguous), [nn.Parameter(f) for f in factors])
 
-    def init_from_tensor(self, tensor, **kwargs):
+    def init_from_tensor(self, tensor, unsqueezed_modes=None, unsqueezed_init='average', **kwargs):
+        """Initialize the tensor factorization from a tensor
+
+        Parameters
+        ----------
+        tensor : torch.Tensor
+            full tensor to decompose
+        unsqueezed_modes : int list
+            list of modes for which the rank is 1 that don't correspond to a mode in the full tensor
+            essentially we are adding a new dimension for which the core has dim 1, 
+            and that is not initialized through decomposition.
+            Instead first `tensor` is decomposed into the other factors. 
+            The `unsqueezed factors` are then added and  initialized e.g. with 1/dim[i]
+        unsqueezed_init : 'average' or float
+            if unsqueezed_modes, this is how the added "unsqueezed" factors will be initialized
+            if 'average', then unsqueezed_factor[i] will have value 1/tensor.shape[i]
+        """
+        if unsqueezed_modes is not None:
+            unsqueezed_modes = sorted(unsqueezed_modes)
+            for mode in unsqueezed_modes[::-1]:
+                if self.rank[mode] != 1:
+                    msg = 'It is only possible to initialize by averagig over mode for which rank=1.'
+                    msg += f'However, got unsqueezed_modes={unsqueezed_modes} but rank[{mode}]={self.rank[mode]} != 1.'
+                    raise ValueError(msg)
+                        
+            rank = tuple(r for (i, r) in enumerate(self.rank) if i not in unsqueezed_modes)
+        else:
+            rank = self.rank
+
         with torch.no_grad():
-            core, factors = tucker(tensor, self.rank, **kwargs)
-        
+            core, factors = tucker(tensor, rank, **kwargs)
+            
+            if unsqueezed_modes is not None:
+                # Initialise with 1/shape[mode] or given value
+                for mode in unsqueezed_modes:
+                    size = self.shape[mode]
+                    factor = torch.ones(size, 1)
+                    if unsqueezed_init == 'average':
+                        factor /= size
+                    else:
+                        factor *= unsqueezed_init
+                    factors.insert(mode, factor)
+                    core = core.unsqueeze(mode)
+
         self.core = nn.Parameter(core.contiguous())
         self.factors = FactorList([nn.Parameter(f) for f in factors])
         return self
