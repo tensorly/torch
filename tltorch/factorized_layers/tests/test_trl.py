@@ -108,3 +108,86 @@ def test_trl(factorization, true_rank, rank):
     testing.assert_(bias_rec_loss <= tol, msg=f'Rec_loss of the bias={bias_rec_loss} higher than tolerance={tol}')
 
 
+@pytest.mark.parametrize('order', [2, 3])
+@pytest.mark.parametrize('project_input', [False, True])
+@pytest.mark.parametrize('learn_pool', [True, False])
+def test_TuckerTRL(order, project_input, learn_pool):
+    """Test for Tucker TRL
+
+        Here, we test specifically for init from fully-connected layer
+            (both when learning the pooling and not).
+        
+        We also test that projecting the input or not doesn't change the results
+    """
+    in_features = 10
+    out_features = 12
+    batch_size = 2
+    spatial_size = 4
+    in_rank = 10
+    out_rank = 12
+    order= 2
+
+    # fix the random seed for reproducibility and create random input
+    random_state = 12345
+    rng = tl.check_random_state(random_state)
+    data = tl.tensor(rng.random_sample((batch_size, in_features) + (spatial_size, )*order))
+
+    # Build a simple net with avg-pool, flatten + fully-connected
+    if order == 2:
+        pool = nn.AdaptiveAvgPool2d((1, 1))
+    else:
+        pool = nn.AdaptiveAvgPool3d((1, 1, 1))
+    fc = nn.Linear(in_features, out_features, bias=False)
+
+    def net(data):
+        x = pool(data)
+        x = x.squeeze()
+        x = fc(x)
+        return x
+
+    res_fc = net(tl.copy(data))
+
+    # A replacement TRL
+    out_shape = (out_features, )
+
+    if learn_pool:
+        # Learn the average pool as part of the TRL
+        in_shape = (in_features, ) + (spatial_size, )*order
+        rank = (in_rank, ) + (1, )*order + (out_rank, )
+        unsqueezed_modes = list(range(1, order+1))
+    else:
+        in_shape = (in_features, )
+        rank = (in_rank, out_rank)
+        unsqueezed_modes = None
+        data = pool(data).squeeze()
+
+    trl = TRL(in_shape, out_shape, rank=rank, factorization='tucker')
+    trl.init_from_linear(fc, unsqueezed_modes=unsqueezed_modes)
+    res_trl = trl(data)
+
+    testing.assert_array_almost_equal(res_fc, res_trl)
+
+
+@pytest.mark.parametrize('factorization', ['CP', 'TT'])
+@pytest.mark.parametrize('bias', [True, False])
+def test_TRL_from_linear(factorization, bias):
+    """Test for CP and TT TRL
+
+        Here, we test specifically for init from fully-connected layer
+    """
+    in_features = 10
+    out_features = 12
+    batch_size = 2
+
+    # fix the random seed for reproducibility and create random input
+    random_state = 12345
+    rng = tl.check_random_state(random_state)
+    data = tl.tensor(rng.random_sample((batch_size, in_features)))
+    fc = nn.Linear(in_features, out_features, bias=bias)
+    res_fc = fc(tl.copy(data))
+    trl = TRL((in_features, ), (out_features, ), rank=10, bias=bias, factorization=factorization)
+    trl.init_from_linear(fc)
+    res_trl = trl(data)
+
+    testing.assert_array_almost_equal(res_fc, res_trl, decimal=2)
+    

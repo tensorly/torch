@@ -88,3 +88,40 @@ class TRL(nn.Module):
             self.weight.normal_()
         if self.bias is not None:
             self.bias.uniform_(-1, 1)
+
+    def init_from_linear(self, linear, unsqueezed_modes=None, **kwargs):                                                                                                                                                                                                                                                                       
+        """Initialise the TRL from the weights of a fully connected layer
+
+        Parameters
+        ----------
+        linear : torch.nn.Linear
+        unsqueezed_modes : int list or None
+            For Tucker factorization, this allows to replace pooling layers and instead 
+            learn the average pooling for the specified modes ("unsqueezed_modes").
+            **for factorization='Tucker' only**
+        """
+        if unsqueezed_modes is not None:
+            if self.factorization != 'Tucker':
+                raise ValueError(f'unsqueezed_modes is only supported for factorization="tucker" but factorization is {self.factorization}.')
+    
+            unsqueezed_modes = sorted(unsqueezed_modes)
+            weight_shape = list(self.weight_shape)
+            for mode in unsqueezed_modes[::-1]:
+                if mode == 0:
+                    raise ValueError(f'Cannot learn pooling for mode-0 (channels).')
+                if mode > self.n_input:
+                    msg = 'Can only learn pooling for the input tensor. '
+                    msg += f'The input has only {self.n_input} modes, yet got a unsqueezed_mode for mode {mode}.'
+                    raise ValueError(msg)
+
+                weight_shape.pop(mode)
+                kwargs['unsqueezed_modes'] = unsqueezed_modes
+        else:
+            weight_shape = self.weight_shape
+        
+        with torch.no_grad():
+            weight = torch.t(linear.weight).contiguous().view(weight_shape)
+
+            self.weight.init_from_tensor(weight, **kwargs)
+            if self.bias is not None:
+                self.bias.data = linear.bias.data
