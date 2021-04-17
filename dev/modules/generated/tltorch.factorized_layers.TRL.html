@@ -192,7 +192,7 @@
 <dl class="py class">
 <dt id="tltorch.factorized_layers.TRL">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">tltorch.factorized_layers.</span></code><code class="sig-name descname"><span class="pre">TRL</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'same'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/tensor_regression_layers.html#TRL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.factorized_layers.TRL" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for Tensor Regression Layers</p>
+<dd><p>Tensor Regression Layers</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
@@ -205,6 +205,13 @@
 </dl>
 </dd>
 </dl>
+<p class="rubric">References</p>
+<dl class="citation">
+<dt class="label" id="r77e92cad6fbc-1"><span class="brackets">1</span></dt>
+<dd><p>Tensor Regression Networks, Jean Kossaifi, Zachary C. Lipton, Arinbjorn Kolbeinsson, 
+Aran Khanna, Tommaso Furlanello, Anima Anandkumar, JMLR, 2020.</p>
+</dd>
+</dl>
 <p class="rubric">Methods</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -215,7 +222,10 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.factorized_layers.TRL.forward" title="tltorch.factorized_layers.TRL.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x)</p></td>
 <td><p>Performs a forward pass</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.factorized_layers.TRL.init_from_random" title="tltorch.factorized_layers.TRL.init_from_random"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_from_random</span></code></a>([decompose_full_weight])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.factorized_layers.TRL.init_from_linear" title="tltorch.factorized_layers.TRL.init_from_linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_from_linear</span></code></a>(linear[, unsqueezed_modes])</p></td>
+<td><p>Initialise the TRL from the weights of a fully connected layer</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.factorized_layers.TRL.init_from_random" title="tltorch.factorized_layers.TRL.init_from_random"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_from_random</span></code></a>([decompose_full_weight])</p></td>
 <td><p>Initialize the module randomly</p></td>
 </tr>
 </tbody>
@@ -235,6 +245,23 @@
 <dd class="field-odd"><dl class="simple">
 <dt><strong>decompose_full_weight</strong><span class="classifier">bool, default is False</span></dt><dd><p>if True, constructs a full weight tensor and decomposes it to initialize the factors
 otherwise, the factors are directly initialized randomlys</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tltorch.factorized_layers.TRL.init_from_linear">
+<code class="sig-name descname"><span class="pre">init_from_linear</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linear</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsqueezed_modes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/tensor_regression_layers.html#TRL.init_from_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.factorized_layers.TRL.init_from_linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialise the TRL from the weights of a fully connected layer</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>linear</strong><span class="classifier">torch.nn.Linear</span></dt><dd></dd>
+<dt><strong>unsqueezed_modes</strong><span class="classifier">int list or None</span></dt><dd><p>For Tucker factorization, this allows to replace pooling layers and instead 
+learn the average pooling for the specified modes (“unsqueezed_modes”).
+<strong>for factorization=’Tucker’ only</strong></p>
 </dd>
 </dl>
 </dd>

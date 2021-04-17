@@ -188,11 +188,11 @@
 <span class="n">tl</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="s1">&#39;pytorch&#39;</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">..functional.tensor_regression</span> <span class="kn">import</span> <span class="n">trl</span>
 
-<span class="kn">from</span> <span class="nn">..tensor_factorizations</span> <span class="kn">import</span> <span class="n">FactorizedTensor</span>
+<span class="kn">from</span> <span class="nn">..factorized_tensors</span> <span class="kn">import</span> <span class="n">FactorizedTensor</span>
 
 <div class="viewcode-block" id="TRL"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.TRL.html#tltorch.factorized_layers.TRL">[docs]</a><span class="k">class</span> <span class="nc">TRL</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Base class for Tensor Regression Layers </span>
-<span class="sd">    </span>
+    <span class="sd">&quot;&quot;&quot;Tensor Regression Layers </span>
+<span class="sd">        </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    -----------</span>
 <span class="sd">    input_shape : int iterable</span>
@@ -201,6 +201,11 @@
 <span class="sd">        shape of the output, excluding batch size</span>
 <span class="sd">    verbose : int, default is 0</span>
 <span class="sd">        level of verbosity</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] Tensor Regression Networks, Jean Kossaifi, Zachary C. Lipton, Arinbjorn Kolbeinsson, </span>
+<span class="sd">        Aran Khanna, Tommaso Furlanello, Anima Anandkumar, JMLR, 2020. </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">,</span> <span class="n">output_shape</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
                 <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;cp&#39;</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">n_layers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -238,6 +243,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">factorization</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">FactorizedTensor</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">factorization_shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="n">factorization</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">factorization</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">name</span>
 
 <div class="viewcode-block" id="TRL.forward"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.TRL.html#tltorch.factorized_layers.TRL.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Performs a forward pass&quot;&quot;&quot;</span>
@@ -258,7 +264,44 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">normal_</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">uniform_</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">uniform_</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TRL.init_from_linear"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.TRL.html#tltorch.factorized_layers.TRL.init_from_linear">[docs]</a>    <span class="k">def</span> <span class="nf">init_from_linear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">linear</span><span class="p">,</span> <span class="n">unsqueezed_modes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>                                                                                                                                                                                                                                                                       
+        <span class="sd">&quot;&quot;&quot;Initialise the TRL from the weights of a fully connected layer</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        linear : torch.nn.Linear</span>
+<span class="sd">        unsqueezed_modes : int list or None</span>
+<span class="sd">            For Tucker factorization, this allows to replace pooling layers and instead </span>
+<span class="sd">            learn the average pooling for the specified modes (&quot;unsqueezed_modes&quot;).</span>
+<span class="sd">            **for factorization=&#39;Tucker&#39; only**</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">unsqueezed_modes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">factorization</span> <span class="o">!=</span> <span class="s1">&#39;Tucker&#39;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;unsqueezed_modes is only supported for factorization=&quot;tucker&quot; but factorization is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">factorization</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+    
+            <span class="n">unsqueezed_modes</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">unsqueezed_modes</span><span class="p">)</span>
+            <span class="n">weight_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight_shape</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">mode</span> <span class="ow">in</span> <span class="n">unsqueezed_modes</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Cannot learn pooling for mode-0 (channels).&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">mode</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_input</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;Can only learn pooling for the input tensor. &#39;</span>
+                    <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;The input has only </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_input</span><span class="si">}</span><span class="s1"> modes, yet got a unsqueezed_mode for mode </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s1">.&#39;</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+                <span class="n">weight_shape</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;unsqueezed_modes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">unsqueezed_modes</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">weight_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_shape</span>
+        
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">t</span><span class="p">(</span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">weight_shape</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">init_from_tensor</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">linear</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span></div></div>
 </pre></div>
 
         </div>

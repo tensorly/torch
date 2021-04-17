@@ -191,7 +191,7 @@
 <h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.TensorizedMatrix<a class="headerlink" href="#tltorch-tensorizedmatrix" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="tltorch.TensorizedMatrix">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">tltorch.</span></code><code class="sig-name descname"><span class="pre">TensorizedMatrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/tensor_factorizations/core.html#TensorizedMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">tltorch.</span></code><code class="sig-name descname"><span class="pre">TensorizedMatrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/core.html#TensorizedMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tensor representing one or a batch of tensorized vectors/matrices/tensors</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -200,6 +200,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Attributes</dt>
 <dd class="field-odd"><dl class="simple">
+<dt><a class="reference internal" href="#tltorch.TensorizedMatrix.name" title="tltorch.TensorizedMatrix.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></dt><dd><p>Factorization name (‘tucker’, ‘tt’, ‘cp’, …)</p>
+</dd>
 <dt><a class="reference internal" href="#tltorch.TensorizedMatrix.ndim" title="tltorch.TensorizedMatrix.ndim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndim</span></code></a></dt><dd><p>Order of the tensor</p>
 </dd>
 </dl>
@@ -240,7 +242,7 @@
 </table>
 <dl class="py method">
 <dt id="tltorch.TensorizedMatrix.new">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">new</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensorized_row_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensorized_column_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_matrices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CP'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/tensor_factorizations/core.html#TensorizedMatrix.new"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.new" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">new</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensorized_row_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensorized_column_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_matrices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CP'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/core.html#TensorizedMatrix.new"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.new" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main way to create a Tensorized Matrix</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -274,7 +276,7 @@
 
 <dl class="py method">
 <dt id="tltorch.TensorizedMatrix.from_matrix">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_matrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensorized_row_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensorized_column_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CP'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/tensor_factorizations/core.html#TensorizedMatrix.from_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.from_matrix" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_matrix</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensorized_row_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensorized_column_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CP'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/core.html#TensorizedMatrix.from_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.from_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a Tensorized Matrix by tensorizing and decomposing an existing matrix</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -310,7 +312,7 @@
 
 <dl class="py method">
 <dt id="tltorch.TensorizedMatrix.forward">
-<code class="sig-name descname"><span class="pre">forward</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/tensor_factorizations/core.html#TensorizedMatrix.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.forward" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">forward</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/core.html#TensorizedMatrix.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.forward" title="Permalink to this definition">¶</a></dt>
 <dd><p>To use a tensor factorization within a network, use <code class="docutils literal notranslate"><span class="pre">tensor.forward</span></code>, or, equivalently, <code class="docutils literal notranslate"><span class="pre">tensor()</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -330,20 +332,20 @@
 
 <dl class="py method">
 <dt id="tltorch.TensorizedMatrix.to_tensor">
-<code class="sig-name descname"><span class="pre">to_tensor</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/tensor_factorizations/core.html#TensorizedMatrix.to_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.to_tensor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">to_tensor</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/core.html#TensorizedMatrix.to_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.to_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reconstruct the full tensor from its factorized form</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tltorch.TensorizedMatrix.to_matrix">
-<code class="sig-name descname"><span class="pre">to_matrix</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/tensor_factorizations/core.html#TensorizedMatrix.to_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.to_matrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">to_matrix</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/core.html#TensorizedMatrix.to_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.to_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reconstruct the full matrix from the factorized tensorization</p>
 <p>If several matrices are parametrized, a batch of matrices is returned</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tltorch.TensorizedMatrix.dim">
-<code class="sig-name descname"><span class="pre">dim</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/tensor_factorizations/core.html#TensorizedMatrix.dim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.dim" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dim</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/core.html#TensorizedMatrix.dim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.dim" title="Permalink to this definition">¶</a></dt>
 <dd><p>Order of the tensor</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
@@ -357,7 +359,7 @@
 
 <dl class="py method">
 <dt id="tltorch.TensorizedMatrix.size">
-<code class="sig-name descname"><span class="pre">size</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/tensor_factorizations/core.html#TensorizedMatrix.size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.size" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">size</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/core.html#TensorizedMatrix.size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.size" title="Permalink to this definition">¶</a></dt>
 <dd><p>shape of the tensor</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -391,7 +393,7 @@
 
 <dl class="py method">
 <dt id="tltorch.TensorizedMatrix.normal_">
-<code class="sig-name descname"><span class="pre">normal_</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/tensor_factorizations/core.html#TensorizedMatrix.normal_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.normal_" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">normal_</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/core.html#TensorizedMatrix.normal_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.TensorizedMatrix.normal_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inialize the factors of the factorization such that the <strong>reconstruction</strong> follows a Gaussian distribution</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -407,6 +409,12 @@
 </dl>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tltorch.TensorizedMatrix.name">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">name</span></code><a class="headerlink" href="#tltorch.TensorizedMatrix.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factorization name (‘tucker’, ‘tt’, ‘cp’, …)</p>
 </dd></dl>
 
 </dd></dl>
