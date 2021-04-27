@@ -1,7 +1,7 @@
 import torch
 import tensorly as tl
-import opt_einsum as oe
 from collections import Counter
+from tensorly.tt_tensor import TTTensor
 
 tl.set_backend('pytorch')
 
@@ -9,27 +9,9 @@ tl.set_backend('pytorch')
 
 def tt_factorized_linear(x, weights):
     ncores = len(x)
-    eq = _contraction_eq(ncores)
-    return oe.contract(eq, *weights, *x)
-
-def _contraction_eq(ncores):
-    start = 1
-    x_idx = []
+    contr_layer = []
     for i in range(ncores):
-            idx = [start+2*i, start+1+2*i, start+2+2*i]
-            x_idx.append(''.join(oe.parser.get_symbol(j) for j in idx))
-    start2 = start+2+2*i
-    weights_idx = []
-    for i in range(ncores):
-        if i==0:
-            idx = [start, start2+1, start+1, start2+2]
-        elif i==ncores-1:
-            idx = [start2+2*i, start2+2*i+1, start+1+2*i, start2]
-        else:
-            idx = [start2+2*i, start2+2*i+1, start+1+2*i, start2+2*i+2]
-        weights_idx.append(''.join(oe.parser.get_symbol(j) for j in idx))
-    out_idx = ''.join(weights_idx)+''.join(x_idx)
-    counts = Counter(out_idx)
-    out_idx = ''.join(ind for ind, count in counts.items() if count == 1)
-
-    return ','.join(i for i in weights_idx) + ',' + ','.join(i for i in x_idx) + '->' + out_idx
+        dimW, dimX = weights[i].shape, x[i].shape
+        contr = tl.einsum('abc,debf->adecf', x[i], weights[i])
+        contr_layer.append(tl.reshape(contr, (dimW[0]*dimX[0], dimW[1], dimW[3]*dimX[2])))
+    return TTTensor(contr_layer)
