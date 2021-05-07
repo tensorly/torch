@@ -339,6 +339,7 @@ class TTTensor(FactorizedTensor, name='TT'):
             factors = tensor_train(tensor, self.rank)
         
         self.factors = FactorList([nn.Parameter(f) for f in factors])
+        self.rank = [f.shape[0] for f in factors] + [1]
         return self
 
     @property

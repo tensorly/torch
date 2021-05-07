@@ -329,6 +329,7 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
         """
         return self._name
 
+
 class TensorizedMatrix(nn.Module, metaclass=MetaFactorizedTensor):
     """Tensor representing one or a batch of tensorized vectors/matrices/tensors
 
