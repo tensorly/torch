@@ -425,7 +425,7 @@ class TTTensor(FactorizedTensor, name='TT'):
         # Important: don't increment the order before accessing factors which uses order!
         self.order += 1
         new_rank = self.rank[mode]
-        self.rank = self.rank[:mode] + (new_rank, ) + self.rank[mode:]
+        self.rank = self.rank[:mode] + [new_rank] + self.rank[mode:]
         self.shape = self.shape[:mode] + (new_dim, ) + self.shape[mode:]
 
         # Init so the reconstruction is equivalent to concatenating the previous self new_dim times
