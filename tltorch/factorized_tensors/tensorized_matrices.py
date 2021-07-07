@@ -97,7 +97,6 @@ class CPMatrix(TensorizedMatrix, name='CP'):
         tensor = matrix.reshape((*self.n_matrices, *self.tensorized_row_shape, *self.tensorized_column_shape))
         return self.init_from_tensor(tensor, **kwargs)
 
-
     @property
     def decomposition(self):
         return self.weights, self.factors
