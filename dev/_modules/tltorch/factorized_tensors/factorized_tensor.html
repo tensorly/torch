@@ -124,55 +124,17 @@
 
   <div id="column-container">
   <div class="columns is-mobile is-centered">
-      
-      <div class="column is-10-mobile is-one-third-tablet is-3-desktop is-hidden-mobile" id="sidebar">
-    <!-- Side menu  -->
-    <aside class="sticky-nav sidebar-menu">
-<div class="sidebar-search">
-  <form class="field" id="searchbox" role="search" action="../../../search.html" method="get">
-    <!-- <label class="label" id="searchlabel">Quick search</label> -->
-    <div class="field has-addons">
-      <div class="control is-expanded">
-        <input class="input" type="text" placeholder="Search the doc" name="q" aria-labelledby="searchlabel">
-      </div>
-      <div class="control">
-        <input class="button is-info" type="submit" value="Go" />
-      </div>
-    </div>
-  </form>
-  <script>$('#searchbox').show(0);</script>
-</div>
-      
-      <div class="sidebar-menu-toc">
-      <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installing tensorly-Torch</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules/api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../dev_guide/index.html">Development guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About Us</a></li>
-</ul>
- 
-      </div>
-    </aside>
-  </div>
-  
+	
 
     <div class="column main-column">
 
       <!-- Main content  -->
-      <section class="main-content">
+      <section class="main-section">
 
         <!-- Toggle menu button -->
-            
-        <div class="side-menu-toggle">
-          <button class="button" id="toggle-sidebar" onclick="toggle_sidebar()">
-            <span class="icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
-            <span>menu</span> 
-          </button>
-        </div>
-        
+		
 
-        <div class="content">
+        <div class="content main-content">
           
   <h1>Source code for tltorch.factorized_tensors.factorized_tensor</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">math</span>
@@ -602,7 +564,7 @@
         <span class="c1"># Important: don&#39;t increment the order before accessing factors which uses order!</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="n">new_rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">mode</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[:</span><span class="n">mode</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">new_rank</span><span class="p">,</span> <span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">mode</span><span class="p">:]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[:</span><span class="n">mode</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">new_rank</span><span class="p">,</span> <span class="p">)</span>   <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">[</span><span class="n">mode</span><span class="p">:]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="n">mode</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">new_dim</span><span class="p">,</span> <span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">mode</span><span class="p">:]</span>
 
         <span class="c1"># Init so the reconstruction is equivalent to concatenating the previous self new_dim times</span>
@@ -704,13 +666,7 @@
 
         </div>
 
-            
-        <nav class="pagination" role="navigation" aria-label="pagination">
-    
-    
-</nav>
-
-        
+		
 
       </section>
 
@@ -727,10 +683,7 @@
 
     </div>
 
-        
-    
-
-    
+	
 
   </div>
   </div>

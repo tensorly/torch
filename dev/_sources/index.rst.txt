@@ -8,7 +8,6 @@
 
    .. raw:: html
 
-      <div class="container content">
       <br/><br/>
 
 .. image:: _static/logos/tensorly-torch-logo.png
@@ -104,5 +103,4 @@ tensorized linear layers, tensor dropout and more!
          Start Tensorizing!
       </a>
       </div>
-      
-      </div>
+
