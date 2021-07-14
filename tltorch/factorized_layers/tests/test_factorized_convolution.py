@@ -14,7 +14,7 @@ from ..factorized_convolution import (FactorizedConv, kernel_shape_to_factorizat
         [('CP', 'factorized'), ('CP', 'reconstructed'), ('CP', 'mobilenet'),
          ('Tucker', 'factorized'), ('Tucker', 'reconstructed'),
          ('TT', 'factorized'), ('TT', 'reconstructed')])
-def single_conv_test(factorization, implementation,
+def test_single_conv(factorization, implementation,
                      order=2, rank=0.5, rng=None, input_channels=4, output_channels=5,
                      kernel_size=3, batch_size=1, activation_size=(8, 7), device='cpu'):
     rng = tl.check_random_state(rng)

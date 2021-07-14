@@ -53,7 +53,7 @@ def convolve(x, weight, bias=None, stride=1, padding=0, dilation=1, groups=1):
         raise ValueError(f'Got tensor of order={weight.ndim} but pytorch only supports up to 3rd order (3D) Convs.')
 
 
-def general_conv1d(x, kernel, mode, stride=1, padding=0, groups=1, verbose=False):
+def general_conv1d_(x, kernel, mode, bias=None, stride=1, padding=0, groups=1, dilation=1, verbose=False):
     """General 1D convolution along the mode-th dimension
 
     Parameters
@@ -85,7 +85,7 @@ def general_conv1d(x, kernel, mode, stride=1, padding=0, groups=1, verbose=False
     x = tl.transpose(x, permutation)
     x_shape = list(x.shape)
     x = tl.reshape(x, (-1, in_channels, x_shape[-1]))
-    x = F.conv1d(x.contiguous(), kernel, stride=stride, padding=padding, groups=groups)
+    x = F.conv1d(x.contiguous(), kernel, bias=bias, stride=stride, dilation=dilation, padding=padding, groups=groups)
     x_shape[-2:] = x.shape[-2:]
     x = tl.reshape(x, x_shape)
     permutation = list(range(n_dim))[:-2]
@@ -94,6 +94,46 @@ def general_conv1d(x, kernel, mode, stride=1, padding=0, groups=1, verbose=False
     x = tl.transpose(x, permutation)
     
     return x
+
+def general_conv1d(x, kernel, mode, bias=None, stride=1, padding=0, groups=1, dilation=1, verbose=False):
+    """General 1D convolution along the mode-th dimension
+
+    Uses an ND convolution under the hood
+
+    Parameters
+    ----------
+    x : batch-dize, in_channels, K1, ..., KN
+    kernel : out_channels, in_channels/groups, K{mode}
+    mode : int
+        weight along which to perform the decomposition
+    stride : int
+    padding : int
+    groups : 1
+        typically would be equal to the number of input-channels
+        at least for CP convolutions
+
+    Returns
+    -------
+    x convolved with the given kernel, along dimension `mode`
+    """
+    if verbose:
+        print(f'Convolving {x.shape} with {kernel.shape} along mode {mode}, '
+              f'stride={stride}, padding={padding}, groups={groups}')
+
+    def _pad_value(value, mode, order, padding=1):
+        return tuple([value if i == (mode - 2) else padding for i in range(order)])
+
+    ndim = tl.ndim(x)
+    order = ndim - 2
+    for i in range(2, ndim):
+        if i != mode:
+            kernel = kernel.unsqueeze(i)
+
+    return _CONVOLUTION[order](x, kernel, bias=bias, 
+                               stride=_pad_value(stride, mode, order),
+                               padding=_pad_value(padding, mode, order, padding=0), 
+                               dilation=_pad_value(dilation, mode, order), 
+                               groups=groups)
 
 
 def tucker_conv(x, tucker_tensor, bias=None, stride=1, padding=0, dilation=1):
