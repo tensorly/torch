@@ -205,6 +205,11 @@ class FactorizedConv(nn.Module):
         return self.forward_fun(x, self.weight(indices), bias=bias, stride=self.stride[indices].tolist(), 
                                 padding=self.padding[indices].tolist(), dilation=self.dilation[indices].tolist())
 
+    def reset_parameters(self, std=0.02):
+        if self.bias is not None:
+            self.bias.data.zero_()
+        self.weight.normal_(0, std)
+
     def set(self, indices, stride=1, padding=0, dilation=1, bias=None):
         """Sets the parameters of the conv self[indices]
         """
@@ -254,6 +259,8 @@ class FactorizedConv(nn.Module):
         instance = cls(in_channels, out_channels, kernel_size, order=order, implementation=implementation, 
                        padding=padding, stride=stride, bias=(bias is not None), n_layers=n_layers,
                        factorization=factorization, rank=factorization.rank)
+        
+        instance.weight = factorization
 
         if bias is not None:
             instance.bias.data = bias
