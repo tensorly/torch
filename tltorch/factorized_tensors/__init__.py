@@ -1,5 +1,5 @@
-from .factorized_tensor import (CPTensor, TuckerTensor, TTTensor,
-                                FactorizedTensor, TTMatrix)
-from .tensorized_matrices import (TensorizedMatrix, CPMatrix, TTMatrix,
-                                  TuckerMatrix)
+from .factorized_tensors import (CPTensor, TuckerTensor, TTTensor,
+                                FactorizedTensor)
+from .tensorized_matrices import (TensorizedTensor, CPTensorized, BlockTT,
+                                  TuckerTensorized)
 from .init import tensor_init, cp_init, tucker_init, tt_init, tt_matrix_init

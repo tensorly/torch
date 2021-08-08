@@ -1,13 +1,13 @@
 import pytest 
 from torch import nn
 from ..factorized_linear import FactorizedLinear
-from ... import TensorizedMatrix
+from ... import TensorizedTensor
 
 import tensorly as tl
 tl.set_backend('pytorch')
 from tensorly import testing
 
-@pytest.mark.parametrize('factorization', ['CP', 'Tucker', 'TT', 'TTM'])
+@pytest.mark.parametrize('factorization', ['CP', 'Tucker', 'BlockTT'])
 def test_FactorizedLinear(factorization):
     random_state = 12345
     rng = tl.check_random_state(random_state)
@@ -19,7 +19,7 @@ def test_FactorizedLinear(factorization):
     data = tl.tensor(rng.random_sample((batch_size, in_features)))
 
     # Creat from a tensor factorization
-    tensor = TensorizedMatrix.new(out_shape, in_shape, rank='same', factorization=factorization)
+    tensor = TensorizedTensor.new((out_shape, in_shape), rank='same', factorization=factorization)
     tensor.normal_()
     fc = nn.Linear(in_features, out_features, bias=True)
     fc.weight.data = tensor.to_matrix()

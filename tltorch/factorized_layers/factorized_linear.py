@@ -4,7 +4,7 @@ from torch import nn
 import torch
 
 from ..functional import factorized_linear
-from ..factorized_tensors import TensorizedMatrix
+from ..factorized_tensors import TensorizedTensor
 
 # Author: Jean Kossaifi
 # License: BSD 3 clause
@@ -52,11 +52,15 @@ class FactorizedLinear(nn.Module):
 
         self.rank = rank
         self.n_layers = n_layers
-
-        if isinstance(factorization, TensorizedMatrix):
+        if n_layers > 1:
+            tensor_shape = (n_layers, out_tensorized_features, in_tensorized_features)
+        else:
+            tensor_shape = (out_tensorized_features, in_tensorized_features)
+        
+        if isinstance(factorization, TensorizedTensor):
             self.weight = factorization
         else:
-            self.weight = TensorizedMatrix.new(out_tensorized_features, in_tensorized_features, rank=rank, n_matrices=n_layers, factorization=factorization)
+            self.weight = TensorizedTensor.new(tensor_shape, rank=rank, factorization=factorization)
         self.rank = self.weight.rank
 
     def reset_parameters(self):

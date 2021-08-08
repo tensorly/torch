@@ -1,9 +1,26 @@
 import warnings
 
+import tensorly as tl
+tl.set_backend('pytorch')
 from torch import nn
+import numpy as np
 
 # Author: Jean Kossaifi
 # License: BSD 3 clause
+
+def _ensure_tuple(value):
+    """Returns a tuple if `value` isn't one already"""
+    if isinstance(value, int):
+        if value == 1:
+            return ()
+        else:
+            return (value, )
+    elif isinstance(value, tuple):
+        if value == (1,):
+            return ()
+        return tuple(value)
+    else:
+        return tuple(value)
 
 
 class MetaFactorizedTensor(type):
@@ -119,8 +136,12 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
     def __init_subclass__(cls, name, **kwargs):
         """When a subclass is created, register it in _factorizations"""
         super().__init_subclass__(**kwargs)
-        cls._factorizations[name.lower()] = cls
-        cls._name = name
+
+        if name != '':
+            cls._factorizations[name.lower()] = cls
+            cls._name = name
+        else:
+            warnings.warn(f'Creating a subclass of FactorizedTensor {cls.__name__} with no name.')
 
     def __new__(cls, *args, **kwargs):
         """Customize the creation of a factorized convolution
@@ -143,11 +164,21 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
         instance = super().__new__(cls)
 
         return instance
+    
+    def __getitem__(indices, shape):
+        """Returns raw indexed factorization, not class
+        
+        Parameters
+        ----------
+        indices
+        shape : tuple
+            shape of the tensor to index
+        """
+        raise NotImplementedError
 
     @classmethod
     def new(cls, shape, rank, factorization='CP', **kwargs):
         """Main way to create a factorized tensor
-
 
         Parameters
         ----------
@@ -177,7 +208,7 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
         return cls.new(shape, rank, **kwargs)
 
     @classmethod
-    def from_tensor(cls,tensor,  shape, rank, factorization='CP', **kwargs):
+    def from_tensor(cls, tensor, shape, rank, factorization='CP', **kwargs):
         """Create a factorized tensor by decomposing a full tensor
 
 
@@ -229,8 +260,13 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
             return self[indices]
 
     @property
+    def decomposition(self):
+        """Returns the factors and parameters composing the tensor in factorized form"""
+        raise NotImplementedError
+
+    @property
     def _factorization(self, indices=None, **kwargs):
-        """Returns the raw, unprocessed decomposition, same as `forward` but without forward hooks
+        """Returns the raw, unprocessed indexed tensor, same as `forward` but without forward hooks
         
         Parameters
         ----------
@@ -240,7 +276,7 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
         Returns
         -------
         TensorFactorization
-            tensor[indices]
+            tensor[indices] but without any forward hook applied
         """
         if indices is None:
             return self
@@ -278,7 +314,6 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
         dim
         """
         return len(self.shape)
-
 
     def size(self, index=None):
         """shape of the tensor
@@ -330,32 +365,32 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
         return self._name
 
 
-class TensorizedMatrix(nn.Module, metaclass=MetaFactorizedTensor):
-    """Tensor representing one or a batch of tensorized vectors/matrices/tensors
+class TensorizedTensor(FactorizedTensor, metaclass=MetaFactorizedTensor, name=''):
+    """Matrix in Tensorized Format
 
     .. important::
+       
+       `order` and `tensorized_shape` correspond to the underlying tensor
+       
+       `shape`, `dim` and `ndim` correspond to the matrix
 
-       All tensor factorization must have an `order` parameter
     """
     _factorizations = dict()
     
     def __init_subclass__(cls, name, **kwargs):
         """When a subclass is created, register it in _factorizations"""
-        super().__init_subclass__(**kwargs)
         cls._factorizations[name.lower()] = cls
         cls._name = name
 
     def __new__(cls, *args, **kwargs):
-        """Customize the creation of a factorized convolution
-
-        Takes as first parameter `factorization`, a string that specifies with subclass to use
+        """Customize the creation of a matrix in tensorized form
 
         Returns
         -------
-        FactorizedTensor._factorizations[factorization.lower()]
-            subclass implementing the specified tensor factorization
+        TensorizedMatrix._factorizations[factorization.lower()]
+            subclass implementing the specified tensorized matrix
         """
-        if cls is TensorizedMatrix:
+        if cls is TensorizedTensor:
             factorization = kwargs.get('factorization')
             try:
                 cls = cls._factorizations[factorization.lower()]
@@ -368,16 +403,12 @@ class TensorizedMatrix(nn.Module, metaclass=MetaFactorizedTensor):
         return instance
 
     @classmethod
-    def new(cls, tensorized_row_shape, tensorized_column_shape, rank, n_matrices=(), factorization='CP', **kwargs):
+    def new(cls, tensorized_shape, rank, factorization='CP', **kwargs):
         """Main way to create a Tensorized Matrix
-
 
         Parameters
         ----------
-        tensorized_row_shape : tuple[int]
-            The first dimension (rows) of the matrix will be tensorized to that shape
-        tensorized_column_shape : tuple[int]
-            The second dimension (columns) of the matrix will be tensorized to that shape
+        tensorized_shape : tuple[int]
         rank : int, 'same' or float
             rank of the decomposition
         n_matrices : tuple or int, default is ()
@@ -387,8 +418,8 @@ class TensorizedMatrix(nn.Module, metaclass=MetaFactorizedTensor):
 
         Returns
         -------
-        TensorizedMatrix
-            Matrix in Tensorized and Factorized form.
+        TensorizedTensor
+            Tensor in Tensorized and Factorized form.
 
         Raises
         ------
@@ -400,7 +431,8 @@ class TensorizedMatrix(nn.Module, metaclass=MetaFactorizedTensor):
         except KeyError:
             raise ValueError(f'Got factorization={factorization} but expected'
                              f'one of {cls._factorizations.keys()}')
-        return cls.new(tensorized_row_shape, tensorized_column_shape, rank, n_matrices=n_matrices, **kwargs)
+
+        return cls.new(tensorized_shape, rank, **kwargs)
     
     @classmethod
     def from_matrix(cls, matrix, tensorized_row_shape, tensorized_column_shape, rank, factorization='CP', **kwargs):
@@ -432,55 +464,13 @@ class TensorizedMatrix(nn.Module, metaclass=MetaFactorizedTensor):
         ValueError
             If the factorization given does not exist. 
         """
-        try:
-            cls = cls._factorizations[factorization.lower()]
-        except KeyError:
-            raise ValueError(f'Got factorization={factorization} but expected'
-                             f'one of {cls._factorizations.keys()}')
-        return cls.from_matrix(matrix, tensorized_row_shape, tensorized_column_shape, rank, **kwargs)
-
-    def forward(self, indices=None, **kwargs):
-        """To use a tensor factorization within a network, use ``tensor.forward``, or, equivalently, ``tensor()``
-
-        Parameters
-        ----------
-        indices : int or tuple[int], optional
-            use to index the tensor during the forward pass, by default None
-
-        Returns
-        -------
-        TensorizedMatrix
-            tensor[indices]
-        """
-        if indices is None:
-            return self
+        if matrix.ndim > 2:
+            batch_dims = _ensure_tuple(tl.shape(matrix)[:-2])
         else:
-            return self[indices]
+            batch_dims = ()
+        tensor = matrix.reshape((*batch_dims, *tensorized_row_shape, *tensorized_column_shape))
+        return cls.from_tensor(tensor, batch_dims+tensorized_row_shape+tensorized_column_shape, rank,  **kwargs)
 
-    @property
-    def _factorization(self, indices=None, **kwargs):
-        """Returns the raw, unprocessed decomposition, same as `forward` but without forward hooks
-        
-        Parameters
-        ----------
-        indices : int, or tuple of int
-            use to index the tensor
-        
-        Returns
-        -------
-        TensorizedMatrix
-            tensor[indices]
-        """
-        if indices is None:
-            return self
-        else:
-            return self[indices]
-
-    def to_tensor(self):
-        """Reconstruct the full tensor from its factorized form
-        """ 
-        warnings.warn(f'{self} is being reconstructed into a full tensor, consider operating on the decomposed form.')
-    
     def to_matrix(self):
         """Reconstruct the full matrix from the factorized tensorization
 
@@ -488,78 +478,19 @@ class TensorizedMatrix(nn.Module, metaclass=MetaFactorizedTensor):
         """ 
         warnings.warn(f'{self} is being reconstructed into a matrix, consider operating on the decomposed form.')
 
-        full = self.to_tensor()
-        if self.n_matrices == ():
-            return full.reshape(self.shape)
-        else:
-            return full.reshape(self.n_matrices + self.shape)
-
-    def dim(self):
-        """Order of the tensor
-        
-        Notes
-        -----
-        fact_tensor.dim() == fact_tensor.ndim
-
-        See Also 
-        --------
-        ndim
-        """
-        return len(self.shape)
-
-    def size(self, index=None):
-        """shape of the tensor
-
-        Parameters
-        ----------
-        index : int, or tuple, default is None
-            if not None, returns tensor.shape[index]
-
-        See Also 
-        --------
-        shape
-        """
-        if index is None:
-            return self.shape
-        else:
-            return self.shape[index]
-
+        return self.to_tensor().reshape(self.shape)
+    
     @property
-    def ndim(self):
-        """Order of the tensor
-        
-        Notes
-        -----
-        fact_tensor.dim() == fact_tensor.ndim
+    def tensor_shape(self):
+        return sum([(e,) if isinstance(e, int) else tuple(e) for e in self.tensorized_shape], ())
 
-        See Also 
-        --------
-        dim
-        """
-        return len(self.shape)
-
-    def normal_(self, mean, std):
-        """Inialize the factors of the factorization such that the **reconstruction** follows a Gaussian distribution
-
-        Parameters
-        ----------
-        mean : float, currently only 0 is supported
-        std : float
-            standard deviation
-        
-        Returns
-        -------
-        self
-        """
-        if mean != 0:
-            raise ValueError(f'Currently only mean=0 is supported, but got mean={mean}')
-
+    def init_from_matrix(self, matrix, **kwargs):
+        tensor = matrix.reshape(self.tensor_shape)
+        return self.init_from_tensor(tensor, **kwargs)
+    
     def __repr__(self):
-        msg = f'{self.__class__.__name__}, shape={self.shape}, tensorized_row_shape={self.tensorized_row_shape}, '
-        msg += f' tensorized_column_shape={self.tensorized_column_shape}, rank={self.rank}, '
-        if self.n_matrices:
-            msg += f'n_matrices={self.n_matrices} '
-        msg += ')'
+        msg = f'{self.__class__.__name__}, shape={self.shape}, tensorized_shape={self.tensorized_shape}, '
+        msg += f'rank={self.rank})'
         return msg
 
     def __torch_function__(self, func, types, args=(), kwargs=None):
@@ -568,9 +499,14 @@ class TensorizedMatrix(nn.Module, metaclass=MetaFactorizedTensor):
 
         args = [t.to_matrix() if hasattr(t, 'to_matrix') else t for t in args]
         return func(*args, **kwargs)
-    
-    @property
-    def name(self):
-        """Factorization name ('tucker', 'tt', 'cp', ...)
+
+    def __getitem__(self, indices):
+        """Outer indexing of a factorized tensor
+        
+        .. important::
+
+            We use outer indexing,  not vectorized indexing! 
+            See e.g. https://numpy.org/neps/nep-0021-advanced-indexing.html
+        
         """
-        return self._name
+        raise NotImplementedError

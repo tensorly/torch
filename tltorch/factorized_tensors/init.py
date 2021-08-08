@@ -7,7 +7,7 @@
 import torch
 import math
 import numpy as np
-from .factorized_tensor import FactorizedTensor
+from .factorized_tensors import FactorizedTensor
 
 import tensorly as tl
 tl.set_backend('pytorch')

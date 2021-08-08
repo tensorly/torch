@@ -8,6 +8,7 @@ from . import factorized_layers
 
 from .factorized_layers import FactorizedLinear, FactorizedConv, TRL, TCL
 from .factorized_tensors import FactorizedTensor, CPTensor, TTTensor, TuckerTensor, tensor_init
-from .factorized_tensors import TensorizedMatrix, CPMatrix, TuckerMatrix, TTMatrix
+from .factorized_tensors import (TensorizedTensor, CPTensorized, BlockTT,
+                                  TuckerTensorized)
 from .tensor_hooks import (tensor_lasso, remove_tensor_lasso,
                            tensor_dropout, remove_tensor_dropout)
