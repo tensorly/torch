@@ -9,6 +9,7 @@ It builds on top of `TensorLy <tensorly.org>`_ and enables anyone to use tensor 
 
 .. toctree::
 
+   factorized_tensors
    trl
    factorized_conv
    tensorized_linear

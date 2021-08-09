@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tltorch.factorized_tensors.factorized_tensor &#8212; TensorLy-Torch 0.2.0 documentation</title> 
+    <title>tltorch.factorized_tensors.factorized_tensors &#8212; TensorLy-Torch 0.2.0 documentation</title> 
 <link rel="stylesheet" href="../../../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../../../_static/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../../../_static/favicon/favicon-32x32.png">
@@ -136,8 +136,9 @@
 
         <div class="content main-content">
           
-  <h1>Source code for tltorch.factorized_tensors.factorized_tensor</h1><div class="highlight"><pre>
+  <h1>Source code for tltorch.factorized_tensors.factorized_tensors</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Iterable</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">torch</span>
@@ -146,7 +147,7 @@
 <span class="kn">import</span> <span class="nn">tensorly</span> <span class="k">as</span> <span class="nn">tl</span>
 <span class="n">tl</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="s1">&#39;pytorch&#39;</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">tensorly</span> <span class="kn">import</span> <span class="n">tenalg</span>
-<span class="kn">from</span> <span class="nn">tensorly.decomposition</span> <span class="kn">import</span> <span class="n">parafac</span><span class="p">,</span> <span class="n">tucker</span><span class="p">,</span> <span class="n">tensor_train</span><span class="p">,</span> <span class="n">tensor_train_matrix</span>
+<span class="kn">from</span> <span class="nn">tensorly.decomposition</span> <span class="kn">import</span> <span class="n">parafac</span><span class="p">,</span> <span class="n">tucker</span><span class="p">,</span> <span class="n">tensor_train</span>
 
 <span class="kn">from</span> <span class="nn">.core</span> <span class="kn">import</span> <span class="n">FactorizedTensor</span>
 <span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">FactorList</span>
@@ -235,7 +236,7 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
             <span class="c1"># Index part of a factor</span>
             <span class="n">mixing_factor</span><span class="p">,</span> <span class="o">*</span><span class="n">factors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span>
-            <span class="n">factors</span> <span class="o">=</span> <span class="p">[</span><span class="n">mixing_factor</span><span class="p">[</span><span class="n">indices</span><span class="p">],</span> <span class="o">*</span><span class="n">factors</span><span class="p">]</span>
+            <span class="n">factors</span> <span class="o">=</span> <span class="p">[</span><span class="n">mixing_factor</span><span class="p">[</span><span class="n">indices</span><span class="p">,</span> <span class="p">:],</span> <span class="o">*</span><span class="n">factors</span><span class="p">]</span>
             <span class="n">weights</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">factors</span><span class="p">)</span>
 
@@ -249,14 +250,14 @@
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Ellipsis is not yet supported, yet got indices=</span><span class="si">{</span><span class="n">indices</span><span class="si">}</span><span class="s1"> which contains one.&#39;</span><span class="p">)</span>
 
                 <span class="n">mixing_factor</span><span class="p">,</span> <span class="o">*</span><span class="n">factors</span> <span class="o">=</span> <span class="n">factors</span>
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span>  <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
                     <span class="k">if</span> <span class="n">factors</span> <span class="ow">or</span> <span class="n">index_factors</span><span class="p">:</span>
                         <span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span><span class="o">*</span><span class="n">mixing_factor</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:]</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="c1"># No factors left</span>
                         <span class="k">return</span> <span class="n">tl</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="o">*</span><span class="n">mixing_factor</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:])</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">index_factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mixing_factor</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+                    <span class="n">index_factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mixing_factor</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:])</span>
             
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">index_factors</span> <span class="o">+</span> <span class="n">factors</span><span class="p">)</span>
         <span class="c1"># return self.__class__(*tl.cp_indexing(self.weights, self.factors, indices))</span>
@@ -300,11 +301,14 @@
 <span class="sd">    shape</span>
 <span class="sd">    rank</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">core</span><span class="p">,</span> <span class="n">factors</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">core</span><span class="p">,</span> <span class="n">factors</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">tucker_tensor</span><span class="o">.</span><span class="n">_validate_tucker_tensor</span><span class="p">((</span><span class="n">core</span><span class="p">,</span> <span class="n">factors</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">shape</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">rank</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">shape</span><span class="p">,</span> <span class="n">rank</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">tucker_tensor</span><span class="o">.</span><span class="n">_validate_tucker_tensor</span><span class="p">((</span><span class="n">core</span><span class="p">,</span> <span class="n">factors</span><span class="p">))</span>
+        
         <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-
         <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;core&#39;</span><span class="p">,</span> <span class="n">core</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">factors</span> <span class="o">=</span> <span class="n">FactorList</span><span class="p">(</span><span class="n">factors</span><span class="p">)</span>
     
@@ -401,12 +405,12 @@
             <span class="c1"># Select one dimension of one mode</span>
             <span class="n">mixing_factor</span><span class="p">,</span> <span class="o">*</span><span class="n">factors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span>
             <span class="n">core</span> <span class="o">=</span> <span class="n">tenalg</span><span class="o">.</span><span class="n">mode_dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="p">,</span> <span class="n">mixing_factor</span><span class="p">[</span><span class="n">indices</span><span class="p">,</span> <span class="p">:],</span> <span class="mi">0</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">TuckerTensor</span><span class="p">(</span><span class="n">core</span><span class="p">,</span> <span class="n">factors</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">core</span><span class="p">,</span> <span class="n">factors</span>
         
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
             <span class="n">mixing_factor</span><span class="p">,</span> <span class="o">*</span><span class="n">factors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span>
-            <span class="n">factors</span> <span class="o">=</span> <span class="p">[</span><span class="n">mixing_factor</span><span class="p">[</span><span class="n">indices</span><span class="p">],</span> <span class="o">*</span><span class="n">factors</span><span class="p">]</span>
-            <span class="k">return</span> <span class="n">TuckerTensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="p">,</span> <span class="n">factors</span><span class="p">)</span>
+            <span class="n">factors</span> <span class="o">=</span> <span class="p">[</span><span class="n">mixing_factor</span><span class="p">[</span><span class="n">indices</span><span class="p">,</span> <span class="p">:],</span> <span class="o">*</span><span class="n">factors</span><span class="p">]</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="p">,</span> <span class="n">factors</span><span class="p">)</span>
         
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># Index multiple dimensions</span>
@@ -418,15 +422,15 @@
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Ellipsis is not yet supported, yet got indices=</span><span class="si">{</span><span class="n">indices</span><span class="si">}</span><span class="s1">, indices[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">]=</span><span class="si">{</span><span class="n">index</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                     <span class="n">modes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-                    <span class="n">factors_contract</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">factor</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+                    <span class="n">factors_contract</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">factor</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:])</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">factor</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+                    <span class="n">factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">factor</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:])</span>
 
             <span class="n">core</span> <span class="o">=</span> <span class="n">tenalg</span><span class="o">.</span><span class="n">multi_mode_dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="p">,</span> <span class="n">factors_contract</span><span class="p">,</span> <span class="n">modes</span><span class="o">=</span><span class="n">modes</span><span class="p">)</span>
             <span class="n">factors</span> <span class="o">=</span> <span class="n">factors</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
 
             <span class="k">if</span> <span class="n">factors</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">TuckerTensor</span><span class="p">(</span><span class="n">core</span><span class="p">,</span> <span class="n">factors</span><span class="p">)</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">core</span><span class="p">,</span> <span class="n">factors</span><span class="p">)</span>
 
             <span class="c1"># Fully contracted tensor</span>
             <span class="k">return</span> <span class="n">core</span></div>
@@ -575,93 +579,10 @@
             <span class="c1"># Below: &lt;=&gt; static prediciton</span>
             <span class="c1"># new_factor[:, new_dim//2, :] = torch.eye(new_rank)</span>
 
-
         <span class="n">factors</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">new_factor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">factors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">device</span><span class="p">)))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">factors</span> <span class="o">=</span> <span class="n">FactorList</span><span class="p">(</span><span class="n">factors</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span></div></div>
-
-
-<span class="k">class</span> <span class="nc">TTMatrix</span><span class="p">(</span><span class="n">FactorizedTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;TTM&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Tensor-Train Matrix (MPO) Factorization</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    factors</span>
-<span class="sd">    shape</span>
-<span class="sd">    rank</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">factors</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">shape</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">rank</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">tt_matrix</span><span class="o">.</span><span class="n">_validate_tt_matrix</span><span class="p">(</span><span class="n">factors</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">shape</span><span class="p">,</span> <span class="n">rank</span>
-
-        <span class="n">n_dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
-        <span class="n">tensorized_rows_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="p">[:</span><span class="n">n_dim</span><span class="p">])</span>
-        <span class="n">tensorized_columns_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="p">[</span><span class="n">n_dim</span><span class="p">:])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">tensorized_rows_shape</span><span class="p">,</span> <span class="n">tensorized_columns_shape</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">factors</span> <span class="o">=</span> <span class="n">FactorList</span><span class="p">(</span><span class="n">factors</span><span class="p">)</span>
-    
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-
-        <span class="n">n_dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensorized_shape</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
-        <span class="k">if</span> <span class="n">n_dim</span><span class="o">*</span><span class="mi">2</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensorized_shape</span><span class="p">):</span>
-            <span class="n">n_matrices</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">n_matrices</span> <span class="o">=</span> <span class="n">tensorized_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">tensorized_shape</span> <span class="o">=</span> <span class="n">tensorized_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-
-        <span class="n">rank</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">tt_matrix</span><span class="o">.</span><span class="n">validate_tt_matrix_rank</span><span class="p">(</span><span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
-
-        <span class="n">tensorized_row_shape</span> <span class="o">=</span> <span class="n">tensorized_shape</span><span class="p">[:</span><span class="n">n_dim</span><span class="p">]</span>
-        <span class="n">tensorized_column_shape</span> <span class="o">=</span> <span class="n">tensorized_shape</span><span class="p">[</span><span class="n">n_dim</span><span class="p">:]</span>
-
-        <span class="k">if</span> <span class="n">n_matrices</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">factors</span> <span class="o">=</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">rank</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">tensorized_row_shape</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">tensorized_column_shape</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">rank</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span>\
-                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tensorized_row_shape</span><span class="p">))]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">factors</span> <span class="o">=</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">n_matrices</span><span class="p">,</span> <span class="n">rank</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">tensorized_row_shape</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">tensorized_column_shape</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">rank</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span>\
-                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tensorized_row_shape</span><span class="p">))]</span>
-        
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">factors</span><span class="p">)</span>
-
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_tensor</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">tensorized_shape</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">shape</span>
-        <span class="n">rank</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">tt_matrix</span><span class="o">.</span><span class="n">validate_tt_matrix_rank</span><span class="p">(</span><span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
-
-        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-            <span class="n">factors</span> <span class="o">=</span> <span class="n">tensor_train_matrix</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        
-        <span class="k">return</span> <span class="bp">cls</span><span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">factors</span><span class="p">])</span>
-
-    <span class="k">def</span> <span class="nf">init_from_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-            <span class="n">factors</span> <span class="o">=</span> <span class="n">tensor_train_matrix</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        
-        <span class="bp">self</span><span class="o">.</span><span class="n">factors</span> <span class="o">=</span> <span class="n">FactorList</span><span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">factors</span><span class="p">])</span>
-        <span class="k">return</span> <span class="bp">self</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">decomposition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span>
-
-    <span class="k">def</span> <span class="nf">to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">tl</span><span class="o">.</span><span class="n">tt_matrix_to_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">decomposition</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;shape=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">, tensorized_shape=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="si">}</span><span class="s1">, rank=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="si">}</span><span class="s1">, order=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="si">}</span><span class="s1">&#39;</span>
-    
-    <span class="k">def</span> <span class="nf">__torch_function__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(),</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
-
-        <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">to_tensor</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s1">&#39;to_tensor&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 
         </div>
