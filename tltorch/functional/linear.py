@@ -1,7 +1,7 @@
 import numpy as np
 import torch
 import torch.nn.functional as F
-from ..factorized_tensors import TensorizedMatrix
+from ..factorized_tensors import TensorizedTensor
 
 import tensorly as tl
 tl.set_backend('pytorch')
@@ -19,11 +19,11 @@ def factorized_linear(x, weight, bias=None, in_features=None):
     if not torch.is_tensor(weight):
         # Weights are in the form (out_features, in_features) 
         # PyTorch's linear returns dot(x, weight.T)!
-        if isinstance(weight, TensorizedMatrix):
+        if isinstance(weight, TensorizedTensor):
             weight = weight.to_matrix()
         else:
-            weight = torch.reshape(weight.to_tensor(), (-1, in_features))
+            weight = weight.to_tensor()
 
 
-    return F.linear(x, weight, bias=bias)
+    return F.linear(x, torch.reshape(weight, (-1, in_features)), bias=bias)
 

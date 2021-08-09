@@ -1,10 +1,13 @@
 import numpy as np
 import pytest
-from tensorly.testing import assert_array_almost_equal
+import math
 import torch
 from torch import testing
 
-from ..factorized_tensor import FactorizedTensor, CPTensor, TuckerTensor, TTTensor
+from tltorch.factorized_tensors.tensorized_matrices import CPTensorized, TuckerTensorized, BlockTT
+from tltorch.factorized_tensors.core import TensorizedTensor
+
+from ..factorized_tensors import FactorizedTensor, CPTensor, TuckerTensor, TTTensor
 
 @pytest.mark.parametrize('factorization', ['CP', 'Tucker', 'TT'])
 def test_FactorizedTensor(factorization):
@@ -35,6 +38,46 @@ def test_FactorizedTensor(factorization):
         res = fact_tensor[idx]
         if not torch.is_tensor(res):
             res = res.to_tensor()
+        testing.assert_allclose(reconstruction[idx], res)
+
+
+@pytest.mark.parametrize('factorization', ['BlockTT', 'CP']) #['CP', 'Tucker', 'BlockTT'])
+def test_TensorizedMatrix(factorization):
+    """Test for TensorizedMatrix"""
+    row_tensor_shape = (4, 3, 2)
+    column_tensor_shape = (5, 3, 2)
+    row_shape = math.prod(row_tensor_shape)
+    column_shape = math.prod(column_tensor_shape)
+    tensor_shape = (row_tensor_shape, column_tensor_shape)
+
+    fact_tensor = TensorizedTensor.new(tensor_shape,
+                                       rank=0.5, factorization=factorization)
+    fact_tensor.normal_()
+
+    # Check that the correct type of factorized tensor is created
+    assert fact_tensor._name.lower() == factorization.lower()
+    mapping = dict(CP=CPTensorized, Tucker=TuckerTensorized, BlockTT=BlockTT)
+    assert isinstance(fact_tensor, mapping[factorization])
+
+    # Check that the matrix has the right shape
+    reconstruction = fact_tensor.to_matrix()
+    assert fact_tensor.shape[0] == row_shape == reconstruction.shape[0]
+    assert fact_tensor.shape[1] == column_shape == reconstruction.shape[1]
+    assert fact_tensor.ndim == 2
+
+    # Check that indexing the factorized tensor returns the correct result
+    # np_s converts intuitive array indexing to proper tuples
+    indices = [
+        np.s_[:, :], # = (slice(None), slice(None))
+        np.s_[:, 2],
+        np.s_[2, 3],
+        np.s_[1, :]
+    ]
+    for idx in indices:
+        assert tuple(reconstruction[idx].shape) == tuple(fact_tensor[idx].shape)
+        res = fact_tensor[idx]
+        if not torch.is_tensor(res):
+            res = res.to_matrix()
         testing.assert_allclose(reconstruction[idx], res)
 
 
