@@ -191,7 +191,7 @@ class TuckerTensor(FactorizedTensor, name='Tucker'):
         with torch.no_grad():
             core, factors = tucker(tensor, rank, **kwargs)
         
-        return cls(nn.Parameter(core.contiguous), [nn.Parameter(f) for f in factors])
+        return cls(nn.Parameter(core.contiguous()), [nn.Parameter(f.contiguous()) for f in factors])
 
     def init_from_tensor(self, tensor, unsqueezed_modes=None, unsqueezed_init='average', **kwargs):
         """Initialize the tensor factorization from a tensor
