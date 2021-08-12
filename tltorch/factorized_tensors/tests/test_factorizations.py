@@ -42,13 +42,14 @@ def test_FactorizedTensor(factorization):
 
 
 @pytest.mark.parametrize('factorization', ['BlockTT', 'CP']) #['CP', 'Tucker', 'BlockTT'])
-def test_TensorizedMatrix(factorization):
+@pytest.mark.parametrize('batch_size', [(), (4,)])
+def test_TensorizedMatrix(factorization, batch_size):
     """Test for TensorizedMatrix"""
     row_tensor_shape = (4, 3, 2)
     column_tensor_shape = (5, 3, 2)
     row_shape = math.prod(row_tensor_shape)
     column_shape = math.prod(column_tensor_shape)
-    tensor_shape = (row_tensor_shape, column_tensor_shape)
+    tensor_shape = batch_size + (row_tensor_shape, column_tensor_shape)
 
     fact_tensor = TensorizedTensor.new(tensor_shape,
                                        rank=0.5, factorization=factorization)
@@ -61,9 +62,14 @@ def test_TensorizedMatrix(factorization):
 
     # Check that the matrix has the right shape
     reconstruction = fact_tensor.to_matrix()
-    assert fact_tensor.shape[0] == row_shape == reconstruction.shape[0]
-    assert fact_tensor.shape[1] == column_shape == reconstruction.shape[1]
-    assert fact_tensor.ndim == 2
+    if batch_size:
+        assert fact_tensor.shape[1] == row_shape == reconstruction.shape[1]
+        assert fact_tensor.shape[2] == column_shape == reconstruction.shape[2]
+        assert fact_tensor.ndim == 3
+    else:
+        assert fact_tensor.shape[0] == row_shape == reconstruction.shape[0]
+        assert fact_tensor.shape[1] == column_shape == reconstruction.shape[1]
+        assert fact_tensor.ndim == 2
 
     # Check that indexing the factorized tensor returns the correct result
     # np_s converts intuitive array indexing to proper tuples

@@ -28,7 +28,6 @@ def tensorized_shape_to_shape(tensorized_shape):
 class CPTensorized(TensorizedTensor, CPTensor, name='CP'):
     
     def __init__(self, weights, factors, tensorized_shape, rank=None):
-    
         super().__init__(weights, factors, tensorized_shape, rank)
 
         # Modify only what varies from the Tensor case
@@ -37,8 +36,8 @@ class CPTensorized(TensorizedTensor, CPTensor, name='CP'):
 
     @classmethod
     def new(cls, tensorized_shape, rank, **kwargs):
-        rank = tl.cp_tensor.validate_cp_rank(tensorized_shape, rank)
         flattened_tensorized_shape = sum([[e] if isinstance(e, int) else list(e) for e in tensorized_shape], [])
+        rank = tl.cp_tensor.validate_cp_rank(flattened_tensorized_shape, rank)
 
         # Register the parameters
         weights = nn.Parameter(torch.Tensor(rank))
@@ -100,9 +99,10 @@ class CPTensorized(TensorizedTensor, CPTensor, name='CP'):
                 factors = factors[len(shape):]
         
         indexed_factors.extend(factors)
-        output_shape += [f.shape[0] for f in factors]
+        output_shape.extend(self.tensorized_shape[len(indices):])
         
         if indexed_factors:
+            print(output_shape)
             return self.__class__(weights, indexed_factors, tensorized_shape=output_shape)
         return tl.sum(weights)
 
@@ -177,19 +177,36 @@ class BlockTT(TensorizedTensor, name='BlockTT'):
         return self.factors
 
     def to_tensor(self):
-        ndim = len(self.factors)
-        n_modes = self.factors[0].ndim - 2
-
-        order = sum([list(range(i, ndim*n_modes, n_modes)) for i in range(n_modes)], [])
-
+        start = ord('d')
+        in1_eq = []
+        in2_eq = []
+        out_eq = []
+        for i, s in enumerate(self.tensorized_shape):
+            in1_eq.append(start+i)
+            if isinstance(s, int):
+                in2_eq.append(start+i)
+                out_eq.append(start+i)
+            else:
+                in2_eq.append(start+self.order+i)
+                out_eq.append(start+i)
+                out_eq.append(start+self.order+i)
+        in1_eq = ''.join(chr(i) for i in in1_eq)
+        in2_eq = ''.join(chr(i) for i in in2_eq)
+        out_eq = ''.join(chr(i) for i in out_eq)
+        equation = f'a{in1_eq}b,b{in2_eq}c->a{out_eq}c'
+        
         for i, factor in enumerate(self.factors):
             if not i:
                 res = factor
             else:
-                res = torch.tensordot(res, factor, ([-1], [0]))
+                out_shape = list(res.shape)
+                for i, s in enumerate(self.tensorized_shape):
+                    if not isinstance(s, int):
+                        out_shape[i+1] *= factor.shape[i+1]
+                out_shape[-1] = factor.shape[-1]
+                res = tl.reshape(tl.einsum(equation, res, factor), out_shape)
 
-        res = tl.transpose(res.squeeze(0).squeeze(-1), order)
-        return tl.reshape(res, self.shape)
+        return tl.reshape(res.squeeze(0).squeeze(-1), self.tensor_shape)
 
     def __torch_function__(self, func, types, args=(), kwargs=None):
         if kwargs is None:
@@ -206,6 +223,8 @@ class BlockTT(TensorizedTensor, name='BlockTT'):
         if len(indices) < self.ndim:
             indices = list(indices)
             indices.extend([slice(None)]*(self.ndim - len(indices)))
+        elif len(indices) > self.ndim:
+            indices = [indices] # We're only indexing the first dimension
 
         output_shape = []
         indexed_factors = []
@@ -228,7 +247,7 @@ class BlockTT(TensorizedTensor, name='BlockTT'):
         
         for (index, shape) in zip(indices, self.tensorized_shape):
             if isinstance(shape, int):
-                # We are indexing a "regular" mode, not a tensorized one            
+                # We are indexing a "batched" mode, not a tensorized one            
                 if not isinstance(index, (np.integer, int)):
                     if isinstance(index, slice):
                         index = list(range(*index.indices(shape)))
