@@ -97,17 +97,17 @@ def tt_init(tt_tensor, std=0.02):
     return tt_tensor
 
 
-def tt_matrix_init(tt_matrix, std=0.02):
-    """Initializes directly the weights and factors of a TT-Matrix decomposition so the reconstruction has the specified std and 0 mean
+def block_tt_init(block_tt, std=0.02):
+    """Initializes directly the weights and factors of a BlockTT decomposition so the reconstruction has the specified std and 0 mean
 
     Parameters
     ----------
-    tt_matrix : Matrix in the tensor-train format
+    block_tt : Matrix in the tensor-train format
     std : float, default is 0.02
         the desired standard deviation of the full (reconstructed) tensor
     
     Notes
     -----
-    We assume the given factors form a correct TT-Matrix decomposition, no checks are done here.
+    We assume the given factors form a correct Block-TT decomposition, no checks are done here.
     """
-    return tt_init(tt_matrix, std=std)
+    return tt_init(block_tt, std=std)

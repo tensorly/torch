@@ -107,7 +107,6 @@ class CPTensorized(TensorizedTensor, CPTensor, name='CP'):
         return tl.sum(weights)
 
 
-
 class TuckerTensorized(TensorizedTensor, TuckerTensor, name='Tucker'):
     
     def __init__(self, core, factors, tensorized_shape, rank=None):
@@ -207,13 +206,6 @@ class BlockTT(TensorizedTensor, name='BlockTT'):
                 res = tl.reshape(tl.einsum(equation, res, factor), out_shape)
 
         return tl.reshape(res.squeeze(0).squeeze(-1), self.tensor_shape)
-
-    def __torch_function__(self, func, types, args=(), kwargs=None):
-        if kwargs is None:
-            kwargs = {}
-
-        args = [t.to_tensor() if hasattr(t, 'to_tensor') else t for t in args]
-        return func(*args, **kwargs)
 
     def __getitem__(self, indices):
         factors = self.factors
@@ -319,3 +311,23 @@ class BlockTT(TensorizedTensor, name='BlockTT'):
             return res.squeeze()
         else:
             return self.__class__(factors, output_shape, self.rank)
+
+    def normal_(self, mean=0, std=1):
+        if mean != 0:
+            raise ValueError(f'Currently only mean=0 is supported, but got mean={mean}')
+            
+        r = np.prod(self.rank)
+        std_factors = (std/r)**(1/self.order)
+
+        with torch.no_grad():
+            for factor in self.factors:
+                factor.data.normal_(0, std_factors)
+        return self
+
+    def __torch_function__(self, func, types, args=(), kwargs=None):
+        if kwargs is None:
+            kwargs = {}
+
+        args = [t.to_matrix() if hasattr(t, 'to_matrix') else t for t in args]
+        return func(*args, **kwargs)
+
