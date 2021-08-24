@@ -25,13 +25,17 @@ def is_tensorized_shape(shape):
 def tensorized_shape_to_shape(tensorized_shape):
     return [s if isinstance(s, int) else np.prod(s) for s in tensorized_shape]
 
-class CPTensorized(TensorizedTensor, CPTensor, name='CP'):
+class CPTensorized(CPTensor, TensorizedTensor, name='CP'):
     
     def __init__(self, weights, factors, tensorized_shape, rank=None):
-        super().__init__(weights, factors, tensorized_shape, rank)
+        tensor_shape = sum([(e,) if isinstance(e, int) else tuple(e) for e in tensorized_shape], ())
+
+        super().__init__(weights, factors, tensor_shape, rank)
 
         # Modify only what varies from the Tensor case
         self.shape = tensorized_shape_to_shape(tensorized_shape)
+        # self.tensor_shape = tensor_shape
+        self.order = len(tensor_shape)
         self.tensorized_shape = tensorized_shape
 
     @classmethod
