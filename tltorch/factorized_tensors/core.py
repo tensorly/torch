@@ -1,3 +1,4 @@
+from tltorch.factorized_tensors.init import tensor_init
 import warnings
 
 import tensorly as tl
@@ -364,6 +365,9 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
         """
         return self._name
 
+    @property
+    def tensor_shape(self):
+        return self.shape
 
 class TensorizedTensor(FactorizedTensor, metaclass=MetaFactorizedTensor, name=''):
     """Matrix in Tensorized Format

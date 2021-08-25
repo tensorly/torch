@@ -208,7 +208,7 @@ class FactorizedConv(nn.Module):
     def reset_parameters(self, std=0.02):
         if self.bias is not None:
             self.bias.data.zero_()
-        self.weight.normal_(0, std)
+        self.weight = self.weight.normal_(0, std)
 
     def set(self, indices, stride=1, padding=0, dilation=1, bias=None):
         """Sets the parameters of the conv self[indices]
@@ -219,7 +219,6 @@ class FactorizedConv(nn.Module):
         if bias is not None:
             self.bias.data[indices] = bias.data
             self.has_bias[indices] = True
-
 
     def get_conv(self, indices):
         """Returns a sub-convolutional layer from the joint parametrize main-convolution
@@ -307,6 +306,8 @@ class FactorizedConv(nn.Module):
             with torch.no_grad():
                 kernel_tensor = kernel_to_tensor(factorization, conv_layer.weight.data)
                 instance.weight.init_from_tensor(kernel_tensor, **decomposition_kwargs)
+        else:
+            instance.reset_parameters()
 
         return instance
 
@@ -326,6 +327,8 @@ class FactorizedConv(nn.Module):
             with torch.no_grad():
                 weight_tensor = torch.stack([kernel_to_tensor(factorization, layer.weight.data) for layer in conv_list])
                 instance.weight.init_from_tensor(weight_tensor, **decomposition_kwargs)
+        else:
+            instance.reset_parameters()
 
         for i, layer in enumerate(conv_list):
             instance.set(i, stride=layer.stride, padding=layer.padding, dilation=layer.dilation, bias=layer.bias)

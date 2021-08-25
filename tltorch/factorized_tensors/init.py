@@ -7,7 +7,6 @@
 import torch
 import math
 import numpy as np
-from .factorized_tensors import FactorizedTensor
 
 import tensorly as tl
 tl.set_backend('pytorch')
@@ -21,6 +20,8 @@ def tensor_init(tensor, std=0.02):
     std : float, default is 0.02
         the desired standard deviation of the full (reconstructed) tensor
     """
+    from .factorized_tensors import FactorizedTensor
+
     if isinstance(tensor, FactorizedTensor):
         tensor.normal_(0, std)
     elif torch.is_tensor(tensor):
