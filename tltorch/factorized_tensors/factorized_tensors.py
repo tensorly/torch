@@ -41,13 +41,13 @@ class CPTensor(FactorizedTensor, name='CP'):
         self.factors = FactorList(factors)
     
     @classmethod
-    def new(cls, shape, rank, **kwargs):
+    def new(cls, shape, rank, device=None, dtype=None, **kwargs):
         rank = tl.cp_tensor.validate_cp_rank(shape, rank)
 
         # Register the parameters
-        weights = nn.Parameter(torch.Tensor(rank))
+        weights = nn.Parameter(torch.empty(rank, device=device, dtype=dtype))
         # Avoid the issues with ParameterList
-        factors = [nn.Parameter(torch.Tensor(s, rank)) for s in shape]
+        factors = [nn.Parameter(torch.empty((s, rank), device=device, dtype=dtype)) for s in shape]
 
         return cls(weights, factors)
 
@@ -151,7 +151,7 @@ class CPTensor(FactorizedTensor, name='CP'):
 
         return self
 
-        
+
 class TuckerTensor(FactorizedTensor, name='Tucker'):
     """Tucker Factorization
 
@@ -174,13 +174,15 @@ class TuckerTensor(FactorizedTensor, name='Tucker'):
         self.factors = FactorList(factors)
     
     @classmethod
-    def new(cls, shape, rank, fixed_rank_modes=None, **kwargs):
+    def new(cls, shape, rank, fixed_rank_modes=None,
+            device=None, dtype=None, **kwargs):
         rank = tl.tucker_tensor.validate_tucker_rank(shape, rank, fixed_modes=fixed_rank_modes)
 
         # Register the parameters
-        core = nn.Parameter(torch.Tensor(*rank))
+        core = nn.Parameter(torch.empty(rank, device=device, dtype=dtype))
         # Avoid the issues with ParameterList
-        factors = [nn.Parameter(torch.Tensor(s, r)) for (s, r) in zip(shape, rank)]
+        factors = [nn.Parameter(torch.empty((s, r), device=device, dtype=dtype)) for (s, r) in zip(shape, rank)]
+
         return cls(core, factors)
 
     @classmethod
@@ -318,11 +320,11 @@ class TTTensor(FactorizedTensor, name='TT'):
         self.factors = FactorList(factors)
     
     @classmethod
-    def new(cls, shape, rank, **kwargs):
+    def new(cls, shape, rank, device=None, dtype=None, **kwargs):
         rank = tl.tt_tensor.validate_tt_rank(shape, rank)
 
         # Avoid the issues with ParameterList
-        factors = [nn.Parameter(torch.Tensor(rank[i], s, rank[i+1])) for i, s in enumerate(shape)]
+        factors = [nn.Parameter(torch.empty((rank[i], s, rank[i+1]), device=device, dtype=dtype)) for i, s in enumerate(shape)]
 
         return cls(factors)
 

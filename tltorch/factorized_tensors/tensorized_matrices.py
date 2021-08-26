@@ -39,14 +39,14 @@ class CPTensorized(CPTensor, TensorizedTensor, name='CP'):
         self.tensorized_shape = tensorized_shape
 
     @classmethod
-    def new(cls, tensorized_shape, rank, **kwargs):
+    def new(cls, tensorized_shape, rank, device=None, dtype=None, **kwargs):
         flattened_tensorized_shape = sum([[e] if isinstance(e, int) else list(e) for e in tensorized_shape], [])
         rank = tl.cp_tensor.validate_cp_rank(flattened_tensorized_shape, rank)
 
         # Register the parameters
-        weights = nn.Parameter(torch.Tensor(rank))
+        weights = nn.Parameter(torch.empty(rank, device=device, dtype=dtype))
         # Avoid the issues with ParameterList
-        factors = [nn.Parameter(torch.Tensor(s, rank)) for s in flattened_tensorized_shape]
+        factors = [nn.Parameter(torch.empty((s, rank), device=device, dtype=dtype)) for s in flattened_tensorized_shape]
 
         return cls(weights, factors, tensorized_shape, rank=rank)
 
@@ -123,15 +123,14 @@ class TuckerTensorized(TensorizedTensor, TuckerTensor, name='Tucker'):
         self.tensorized_shape = tensorized_shape
 
     @classmethod
-    def new(cls, tensorized_shape, rank, n_matrices=(), **kwargs):
-        n_matrices = _ensure_tuple(n_matrices)
+    def new(cls, tensorized_shape, rank, device=None, dtype=None, **kwargs):
         tensor_shape = sum([(e,) if isinstance(e, int) else tuple(e) for e in tensorized_shape], ())
         rank = tl.tucker_tensor.validate_tucker_rank(tensor_shape, rank)
 
         # Register the parameters
-        core = nn.Parameter(torch.Tensor(*rank))
+        core = nn.Parameter(torch.empty(rank, device=device, dtype=dtype))
         # Avoid the issues with ParameterList
-        factors = [nn.Parameter(torch.Tensor(s, r)) for (s, r) in zip(tensor_shape, rank)]
+        factors = [nn.Parameter(torch.empty((s, r), device=device, dtype=dtype)) for (s, r) in zip(tensor_shape, rank)]
 
         return cls(core, factors, tensorized_shape, rank=rank)
 
@@ -145,17 +144,16 @@ def validate_block_tt_rank(tensorized_shape, rank):
 
 
 class BlockTT(TensorizedTensor, name='BlockTT'):
-    def __init__(self, factors, tensorized_shape=None, rank=None, batched_dim=None):
+    def __init__(self, factors, tensorized_shape=None, rank=None):
         super().__init__()
         self.shape = tensorized_shape_to_shape(tensorized_shape)
         self.tensorized_shape = tensorized_shape
         self.rank = rank
-        self.batched_dim = batched_dim
         self.order = len(self.shape)
         self.factors = FactorList(factors)
 
     @classmethod
-    def new(cls, tensorized_shape, rank, batched_dim=(), **kwargs):
+    def new(cls, tensorized_shape, rank, device=None, dtype=None, **kwargs):
         if all(isinstance(s, int) for s in tensorized_shape):
             warnings.warn(f'Given a "flat" shape {tensorized_shape}. '
                           'This will be considered as the shape of a tensorized vector. '
@@ -170,10 +168,9 @@ class BlockTT(TensorizedTensor, name='BlockTT'):
         rank = validate_block_tt_rank(tensorized_shape, rank)
         factor_shapes = [rank[:-1]] + factor_shapes + [rank[1:]]
         factor_shapes = list(zip(*factor_shapes))
-        factors = [nn.Parameter(torch.Tensor(*s)) for s in factor_shapes]
-        batched_dim = [True if i in batched_dim else False for i in range(ndim)]
+        factors = [nn.Parameter(torch.empty(s, device=device, dtype=dtype)) for s in factor_shapes]
         
-        return cls(factors, tensorized_shape=tensorized_shape, rank=rank, batched_dim=batched_dim)
+        return cls(factors, tensorized_shape=tensorized_shape, rank=rank)
 
     @property
     def decomposition(self):

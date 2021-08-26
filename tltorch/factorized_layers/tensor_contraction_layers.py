@@ -35,7 +35,8 @@ class TCL(nn.Module):
             "Tensor Contraction Layers for Parsimonious Deep Nets," 2017 IEEE Conference on Computer Vision and Pattern Recognition Workshops (CVPRW),
             Honolulu, HI, 2017, pp. 1940-1946, doi: 10.1109/CVPRW.2017.243.
     """
-    def __init__(self, input_shape, rank, verbose=0, bias=False, **kwargs):
+    def __init__(self, input_shape, rank, verbose=0, bias=False, 
+                 device=None, dtype=None, **kwargs):
         super().__init__(**kwargs)
         self.verbose = verbose
 
@@ -54,12 +55,12 @@ class TCL(nn.Module):
         # Start at 1 as the batch-size is not projected
         self.contraction_modes = list(range(1, self.order + 1))
         for i, (s, r) in enumerate(zip(self.input_shape, self.rank)):
-            self.register_parameter(f'factor_{i}', nn.Parameter(torch.Tensor(r, s)))
+            self.register_parameter(f'factor_{i}', nn.Parameter(torch.empty((r, s), device=device, dtype=dtype)))
         
         # self.factors = ParameterList(parameters=factors)
         if bias:
             self.bias = nn.Parameter(
-                tl.tensor(self.output_shape), requires_grad=True)
+                torch.empty(self.output_shape, device=device, dtype=dtype), requires_grad=True)
         else:
             self.register_parameter('bias', None)
 

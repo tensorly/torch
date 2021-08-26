@@ -113,7 +113,8 @@ class FactorizedConv(nn.Module):
     
     def __init__(self, in_channels, out_channels, kernel_size, order=None,
                  stride=1, padding=0, dilation=1, bias=False, has_bias=False, n_layers=1,
-                 factorization='cp', rank='same', implementation='factorized', fixed_rank_modes=None):
+                 factorization='cp', rank='same', implementation='factorized', fixed_rank_modes=None,
+                 device=None, dtype=None):
         super().__init__()
 
         # Check that order and kernel size are well defined and match
@@ -155,12 +156,12 @@ class FactorizedConv(nn.Module):
         self.has_bias = _ensure_array(layers_shape, order, has_bias, one_per_order=False)
 
         if bias:
-            self.bias = nn.Parameter(torch.Tensor(*layers_shape, out_channels))
+            self.bias = nn.Parameter(torch.empty(*layers_shape, out_channels, device=device, dtype=dtype))
         else:
             self.register_parameter('bias', None)
 
         if isinstance(factorization, FactorizedTensor):
-            self.weight = factorization
+            self.weight = factorization.to(device).to(dtype)
             kernel_shape = factorization_shape_to_kernel_shape(factorization._name, factorization.shape)
         else:
             kernel_shape = (out_channels, in_channels) + kernel_size
@@ -176,7 +177,8 @@ class FactorizedConv(nn.Module):
                 elif fixed_rank_modes== 'spatial':
                     fixed_rank_modes = list(range(2 + len(layers_shape), 2+len(layers_shape)+order))
 
-            self.weight = FactorizedTensor.new(factorization_shape, rank=rank, factorization=factorization, fixed_rank_modes=fixed_rank_modes)
+            self.weight = FactorizedTensor.new(factorization_shape, rank=rank, factorization=factorization, fixed_rank_modes=fixed_rank_modes,
+                                               device=device, dtype=dtype)
 
         self.rank = self.weight.rank
         self.shape = self.weight.shape

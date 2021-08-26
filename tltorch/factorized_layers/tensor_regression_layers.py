@@ -31,7 +31,8 @@ class TRL(nn.Module):
         Aran Khanna, Tommaso Furlanello, Anima Anandkumar, JMLR, 2020. 
     """
     def __init__(self, input_shape, output_shape, bias=False, verbose=0, 
-                factorization='cp', rank='same', n_layers=1, **kwargs):
+                factorization='cp', rank='same', n_layers=1,
+                device=None, dtype=None, **kwargs):
         super().__init__(**kwargs)
         self.verbose = verbose
 
@@ -51,7 +52,7 @@ class TRL(nn.Module):
         self.order = len(self.weight_shape)
 
         if bias:
-            self.bias = nn.Parameter(torch.Tensor(*self.output_shape))
+            self.bias = nn.Parameter(torch.empty(self.output_shape, device=device, dtype=dtype))
         else:
             self.bias = None
 
@@ -63,9 +64,12 @@ class TRL(nn.Module):
             factorization_shape = n_layers + self.weight_shape
         
         if isinstance(factorization, FactorizedTensor):
-            self.weight = factorization
+            self.weight = factorization.to(device).to(dtype)
         else:
-            self.weight = FactorizedTensor.new(factorization_shape, rank=rank, factorization=factorization)
+            self.weight = FactorizedTensor.new(factorization_shape, rank=rank, factorization=factorization,
+                                               device=device, dtype=dtype)
+            self.init_from_random()
+    
         self.factorization = self.weight.name
 
     def forward(self, x):
@@ -81,13 +85,14 @@ class TRL(nn.Module):
             if True, constructs a full weight tensor and decomposes it to initialize the factors
             otherwise, the factors are directly initialized randomlys        
         """
-        if decompose_full_weight:
-            full_weight = torch.normal(0.0, 0.02, size=self.weight_shape)
-            self.weight.init_from_tensor(full_weight)
-        else:
-            self.weight.normal_()
-        if self.bias is not None:
-            self.bias.uniform_(-1, 1)
+        with torch.no_grad():
+            if decompose_full_weight:
+                full_weight = torch.normal(0.0, 0.02, size=self.weight_shape)
+                self.weight.init_from_tensor(full_weight)
+            else:
+                self.weight.normal_()
+            if self.bias is not None:
+                self.bias.uniform_(-1, 1)
 
     def init_from_linear(self, linear, unsqueezed_modes=None, **kwargs):                                                                                                                                                                                                                                                                       
         """Initialise the TRL from the weights of a fully connected layer

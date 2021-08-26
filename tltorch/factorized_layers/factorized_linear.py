@@ -27,7 +27,7 @@ class FactorizedLinear(nn.Module):
     bias : bool, default is True
     """
     def __init__(self, in_tensorized_features, out_tensorized_features, bias=True,
-                 factorization='cp', rank='same', n_layers=1):
+                 factorization='cp', rank='same', n_layers=1, device=None, dtype=None):
         super().__init__()
         if factorization == 'TTM' and n_layers != 1:
             raise ValueError(f'TTM factorization only support single factorized layers but got n_layers={n_layers}.')
@@ -42,10 +42,10 @@ class FactorizedLinear(nn.Module):
 
         if bias:
             if n_layers == 1:
-                self.bias = nn.Parameter(torch.Tensor(self.out_features))
+                self.bias = nn.Parameter(torch.empty(self.out_features, device=device, dtype=dtype))
                 self.has_bias = True
             else:
-                self.bias = nn.Parameter(torch.Tensor(n_layers, self.out_features))
+                self.bias = nn.Parameter(torch.empty((n_layers, self.out_features), device=device, dtype=dtype))
                 self.has_bias = np.zeros(n_layers)
         else:
             self.register_parameter('bias', None)
@@ -58,9 +58,10 @@ class FactorizedLinear(nn.Module):
             tensor_shape = (out_tensorized_features, in_tensorized_features)
         
         if isinstance(factorization, TensorizedTensor):
-            self.weight = factorization
+            self.weight = factorization.to(device).to(dtype)
         else:
-            self.weight = TensorizedTensor.new(tensor_shape, rank=rank, factorization=factorization)
+            self.weight = TensorizedTensor.new(tensor_shape, rank=rank, factorization=factorization, device=device, dtype=dtype)
+            
         self.rank = self.weight.rank
 
     def reset_parameters(self):

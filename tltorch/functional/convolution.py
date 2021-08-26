@@ -319,11 +319,15 @@ def cp_conv_mobilenet(x, cp_tensor, bias=None, stride=1, padding=0, dilation=1):
         weight = tl.transpose(factors[2]).unsqueeze(1)
         x = F.conv1d(x.contiguous(), weight, stride=stride, padding=padding, dilation=dilation, groups=rank)
     elif order == 2:
-        weight = tenalg.batched_tensor_dot(tl.transpose(factors[2]), tl.transpose(factors[3])).unsqueeze(1)
+        weight = tenalg.tensordot(tl.transpose(factors[2]), 
+                                  tl.transpose(factors[3]), modes=(), batched_modes=0
+                                  ).unsqueeze(1)
         x = F.conv2d(x.contiguous(), weight, stride=stride, padding=padding, dilation=dilation, groups=rank)
     elif order == 3:
-        weight = tenalg.batched_tensor_dot(tl.transpose(factors[2]), 
-                    tenalg.batched_tensor_dot(tl.transpose(factors[3]), tl.transpose(factors[4]))).unsqueeze(1)
+        weight = tenalg.tensordot(tl.transpose(factors[2]), 
+                                  tenalg.tensordot(tl.transpose(factors[3]), tl.transpose(factors[4]), modes=(), batched_modes=0),
+                                  modes=(), batched_modes=0
+                                  ).unsqueeze(1)
         x = F.conv3d(x.contiguous(), weight, stride=stride, padding=padding, dilation=dilation, groups=rank)
 
     # Revert back number of channels from rank to output_channels
