@@ -61,7 +61,8 @@ class FactorizedLinear(nn.Module):
             self.weight = factorization.to(device).to(dtype)
         else:
             self.weight = TensorizedTensor.new(tensor_shape, rank=rank, factorization=factorization, device=device, dtype=dtype)
-            
+            self.reset_parameters()
+
         self.rank = self.weight.rank
 
     def reset_parameters(self):
