@@ -302,6 +302,9 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
         """
         return len(self.shape)
 
+    def numel(self):
+        return int(np.prod(self.shape))
+
     @property
     def ndim(self):
         """Order of the tensor
