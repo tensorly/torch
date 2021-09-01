@@ -13,7 +13,7 @@ from .core import TensorizedTensor, _ensure_tuple
 from .factorized_tensors import CPTensor, TuckerTensor
 from ..utils.parameter_list import FactorList
 
-from tensorly.decomposition import tensor_train_matrix
+from tensorly.decomposition import tensor_train_matrix, parafac, tucker
 
 # Author: Jean Kossaifi
 # License: BSD 3 clause
@@ -51,6 +51,18 @@ class CPTensorized(CPTensor, TensorizedTensor, name='CP'):
         factors = [nn.Parameter(torch.empty((s, rank), device=device, dtype=dtype)) for s in flattened_tensorized_shape]
 
         return cls(weights, factors, tensorized_shape, rank=rank)
+
+    @classmethod
+    def from_tensor(cls, tensor, tensorized_shape, rank='same', **kwargs):
+        shape = tensor.shape
+        rank = tl.cp_tensor.validate_cp_rank(shape, rank)
+        dtype = tensor.dtype
+
+        with torch.no_grad():
+            weights, factors = parafac(tensor.to(torch.float64), rank, **kwargs)
+        
+        return cls(nn.Parameter(weights.to(dtype)), [nn.Parameter(f.to(dtype)) for f in factors],
+                   tensorized_shape, rank=rank)
 
     def __getitem__(self, indices):
         if not isinstance(indices, Iterable):
@@ -135,6 +147,17 @@ class TuckerTensorized(TensorizedTensor, TuckerTensor, name='Tucker'):
         factors = [nn.Parameter(torch.empty((s, r), device=device, dtype=dtype)) for (s, r) in zip(tensor_shape, rank)]
 
         return cls(core, factors, tensorized_shape, rank=rank)
+
+    @classmethod
+    def from_tensor(cls, tensor, tensorized_shape, rank='same', fixed_rank_modes=None, **kwargs):
+        shape = tensor.shape
+        rank = tl.tucker_tensor.validate_tucker_rank(shape, rank, fixed_modes=fixed_rank_modes)
+
+        with torch.no_grad():
+            core, factors = tucker(tensor, rank, **kwargs)
+        
+        return cls(nn.Parameter(core.contiguous()), [nn.Parameter(f.contiguous()) for f in factors],
+                   tensorized_shape, rank=rank)
 
 
 def validate_block_tt_rank(tensorized_shape, rank):
