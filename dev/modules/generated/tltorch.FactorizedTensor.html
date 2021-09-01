@@ -247,7 +247,7 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#tltorch.FactorizedTensor.forward" title="tltorch.FactorizedTensor.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>([indices])</p></td>
 <td><p>To use a tensor factorization within a network, use <code class="docutils literal notranslate"><span class="pre">tensor.forward</span></code>, or, equivalently, <code class="docutils literal notranslate"><span class="pre">tensor()</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.FactorizedTensor.from_tensor" title="tltorch.FactorizedTensor.from_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_tensor</span></code></a>(tensor, shape, rank[, factorization])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.FactorizedTensor.from_tensor" title="tltorch.FactorizedTensor.from_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_tensor</span></code></a>(tensor, rank[, factorization])</p></td>
 <td><p>Create a factorized tensor by decomposing a full tensor</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tltorch.FactorizedTensor.new" title="tltorch.FactorizedTensor.new"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new</span></code></a>(shape, rank[, factorization])</p></td>
@@ -307,14 +307,12 @@
 
 <dl class="py method">
 <dt id="tltorch.FactorizedTensor.from_tensor">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_tensor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CP'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/core.html#FactorizedTensor.from_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.FactorizedTensor.from_tensor" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_tensor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CP'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/core.html#FactorizedTensor.from_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.FactorizedTensor.from_tensor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a factorized tensor by decomposing a full tensor</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>tensor</strong><span class="classifier">torch.tensor</span></dt><dd><p>tensor to factorize</p>
-</dd>
-<dt><strong>shape</strong><span class="classifier">tuple[int]</span></dt><dd><p>shape of the factorized tensor to create</p>
 </dd>
 <dt><strong>rank</strong><span class="classifier">int, ‘same’ or float</span></dt><dd><p>rank of the decomposition</p>
 </dd>
