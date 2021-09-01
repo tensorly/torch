@@ -13,6 +13,8 @@ from .core import TensorizedTensor, _ensure_tuple
 from .factorized_tensors import CPTensor, TuckerTensor
 from ..utils.parameter_list import FactorList
 
+from tensorly.decomposition import tensor_train_matrix
+
 # Author: Jean Kossaifi
 # License: BSD 3 clause
 
@@ -332,3 +334,18 @@ class BlockTT(TensorizedTensor, name='BlockTT'):
         args = [t.to_matrix() if hasattr(t, 'to_matrix') else t for t in args]
         return func(*args, **kwargs)
 
+    # def from_matrix(cls, matrix, tensorized_row_shape, tensorized_column_shape, rank, n_matrices=(), **kwargs):
+    #     if matrix.ndim > 2:
+    #         n_matrices = _ensure_tuple(tl.shape(matrix)[:-2])
+    #     else:
+    #         n_matrices = ()
+    #     tensor = matrix.reshape((*n_matrices, *tensorized_row_shape, *tensorized_column_shape))
+    @classmethod
+    def from_tensor(cls, tensor, tensorized_shape, rank, **kwargs):
+        rank = tl.tt_matrix.validate_tt_matrix_rank(tensor.shape, rank)
+
+        with torch.no_grad():
+            factors = tensor_train_matrix(tensor, rank, **kwargs)
+        factors = [nn.Parameter(f) for f in factors]
+
+        return cls(factors, tensorized_shape, rank)

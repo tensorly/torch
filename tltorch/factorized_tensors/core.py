@@ -473,7 +473,7 @@ class TensorizedTensor(FactorizedTensor, metaclass=MetaFactorizedTensor, name=''
         else:
             batch_dims = ()
         tensor = matrix.reshape((*batch_dims, *tensorized_row_shape, *tensorized_column_shape))
-        return cls.from_tensor(tensor, batch_dims+tensorized_row_shape+tensorized_column_shape, rank,  **kwargs)
+        return cls.from_tensor(tensor, batch_dims + (tensorized_row_shape, tensorized_column_shape), rank, factorization=factorization, **kwargs)
 
     def to_matrix(self):
         """Reconstruct the full matrix from the factorized tensorization
