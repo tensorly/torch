@@ -8,12 +8,16 @@ from torch import nn
 
 import tensorly as tl
 tl.set_backend('pytorch')
+from tensorly import tenalg
+from tensorly.decomposition import tensor_train_matrix, parafac, tucker
 
 from .core import TensorizedTensor, _ensure_tuple
 from .factorized_tensors import CPTensor, TuckerTensor
 from ..utils.parameter_list import FactorList
 
-from tensorly.decomposition import tensor_train_matrix, parafac, tucker
+einsum_symbols = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+einsum_symbols_set = set(einsum_symbols)
+
 
 # Author: Jean Kossaifi
 # License: BSD 3 clause
@@ -159,6 +163,88 @@ class TuckerTensorized(TensorizedTensor, TuckerTensor, name='Tucker'):
         return cls(nn.Parameter(core.contiguous()), [nn.Parameter(f.contiguous()) for f in factors],
                    tensorized_shape, rank=rank)
 
+    def __getitem__(self, indices):
+        counter = 0
+        ndim = self.core.ndim
+        new_ndim = 0
+        new_factors = []
+        out_shape = []
+        new_modes = []
+
+        core = self.core
+        
+        for (index, shape) in zip(indices, self.tensorized_shape):
+            if isinstance(shape, int):
+                if index is Ellipsis:
+                    raise ValueError(f'Ellipsis is not yet supported, yet got indices={indices}, indices[{i}]={index}.')
+                factor = self.factors[counter]
+                if isinstance(index, int):
+                    core = tenalg.mode_dot(core, factor[index, :], new_ndim)
+                else:
+                    contracted = factor[index, :]
+                    new_factors.append(contracted)
+                    if contracted.shape[0] > 1:
+                        out_shape.append(shape)
+                        new_modes.append(new_ndim)
+                        new_ndim += 1
+
+                counter += 1
+
+            else: # Tensorized dimension
+                n_tensorized_modes = len(shape)
+
+                if index == slice(None) or index == ():
+                    new_factors.extend(self.factors[counter:counter+n_tensorized_modes])
+                    out_shape.append(shape)
+                    new_modes.extend([new_ndim+i for i in range(n_tensorized_modes)])
+                    new_ndim += n_tensorized_modes
+
+                else:
+                    if isinstance(index, slice):
+                        # Since we've already filtered out :, this is a partial slice
+                        # Convert into list
+                        max_index = math.prod(shape)
+                        index = list(range(*index.indices(max_index)))
+                    
+                    index = np.unravel_index(index, shape)
+                    
+                    contraction_factors = [f[idx, :] for idx, f in zip(index, self.factors[counter:counter+n_tensorized_modes])]
+                    if contraction_factors[0].ndim > 1:
+                        shared_symbol = einsum_symbols[core.ndim+1]
+                    else:
+                        shared_symbol = ''
+                    
+                    core_symbols = ''.join(einsum_symbols[:core.ndim])
+                    factors_symbols = ','.join([f'{shared_symbol}{s}' for s in core_symbols[new_ndim:new_ndim+n_tensorized_modes]])
+                    res_symbol = core_symbols[:new_ndim] + shared_symbol + core_symbols[new_ndim+n_tensorized_modes:]
+                    
+                    if res_symbol:
+                        eq =  core_symbols + ',' + factors_symbols + '->' + res_symbol
+                    else:
+                        eq =  core_symbols + ',' + factors_symbols
+        
+                    core = torch.einsum(eq, core, *contraction_factors)
+                    
+                    if contraction_factors[0].ndim > 1:
+                        new_ndim += 1
+
+                counter += n_tensorized_modes
+
+        if counter <= ndim:
+            out_shape.extend(list(core.shape[new_ndim:]))
+            new_modes.extend(list(range(new_ndim, core.ndim)))
+            new_factors.extend(self.factors[counter:])
+
+        # Only here until our Tucker class handles partial-Tucker too
+        if len(new_modes) != core.ndim:
+            core = tenalg.multi_mode_dot(core, new_factors, new_modes)
+            new_factors = []
+        
+        if new_factors:
+            # return core, new_factors, out_shape, new_modes
+            return self.__class__(core, new_factors, tensorized_shape=out_shape)
+
+        return core
 
 def validate_block_tt_rank(tensorized_shape, rank):
     ndim = max([1 if isinstance(s, int) else len(s) for s in tensorized_shape])
