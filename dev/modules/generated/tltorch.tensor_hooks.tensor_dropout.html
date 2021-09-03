@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>tltorch.tensor_hooks.tensor_dropout &#8212; TensorLy-Torch 0.2.0 documentation</title> 
 <link rel="stylesheet" href="../../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
@@ -15,11 +16,11 @@
 <link rel="shortcut icon" href="../../_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/tensorly_style.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tensorly_style.css" />
 
   
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -211,11 +212,11 @@
 
         <div class="content main-content">
           
-  <div class="section" id="tltorch-tensor-hooks-tensor-dropout">
-<h1><a class="reference internal" href="../api.html#module-tltorch.tensor_hooks" title="tltorch.tensor_hooks"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.tensor_hooks</span></code></a>.tensor_dropout<a class="headerlink" href="#tltorch-tensor-hooks-tensor-dropout" title="Permalink to this headline">¶</a></h1>
+  <section id="tltorch-tensor-hooks-tensor-dropout">
+<h1><a class="reference internal" href="../api.html#module-tltorch.tensor_hooks" title="tltorch.tensor_hooks"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.tensor_hooks</span></code></a>.tensor_dropout</h1>
 <dl class="py function">
-<dt id="tltorch.tensor_hooks.tensor_dropout">
-<code class="sig-prename descclassname"><span class="pre">tltorch.tensor_hooks.</span></code><code class="sig-name descname"><span class="pre">tensor_dropout</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factorized_tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/tensor_hooks/_tensor_dropout.html#tensor_dropout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.tensor_hooks.tensor_dropout" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tltorch.tensor_hooks.tensor_dropout">
+<span class="sig-prename descclassname"><span class="pre">tltorch.tensor_hooks.</span></span><span class="sig-name descname"><span class="pre">tensor_dropout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">factorized_tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/tensor_hooks/_tensor_dropout.html#tensor_dropout"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Tensor Dropout</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -225,6 +226,10 @@
 <dt><strong>p</strong><span class="classifier">float</span></dt><dd><p>dropout probability
 if 0, no dropout is applied
 if 1, all the components but 1 are dropped in the latent space</p>
+</dd>
+<dt><strong>min_dim</strong><span class="classifier">int, default is 3</span></dt><dd><p>only apply dropout to modes with dimension larger than <cite>min_dim</cite></p>
+</dd>
+<dt><strong>min_values</strong><span class="classifier">int, default is 1</span></dt><dd><p>minimum number of components to select</p>
 </dd>
 </dl>
 </dd>
@@ -243,7 +248,7 @@ if 1, all the components but 1 are dropped in the latent space</p>
 </div>
 </dd></dl>
 
-<div class="clearer"></div></div>
+<div class="clearer"></div></section>
 
 
         </div>

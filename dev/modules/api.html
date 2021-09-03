@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>API reference &#8212; TensorLy-Torch 0.2.0 documentation</title> 
 <link rel="stylesheet" href="../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/apple-touch-icon.png">
@@ -15,11 +16,11 @@
 <link rel="shortcut icon" href="../_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/tensorly_style.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tensorly_style.css" />
 
   
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -211,11 +212,11 @@
 
         <div class="content main-content">
           
-  <div class="section" id="api-reference">
-<h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+  <section id="api-reference">
+<h1>API reference</h1>
 <p><a class="reference internal" href="#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>: Tensorized Deep Neural Networks</p>
-<span class="target" id="module-tltorch"></span><div class="section" id="factorized-tensors">
-<span id="factorized-tensor-ref"></span><h2>Factorized Tensors<a class="headerlink" href="#factorized-tensors" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-tltorch"></span><section id="factorized-tensors">
+<span id="factorized-tensor-ref"></span><h2>Factorized Tensors</h2>
 <p>TensorLy-Torch builds on top of TensorLy and provides out of the box PyTorch layers for tensor based operations.
 The core of this is the concept of factorized tensors, which factorize our layers, instead of regular, dense PyTorch tensors.</p>
 <p>You can create any factorized tensor through the main class, or directly create a specific subclass:</p>
@@ -239,9 +240,9 @@ The core of this is the concept of factorized tensors, which factorize our layer
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="tensorized-matrices">
-<span id="factorized-matrix-ref"></span><h2>Tensorized Matrices<a class="headerlink" href="#tensorized-matrices" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="tensorized-matrices">
+<span id="factorized-matrix-ref"></span><h2>Tensorized Matrices</h2>
 <p>In TensorLy-Torch , you can also represent matrices in <em>tensorized</em> form, as low-rank tensors .</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -251,9 +252,9 @@ The core of this is the concept of factorized tensors, which factorize our layer
 <tbody>
 </tbody>
 </table>
-</div>
-<div class="section" id="module-tltorch.init">
-<span id="initialization"></span><span id="init-ref"></span><h2>Initialization<a class="headerlink" href="#module-tltorch.init" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-tltorch.init">
+<span id="initialization"></span><span id="init-ref"></span><h2>Initialization</h2>
 <p>Module for initializing tensor decompositions</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -275,9 +276,9 @@ The core of this is the concept of factorized tensors, which factorize our layer
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="module-tltorch.factorized_layers">
-<span id="tensor-regression-layers"></span><span id="trl-ref"></span><h2>Tensor Regression Layers<a class="headerlink" href="#module-tltorch.factorized_layers" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-tltorch.factorized_layers">
+<span id="tensor-regression-layers"></span><span id="trl-ref"></span><h2>Tensor Regression Layers</h2>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -289,9 +290,9 @@ The core of this is the concept of factorized tensors, which factorize our layer
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="tensor-contraction-layers">
-<span id="tcl-ref"></span><h2>Tensor Contraction Layers<a class="headerlink" href="#tensor-contraction-layers" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="tensor-contraction-layers">
+<span id="tcl-ref"></span><h2>Tensor Contraction Layers</h2>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -303,9 +304,9 @@ The core of this is the concept of factorized tensors, which factorize our layer
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="factorized-linear-layers">
-<span id="factorized-linear-ref"></span><h2>Factorized Linear Layers<a class="headerlink" href="#factorized-linear-layers" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="factorized-linear-layers">
+<span id="factorized-linear-ref"></span><h2>Factorized Linear Layers</h2>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -317,9 +318,9 @@ The core of this is the concept of factorized tensors, which factorize our layer
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="factorized-convolutions">
-<span id="factorized-conv-ref"></span><h2>Factorized Convolutions<a class="headerlink" href="#factorized-convolutions" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="factorized-convolutions">
+<span id="factorized-conv-ref"></span><h2>Factorized Convolutions</h2>
 <p>General N-Dimensional convolutions in Factorized forms</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -332,9 +333,9 @@ The core of this is the concept of factorized tensors, which factorize our layer
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="module-tltorch.tensor_hooks">
-<span id="tensor-dropout"></span><span id="tensor-dropout-ref"></span><h2>Tensor Dropout<a class="headerlink" href="#module-tltorch.tensor_hooks" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-tltorch.tensor_hooks">
+<span id="tensor-dropout"></span><span id="tensor-dropout-ref"></span><h2>Tensor Dropout</h2>
 <p>These functions allow you to easily add or remove tensor dropout from tensor layers.</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -342,7 +343,7 @@ The core of this is the concept of factorized tensors, which factorize our layer
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.tensor_hooks.tensor_dropout.html#tltorch.tensor_hooks.tensor_dropout" title="tltorch.tensor_hooks.tensor_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor_dropout</span></code></a>(factorized_tensor[, p])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.tensor_hooks.tensor_dropout.html#tltorch.tensor_hooks.tensor_dropout" title="tltorch.tensor_hooks.tensor_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor_dropout</span></code></a>(factorized_tensor[, p, …])</p></td>
 <td><p>Tensor Dropout</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.tensor_hooks.remove_tensor_dropout.html#tltorch.tensor_hooks.remove_tensor_dropout" title="tltorch.tensor_hooks.remove_tensor_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_tensor_dropout</span></code></a>(factorized_tensor)</p></td>
@@ -357,14 +358,14 @@ The core of this is the concept of factorized tensors, which factorize our layer
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.tensor_hooks.TensorDropout.html#tltorch.tensor_hooks.TensorDropout" title="tltorch.tensor_hooks.TensorDropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorDropout</span></code></a>(proba[, min_dim])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.tensor_hooks.TensorDropout.html#tltorch.tensor_hooks.TensorDropout" title="tltorch.tensor_hooks.TensorDropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorDropout</span></code></a>(proba[, min_dim, min_values])</p></td>
 <td><p>Decomposition Hook for Tensor Dropout on FactorizedTensor</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="l1-regularization">
-<span id="tensor-lasso-ref"></span><h2>L1 Regularization<a class="headerlink" href="#l1-regularization" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="l1-regularization">
+<span id="tensor-lasso-ref"></span><h2>L1 Regularization</h2>
 <p>L1 Regularization on tensor modules.</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -380,8 +381,8 @@ The core of this is the concept of factorized tensors, which factorize our layer
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</section>
 
 
         </div>

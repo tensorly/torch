@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>tltorch.factorized_layers.FactorizedLinear &#8212; TensorLy-Torch 0.2.0 documentation</title> 
 <link rel="stylesheet" href="../../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
@@ -15,11 +16,11 @@
 <link rel="shortcut icon" href="../../_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/tensorly_style.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/tensorly_style.css" />
 
   
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
@@ -211,11 +212,11 @@
 
         <div class="content main-content">
           
-  <div class="section" id="tltorch-factorized-layers-factorizedlinear">
-<h1><a class="reference internal" href="../api.html#module-tltorch.factorized_layers" title="tltorch.factorized_layers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_layers</span></code></a>.FactorizedLinear<a class="headerlink" href="#tltorch-factorized-layers-factorizedlinear" title="Permalink to this headline">¶</a></h1>
+  <section id="tltorch-factorized-layers-factorizedlinear">
+<h1><a class="reference internal" href="../api.html#module-tltorch.factorized_layers" title="tltorch.factorized_layers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_layers</span></code></a>.FactorizedLinear</h1>
 <dl class="py class">
-<dt id="tltorch.factorized_layers.FactorizedLinear">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">tltorch.factorized_layers.</span></code><code class="sig-name descname"><span class="pre">FactorizedLinear</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'same'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_linear.html#FactorizedLinear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.factorized_layers.FactorizedLinear" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tltorch.factorized_layers.FactorizedLinear">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tltorch.factorized_layers.</span></span><span class="sig-name descname"><span class="pre">FactorizedLinear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'same'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_linear.html#FactorizedLinear"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Tensorized Fully-Connected Layers</p>
 <p>The weight matrice is tensorized to a tensor of size <cite>tensorized_shape</cite>.
 That tensor is expressed as a low-rank tensor.
@@ -265,8 +266,8 @@ used for the forward pass in a regular linear layer.</p>
 </tbody>
 </table>
 <dl class="py method">
-<dt id="tltorch.factorized_layers.FactorizedLinear.forward">
-<code class="sig-name descname"><span class="pre">forward</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_linear.html#FactorizedLinear.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.factorized_layers.FactorizedLinear.forward" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tltorch.factorized_layers.FactorizedLinear.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_linear.html#FactorizedLinear.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Defines the computation performed at every call.</p>
 <p>Should be overridden by all subclasses.</p>
 <div class="admonition note">
@@ -279,8 +280,8 @@ registered hooks while the latter silently ignores them.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="tltorch.factorized_layers.FactorizedLinear.from_linear">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_linear</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linear</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CP'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_linear.html#FactorizedLinear.from_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.factorized_layers.FactorizedLinear.from_linear" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tltorch.factorized_layers.FactorizedLinear.from_linear">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_linear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linear</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CP'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_linear.html#FactorizedLinear.from_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Class method to create an instance from an existing linear layer</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -300,8 +301,8 @@ if ‘same’ use the same number of parameters</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="tltorch.factorized_layers.FactorizedLinear.from_linear_list">
-<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_linear_list</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linear_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CP'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'init':</span> <span class="pre">'random'}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_linear.html#FactorizedLinear.from_linear_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tltorch.factorized_layers.FactorizedLinear.from_linear_list" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="tltorch.factorized_layers.FactorizedLinear.from_linear_list">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_linear_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linear_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CP'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'init':</span> <span class="pre">'random'}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_linear.html#FactorizedLinear.from_linear_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Class method to create an instance from an existing linear layer</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -322,7 +323,7 @@ if ‘same’ use the same number of parameters</p>
 
 </dd></dl>
 
-<div class="clearer"></div></div>
+<div class="clearer"></div></section>
 
 
         </div>

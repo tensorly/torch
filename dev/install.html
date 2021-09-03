@@ -4,7 +4,8 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Installing tensorly-Torch &#8212; TensorLy-Torch 0.2.0 documentation</title> 
 <link rel="stylesheet" href="_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="_static/favicon/apple-touch-icon.png">
@@ -15,11 +16,11 @@
 <link rel="shortcut icon" href="_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/tensorly_style.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/tensorly_style.css" />
 
   
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
@@ -207,23 +208,23 @@
 
         <div class="content main-content">
           
-  <div class="section" id="installing-tensorly-torch">
-<h1>Installing tensorly-Torch<a class="headerlink" href="#installing-tensorly-torch" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="pre-requisite">
-<h2>Pre-requisite<a class="headerlink" href="#pre-requisite" title="Permalink to this headline">¶</a></h2>
+  <section id="installing-tensorly-torch">
+<h1>Installing tensorly-Torch</h1>
+<section id="pre-requisite">
+<h2>Pre-requisite</h2>
 <p>You will need to have Python 3 installed, as well as NumPy, Scipy and <a class="reference external" href="http://tensorly.org/dev">TensorLy</a>.
 If you are starting with Python or generally want a pain-free experience, I recommend you install the <a class="reference external" href="https://www.anaconda.com/download/">Anaconda distribiution</a>. It comes with all you need shipped-in and ready to use!</p>
-</div>
-<div class="section" id="installing-with-pip-recommended">
-<h2>Installing with pip (recommended)<a class="headerlink" href="#installing-with-pip-recommended" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="installing-with-pip-recommended">
+<h2>Installing with pip (recommended)</h2>
 <p>Simply run, in your terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">U</span> <span class="n">tensorly</span><span class="o">-</span><span class="n">torch</span>
 </pre></div>
 </div>
 <p>(the <cite>-U</cite> is optional, use it if you want to update the package).</p>
-</div>
-<div class="section" id="cloning-the-github-repository">
-<h2>Cloning the github repository<a class="headerlink" href="#cloning-the-github-repository" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="cloning-the-github-repository">
+<h2>Cloning the github repository</h2>
 <p>Clone the repository and cd there:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">tensorly</span><span class="o">/</span><span class="n">torch</span>
 <span class="n">cd</span> <span class="n">torch</span>
@@ -233,18 +234,18 @@ If you are starting with Python or generally want a pain-free experience, I reco
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="running-the-tests">
-<h2>Running the tests<a class="headerlink" href="#running-the-tests" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="running-the-tests">
+<h2>Running the tests</h2>
 <p>Uni-testing is an vital part of this package.
 You can run all the tests using <cite>pytest</cite>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pytest</span>
 <span class="n">pytest</span> <span class="n">tltorch</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="building-the-documentation">
-<h2>Building the documentation<a class="headerlink" href="#building-the-documentation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="building-the-documentation">
+<h2>Building the documentation</h2>
 <p>You will need to install slimit and minify:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">slimit</span> <span class="n">rcssmin</span>
 </pre></div>
@@ -254,8 +255,8 @@ You can run all the tests using <cite>pytest</cite>:</p>
 </pre></div>
 </div>
 <p>The results will be in <cite>_build/html</cite></p>
-</div>
-</div>
+</section>
+</section>
 
 
         </div>

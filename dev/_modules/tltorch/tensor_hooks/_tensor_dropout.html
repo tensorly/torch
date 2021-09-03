@@ -15,11 +15,11 @@
 <link rel="shortcut icon" href="../../../_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/tensorly_style.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tensorly_style.css" />
 
   
-    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
     <script src="../../../_static/doctools.js"></script>
@@ -166,9 +166,10 @@
         <span class="sd">&quot;&quot;&quot;When a subclass is created, register it in _factorizations&quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">factorization</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">proba</span><span class="p">,</span> <span class="n">min_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">proba</span><span class="p">,</span> <span class="n">min_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_values</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">proba</span> <span class="o">=</span> <span class="n">proba</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">min_dim</span> <span class="o">=</span> <span class="n">min_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_values</span> <span class="o">=</span> <span class="n">min_values</span>
 
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">factorized_tensor</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apply_tensor_dropout</span><span class="p">(</span><span class="n">factorized_tensor</span><span class="p">)</span>
@@ -177,14 +178,14 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">proba</span><span class="p">,</span> <span class="n">min_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">proba</span><span class="p">,</span> <span class="n">min_dim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_values</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="bp">cls</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">module</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">hook</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">_forward_hooks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">hook</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Cannot register two weight_norm hooks on &quot;</span>
                                    <span class="s2">&quot;the same parameter&quot;</span><span class="p">)</span>
 
-        <span class="n">dropout</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">proba</span><span class="p">,</span> <span class="n">min_dim</span><span class="o">=</span><span class="n">min_dim</span><span class="p">)</span>
+        <span class="n">dropout</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">proba</span><span class="p">,</span> <span class="n">min_dim</span><span class="o">=</span><span class="n">min_dim</span><span class="p">,</span> <span class="n">min_values</span><span class="o">=</span><span class="n">min_values</span><span class="p">)</span>
         <span class="n">handle</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">register_forward_hook</span><span class="p">(</span><span class="n">dropout</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">handle</span></div>
 
@@ -201,7 +202,7 @@
                 <span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">bernoulli</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">core</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">proba</span><span class="p">),</span>
                                       <span class="n">out</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">core</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">))]</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">idx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">core</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+                    <span class="n">idx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_values</span><span class="p">,</span> <span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">core</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
 
             <span class="n">sampled_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
         
@@ -221,7 +222,7 @@
             <span class="n">sampled_indices</span> <span class="o">=</span> <span class="n">sampled_indices</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">bernoulli</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">proba</span><span class="p">),</span>
                                   <span class="n">out</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">))]</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sampled_indices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">sampled_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+                <span class="n">sampled_indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_values</span><span class="p">,</span> <span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
 
             <span class="n">factors</span> <span class="o">=</span> <span class="p">[</span><span class="n">factor</span><span class="p">[:,</span> <span class="n">sampled_indices</span><span class="p">]</span> <span class="k">for</span> <span class="n">factor</span> <span class="ow">in</span> <span class="n">cp_tensor</span><span class="o">.</span><span class="n">factors</span><span class="p">]</span>
             <span class="n">weights</span> <span class="o">=</span> <span class="n">cp_tensor</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">sampled_indices</span><span class="p">]</span>
@@ -240,7 +241,7 @@
                 <span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">bernoulli</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">proba</span><span class="p">),</span>
                                       <span class="n">out</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">))]</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">idx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+                    <span class="n">idx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_values</span><span class="p">,</span> <span class="p">),</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">idx</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
@@ -258,7 +259,7 @@
         <span class="k">return</span> <span class="n">TTTensor</span><span class="p">(</span><span class="n">sampled_factors</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="tensor_dropout"><a class="viewcode-back" href="../../../modules/generated/tltorch.tensor_hooks.tensor_dropout.html#tltorch.tensor_hooks.tensor_dropout">[docs]</a><span class="k">def</span> <span class="nf">tensor_dropout</span><span class="p">(</span><span class="n">factorized_tensor</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="tensor_dropout"><a class="viewcode-back" href="../../../modules/generated/tltorch.tensor_hooks.tensor_dropout.html#tltorch.tensor_hooks.tensor_dropout">[docs]</a><span class="k">def</span> <span class="nf">tensor_dropout</span><span class="p">(</span><span class="n">factorized_tensor</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">min_dim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_values</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Tensor Dropout</span>
 
 <span class="sd">    Parameters</span>
@@ -269,6 +270,10 @@
 <span class="sd">        dropout probability</span>
 <span class="sd">        if 0, no dropout is applied</span>
 <span class="sd">        if 1, all the components but 1 are dropped in the latent space</span>
+<span class="sd">    min_dim : int, default is 3</span>
+<span class="sd">        only apply dropout to modes with dimension larger than `min_dim`</span>
+<span class="sd">    min_values : int, default is 1</span>
+<span class="sd">        minimum number of components to select</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -281,7 +286,7 @@
 <span class="sd">    &gt;&gt;&gt; tensor = tensor_dropout(tensor, p=0.5)</span>
 <span class="sd">    &gt;&gt;&gt; remove_tensor_dropout(tensor)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">TensorDropout</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">factorized_tensor</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">min_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">TensorDropout</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">factorized_tensor</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">min_dim</span><span class="o">=</span><span class="n">min_dim</span><span class="p">,</span> <span class="n">min_values</span><span class="o">=</span><span class="n">min_values</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">factorized_tensor</span></div>
 
