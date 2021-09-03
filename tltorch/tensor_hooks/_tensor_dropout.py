@@ -27,32 +27,36 @@ class TensorDropout():
         """When a subclass is created, register it in _factorizations"""
         cls._factorizations[factorization.__name__] = cls
 
-    def __init__(self, proba, min_dim=1, min_values=1):
+    def __init__(self, proba, min_dim=1, min_values=1, drop_test=False):
         self.proba = proba
         self.min_dim = min_dim
         self.min_values = min_values
+        self.drop_test = drop_test
 
     def __call__(self, module, input, factorized_tensor):
-        return self._apply_tensor_dropout(factorized_tensor)
+        return self._apply_tensor_dropout(factorized_tensor, training=module.training)
 
-    def _apply_tensor_dropout(self, factorized_tensor):
+    def _apply_tensor_dropout(self, factorized_tensor, training=True):
         raise NotImplementedError()
 
     @classmethod
-    def apply(cls, module, proba, min_dim=3, min_values=1):
+    def apply(cls, module, proba, min_dim=3, min_values=1, drop_test=False):
         cls = cls._factorizations[module.__class__.__name__]
         for k, hook in module._forward_hooks.items():
             if isinstance(hook, cls):
                 raise RuntimeError("Cannot register two weight_norm hooks on "
                                    "the same parameter")
 
-        dropout = cls(proba, min_dim=min_dim, min_values=min_values)
+        dropout = cls(proba, min_dim=min_dim, min_values=min_values, drop_test=drop_test)
         handle = module.register_forward_hook(dropout)
         return handle
 
 
 class TuckerDropout(TensorDropout, factorization=TuckerTensor):
-    def _apply_tensor_dropout(self, tucker_tensor):
+    def _apply_tensor_dropout(self, tucker_tensor, training=True):
+        if (not training) and (not self.drop_test):
+            return tucker_tensor
+
         core, factors = tucker_tensor.core, tucker_tensor.factors
         tucker_rank = tucker_tensor.rank
 
@@ -67,14 +71,21 @@ class TuckerDropout(TensorDropout, factorization=TuckerTensor):
 
             sampled_indices.append(idx)
         
-        core = core[torch.meshgrid(*sampled_indices)]
+        if training:
+            core = core[torch.meshgrid(*sampled_indices)]*(1/((1 - self.proba)**core.ndim))
+        else:
+            core = core[torch.meshgrid(*sampled_indices)]
+
         factors = [factor[:, idx]  for (factor, idx) in zip(factors, sampled_indices)]
 
         return TuckerTensor(core, factors)
 
  
 class CPDropout(TensorDropout, factorization=CPTensor):
-    def _apply_tensor_dropout(self, cp_tensor):
+    def _apply_tensor_dropout(self, cp_tensor, training=True):
+        if (not training) and (not self.drop_test):
+            return cp_tensor
+
         rank = cp_tensor.rank
         device = cp_tensor.factors[0].device
         
@@ -86,13 +97,19 @@ class CPDropout(TensorDropout, factorization=CPTensor):
                 sampled_indices = torch.randint(0, rank, size=(self.min_values, ), device=device, dtype=torch.int64)
 
             factors = [factor[:, sampled_indices] for factor in cp_tensor.factors]
-            weights = cp_tensor.weights[sampled_indices]
+            if training:
+                weights = cp_tensor.weights[sampled_indices]*(1/(1 - self.proba))
+            else:
+                weights = cp_tensor.weights[sampled_indices]
 
         return CPTensor(weights, factors)
 
 
 class TTDropout(TensorDropout, factorization=TTTensor):
-    def _apply_tensor_dropout(self, tt_tensor):
+    def _apply_tensor_dropout(self, tt_tensor, training=True):
+        if (not training) and (not self.drop_test):
+            return tt_tensor
+
         device = tt_tensor.factors[0].device
 
         sampled_indices = []
@@ -109,18 +126,22 @@ class TTDropout(TensorDropout, factorization=TTTensor):
             sampled_indices.append(idx)
 
         sampled_factors = []
+        if training:
+            scaling = 1/(1 - self.proba)
+        else:
+            scaling = 1
         for i, f in enumerate(tt_tensor.factors):
             if i == 0:
-                sampled_factors.append(f[..., sampled_indices[i]])
+                sampled_factors.append(f[..., sampled_indices[i]]*scaling)
             elif i == (tt_tensor.order - 1):
                 sampled_factors.append(f[sampled_indices[i-1], ...])
             else:
-                sampled_factors.append(f[sampled_indices[i-1], ...][..., sampled_indices[i]])
+                sampled_factors.append(f[sampled_indices[i-1], ...][..., sampled_indices[i]]*scaling)
 
         return TTTensor(sampled_factors)
 
 
-def tensor_dropout(factorized_tensor, p=0, min_dim=3, min_values=1):
+def tensor_dropout(factorized_tensor, p=0, min_dim=3, min_values=1, drop_test=False):
     """Tensor Dropout
 
     Parameters
@@ -147,7 +168,7 @@ def tensor_dropout(factorized_tensor, p=0, min_dim=3, min_values=1):
     >>> tensor = tensor_dropout(tensor, p=0.5)
     >>> remove_tensor_dropout(tensor)
     """
-    TensorDropout.apply(factorized_tensor, p, min_dim=min_dim, min_values=min_values)
+    TensorDropout.apply(factorized_tensor, p, min_dim=min_dim, min_values=min_values, drop_test=drop_test)
 
     return factorized_tensor
 
