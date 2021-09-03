@@ -10,7 +10,7 @@ def test_tucker_dropout():
     shape = (10, 11, 12)
     rank = (7, 8, 9)
     tensor = FactorizedTensor.new(shape, rank=rank, factorization='Tucker')
-    tensor = tensor_dropout(tensor, 1)
+    tensor = tensor_dropout(tensor, 0.999)
     core = tensor().core
     assert (tl.shape(core) == (1, 1, 1))
 
@@ -26,7 +26,7 @@ def test_cp_dropout():
     shape = (10, 11, 12)
     rank = 8
     tensor = FactorizedTensor.new(shape, rank=rank, factorization='CP')
-    tensor = tensor_dropout(tensor, 1)
+    tensor = tensor_dropout(tensor, 0.999)
     weights = tensor().weights
     assert (len(weights) == (1))
 
@@ -44,7 +44,7 @@ def test_tt_dropout():
     # Use the same rank for all factors
     rank = 4
     tensor = FactorizedTensor.new(shape, rank=rank, factorization='TT')
-    tensor = tensor_dropout(tensor, 1)
+    tensor = tensor_dropout(tensor, 0.999)
     factors = tensor().factors
     for f in factors:
         assert (f.shape[0] == f.shape[-1] == 1)

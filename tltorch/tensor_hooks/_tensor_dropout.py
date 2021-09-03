@@ -28,6 +28,7 @@ class TensorDropout():
         cls._factorizations[factorization.__name__] = cls
 
     def __init__(self, proba, min_dim=1, min_values=1, drop_test=False):
+        assert 0 <= proba < 1, f'Got prob={proba} but tensor dropout is defined for 0 <= proba < 1.'
         self.proba = proba
         self.min_dim = min_dim
         self.min_values = min_values
@@ -54,7 +55,7 @@ class TensorDropout():
 
 class TuckerDropout(TensorDropout, factorization=TuckerTensor):
     def _apply_tensor_dropout(self, tucker_tensor, training=True):
-        if (not training) and (not self.drop_test):
+        if (not self.proba) or ((not training) and (not self.drop_test)):
             return tucker_tensor
 
         core, factors = tucker_tensor.core, tucker_tensor.factors
@@ -83,7 +84,7 @@ class TuckerDropout(TensorDropout, factorization=TuckerTensor):
  
 class CPDropout(TensorDropout, factorization=CPTensor):
     def _apply_tensor_dropout(self, cp_tensor, training=True):
-        if (not training) and (not self.drop_test):
+        if (not self.proba) or ((not training) and (not self.drop_test)):
             return cp_tensor
 
         rank = cp_tensor.rank
@@ -107,7 +108,7 @@ class CPDropout(TensorDropout, factorization=CPTensor):
 
 class TTDropout(TensorDropout, factorization=TTTensor):
     def _apply_tensor_dropout(self, tt_tensor, training=True):
-        if (not training) and (not self.drop_test):
+        if (not self.proba) or ((not training) and (not self.drop_test)):
             return tt_tensor
 
         device = tt_tensor.factors[0].device
