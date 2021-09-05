@@ -209,7 +209,7 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
         return cls.new(shape, rank, **kwargs)
 
     @classmethod
-    def from_tensor(cls, tensor, shape, rank, factorization='CP', **kwargs):
+    def from_tensor(cls, tensor, rank, factorization='CP', **kwargs):
         """Create a factorized tensor by decomposing a full tensor
 
 
@@ -217,8 +217,6 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
         ----------
         tensor : torch.tensor
             tensor to factorize
-        shape : tuple[int]
-            shape of the factorized tensor to create
         rank : int, 'same' or float
             rank of the decomposition
         factorization : {'CP', 'TT', 'Tucker'}, optional
@@ -240,7 +238,7 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
             raise ValueError(f'Got factorization={factorization} but expected'
                              f'one of {cls._factorizations.keys()}')
 
-        return cls.from_tensor(tensor, shape, rank, **kwargs)
+        return cls.from_tensor(tensor, rank, **kwargs)
 
     def forward(self, indices=None, **kwargs):
         """To use a tensor factorization within a network, use ``tensor.forward``, or, equivalently, ``tensor()``
@@ -301,6 +299,9 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
         ndim
         """
         return len(self.shape)
+
+    def numel(self):
+        return int(np.prod(self.shape))
 
     @property
     def ndim(self):
@@ -437,7 +438,41 @@ class TensorizedTensor(FactorizedTensor, metaclass=MetaFactorizedTensor, name=''
                              f'one of {cls._factorizations.keys()}')
 
         return cls.new(tensorized_shape, rank, **kwargs)
-    
+
+    @classmethod
+    def from_tensor(cls, tensor, shape, rank, factorization='CP', **kwargs):
+        """Create a factorized tensor by decomposing a full tensor
+
+
+        Parameters
+        ----------
+        tensor : torch.tensor
+            tensor to factorize
+        shape : tuple[int]
+            shape of the factorized tensor to create
+        rank : int, 'same' or float
+            rank of the decomposition
+        factorization : {'CP', 'TT', 'Tucker'}, optional
+            Tensor factorization to use to decompose the tensor, by default 'CP'
+
+        Returns
+        -------
+        TensorFactorization
+            Tensor in Factorized form.
+
+        Raises
+        ------
+        ValueError
+            If the factorization given does not exist. 
+        """
+        try:
+            cls = cls._factorizations[factorization.lower()]
+        except KeyError:
+            raise ValueError(f'Got factorization={factorization} but expected'
+                             f'one of {cls._factorizations.keys()}')
+
+        return cls.from_tensor(tensor, shape, rank, **kwargs)
+
     @classmethod
     def from_matrix(cls, matrix, tensorized_row_shape, tensorized_column_shape, rank, factorization='CP', **kwargs):
         """Create a Tensorized Matrix by tensorizing and decomposing an existing matrix
@@ -473,7 +508,7 @@ class TensorizedTensor(FactorizedTensor, metaclass=MetaFactorizedTensor, name=''
         else:
             batch_dims = ()
         tensor = matrix.reshape((*batch_dims, *tensorized_row_shape, *tensorized_column_shape))
-        return cls.from_tensor(tensor, batch_dims+tensorized_row_shape+tensorized_column_shape, rank,  **kwargs)
+        return cls.from_tensor(tensor, batch_dims + (tensorized_row_shape, tensorized_column_shape), rank, factorization=factorization, **kwargs)
 
     def to_matrix(self):
         """Reconstruct the full matrix from the factorized tensorization
