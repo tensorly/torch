@@ -1,129 +1,17 @@
-from itertools import cycle, islice
 import torch
 import numpy as np
 from torch import nn
-from torch.nn.functional import embedding
-from scipy.stats import entropy
-from sympy.utilities.iterables import multiset_partitions
-from sympy.ntheory import factorint
 from ..factorized_tensors import TensorizedTensor
+from .utils import suggest_shape
 # Author: Cole Hawkins, with reshaping code taken from https://github.com/KhrulkovV/tt-pytorch
 # License: BSD 3 clause
-
-MODES = ['ascending', 'descending', 'mixed']
-CRITERIONS = ['entropy', 'var']
-
-def _to_list(p):
-    res = []
-    for k, v in p.items():
-        res += [
-            k,
-        ] * v
-    return res
-
-
-def _roundup(n, k):
-    return int(np.ceil(n / 10**k)) * 10**k
-
-
-def _roundrobin(*iterables):
-    "roundrobin('ABC', 'D', 'EF') --> A D E B F C"
-    # Recipe credited to George Sakkis
-    pending = len(iterables)
-    nexts = cycle(iter(it).__next__ for it in iterables)
-    while pending:
-        try:
-            for next in nexts:
-                yield next()
-        except StopIteration:
-            pending -= 1
-            nexts = cycle(islice(nexts, pending))
-
-
-def _get_all_factors(n, d=3, mode='ascending'):
-    p = _factorint2(n)
-    if len(p) < d:
-        p = p + [
-            1,
-        ] * (d - len(p))
-
-    if mode == 'ascending':
-
-        def prepr(x):
-            return tuple(sorted([np.prod(_) for _ in x]))
-    elif mode == 'descending':
-
-        def prepr(x):
-            return tuple(sorted([np.prod(_) for _ in x], reverse=True))
-
-    elif mode == 'mixed':
-
-        def prepr(x):
-            x = sorted(np.prod(_) for _ in x)
-            N = len(x)
-            xf, xl = x[:N // 2], x[N // 2:]
-            return tuple(_roundrobin(xf, xl))
-
-    else:
-        raise ValueError(
-            'Wrong mode specified, only {} are available'.format(MODES))
-
-    raw_factors = multiset_partitions(p, d)
-    clean_factors = [prepr(f) for f in raw_factors]
-    clean_factors = list(set(clean_factors))
-    return clean_factors
-
-
-def _factorint2(p):
-    return _to_list(factorint(p))
-
-
-def auto_shape(n, d=3, criterion='entropy', mode='ascending'):
-    factors = _get_all_factors(n, d=d, mode=mode)
-    if criterion == 'entropy':
-        weights = [entropy(f) for f in factors]
-    elif criterion == 'var':
-        weights = [-np.var(f) for f in factors]
-    else:
-        raise ValueError(
-            'Wrong criterion specified, only {} are available'.format(
-                CRITERIONS))
-
-    i = np.argmax(weights)
-    return list(factors[i])
-
-
-def suggest_shape(n, d=3, criterion='entropy', mode='ascending'):
-    """Given n, round up n to an easy number to factorize and return that factorization
-    """
-    weights = []
-    for i in range(len(str(n))):
-
-        n_i = _roundup(n, i)
-        if criterion == 'entropy':
-            weights.append(
-                entropy(auto_shape(n_i, d=d, mode=mode, criterion=criterion)))
-        elif criterion == 'var':
-            weights.append(
-                -np.var(auto_shape(n_i, d=d, mode=mode, criterion=criterion)))
-        else:
-            raise ValueError(
-                'Wrong criterion specified, only {} are available'.format(
-                    CRITERIONS))
-
-    i = np.argmax(weights)
-    factors = auto_shape(int(_roundup(n, i)),
-                         d=d,
-                         mode=mode,
-                         criterion=criterion)
-    return factors
 
 
 class FactorizedEmbedding(nn.Module):
     """
     Tensorized Embedding Layers For Efficient Model Compression
 
-    Tensorized drop-in replacement for torch.nn.Embedding 
+    Tensorized drop-in replacement for torch.nn.Embedding
 
     Parameters
     ----------
@@ -133,6 +21,7 @@ class FactorizedEmbedding(nn.Module):
     d : int or int tuple, number of reshape dimensions for both embedding table dimension
     tensorized_num_embeddings : int tuple, tensorized shape of the first embedding table dimension
     tensorized_embedding_dim : int tuple, tensorized shape of the second embedding table dimension
+    factorization : str, tensor type
     rank : int tuple or str, tensor rank
     """
     def __init__(self,
@@ -156,7 +45,8 @@ class FactorizedEmbedding(nn.Module):
                     "Automated factorization enabled but tensor dimensions provided"
                 )
 
-            #if user provides an int, expand to tuple and assume each embedding dimension gets reshaped to the same number of dimensions
+            #if user provides an int, expand to tuple and assume 
+            #each embedding dimension gets reshaped to the same number of dimensions
             if type(d) == int:
                 d = (d, d)
 
@@ -197,7 +87,62 @@ class FactorizedEmbedding(nn.Module):
         with torch.no_grad():
             self.weight.normal_(0, target_stddev)
 
-    def forward(self, input, offsets=None):
+    def forward(self, input):
 
-        return embedding(input, self.weight, offsets)
-        #get item from tensor here
+        #to handle case where input is not 1-D
+        output_shape = (*input.shape, self.embedding_dim)
+
+        input = input.view(-1)
+
+        embeddings = self.weight[input, :]
+
+        #CPTensorized returns CPTensorized when indexing
+        if self.factorization == 'CP':
+            embeddings = embeddings.to_matrix()
+
+        #TuckerTensorized returns tensor not matrix,
+        #and requires reshape not view for contiguous
+        elif self.factorization == 'Tucker':
+            embeddings = embeddings.reshape(input.shape[0], -1)
+
+        return embeddings.view(output_shape)
+
+    @classmethod
+    def from_embedding(cls,
+                       embedding_layer,
+                       rank=8,
+                       factorization='blocktt',
+                       decompose_weights=True,
+                       auto_reshape=True,
+                       decomposition_kwargs=dict(),
+                       **kwargs):
+        """
+        Create a tensorized embedding layer from a regular embedding layer
+
+        Parameters
+        ----------
+        embedding_layer : torch.nn.Embedding
+        rank : int tuple or str, tensor rank
+        factorization : str, tensor type
+        decompose_weights: bool, decompose weights and use for initialization
+        auto_reshape: bool, automatically reshape dimensions for TensorizedTensor
+        decomposition_kwargs: dict, specify kwargs for the decomposition
+        """
+        embeddings, embedding_dim = embedding_layer.weight.shape
+
+        instance = cls(embeddings,
+                       embedding_dim,
+                       auto_reshape=auto_reshape,
+                       factorization=factorization,
+                       rank=rank,
+                       **kwargs)
+
+        if decompose_weights:
+            with torch.no_grad():
+                instance.weight.init_from_matrix(embedding_layer.weight.data,
+                                                 **decomposition_kwargs)
+
+        else:
+            instance.reset_parameters()
+
+        return instance
