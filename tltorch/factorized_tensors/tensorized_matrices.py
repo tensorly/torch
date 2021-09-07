@@ -458,3 +458,14 @@ class BlockTT(TensorizedTensor, name='BlockTT'):
         factors = [nn.Parameter(f) for f in factors]
 
         return cls(factors, tensorized_shape, rank)
+
+    def init_from_tensor(self, tensor, **kwargs):
+        rank = tl.tt_matrix.validate_tt_matrix_rank(tensor.shape, self.rank)
+
+        with torch.no_grad():
+            factors = tensor_train_matrix(tensor, rank, **kwargs)
+
+        self.factors = FactorList([nn.Parameter(f) for f in factors])
+        self.rank = tuple([f.shape[0] for f in factors] + [1])
+
+        return self
