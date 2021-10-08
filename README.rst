@@ -72,7 +72,7 @@ From source
 
 .. code::
 
-  git clone https://github.com/tensorly/tensorly
+  git clone https://github.com/tensorly/torch
   cd tensorly-torch
   pip install -e .
   
