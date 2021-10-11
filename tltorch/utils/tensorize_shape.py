@@ -4,12 +4,6 @@ from bisect import insort_left
 
 # Author : Jean Kossaifi
 
-def _ensure_tuple(value):
-    if isinstance(value, tuple):
-        return value
-    else:
-        return (value, )
-    
 def factorize(value, min_value=2, remaining=-1):
     if value <= min_value or remaining == 0:
         return (value, )
