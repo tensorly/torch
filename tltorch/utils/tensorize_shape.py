@@ -61,7 +61,7 @@ def get_tensorized_shape(in_features, out_features, order=None, min_dim=4, verbo
     if len(in_ten) > merge_size:
         in_ten = merge_ints(in_ten, size=merge_size)
     if len(out_ten) > merge_size:
-        out_ten = merge_ints(in_ten, size=merge_size)
+        out_ten = merge_ints(out_ten, size=merge_size)
 
     if verbose:
         print(f'Tensorizing (in, out)=({in_features, out_features}) -> ({in_ten, out_ten})')
