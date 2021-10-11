@@ -4,7 +4,6 @@ from torch import nn
 from ..factorized_tensors import TensorizedTensor
 from tltorch.utils import get_tensorized_shape
 # Author: Cole Hawkins 
-# License: BSD 3 clause
 
 
 class FactorizedEmbedding(nn.Module):
