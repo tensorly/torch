@@ -2,8 +2,8 @@ import torch
 import numpy as np
 from torch import nn
 from ..factorized_tensors import TensorizedTensor
-from .utils import suggest_shape
-# Author: Cole Hawkins, with reshaping code taken from https://github.com/KhrulkovV/tt-pytorch
+from tltorch.utils import get_tensorized_shape
+# Author: Cole Hawkins 
 # License: BSD 3 clause
 
 
@@ -28,7 +28,7 @@ class FactorizedEmbedding(nn.Module):
                  num_embeddings,
                  embedding_dim,
                  auto_reshape=True,
-                 d=(3, 3),
+                 d=3,
                  tensorized_num_embeddings=None,
                  tensorized_embedding_dim=None,
                  factorization='blocktt',
@@ -38,6 +38,7 @@ class FactorizedEmbedding(nn.Module):
         super().__init__()
 
         if auto_reshape:
+
             try:
                 assert tensorized_num_embeddings is None and tensorized_embedding_dim is None
             except:
@@ -45,23 +46,17 @@ class FactorizedEmbedding(nn.Module):
                     "Automated factorization enabled but tensor dimensions provided"
                 )
 
-            #if user provides an int, expand to tuple and assume 
-            #each embedding dimension gets reshaped to the same number of dimensions
-            if type(d) == int:
-                d = (d, d)
+            tensorized_num_embeddings,tensorized_embedding_dim=get_tensorized_shape(in_features=num_embeddings, out_features=embedding_dim, order=d, min_dim=4, verbose=False)
 
-            tensorized_num_embeddings = suggest_shape(num_embeddings, d[0])
-            tensorized_embedding_dim = suggest_shape(embedding_dim, d[1])
-            num_embeddings = np.prod(tensorized_num_embeddings)
-            embedding_dim = np.prod(tensorized_embedding_dim)
         else:
             try:
+                #check that dimensions match factorization
                 assert np.prod(
                     tensorized_num_embeddings) == num_embeddings and np.prod(
                         tensorized_embedding_dim) == embedding_dim
             except:
                 raise ValueError(
-                    "Must provide appropriate reshaping dimensions")
+                    "Provided tensorization dimensions do not match embedding shape")
 
         self.num_embeddings = num_embeddings
         self.embedding_dim = embedding_dim
@@ -92,9 +87,9 @@ class FactorizedEmbedding(nn.Module):
         #to handle case where input is not 1-D
         output_shape = (*input.shape, self.embedding_dim)
 
-        input = input.view(-1)
+        flatenned_input = input.view(-1)
 
-        embeddings = self.weight[input, :]
+        embeddings = self.weight[flatenned_input, :]
 
         #CPTensorized returns CPTensorized when indexing
         if self.factorization == 'CP':
