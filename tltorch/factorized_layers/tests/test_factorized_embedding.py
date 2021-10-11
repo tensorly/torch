@@ -9,7 +9,7 @@ from tensorly import testing
 
 #@pytest.mark.parametrize('factorization', ['BlockTT'])
 @pytest.mark.parametrize('factorization', ['CP','Tucker', 'BlockTT'])
-@pytest.mark.parametrize('dims', [(997,16), (101,11)])
+@pytest.mark.parametrize('dims', [(256,16), (1000,32)])
 def test_FactorizedEmbedding(factorization,dims):
 
     
