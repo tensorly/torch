@@ -127,7 +127,8 @@ class FactorizedLinear(nn.Module):
         assert(in_features == np.prod(in_tensorized_features))
 
         instance = cls(in_tensorized_features, out_tensorized_features, bias=bias,
-                       factorization=factorization, rank=rank, n_layers=1)
+                       factorization=factorization, rank=rank, n_layers=1,
+                       device=linear.weight.device, dtype=linear.weight.dtype)
 
         instance.weight.init_from_matrix(linear.weight.data, **decomposition_kwargs)
 
@@ -162,7 +163,8 @@ class FactorizedLinear(nn.Module):
             assert(in_features == np.prod(in_tensorized_features))
 
         instance = cls(in_tensorized_features, out_tensorized_features, bias=bias,
-                       factorization=factorization, rank=rank, n_layers=len(linear_list))
+                       factorization=factorization, rank=rank, n_layers=len(linear_list),
+                       device=linear.weight.device, dtype=linear.weight.dtype)
         weight_tensor = torch.stack([layer.weight.data for layer in linear_list])
         instance.weight.init_from_matrix(weight_tensor, **decomposition_kwargs)
 

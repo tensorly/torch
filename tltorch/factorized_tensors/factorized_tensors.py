@@ -28,7 +28,6 @@ class CPTensor(FactorizedTensor, name='CP'):
     shape
     rank
     """
-
     def __init__(self, weights, factors, shape=None, rank=None):
         super().__init__()
         if shape is not None and rank is not None:
