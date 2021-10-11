@@ -72,8 +72,8 @@ From source
 
 .. code::
 
-  git clone https://github.com/tensorly/tensorly
-  cd tensorly-torch
+  git clone https://github.com/tensorly/torch
+  cd torch
   pip install -e .
   
 
