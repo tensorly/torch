@@ -1,8 +1,6 @@
 from torch import nn
 import torch
 
-
-
 class FactorList(nn.Module):
     def __init__(self, parameters=None):
         super().__init__()
