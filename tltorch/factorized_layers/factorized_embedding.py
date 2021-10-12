@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 from torch import nn
-from ..factorized_tensors import TensorizedTensor,tensor_init
+from tltorch.factorized_tensors import TensorizedTensor,tensor_init
 from tltorch.utils import get_tensorized_shape
 # Author: Cole Hawkins 
 
