@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 from torch import nn
-from ..factorized_tensors import TensorizedTensor
+from ..factorized_tensors import TensorizedTensor,tensor_init
 from tltorch.utils import get_tensorized_shape
 # Author: Cole Hawkins 
 
@@ -38,24 +38,22 @@ class FactorizedEmbedding(nn.Module):
 
         if auto_reshape:
 
-            try:
-                assert tensorized_num_embeddings is None and tensorized_embedding_dim is None
-            except:
+            if tensorized_num_embeddings is not None and tensorized_embedding_dim is not None:
                 raise ValueError(
-                    "Automated factorization enabled but tensor dimensions provided"
+                    "Either use auto_reshape or specify tensorized_num_embeddings and tensorized_embedding_dim."
                 )
 
             tensorized_num_embeddings,tensorized_embedding_dim=get_tensorized_shape(in_features=num_embeddings, out_features=embedding_dim, order=d, min_dim=4, verbose=False)
 
         else:
-            try:
-                #check that dimensions match factorization
-                assert np.prod(
-                    tensorized_num_embeddings) == num_embeddings and np.prod(
-                        tensorized_embedding_dim) == embedding_dim
-            except:
-                raise ValueError(
-                    "Provided tensorization dimensions do not match embedding shape")
+            #check that dimensions match factorization
+            computed_num_embeddings = np.prod(tensorized_num_embeddings)
+            computed_embedding_dim = np.prod(tensorized_embedding_dim)
+
+            if computed_num_embeddings!=num_embeddings:
+                raise ValueError("Tensorized embeddding number {} does not match num_embeddings argument {}".format(computed_num_embeddings,num_embeddings))
+            if computed_embedding_dim!=embedding_dim:
+                raise ValueError("Tensorized embeddding dimension {} does not match embedding_dim argument {}".format(computed_embedding_dim,embedding_dim))
 
         self.num_embeddings = num_embeddings
         self.embedding_dim = embedding_dim
@@ -79,7 +77,7 @@ class FactorizedEmbedding(nn.Module):
         #TT-Rec: Tensor Train Compression for Deep Learning Recommendation Model Embeddings
         target_stddev = 1 / np.sqrt(3 * self.num_embeddings)
         with torch.no_grad():
-            self.weight.normal_(0, target_stddev)
+            tensor_init(self.weight,std=target_stddev)
 
     def forward(self, input):
 
