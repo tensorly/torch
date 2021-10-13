@@ -38,10 +38,9 @@ In TensorLy-Torch , you can also represent matrices in *tensorized* form, as low
     :toctree: generated
     :template: class.rst
 
-    TensorizedMatrix
-    CPMatrix
-    TuckerMatrix
-    TTMatrix
+    TensorizedTensor
+    CPTensorized
+    BlockTT
 
 .. _init_ref:
 
@@ -115,6 +114,19 @@ General N-Dimensional convolutions in Factorized forms
     :template: class.rst
 
     FactorizedConv
+
+.. _tensor_dropout_ref:
+
+Factorized Embeddings
+=====================
+
+A drop-in replacement for PyTorch's embeddings but using an efficient tensor parametrization that never reconstructs the full table. 
+
+.. autosummary::
+    :toctree: generated
+    :template: class.rst
+
+    FactorizedEmbedding
 
 .. _tensor_dropout_ref:
 

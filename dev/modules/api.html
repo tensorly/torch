@@ -181,6 +181,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#tensor-contraction-layers">Tensor Contraction Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#factorized-linear-layers">Factorized Linear Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#factorized-convolutions">Factorized Convolutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#factorized-embeddings">Factorized Embeddings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-tltorch.tensor_hooks">Tensor Dropout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#l1-regularization">L1 Regularization</a></li>
 </ul>
@@ -250,6 +251,20 @@ The core of this is the concept of factorized tensors, which factorize our layer
 <col style="width: 90%" />
 </colgroup>
 <tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.TensorizedTensor.html#tltorch.TensorizedTensor" title="tltorch.TensorizedTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorizedTensor</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Matrix in Tensorized Format</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.CPTensorized.html#tltorch.CPTensorized" title="tltorch.CPTensorized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPTensorized</span></code></a>(*args, **kwargs)</p></td>
+<td><p><p class="rubric">Methods</p>
+</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.BlockTT.html#tltorch.BlockTT" title="tltorch.BlockTT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BlockTT</span></code></a>(*args, **kwargs)</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+</p></td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -334,8 +349,23 @@ The core of this is the concept of factorized tensors, which factorize our layer
 </tbody>
 </table>
 </section>
+<section id="factorized-embeddings">
+<span id="tensor-dropout-ref"></span><h2>Factorized Embeddings</h2>
+<p>A drop-in replacement for PyTorch’s embeddings but using an efficient tensor parametrization that never reconstructs the full table.</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding" title="tltorch.factorized_layers.FactorizedEmbedding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FactorizedEmbedding</span></code></a>(num_embeddings, ...[, ...])</p></td>
+<td><p>Tensorized Embedding Layers For Efficient Model Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="module-tltorch.tensor_hooks">
-<span id="tensor-dropout"></span><span id="tensor-dropout-ref"></span><h2>Tensor Dropout</h2>
+<span id="tensor-dropout"></span><span id="id2"></span><h2>Tensor Dropout</h2>
 <p>These functions allow you to easily add or remove tensor dropout from tensor layers.</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -440,6 +470,7 @@ The core of this is the concept of factorized tensors, which factorize our layer
 <li><a class="reference internal" href="#tensor-contraction-layers">Tensor Contraction Layers</a></li>
 <li><a class="reference internal" href="#factorized-linear-layers">Factorized Linear Layers</a></li>
 <li><a class="reference internal" href="#factorized-convolutions">Factorized Convolutions</a></li>
+<li><a class="reference internal" href="#factorized-embeddings">Factorized Embeddings</a></li>
 <li><a class="reference internal" href="#module-tltorch.tensor_hooks">Tensor Dropout</a><ul>
 </ul>
 </li>

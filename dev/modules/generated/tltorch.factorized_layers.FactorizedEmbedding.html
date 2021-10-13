@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>tltorch.init.tucker_init &#8212; TensorLy-Torch 0.2.0 documentation</title> 
+    <title>tltorch.factorized_layers.FactorizedEmbedding &#8212; TensorLy-Torch 0.2.0 documentation</title> 
 <link rel="stylesheet" href="../../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../../_static/favicon/favicon-32x32.png">
@@ -38,8 +38,8 @@
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="tltorch.init.tt_init" href="tltorch.init.tt_init.html" />
-    <link rel="prev" title="tltorch.init.cp_init" href="tltorch.init.cp_init.html" />
+    <link rel="next" title="tltorch.tensor_hooks.tensor_dropout" href="tltorch.tensor_hooks.tensor_dropout.html" />
+    <link rel="prev" title="tltorch.factorized_layers.FactorizedConv" href="tltorch.factorized_layers.FactorizedConv.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   </head>
@@ -176,12 +176,12 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-tensors">Factorized Tensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#tensorized-matrices">Tensorized Matrices</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-tltorch.init">Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.init">Initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.factorized_layers">Tensor Regression Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-contraction-layers">Tensor Contraction Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-linear-layers">Factorized Linear Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-convolutions">Factorized Convolutions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-embeddings">Factorized Embeddings</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#factorized-embeddings">Factorized Embeddings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.tensor_hooks">Tensor Dropout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#l1-regularization">L1 Regularization</a></li>
 </ul>
@@ -213,8 +213,87 @@
 
         <div class="content main-content">
           
-  <section id="tltorch-init-tucker-init">
-<h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.init.tucker_init</h1>
+  <section id="tltorch-factorized-layers-factorizedembedding">
+<h1><a class="reference internal" href="../api.html#module-tltorch.factorized_layers" title="tltorch.factorized_layers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_layers</span></code></a>.FactorizedEmbedding</h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="tltorch.factorized_layers.FactorizedEmbedding">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tltorch.factorized_layers.</span></span><span class="sig-name descname"><span class="pre">FactorizedEmbedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_embeddings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_reshape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensorized_num_embeddings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensorized_embedding_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'blocktt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_embedding.html#FactorizedEmbedding"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Tensorized Embedding Layers For Efficient Model Compression</p>
+<p>Tensorized drop-in replacement for torch.nn.Embedding</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>num_embeddings</strong><span class="classifier">int, number of entries in the lookup table</span></dt><dd></dd>
+<dt><strong>embedding_dim</strong><span class="classifier">int, number of dimensions per entry</span></dt><dd></dd>
+<dt><strong>auto_reshape</strong><span class="classifier">bool, whether to use automatic reshaping for the embedding dimensions</span></dt><dd></dd>
+<dt><strong>d</strong><span class="classifier">int or int tuple, number of reshape dimensions for both embedding table dimension</span></dt><dd></dd>
+<dt><strong>tensorized_num_embeddings</strong><span class="classifier">int tuple, tensorized shape of the first embedding table dimension</span></dt><dd></dd>
+<dt><strong>tensorized_embedding_dim</strong><span class="classifier">int tuple, tensorized shape of the second embedding table dimension</span></dt><dd></dd>
+<dt><strong>factorization</strong><span class="classifier">str, tensor type</span></dt><dd></dd>
+<dt><strong>rank</strong><span class="classifier">int tuple or str, tensor rank</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.factorized_layers.FactorizedEmbedding.forward" title="tltorch.factorized_layers.FactorizedEmbedding.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(input)</p></td>
+<td><p>Defines the computation performed at every call.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.factorized_layers.FactorizedEmbedding.from_embedding" title="tltorch.factorized_layers.FactorizedEmbedding.from_embedding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_embedding</span></code></a>(embedding_layer[, rank, ...])</p></td>
+<td><p>Create a tensorized embedding layer from a regular embedding layer</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 67%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>reset_parameters</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="tltorch.factorized_layers.FactorizedEmbedding.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_embedding.html#FactorizedEmbedding.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tltorch.factorized_layers.FactorizedEmbedding.from_embedding">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_embedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embedding_layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'blocktt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decompose_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_reshape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_embedding.html#FactorizedEmbedding.from_embedding"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Create a tensorized embedding layer from a regular embedding layer</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>embedding_layer</strong><span class="classifier">torch.nn.Embedding</span></dt><dd></dd>
+<dt><strong>rank</strong><span class="classifier">int tuple or str, tensor rank</span></dt><dd></dd>
+<dt><strong>factorization</strong><span class="classifier">str, tensor type</span></dt><dd></dd>
+<dt><strong>decompose_weights: bool, decompose weights and use for initialization</strong></dt><dd></dd>
+<dt><strong>auto_reshape: bool, automatically reshape dimensions for TensorizedTensor</strong></dt><dd></dd>
+<dt><strong>decomposition_kwargs: dict, specify kwargs for the decomposition</strong></dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <div class="clearer"></div></section>
 
 
@@ -223,16 +302,16 @@
 		
         <nav class="pagination" role="navigation" aria-label="pagination">
     
-    <a class="button is-medium pagination-previous" href="tltorch.init.cp_init.html" title="previous page" accesskey="p">
+    <a class="button is-medium pagination-previous" href="tltorch.factorized_layers.FactorizedConv.html" title="previous page" accesskey="p">
         <span class="icon">
             <i class="fa fa-arrow-circle-left"></i>
         </span>
-        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.init.cp_init</span>
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_layers</span></code>.FactorizedConv</span>
     </a>
     
     
-    <a class="button is-medium pagination-next" href="tltorch.init.tt_init.html" title="next page" accesskey="n">
-        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.init.tt_init </span>
+    <a class="button is-medium pagination-next" href="tltorch.tensor_hooks.tensor_dropout.html" title="next page" accesskey="n">
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.tensor_hooks</span></code>.tensor_dropout </span>
         <span class="icon">
             <i class="fa fa-arrow-circle-right"></i>
         </span>

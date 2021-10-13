@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>tltorch.init.tucker_init &#8212; TensorLy-Torch 0.2.0 documentation</title> 
+    <title>tltorch.BlockTT &#8212; TensorLy-Torch 0.2.0 documentation</title> 
 <link rel="stylesheet" href="../../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../../_static/favicon/favicon-32x32.png">
@@ -38,8 +38,8 @@
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="tltorch.init.tt_init" href="tltorch.init.tt_init.html" />
-    <link rel="prev" title="tltorch.init.cp_init" href="tltorch.init.cp_init.html" />
+    <link rel="next" title="tltorch.init.tensor_init" href="tltorch.init.tensor_init.html" />
+    <link rel="prev" title="tltorch.CPTensorized" href="tltorch.CPTensorized.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   </head>
@@ -175,8 +175,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing tensorly-Torch</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-tensors">Factorized Tensors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#tensorized-matrices">Tensorized Matrices</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-tltorch.init">Initialization</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#tensorized-matrices">Tensorized Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.init">Initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.factorized_layers">Tensor Regression Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-contraction-layers">Tensor Contraction Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-linear-layers">Factorized Linear Layers</a></li>
@@ -213,8 +213,85 @@
 
         <div class="content main-content">
           
-  <section id="tltorch-init-tucker-init">
-<h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.init.tucker_init</h1>
+  <section id="tltorch-blocktt">
+<h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.BlockTT</h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="tltorch.BlockTT">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tltorch.</span></span><span class="sig-name descname"><span class="pre">BlockTT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/tensorized_matrices.html#BlockTT"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><a class="reference internal" href="#tltorch.BlockTT.decomposition" title="tltorch.BlockTT.decomposition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decomposition</span></code></a></dt><dd><p>Returns the factors and parameters composing the tensor in factorized form</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_tensor</span></code>(tensor, tensorized_shape, rank, ...)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">new</span></code>(tensorized_shape, rank[, device, dtype])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.BlockTT.normal_" title="tltorch.BlockTT.normal_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normal_</span></code></a>([mean, std])</p></td>
+<td><p>Inialize the factors of the factorization such that the <strong>reconstruction</strong> follows a Gaussian distribution</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.BlockTT.to_tensor" title="tltorch.BlockTT.to_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_tensor</span></code></a>()</p></td>
+<td><p>Reconstruct the full tensor from its factorized form</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 67%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>init_from_tensor</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="py property">
+<dt class="sig sig-object py" id="tltorch.BlockTT.decomposition">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">decomposition</span></span></dt>
+<dd><p>Returns the factors and parameters composing the tensor in factorized form</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tltorch.BlockTT.to_tensor">
+<span class="sig-name descname"><span class="pre">to_tensor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/tensorized_matrices.html#BlockTT.to_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Reconstruct the full tensor from its factorized form</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tltorch.BlockTT.normal_">
+<span class="sig-name descname"><span class="pre">normal_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/tensorized_matrices.html#BlockTT.normal_"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Inialize the factors of the factorization such that the <strong>reconstruction</strong> follows a Gaussian distribution</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>mean</strong><span class="classifier">float, currently only 0 is supported</span></dt><dd></dd>
+<dt><strong>std</strong><span class="classifier">float</span></dt><dd><p>standard deviation</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>self</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <div class="clearer"></div></section>
 
 
@@ -223,16 +300,16 @@
 		
         <nav class="pagination" role="navigation" aria-label="pagination">
     
-    <a class="button is-medium pagination-previous" href="tltorch.init.cp_init.html" title="previous page" accesskey="p">
+    <a class="button is-medium pagination-previous" href="tltorch.CPTensorized.html" title="previous page" accesskey="p">
         <span class="icon">
             <i class="fa fa-arrow-circle-left"></i>
         </span>
-        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.init.cp_init</span>
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.CPTensorized</span>
     </a>
     
     
-    <a class="button is-medium pagination-next" href="tltorch.init.tt_init.html" title="next page" accesskey="n">
-        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.init.tt_init </span>
+    <a class="button is-medium pagination-next" href="tltorch.init.tensor_init.html" title="next page" accesskey="n">
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.init.tensor_init </span>
         <span class="icon">
             <i class="fa fa-arrow-circle-right"></i>
         </span>

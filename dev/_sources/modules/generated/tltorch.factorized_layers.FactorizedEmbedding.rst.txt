@@ -1,0 +1,11 @@
+﻿:mod:`tltorch.factorized_layers`.FactorizedEmbedding
+===========================================================
+
+.. currentmodule:: tltorch.factorized_layers
+
+.. autoclass:: FactorizedEmbedding
+   :members:
+
+.. raw:: html
+
+    <div class="clearer"></div>
