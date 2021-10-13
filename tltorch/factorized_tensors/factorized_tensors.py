@@ -301,7 +301,6 @@ class TuckerTensor(FactorizedTensor, name='Tucker'):
 class TTTensor(FactorizedTensor, name='TT'):
     """Tensor-Train (Matrix-Product-State) Factorization
 
-
     Parameters
     ----------
     factors

@@ -30,7 +30,7 @@ It comes with all batteries included and tries to make it as easy as possible to
 
 - **Leverage structure in your data**: with tensor layers, you can easily leverage the structure in your data, through :ref:`TRL <trl_ref>`, :ref:`TCL <tcl_ref>`, :ref:`Factorized convolutions <factorized_conv_ref>` and more!
 - **Built-in tensor layers**: all you have to do is import tensorly torch and include the layers we provide directly within your PyTorch models!
-- **Initialization**: initializing tensor decompositions can be tricky. We take care of it all, whether you want to initialize randomly using our :mod:`tltorch.init` module or from a pretrained layer.
+- **Initialization**: initializing tensor decompositions can be tricky. We take care of it all, whether you want to initialize randomly using our :ref:`init_ref` module or from a pretrained layer.
 - **Tensor hooks**: you can easily augment your architectures with our built-in :mod:`Tensor Hooks <tltorch.tensor_hooks>`. Robustify your network with Tensor Dropout and automatically select the rank end-to-end with L1 Regularization!
 - **All the methods available**: we are always adding more methods to make it easy to compare between the performance of various deep tensor based methods!
 

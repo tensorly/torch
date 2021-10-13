@@ -26,4 +26,3 @@ def factorized_linear(x, weight, bias=None, in_features=None):
 
 
     return F.linear(x, torch.reshape(weight, (-1, in_features)), bias=bias)
-
