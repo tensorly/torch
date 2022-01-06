@@ -217,7 +217,7 @@
 <h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.BlockTT</h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="tltorch.BlockTT">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tltorch.</span></span><span class="sig-name descname"><span class="pre">BlockTT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/tensorized_matrices.html#BlockTT"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tltorch.</span></span><span class="sig-name descname"><span class="pre">BlockTT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/tensorized_matrices.html#BlockTT"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Attributes</dt>
 <dd class="field-odd"><dl class="simple">
@@ -233,11 +233,11 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_tensor</span></code>(tensor, tensorized_shape, rank, ...)</p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.BlockTT.from_tensor" title="tltorch.BlockTT.from_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_tensor</span></code></a>(tensor, tensorized_shape, rank, ...)</p></td>
+<td><p>Create a factorized tensor by decomposing a full tensor</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">new</span></code>(tensorized_shape, rank[, device, dtype])</p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.BlockTT.new" title="tltorch.BlockTT.new"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new</span></code></a>(tensorized_shape, rank[, device, dtype])</p></td>
+<td><p>Main way to create a Tensorized Matrix</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.BlockTT.normal_" title="tltorch.BlockTT.normal_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normal_</span></code></a>([mean, std])</p></td>
 <td><p>Inialize the factors of the factorization such that the <strong>reconstruction</strong> follows a Gaussian distribution</p></td>
@@ -258,9 +258,40 @@
 </tr>
 </tbody>
 </table>
+<dl class="py method">
+<dt class="sig sig-object py" id="tltorch.BlockTT.new">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensorized_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/tensorized_matrices.html#BlockTT.new"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Main way to create a Tensorized Matrix</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>tensorized_shape</strong><span class="classifier">tuple[int]</span></dt><dd></dd>
+<dt><strong>rank</strong><span class="classifier">int, ‘same’ or float</span></dt><dd><p>rank of the decomposition</p>
+</dd>
+<dt><strong>n_matrices</strong><span class="classifier">tuple or int, default is ()</span></dt><dd><p>if not (), indicates how many matrices have to be jointly factorized</p>
+</dd>
+<dt><strong>factorization</strong><span class="classifier">{‘CP’, ‘TT’, ‘Tucker’}, optional</span></dt><dd><p>Tensor factorization to use to decompose the tensor, by default ‘CP’</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>TensorizedTensor</dt><dd><p>Tensor in Tensorized and Factorized form.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If the factorization given does not exist.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="tltorch.BlockTT.decomposition">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">decomposition</span></span></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">decomposition</span></span></dt>
 <dd><p>Returns the factors and parameters composing the tensor in factorized form</p>
 </dd></dl>
 
@@ -285,6 +316,38 @@
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
 <dt>self</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tltorch.BlockTT.from_tensor">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensorized_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/tensorized_matrices.html#BlockTT.from_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Create a factorized tensor by decomposing a full tensor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>tensor</strong><span class="classifier">torch.tensor</span></dt><dd><p>tensor to factorize</p>
+</dd>
+<dt><strong>shape</strong><span class="classifier">tuple[int]</span></dt><dd><p>shape of the factorized tensor to create</p>
+</dd>
+<dt><strong>rank</strong><span class="classifier">int, ‘same’ or float</span></dt><dd><p>rank of the decomposition</p>
+</dd>
+<dt><strong>factorization</strong><span class="classifier">{‘CP’, ‘TT’, ‘Tucker’}, optional</span></dt><dd><p>Tensor factorization to use to decompose the tensor, by default ‘CP’</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>TensorFactorization</dt><dd><p>Tensor in Factorized form.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If the factorization given does not exist.</p>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -324,7 +387,7 @@
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2021, Jean Kossaifi.<br/>
+          &copy; Copyright 2022, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="tensorly.org"><strong>TensorLy</strong></a> theme by <a href="jeankossaifi.com">Jean Kossaifi</a>.
