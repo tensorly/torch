@@ -9,6 +9,7 @@ from ..factorized_tensors import TensorizedTensor
 
 # Author: Jean Kossaifi
 # License: BSD 3 clause
+# Author: Christian Lee - CP Factorized Forward Propagation
 
 
 class FactorizedLinear(nn.Module):
