@@ -2,6 +2,7 @@ import math
 import numpy as np
 from torch import nn
 import torch
+import tensorly as tl
 
 from ..functional import factorized_linear
 from ..factorized_tensors import TensorizedTensor
@@ -27,7 +28,7 @@ class FactorizedLinear(nn.Module):
     bias : bool, default is True
     """
     def __init__(self, in_tensorized_features, out_tensorized_features, bias=True,
-                 factorization='cp', rank='same', n_layers=1, device=None, dtype=None):
+                 factorization='cp', rank='same', n_layers=1, factorized_forward=False, device=None, dtype=None):
         super().__init__()
         if factorization == 'TTM' and n_layers != 1:
             raise ValueError(f'TTM factorization only support single factorized layers but got n_layers={n_layers}.')
@@ -39,6 +40,11 @@ class FactorizedLinear(nn.Module):
         self.tensorized_shape = out_tensorized_features + in_tensorized_features
         self.weight_shape = (self.out_features, self.in_features)
         self.input_rank = rank
+        
+        self.factorization = factorization
+        self.factorized_forward=factorized_forward
+        self.tensorized_out_indices = tl.base.vec_to_tensor(vec=torch.arange(self.out_features), shape=out_tensorized_features)
+        self.tensorized_in_indices = tl.base.vec_to_tensor(vec=torch.arange(self.in_features), shape=in_tensorized_features)
 
         if bias:
             if n_layers == 1:
@@ -62,7 +68,11 @@ class FactorizedLinear(nn.Module):
         else:
             self.weight = TensorizedTensor.new(tensor_shape, rank=rank, factorization=factorization, device=device, dtype=dtype)
             self.reset_parameters()
-
+        
+        if n_layers == 1 and factorization=='cp':
+            self.out_factors = self.weight.factors[:len(out_tensorized_features)]
+            self.in_factors = self.weight.factors[len(out_tensorized_features):]
+            
         self.rank = self.weight.rank
 
     def reset_parameters(self):
@@ -72,11 +82,41 @@ class FactorizedLinear(nn.Module):
                 fan_in, _ = torch.nn.init._calculate_fan_in_and_fan_out(self.weight)
                 bound = 1 / math.sqrt(fan_in)
                 torch.nn.init.uniform_(self.bias, -bound, bound)
+                
+    def out_index_to_tensorized_out_index(self, out_index):
+        tensorized_out_index = (self.tensorized_out_indices == out_index).nonzero().squeeze().tolist()
+        tensorized_out_index = tuple(tensorized_out_index)
+        
+        return tensorized_out_index
+    
+    def in_index_to_tensorized_in_index(self, in_index):
+        tensorized_in_index = (self.tensorized_in_indices == in_index).nonzero().squeeze().tolist()
+        tensorized_in_index = tuple(tensorized_in_index)
+        return tensorized_in_index
 
     def forward(self, x, indices=0):
         if self.n_layers == 1:
             if indices == 0:
-                return factorized_linear(x, self.weight(), bias=self.bias, in_features=self.in_features)
+                if self.factorized_forward:
+                    if self.factorization == 'cp':
+                        factorized_forward_output = torch.zeros(size=(self.out_features,))
+                        for out_index in range(self.out_features):
+                            for in_index in range(self.in_features):
+                                out = 1
+                                tensorized_out_index = self.out_index_to_tensorized_out_index(out_index=out_index)
+                                for (factor, index) in zip(self.out_factors, tensorized_out_index):
+                                    out *= factor[index]
+                                tensorized_in_index = self.in_index_to_tensorized_in_index(in_index=in_index)
+                                for (factor, index) in zip(self.in_factors, tensorized_in_index):
+                                    out *= factor[index]
+                                out = out.sum()
+                                out *= x[in_index]
+                                factorized_forward_output[out_index] += out
+                            if self.has_bias:
+                                factorized_forward_output[out_index] += self.bias[out_index]
+                        return factorized_forward_output
+                else:
+                    return factorized_linear(x, self.weight(), bias=self.bias, in_features=self.in_features)
 
             else:
                 raise ValueError(f'Only one convolution was parametrized (n_layers=1) but tried to access {indices}.')
