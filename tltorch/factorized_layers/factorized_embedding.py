@@ -3,8 +3,9 @@ import numpy as np
 from torch import nn
 from tltorch.factorized_tensors import TensorizedTensor,tensor_init
 from tltorch.utils import get_tensorized_shape
-# Author: Cole Hawkins 
 
+# Authors: Cole Hawkins 
+#          Jean Kossaifi
 
 class FactorizedEmbedding(nn.Module):
     """
@@ -32,6 +33,7 @@ class FactorizedEmbedding(nn.Module):
                  tensorized_embedding_dim=None,
                  factorization='blocktt',
                  rank=8,
+                 n_layers=1,
                  device=None,
                  dtype=None):
         super().__init__()
@@ -61,6 +63,11 @@ class FactorizedEmbedding(nn.Module):
                              tensorized_embedding_dim)
         self.weight_shape = (self.num_embeddings, self.embedding_dim)
 
+        self.n_layers = n_layers
+        if n_layers > 1:
+            self.tensor_shape = (n_layers, ) + self.tensor_shape
+            self.weight_shape = (n_layers, ) + self.weight_shape
+
         self.factorization = factorization
 
         self.weight = TensorizedTensor.new(self.tensor_shape,
@@ -79,14 +86,17 @@ class FactorizedEmbedding(nn.Module):
         with torch.no_grad():
             tensor_init(self.weight,std=target_stddev)
 
-    def forward(self, input):
-
+    def forward(self, input, indices=0):
         #to handle case where input is not 1-D
         output_shape = (*input.shape, self.embedding_dim)
 
         flatenned_input = input.view(-1)
 
-        embeddings = self.weight[flatenned_input, :]
+        if self.n_layers == 1:
+            if indices == 0:
+                embeddings = self.weight[flatenned_input, :]
+        else:
+            embeddings = self.weight[indices, flatenned_input, :]
 
         #CPTensorized returns CPTensorized when indexing
         if self.factorization == 'CP':
@@ -138,3 +148,40 @@ class FactorizedEmbedding(nn.Module):
             instance.reset_parameters()
 
         return instance
+    
+    def get_embedding(self, indices):
+        if self.n_layers == 1:
+            raise ValueError('A single linear is parametrized, directly use the main class.')
+
+        return SubFactorizedEmbedding(self, indices)
+
+
+class SubFactorizedEmbedding(nn.Module):
+    """Class representing one of the embeddings from the mother joint factorized embedding layer
+
+    Parameters
+    ----------
+
+    Notes
+    -----
+    This relies on the fact that nn.Parameters are not duplicated:
+    if the same nn.Parameter is assigned to multiple modules, they all point to the same data, 
+    which is shared.
+    """
+    def __init__(self, main_layer, indices):
+        super().__init__()
+        self.main_layer = main_layer
+        self.indices = indices
+
+    def forward(self, x):
+        return self.main_layer(x, self.indices)
+
+    def extra_repr(self):
+        return ''
+
+    def __repr__(self):
+        msg = f' {self.__class__.__name__} {self.indices} from main factorized layer.'
+        msg += f'\n{self.__class__.__name__}('
+        msg += self.extra_repr()
+        msg += ')'
+        return msg
