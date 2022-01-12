@@ -124,7 +124,6 @@ class CPTensorized(CPTensor, TensorizedTensor, name='CP'):
         output_shape.extend(self.tensorized_shape[len(indices):])
         
         if indexed_factors:
-            print(output_shape)
             return self.__class__(weights, indexed_factors, tensorized_shape=output_shape)
         return tl.sum(weights)
 
