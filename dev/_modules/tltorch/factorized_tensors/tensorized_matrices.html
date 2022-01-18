@@ -263,7 +263,6 @@
         <span class="n">output_shape</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">):])</span>
         
         <span class="k">if</span> <span class="n">indexed_factors</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">output_shape</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">indexed_factors</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="o">=</span><span class="n">output_shape</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">tl</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span></div>
 
