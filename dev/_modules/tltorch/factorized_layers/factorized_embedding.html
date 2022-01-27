@@ -238,12 +238,12 @@
             <span class="n">embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">[</span><span class="n">indices</span><span class="p">,</span> <span class="n">flatenned_input</span><span class="p">,</span> <span class="p">:]</span>
 
         <span class="c1">#CPTensorized returns CPTensorized when indexing</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">factorization</span> <span class="o">==</span> <span class="s1">&#39;cp&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">factorization</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;cp&#39;</span><span class="p">:</span>
             <span class="n">embeddings</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
 
         <span class="c1">#TuckerTensorized returns tensor not matrix,</span>
         <span class="c1">#and requires reshape not view for contiguous</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">factorization</span> <span class="o">==</span> <span class="s1">&#39;tucker&#39;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">factorization</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;tucker&#39;</span><span class="p">:</span>
             <span class="n">embeddings</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">output_shape</span><span class="p">)</span></div>
