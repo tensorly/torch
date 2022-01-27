@@ -184,7 +184,7 @@
                     <span class="s2">&quot;Either use auto_reshape or specify tensorized_num_embeddings and tensorized_embedding_dim.&quot;</span>
                 <span class="p">)</span>
 
-            <span class="n">tensorized_num_embeddings</span><span class="p">,</span><span class="n">tensorized_embedding_dim</span><span class="o">=</span><span class="n">get_tensorized_shape</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="n">num_embeddings</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="n">embedding_dim</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">min_dim</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">tensorized_num_embeddings</span><span class="p">,</span> <span class="n">tensorized_embedding_dim</span> <span class="o">=</span> <span class="n">get_tensorized_shape</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="n">num_embeddings</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="n">embedding_dim</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">min_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="c1">#check that dimensions match factorization</span>
@@ -238,12 +238,12 @@
             <span class="n">embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">[</span><span class="n">indices</span><span class="p">,</span> <span class="n">flatenned_input</span><span class="p">,</span> <span class="p">:]</span>
 
         <span class="c1">#CPTensorized returns CPTensorized when indexing</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">factorization</span> <span class="o">==</span> <span class="s1">&#39;CP&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">factorization</span> <span class="o">==</span> <span class="s1">&#39;cp&#39;</span><span class="p">:</span>
             <span class="n">embeddings</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
 
         <span class="c1">#TuckerTensorized returns tensor not matrix,</span>
         <span class="c1">#and requires reshape not view for contiguous</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">factorization</span> <span class="o">==</span> <span class="s1">&#39;Tucker&#39;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">factorization</span> <span class="o">==</span> <span class="s1">&#39;tucker&#39;</span><span class="p">:</span>
             <span class="n">embeddings</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">output_shape</span><span class="p">)</span></div>
@@ -269,9 +269,9 @@
 <span class="sd">        auto_reshape: bool, automatically reshape dimensions for TensorizedTensor</span>
 <span class="sd">        decomposition_kwargs: dict, specify kwargs for the decomposition</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">embeddings</span><span class="p">,</span> <span class="n">embedding_dim</span> <span class="o">=</span> <span class="n">embedding_layer</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">num_embeddings</span><span class="p">,</span> <span class="n">embedding_dim</span> <span class="o">=</span> <span class="n">embedding_layer</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">shape</span>
 
-        <span class="n">instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">embeddings</span><span class="p">,</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">num_embeddings</span><span class="p">,</span>
                        <span class="n">embedding_dim</span><span class="p">,</span>
                        <span class="n">auto_reshape</span><span class="o">=</span><span class="n">auto_reshape</span><span class="p">,</span>
                        <span class="n">factorization</span><span class="o">=</span><span class="n">factorization</span><span class="p">,</span>
@@ -287,7 +287,66 @@
             <span class="n">instance</span><span class="o">.</span><span class="n">reset_parameters</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="n">instance</span></div>
-    
+
+<div class="viewcode-block" id="FactorizedEmbedding.from_embedding_list"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding.from_embedding_list">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_embedding_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
+                       <span class="n">embedding_layer_list</span><span class="p">,</span>
+                       <span class="n">rank</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+                       <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;blocktt&#39;</span><span class="p">,</span>
+                       <span class="n">decompose_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="n">auto_reshape</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                       <span class="n">decomposition_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(),</span>
+                       <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a tensorized embedding layer from a regular embedding layer</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        embedding_layer : torch.nn.Embedding</span>
+<span class="sd">        rank : int tuple or str, tensor rank</span>
+<span class="sd">        factorization : str, tensor type</span>
+<span class="sd">        decompose_weights: bool, decompose weights and use for initialization</span>
+<span class="sd">        auto_reshape: bool, automatically reshape dimensions for TensorizedTensor</span>
+<span class="sd">        decomposition_kwargs: dict, specify kwargs for the decomposition</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">n_layers</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">embedding_layer_list</span><span class="p">)</span>
+        <span class="n">num_embeddings</span><span class="p">,</span> <span class="n">embedding_dim</span> <span class="o">=</span> <span class="n">embedding_layer_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">embedding_layer_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+            <span class="c1"># Just some checks on the size of the embeddings</span>
+            <span class="c1"># They need to have the same size so they can be jointly factorized</span>
+            <span class="n">new_num_embeddings</span><span class="p">,</span> <span class="n">new_embedding_dim</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">if</span> <span class="n">num_embeddings</span> <span class="o">!=</span> <span class="n">new_num_embeddings</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;All embedding layers must have the same num_embeddings.&#39;</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;Yet, got embedding_layer_list[0] with num_embeddings=</span><span class="si">{</span><span class="n">num_embeddings</span><span class="si">}</span><span class="s1"> &#39;</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39; and embedding_layer_list[</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">] with num_embeddings=</span><span class="si">{</span><span class="n">new_num_embeddings</span><span class="si">}</span><span class="s1">.&#39;</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">embedding_dim</span> <span class="o">!=</span> <span class="n">new_embedding_dim</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;All embedding layers must have the same embedding_dim.&#39;</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;Yet, got embedding_layer_list[0] with embedding_dim=</span><span class="si">{</span><span class="n">embedding_dim</span><span class="si">}</span><span class="s1"> &#39;</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39; and embedding_layer_list[</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">] with embedding_dim=</span><span class="si">{</span><span class="n">new_embedding_dim</span><span class="si">}</span><span class="s1">.&#39;</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="n">instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">num_embeddings</span><span class="p">,</span>
+                       <span class="n">embedding_dim</span><span class="p">,</span>
+                       <span class="n">auto_reshape</span><span class="o">=</span><span class="n">auto_reshape</span><span class="p">,</span>
+                       <span class="n">factorization</span><span class="o">=</span><span class="n">factorization</span><span class="p">,</span>
+                       <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">,</span>
+                       <span class="n">n_layers</span><span class="o">=</span><span class="n">n_layers</span><span class="p">,</span>
+                       <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">decompose_weights</span><span class="p">:</span>
+            <span class="n">weight_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">layer</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">embedding_layer_list</span><span class="p">])</span>
+            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+                <span class="n">instance</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">init_from_matrix</span><span class="p">(</span><span class="n">weight_tensor</span><span class="p">,</span>
+                                                 <span class="o">**</span><span class="n">decomposition_kwargs</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">instance</span><span class="o">.</span><span class="n">reset_parameters</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">instance</span></div>
+
+
     <span class="k">def</span> <span class="nf">get_embedding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_layers</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;A single linear is parametrized, directly use the main class.&#39;</span><span class="p">)</span>
