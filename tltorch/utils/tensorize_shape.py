@@ -16,7 +16,7 @@ def factorize(value, min_value=2, remaining=-1):
     return (value, )
 
 def merge_ints(values, size):
-    if len(values) <= 2:
+    if len(values) <= 1:
         return values
 
     values = sorted(list(values))
@@ -26,7 +26,7 @@ def merge_ints(values, size):
     
     return tuple(values)
     
-def get_tensorized_shape(in_features, out_features, order=None, min_dim=4, verbose=True):
+def get_tensorized_shape(in_features, out_features, order=None, min_dim=2, verbose=True):
     """ Factorizes in_features and out_features such that:
     * they both are factorized into the same number of integers
     * they should both be factorized into `order` integers

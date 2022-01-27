@@ -45,7 +45,7 @@ class FactorizedEmbedding(nn.Module):
                     "Either use auto_reshape or specify tensorized_num_embeddings and tensorized_embedding_dim."
                 )
 
-            tensorized_num_embeddings,tensorized_embedding_dim=get_tensorized_shape(in_features=num_embeddings, out_features=embedding_dim, order=d, min_dim=4, verbose=False)
+            tensorized_num_embeddings, tensorized_embedding_dim = get_tensorized_shape(in_features=num_embeddings, out_features=embedding_dim, order=d, min_dim=2, verbose=False)
 
         else:
             #check that dimensions match factorization
@@ -99,12 +99,12 @@ class FactorizedEmbedding(nn.Module):
             embeddings = self.weight[indices, flatenned_input, :]
 
         #CPTensorized returns CPTensorized when indexing
-        if self.factorization == 'CP':
+        if self.factorization == 'cp':
             embeddings = embeddings.to_matrix()
 
         #TuckerTensorized returns tensor not matrix,
         #and requires reshape not view for contiguous
-        elif self.factorization == 'Tucker':
+        elif self.factorization == 'tucker':
             embeddings = embeddings.reshape(input.shape[0], -1)
 
         return embeddings.view(output_shape)
@@ -130,9 +130,9 @@ class FactorizedEmbedding(nn.Module):
         auto_reshape: bool, automatically reshape dimensions for TensorizedTensor
         decomposition_kwargs: dict, specify kwargs for the decomposition
         """
-        embeddings, embedding_dim = embedding_layer.weight.shape
+        num_embeddings, embedding_dim = embedding_layer.weight.shape
 
-        instance = cls(embeddings,
+        instance = cls(num_embeddings,
                        embedding_dim,
                        auto_reshape=auto_reshape,
                        factorization=factorization,
@@ -148,7 +148,66 @@ class FactorizedEmbedding(nn.Module):
             instance.reset_parameters()
 
         return instance
-    
+
+    @classmethod
+    def from_embedding_list(cls,
+                       embedding_layer_list,
+                       rank=8,
+                       factorization='blocktt',
+                       decompose_weights=True,
+                       auto_reshape=True,
+                       decomposition_kwargs=dict(),
+                       **kwargs):
+        """
+        Create a tensorized embedding layer from a regular embedding layer
+
+        Parameters
+        ----------
+        embedding_layer : torch.nn.Embedding
+        rank : int tuple or str, tensor rank
+        factorization : str, tensor type
+        decompose_weights: bool, decompose weights and use for initialization
+        auto_reshape: bool, automatically reshape dimensions for TensorizedTensor
+        decomposition_kwargs: dict, specify kwargs for the decomposition
+        """
+        n_layers = len(embedding_layer_list)
+        num_embeddings, embedding_dim = embedding_layer_list[0].weight.shape
+
+        for i, layer in enumerate(embedding_layer_list[1:]):
+            # Just some checks on the size of the embeddings
+            # They need to have the same size so they can be jointly factorized
+            new_num_embeddings, new_embedding_dim = layer.weight.shape
+            if num_embeddings != new_num_embeddings:
+                msg = 'All embedding layers must have the same num_embeddings.'
+                msg += f'Yet, got embedding_layer_list[0] with num_embeddings={num_embeddings} '
+                msg += f' and embedding_layer_list[{i+1}] with num_embeddings={new_num_embeddings}.'
+                raise ValueError(msg)
+            if embedding_dim != new_embedding_dim:
+                msg = 'All embedding layers must have the same embedding_dim.'
+                msg += f'Yet, got embedding_layer_list[0] with embedding_dim={embedding_dim} '
+                msg += f' and embedding_layer_list[{i+1}] with embedding_dim={new_embedding_dim}.'
+                raise ValueError(msg)
+
+        instance = cls(num_embeddings,
+                       embedding_dim,
+                       auto_reshape=auto_reshape,
+                       factorization=factorization,
+                       rank=rank,
+                       n_layers=n_layers,
+                       **kwargs)
+
+        if decompose_weights:
+            weight_tensor = torch.stack([layer.weight.data for layer in embedding_layer_list])
+            with torch.no_grad():
+                instance.weight.init_from_matrix(weight_tensor,
+                                                 **decomposition_kwargs)
+
+        else:
+            instance.reset_parameters()
+
+        return instance
+
+
     def get_embedding(self, indices):
         if self.n_layers == 1:
             raise ValueError('A single linear is parametrized, directly use the main class.')
