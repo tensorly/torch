@@ -99,12 +99,12 @@ class FactorizedEmbedding(nn.Module):
             embeddings = self.weight[indices, flatenned_input, :]
 
         #CPTensorized returns CPTensorized when indexing
-        if self.factorization == 'cp':
+        if self.factorization.lower() == 'cp':
             embeddings = embeddings.to_matrix()
 
         #TuckerTensorized returns tensor not matrix,
         #and requires reshape not view for contiguous
-        elif self.factorization == 'tucker':
+        elif self.factorization.lower() == 'tucker':
             embeddings = embeddings.reshape(input.shape[0], -1)
 
         return embeddings.view(output_shape)
