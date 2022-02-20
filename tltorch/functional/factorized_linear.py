@@ -1,28 +1,61 @@
-import torch
+from .factorized_tensordot import tensor_dot_tucker, tensor_dot_cp
 import tensorly as tl
-from collections import Counter
-from tensorly.tt_tensor import TTTensor
-
 tl.set_backend('pytorch')
 
-# Author: Taylor Lee Patti <taylorpatti@g.harvard.edu>
+# Author: Jean Kossaifi
 
-def tt_factorized_linear(tt_vec, ttm_weights):
-    """Contracts a TT tensor with a TT matrix and returns a TT tensor.
+def linear_tucker(tensor, tucker_matrix, transpose=True):
+    if transpose:
+        contraction_axis = 1
+    else:
+        contraction_axis = 0
+    n_rows = len(tucker_matrix.tensorized_shape[contraction_axis])
+    tensor = tensor.reshape(-1, *tucker_matrix.tensorized_shape[contraction_axis])
 
-    Parameters
-    ----------
-    tt_vec : tensor train tensor
-    ttm_weights : tensor train matrix
+    modes_tensor = list(range(tensor.ndim - n_rows, tensor.ndim))
+    if transpose:
+        modes_tucker = list(range(n_rows, tucker_matrix.order))
+    else:
+        modes_tucker = list(range(n_rows))
 
-    Returns
-    -------
-    The tensor train tensor obtained for contracting the TT tensor and the TT matrix.
-    """
-    ncores = len(tt_vec)
-    contr_layer = []
-    for i in range(ncores):
-        dimW, dimX = ttm_weights[i].shape, tt_vec[i].shape
-        contr = tl.einsum('abc,debf->adecf', tt_vec[i], ttm_weights[i])
-        contr_layer.append(tl.reshape(contr, (dimW[0]*dimX[0], dimW[1], dimW[3]*dimX[2])))
-    return TTTensor(contr_layer)
+    return tensor_dot_tucker(tensor, tucker_matrix, (modes_tensor, modes_tucker))
+
+def linear_cp(tensor, cp_matrix, transpose=True):
+    if transpose:
+        out_features, in_features = len(cp_matrix.tensorized_shape[0]), len(cp_matrix.tensorized_shape[1])
+        in_shape = cp_matrix.tensorized_shape[1]
+        modes_cp = list(range(out_features, cp_matrix.order))
+    else:
+        in_features, out_features = len(cp_matrix.tensorized_shape[0]), len(cp_matrix.tensorized_shape[1])
+        in_shape = cp_matrix.tensorized_shape[0]
+        modes_cp = list(range(in_features))
+    tensor = tensor.reshape(-1, *in_shape)
+
+    modes_tensor = list(range(1, tensor.ndim))
+
+    return tensor_dot_cp(tensor, cp_matrix, (modes_tensor, modes_cp))
+
+
+def linear_blocktt(tensor, tt_matrix, transpose=True):
+    if transpose:
+        contraction_axis = 1
+    else:
+        contraction_axis = 0
+    ndim = len(tt_matrix.tensorized_shape[contraction_axis])
+    tensor = tensor.reshape(-1, *tt_matrix.tensorized_shape[contraction_axis])
+
+    bs = 'a'
+    start = ord(bs) + 1
+    in_idx = bs + ''.join(chr(i) for i in [start+i for i in range(ndim)])
+    factors_idx = []
+    for i in range(ndim):
+        if transpose:
+            idx = [start+ndim*2+i, start+ndim+i, start+i, start+ndim*2+i+1]
+        else:
+            idx = [start+ndim*2+i, start+i, start+ndim+i, start+ndim*2+i+1]
+        factors_idx.append(''.join(chr(j) for j in idx))
+    out_idx = bs + ''.join(chr(i) for i in [start + ndim + i for i in range(ndim)])
+    eq = in_idx + ',' + ','.join(i for i in factors_idx) + '->' + out_idx
+    res = tl.einsum(eq, tensor, *tt_matrix.factors)
+    return tl.reshape(res, (tl.shape(res)[0], -1))
+
