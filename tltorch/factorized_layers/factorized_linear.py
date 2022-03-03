@@ -13,18 +13,27 @@ from ..factorized_tensors import TensorizedTensor
 class FactorizedLinear(nn.Module):
     """Tensorized Fully-Connected Layers
 
-    The weight matrice is tensorized to a tensor of size `tensorized_shape`.
+    The weight matrice is tensorized to a tensor of size `(*in_tensorized_features, *out_tensorized_features)`.
     That tensor is expressed as a low-rank tensor.
+    
     During inference, the full tensor is reconstructed, and unfolded back into a matrix, 
     used for the forward pass in a regular linear layer.
 
     Parameters
     ----------
-    in_features : int
-    out_features : int
-    tensorized_shape : int tuple
+    in_tensorized_features : int tuple
+        shape to which the input_features dimension is tensorized to
+        e.g. if in_features is 8 in_tensorized_features could be (2, 2, 2)
+        should verify prod(in_tensorized_features) = in_features
+    out_tensorized_features : int tuple
+        shape to which the input_features dimension is tensorized to.
+    factorization : str, default is 'cp'
     rank : int tuple or str
+    n_layers : int, default is 1
+        number of linear layers to be parametrized with a single factorized tensor
     bias : bool, default is True
+    device : PyTorch device to use, default is None
+    dtype : PyTorch dtype, default is None
     """
     def __init__(self, in_tensorized_features, out_tensorized_features, bias=True,
                  factorization='cp', rank='same', n_layers=1, device=None, dtype=None):
