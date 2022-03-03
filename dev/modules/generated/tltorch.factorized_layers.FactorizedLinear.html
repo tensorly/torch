@@ -219,18 +219,26 @@
 <dt class="sig sig-object py" id="tltorch.factorized_layers.FactorizedLinear">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tltorch.factorized_layers.</span></span><span class="sig-name descname"><span class="pre">FactorizedLinear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cp'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'same'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_linear.html#FactorizedLinear"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Tensorized Fully-Connected Layers</p>
-<p>The weight matrice is tensorized to a tensor of size <cite>tensorized_shape</cite>.
-That tensor is expressed as a low-rank tensor.
-During inference, the full tensor is reconstructed, and unfolded back into a matrix, 
+<p>The weight matrice is tensorized to a tensor of size <cite>(*in_tensorized_features, *out_tensorized_features)</cite>.
+That tensor is expressed as a low-rank tensor.</p>
+<p>During inference, the full tensor is reconstructed, and unfolded back into a matrix, 
 used for the forward pass in a regular linear layer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>in_features</strong><span class="classifier">int</span></dt><dd></dd>
-<dt><strong>out_features</strong><span class="classifier">int</span></dt><dd></dd>
-<dt><strong>tensorized_shape</strong><span class="classifier">int tuple</span></dt><dd></dd>
+<dt><strong>in_tensorized_features</strong><span class="classifier">int tuple</span></dt><dd><p>shape to which the input_features dimension is tensorized to
+e.g. if in_features is 8 in_tensorized_features could be (2, 2, 2)
+should verify prod(in_tensorized_features) = in_features</p>
+</dd>
+<dt><strong>out_tensorized_features</strong><span class="classifier">int tuple</span></dt><dd><p>shape to which the input_features dimension is tensorized to.</p>
+</dd>
+<dt><strong>factorization</strong><span class="classifier">str, default is ‘cp’</span></dt><dd></dd>
 <dt><strong>rank</strong><span class="classifier">int tuple or str</span></dt><dd></dd>
+<dt><strong>n_layers</strong><span class="classifier">int, default is 1</span></dt><dd><p>number of linear layers to be parametrized with a single factorized tensor</p>
+</dd>
 <dt><strong>bias</strong><span class="classifier">bool, default is True</span></dt><dd></dd>
+<dt><strong>device</strong><span class="classifier">PyTorch device to use, default is None</span></dt><dd></dd>
+<dt><strong>dtype</strong><span class="classifier">PyTorch dtype, default is None</span></dt><dd></dd>
 </dl>
 </dd>
 </dl>

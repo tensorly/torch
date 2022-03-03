@@ -152,18 +152,27 @@
 <div class="viewcode-block" id="FactorizedLinear"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear">[docs]</a><span class="k">class</span> <span class="nc">FactorizedLinear</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Tensorized Fully-Connected Layers</span>
 
-<span class="sd">    The weight matrice is tensorized to a tensor of size `tensorized_shape`.</span>
+<span class="sd">    The weight matrice is tensorized to a tensor of size `(*in_tensorized_features, *out_tensorized_features)`.</span>
 <span class="sd">    That tensor is expressed as a low-rank tensor.</span>
+<span class="sd">    </span>
 <span class="sd">    During inference, the full tensor is reconstructed, and unfolded back into a matrix, </span>
 <span class="sd">    used for the forward pass in a regular linear layer.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    in_features : int</span>
-<span class="sd">    out_features : int</span>
-<span class="sd">    tensorized_shape : int tuple</span>
+<span class="sd">    in_tensorized_features : int tuple</span>
+<span class="sd">        shape to which the input_features dimension is tensorized to</span>
+<span class="sd">        e.g. if in_features is 8 in_tensorized_features could be (2, 2, 2)</span>
+<span class="sd">        should verify prod(in_tensorized_features) = in_features</span>
+<span class="sd">    out_tensorized_features : int tuple</span>
+<span class="sd">        shape to which the input_features dimension is tensorized to.</span>
+<span class="sd">    factorization : str, default is &#39;cp&#39;</span>
 <span class="sd">    rank : int tuple or str</span>
+<span class="sd">    n_layers : int, default is 1</span>
+<span class="sd">        number of linear layers to be parametrized with a single factorized tensor</span>
 <span class="sd">    bias : bool, default is True</span>
+<span class="sd">    device : PyTorch device to use, default is None</span>
+<span class="sd">    dtype : PyTorch dtype, default is None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_tensorized_features</span><span class="p">,</span> <span class="n">out_tensorized_features</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                  <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;cp&#39;</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">n_layers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
