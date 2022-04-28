@@ -4,7 +4,7 @@ import math
 import torch
 from torch import testing
 
-from tltorch.factorized_tensors.tensorized_matrices import CPTensorized, TuckerTensorized, BlockTT
+from tltorch.factorized_tensors.tensorized_matrices import CPTensorized, TuckerTensorized, BlockTT, BlockCP
 from tltorch.factorized_tensors.core import TensorizedTensor
 
 from ..factorized_tensors import FactorizedTensor, CPTensor, TuckerTensor, TTTensor
@@ -41,7 +41,7 @@ def test_FactorizedTensor(factorization):
         testing.assert_allclose(reconstruction[idx], res)
 
 
-@pytest.mark.parametrize('factorization', ['BlockTT', 'CP']) #['CP', 'Tucker', 'BlockTT'])
+@pytest.mark.parametrize('factorization', ['BlockTT', 'CP', 'BlockCP']) #['CP', 'Tucker', 'BlockTT'])
 @pytest.mark.parametrize('batch_size', [(), (4,)])
 def test_TensorizedMatrix(factorization, batch_size):
     """Test for TensorizedMatrix"""
@@ -57,7 +57,7 @@ def test_TensorizedMatrix(factorization, batch_size):
 
     # Check that the correct type of factorized tensor is created
     assert fact_tensor._name.lower() == factorization.lower()
-    mapping = dict(CP=CPTensorized, Tucker=TuckerTensorized, BlockTT=BlockTT)
+    mapping = dict(CP=CPTensorized, Tucker=TuckerTensorized, BlockTT=BlockTT, BlockCP=BlockCP)
     assert isinstance(fact_tensor, mapping[factorization])
 
     # Check that the matrix has the right shape
