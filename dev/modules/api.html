@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>API reference &#8212; TensorLy-Torch 0.3.0 documentation</title> 
 <link rel="stylesheet" href="../_static/tensorly_style.css">
@@ -23,6 +23,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
  <script src="../_static/navbar_burger.js"></script>
  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
@@ -222,10 +223,6 @@
 The core of this is the concept of factorized tensors, which factorize our layers, instead of regular, dense PyTorch tensors.</p>
 <p>You can create any factorized tensor through the main class, or directly create a specific subclass:</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor" title="tltorch.FactorizedTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FactorizedTensor</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Tensor Factorization</p></td>
@@ -246,10 +243,6 @@ The core of this is the concept of factorized tensors, which factorize our layer
 <span id="factorized-matrix-ref"></span><h2>Tensorized Matrices</h2>
 <p>In TensorLy-Torch , you can also represent matrices in <em>tensorized</em> form, as low-rank tensors .</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.TensorizedTensor.html#tltorch.TensorizedTensor" title="tltorch.TensorizedTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorizedTensor</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Matrix in Tensorized Format</p></td>
@@ -260,7 +253,7 @@ The core of this is the concept of factorized tensors, which factorize our layer
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.BlockTT.html#tltorch.BlockTT" title="tltorch.BlockTT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BlockTT</span></code></a>(*args, **kwargs)</p></td>
 <td><p><dl class="field-list simple">
-<dt class="field-odd">Attributes</dt>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><p></p></dd>
 </dl>
 </p></td>
@@ -272,10 +265,6 @@ The core of this is the concept of factorized tensors, which factorize our layer
 <span id="initialization"></span><span id="init-ref"></span><h2>Initialization</h2>
 <p>Module for initializing tensor decompositions</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor_init</span></code>(tensor[, std])</p></td>
 <td><p>Initializes directly the parameters of a factorized tensor so the reconstruction has the specified standard deviation and 0 mean</p></td>
@@ -295,10 +284,6 @@ The core of this is the concept of factorized tensors, which factorize our layer
 <section id="module-tltorch.factorized_layers">
 <span id="tensor-regression-layers"></span><span id="trl-ref"></span><h2>Tensor Regression Layers</h2>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_layers.TRL.html#tltorch.factorized_layers.TRL" title="tltorch.factorized_layers.TRL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TRL</span></code></a>(input_shape, output_shape[, bias, ...])</p></td>
 <td><p>Tensor Regression Layers</p></td>
@@ -309,10 +294,6 @@ The core of this is the concept of factorized tensors, which factorize our layer
 <section id="tensor-contraction-layers">
 <span id="tcl-ref"></span><h2>Tensor Contraction Layers</h2>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_layers.TCL.html#tltorch.factorized_layers.TCL" title="tltorch.factorized_layers.TCL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TCL</span></code></a>(input_shape, rank[, verbose, bias, ...])</p></td>
 <td><p>Tensor Contraction Layer <a class="reference internal" href="generated/tltorch.factorized_layers.TCL.html#r4c5b93526459-1" id="id1"><span>[R4c5b93526459-1]</span></a></p></td>
@@ -323,10 +304,6 @@ The core of this is the concept of factorized tensors, which factorize our layer
 <section id="factorized-linear-layers">
 <span id="factorized-linear-ref"></span><h2>Factorized Linear Layers</h2>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear" title="tltorch.factorized_layers.FactorizedLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FactorizedLinear</span></code></a>(in_tensorized_features, ...)</p></td>
 <td><p>Tensorized Fully-Connected Layers</p></td>
@@ -338,10 +315,6 @@ The core of this is the concept of factorized tensors, which factorize our layer
 <span id="factorized-conv-ref"></span><h2>Factorized Convolutions</h2>
 <p>General N-Dimensional convolutions in Factorized forms</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv" title="tltorch.factorized_layers.FactorizedConv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FactorizedConv</span></code></a>(in_channels, out_channels, ...)</p></td>
 <td><p>Create a factorized convolution of arbitrary order</p></td>
@@ -353,10 +326,6 @@ The core of this is the concept of factorized tensors, which factorize our layer
 <span id="tensor-dropout-ref"></span><h2>Factorized Embeddings</h2>
 <p>A drop-in replacement for PyTorch’s embeddings but using an efficient tensor parametrization that never reconstructs the full table.</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding" title="tltorch.factorized_layers.FactorizedEmbedding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FactorizedEmbedding</span></code></a>(num_embeddings, ...[, ...])</p></td>
 <td><p>Tensorized Embedding Layers For Efficient Model Compression</p></td>
@@ -368,10 +337,6 @@ The core of this is the concept of factorized tensors, which factorize our layer
 <span id="tensor-dropout"></span><span id="id2"></span><h2>Tensor Dropout</h2>
 <p>These functions allow you to easily add or remove tensor dropout from tensor layers.</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.tensor_hooks.tensor_dropout.html#tltorch.tensor_hooks.tensor_dropout" title="tltorch.tensor_hooks.tensor_dropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor_dropout</span></code></a>(factorized_tensor[, p, ...])</p></td>
 <td><p>Tensor Dropout</p></td>
@@ -383,10 +348,6 @@ The core of this is the concept of factorized tensors, which factorize our layer
 </table>
 <p>You can also use the class API below but unless you have a particular use for the classes, you should use the convenient functions provided instead.</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.tensor_hooks.TensorDropout.html#tltorch.tensor_hooks.TensorDropout" title="tltorch.tensor_hooks.TensorDropout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorDropout</span></code></a>(proba[, min_dim, min_values, ...])</p></td>
 <td><p>Decomposition Hook for Tensor Dropout on FactorizedTensor</p></td>
@@ -398,10 +359,6 @@ The core of this is the concept of factorized tensors, which factorize our layer
 <span id="tensor-lasso-ref"></span><h2>L1 Regularization</h2>
 <p>L1 Regularization on tensor modules.</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.tensor_hooks.tensor_lasso.html#tltorch.tensor_hooks.tensor_lasso" title="tltorch.tensor_hooks.tensor_lasso"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor_lasso</span></code></a>([factorization, penalty, ...])</p></td>
 <td><p>Generalized Tensor Lasso from a factorized tensors</p></td>

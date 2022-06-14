@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>tltorch.tensor_hooks.TensorDropout &#8212; TensorLy-Torch 0.3.0 documentation</title> 
 <link rel="stylesheet" href="../../_static/tensorly_style.css">
@@ -23,6 +23,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
  <script src="../../_static/navbar_burger.js"></script>
  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
@@ -220,7 +221,7 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tltorch.tensor_hooks.</span></span><span class="sig-name descname"><span class="pre">TensorDropout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proba</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop_test</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/tensor_hooks/_tensor_dropout.html#TensorDropout"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Decomposition Hook for Tensor Dropout on FactorizedTensor</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>name</strong><span class="classifier">FactorizedTensor parameter on which to apply the dropout</span></dt><dd></dd>
 <dt><strong>proba</strong><span class="classifier">float, probability of dropout</span></dt><dd></dd>
@@ -233,10 +234,6 @@ then dropout will <em>not</em> be applied to the last two modes.</p>
 </dl>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code>(module, input, factorized_tensor)</p></td>
 <td><p>Call self as a function.</p></td>
@@ -244,10 +241,6 @@ then dropout will <em>not</em> be applied to the last two modes.</p>
 </tbody>
 </table>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 47%" />
-<col style="width: 53%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>apply</strong></p></td>
 <td></td>

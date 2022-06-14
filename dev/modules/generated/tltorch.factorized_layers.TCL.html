@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>tltorch.factorized_layers.TCL &#8212; TensorLy-Torch 0.3.0 documentation</title> 
 <link rel="stylesheet" href="../../_static/tensorly_style.css">
@@ -23,6 +23,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
  <script src="../../_static/navbar_burger.js"></script>
  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
@@ -220,7 +221,7 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tltorch.factorized_layers.</span></span><span class="sig-name descname"><span class="pre">TCL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/tensor_contraction_layers.html#TCL"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Tensor Contraction Layer <a class="reference internal" href="#r4c5b93526459-1" id="id1">[1]</a></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>input_size</strong><span class="classifier">int iterable</span></dt><dd><p>shape of the input, excluding batch size</p>
 </dd>
@@ -233,15 +234,16 @@ if int, the same rank will be used for all dimensions</p>
 </dd>
 </dl>
 <p class="rubric">References</p>
-<dl class="citation">
-<dt class="label" id="r4c5b93526459-1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>J. Kossaifi, A. Khanna, Z. Lipton, T. Furlanello and A. Anandkumar, 
+<div role="list" class="citation-list">
+<div class="citation" id="r4c5b93526459-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>J. Kossaifi, A. Khanna, Z. Lipton, T. Furlanello and A. Anandkumar, 
 “Tensor Contraction Layers for Parsimonious Deep Nets,” 2017 IEEE Conference on Computer Vision and Pattern Recognition Workshops (CVPRW),
 Honolulu, HI, 2017, pp. 1940-1946, doi: 10.1109/CVPRW.2017.243.</p>
-</dd>
-</dl>
+</div>
+</div>
 <dl class="field-list simple">
-<dt class="field-odd">Attributes</dt>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>factors</strong></dt><dd></dd>
 </dl>
@@ -249,10 +251,6 @@ Honolulu, HI, 2017, pp. 1940-1946, doi: 10.1109/CVPRW.2017.243.</p>
 </dl>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.factorized_layers.TCL.forward" title="tltorch.factorized_layers.TCL.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x)</p></td>
 <td><p>Performs a forward pass</p></td>

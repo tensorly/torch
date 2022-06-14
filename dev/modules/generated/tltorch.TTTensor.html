@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>tltorch.TTTensor &#8212; TensorLy-Torch 0.3.0 documentation</title> 
 <link rel="stylesheet" href="../../_static/tensorly_style.css">
@@ -23,6 +23,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
  <script src="../../_static/navbar_burger.js"></script>
  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
@@ -220,14 +221,14 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tltorch.</span></span><span class="sig-name descname"><span class="pre">TTTensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#TTTensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Tensor-Train (Matrix-Product-State) Factorization</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>factors</strong></dt><dd></dd>
 <dt><strong>shape</strong></dt><dd></dd>
 <dt><strong>rank</strong></dt><dd></dd>
 </dl>
 </dd>
-<dt class="field-even">Attributes</dt>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt><a class="reference internal" href="#tltorch.TTTensor.decomposition" title="tltorch.TTTensor.decomposition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decomposition</span></code></a></dt><dd><p>Returns the factors and parameters composing the tensor in factorized form</p>
 </dd>
@@ -236,10 +237,6 @@
 </dl>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.TTTensor.from_tensor" title="tltorch.TTTensor.from_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_tensor</span></code></a>(tensor[, rank])</p></td>
 <td><p>Create a factorized tensor by decomposing a full tensor</p></td>
@@ -259,10 +256,6 @@
 </tbody>
 </table>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 67%" />
-<col style="width: 33%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>init_from_tensor</strong></p></td>
 <td></td>
@@ -274,7 +267,7 @@
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#TTTensor.new"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Main way to create a factorized tensor</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>shape</strong><span class="classifier">tuple[int]</span></dt><dd><p>shape of the factorized tensor to create</p>
 </dd>
@@ -284,13 +277,13 @@
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt>TensorFactorization</dt><dd><p>Tensor in Factorized form.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt>ValueError</dt><dd><p>If the factorization given does not exist.</p>
 </dd>
@@ -304,7 +297,7 @@
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'same'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#TTTensor.from_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Create a factorized tensor by decomposing a full tensor</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>tensor</strong><span class="classifier">torch.tensor</span></dt><dd><p>tensor to factorize</p>
 </dd>
@@ -314,13 +307,13 @@
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt>TensorFactorization</dt><dd><p>Tensor in Factorized form.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt>ValueError</dt><dd><p>If the factorization given does not exist.</p>
 </dd>
@@ -346,14 +339,14 @@
 <span class="sig-name descname"><span class="pre">normal_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#TTTensor.normal_"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Inialize the factors of the factorization such that the <strong>reconstruction</strong> follows a Gaussian distribution</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>mean</strong><span class="classifier">float, currently only 0 is supported</span></dt><dd></dd>
 <dt><strong>std</strong><span class="classifier">float</span></dt><dd><p>standard deviation</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt>self</dt><dd></dd>
 </dl>
@@ -366,7 +359,7 @@
 <span class="sig-name descname"><span class="pre">transduct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#TTTensor.transduct"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Transduction adds a new dimension to the existing factorization</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>new_dim</strong><span class="classifier">int</span></dt><dd><p>dimension of the new mode to add</p>
 </dd>
@@ -375,7 +368,7 @@
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt>self</dt><dd></dd>
 </dl>

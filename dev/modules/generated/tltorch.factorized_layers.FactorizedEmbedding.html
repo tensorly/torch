@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>tltorch.factorized_layers.FactorizedEmbedding &#8212; TensorLy-Torch 0.3.0 documentation</title> 
 <link rel="stylesheet" href="../../_static/tensorly_style.css">
@@ -23,6 +23,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
  <script src="../../_static/navbar_burger.js"></script>
  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
@@ -221,7 +222,7 @@
 <dd><p>Tensorized Embedding Layers For Efficient Model Compression</p>
 <p>Tensorized drop-in replacement for torch.nn.Embedding</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>num_embeddings</strong><span class="classifier">int, number of entries in the lookup table</span></dt><dd></dd>
 <dt><strong>embedding_dim</strong><span class="classifier">int, number of dimensions per entry</span></dt><dd></dd>
@@ -236,10 +237,6 @@
 </dl>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.factorized_layers.FactorizedEmbedding.forward" title="tltorch.factorized_layers.FactorizedEmbedding.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(input[, indices])</p></td>
 <td><p>Defines the computation performed at every call.</p></td>
@@ -253,10 +250,6 @@
 </tbody>
 </table>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 67%" />
-<col style="width: 33%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>get_embedding</strong></p></td>
 <td></td>
@@ -285,7 +278,7 @@ registered hooks while the latter silently ignores them.</p>
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_embedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embedding_layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'blocktt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decompose_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_reshape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_embedding.html#FactorizedEmbedding.from_embedding"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Create a tensorized embedding layer from a regular embedding layer</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>embedding_layer</strong><span class="classifier">torch.nn.Embedding</span></dt><dd></dd>
 <dt><strong>rank</strong><span class="classifier">int tuple or str, tensor rank</span></dt><dd></dd>
@@ -303,7 +296,7 @@ registered hooks while the latter silently ignores them.</p>
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_embedding_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embedding_layer_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'blocktt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decompose_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_reshape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_embedding.html#FactorizedEmbedding.from_embedding_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Create a tensorized embedding layer from a regular embedding layer</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>embedding_layer</strong><span class="classifier">torch.nn.Embedding</span></dt><dd></dd>
 <dt><strong>rank</strong><span class="classifier">int tuple or str, tensor rank</span></dt><dd></dd>

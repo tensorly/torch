@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>tltorch.factorized_layers.FactorizedLinear &#8212; TensorLy-Torch 0.3.0 documentation</title> 
 <link rel="stylesheet" href="../../_static/tensorly_style.css">
@@ -23,6 +23,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
  <script src="../../_static/navbar_burger.js"></script>
  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
@@ -224,7 +225,7 @@ That tensor is expressed as a low-rank tensor.</p>
 <p>During inference, the full tensor is reconstructed, and unfolded back into a matrix, 
 used for the forward pass in a regular linear layer.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>in_tensorized_features</strong><span class="classifier">int tuple</span></dt><dd><p>shape to which the input_features dimension is tensorized to
 e.g. if in_features is 8 in_tensorized_features could be (2, 2, 2)
@@ -244,10 +245,6 @@ should verify prod(in_tensorized_features) = in_features</p>
 </dl>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.factorized_layers.FactorizedLinear.forward" title="tltorch.factorized_layers.FactorizedLinear.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x[, indices])</p></td>
 <td><p>Defines the computation performed at every call.</p></td>
@@ -261,10 +258,6 @@ should verify prod(in_tensorized_features) = in_features</p>
 </tbody>
 </table>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 67%" />
-<col style="width: 33%" />
-</colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>get_linear</strong></p></td>
 <td></td>
@@ -293,7 +286,7 @@ registered hooks while the latter silently ignores them.</p>
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_linear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linear</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CP'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_linear.html#FactorizedLinear.from_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Class method to create an instance from an existing linear layer</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>linear</strong><span class="classifier">torch.nn.Linear</span></dt><dd><p>layer to tensorize</p>
 </dd>
@@ -314,7 +307,7 @@ if ‘same’ use the same number of parameters</p>
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_linear_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linear_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CP'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'init':</span> <span class="pre">'random'}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_linear.html#FactorizedLinear.from_linear_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Class method to create an instance from an existing linear layer</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>linear</strong><span class="classifier">torch.nn.Linear</span></dt><dd><p>layer to tensorize</p>
 </dd>
