@@ -4,7 +4,6 @@ import torch.nn.functional as F
 from ..factorized_tensors import TensorizedTensor
 from ..factorized_tensors.tensorized_matrices import CPTensorized, TuckerTensorized, BlockTT
 from .factorized_linear import linear_blocktt, linear_cp, linear_tucker
-import pdb
 
 import tensorly as tl
 tl.set_backend('pytorch')
@@ -13,9 +12,11 @@ tl.set_backend('pytorch')
 # License: BSD 3 clause
 
 
-def factorized_linear(x, weight, bias=None, in_features=None):
+def factorized_linear(x, weight, bias=None, in_features=None, implementation="factorized"):
     """Linear layer with a dense input x and factorized weight
     """
+    assert implementation in {"factorized", "reconstructed"}, f"Expect implementation from [factorized, reconstructed], but got {implementation}"
+    
     if in_features is None:
         in_features = np.prod(x.shape[-1])
 
@@ -23,24 +24,25 @@ def factorized_linear(x, weight, bias=None, in_features=None):
         # Weights are in the form (out_features, in_features) 
         # PyTorch's linear returns dot(x, weight.T)!
         if isinstance(weight, TensorizedTensor):
-            x_shape = x.shape[:-1] + weight.tensorized_shape[1]
-            out_shape = x.shape[:-1] + (-1, )
-            if isinstance(weight, CPTensorized):
-                if bias is None:
-                    return linear_cp(x.reshape(x_shape), weight).reshape(out_shape)
-                else:
-                    return linear_cp(x.reshape(x_shape), weight).reshape(out_shape) + bias
-            elif isinstance(weight, TuckerTensorized):
-                if bias is None:
-                    return linear_tucker(x.reshape(x_shape), weight).reshape(out_shape)
-                else:
-                    return linear_tucker(x.reshape(x_shape), weight).reshape(out_shape) + bias
-            elif isinstance(weight, BlockTT):
-                if bias is None:
-                    return linear_blocktt(x.reshape(x_shape), weight).reshape(out_shape)
-                else:
-                    return linear_blocktt(x.reshape(x_shape), weight).reshape(out_shape) + bias
-            # if no efficient implementation available: use reconstruction
+            if implementation == "factorized":
+                x_shape = x.shape[:-1] + weight.tensorized_shape[1]
+                out_shape = x.shape[:-1] + (-1, )
+                if isinstance(weight, CPTensorized):
+                    x = linear_cp(x.reshape(x_shape), weight).reshape(out_shape)
+                    if bias is not None:
+                        x = x + bias
+                    return x
+                elif isinstance(weight, TuckerTensorized):
+                    x = linear_tucker(x.reshape(x_shape), weight).reshape(out_shape)
+                    if bias is not None:
+                        x = x + bias
+                    return x
+                elif isinstance(weight, BlockTT):
+                    x = linear_blocktt(x.reshape(x_shape), weight).reshape(out_shape)
+                    if bias is not None:
+                        x = x + bias
+                    return x
+            # if no efficient implementation available or force to use reconstructed mode: use reconstruction
             weight = weight.to_matrix()
         else:
             weight = weight.to_tensor()
