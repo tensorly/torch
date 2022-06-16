@@ -65,7 +65,7 @@ class CPTensorized(CPTensor, TensorizedTensor, name='CP'):
         with torch.no_grad():
             weights, factors = parafac(tensor.to(torch.float64), rank, **kwargs)
         
-        return cls(nn.Parameter(weights.to(dtype)), [nn.Parameter(f.to(dtype)) for f in factors],
+        return cls(nn.Parameter(weights.to(dtype).contiguous()), [nn.Parameter(f.to(dtype).contiguous()) for f in factors],
                    tensorized_shape, rank=rank)
 
     def __getitem__(self, indices):
@@ -454,7 +454,7 @@ class BlockTT(TensorizedTensor, name='BlockTT'):
 
         with torch.no_grad():
             factors = tensor_train_matrix(tensor, rank, **kwargs)
-        factors = [nn.Parameter(f) for f in factors]
+        factors = [nn.Parameter(f.contiguous()) for f in factors]
 
         return cls(factors, tensorized_shape, rank)
 
@@ -464,7 +464,7 @@ class BlockTT(TensorizedTensor, name='BlockTT'):
         with torch.no_grad():
             factors = tensor_train_matrix(tensor, rank, **kwargs)
 
-        self.factors = FactorList([nn.Parameter(f) for f in factors])
+        self.factors = FactorList([nn.Parameter(f.contiguous()) for f in factors])
         self.rank = tuple([f.shape[0] for f in factors] + [1])
 
         return self

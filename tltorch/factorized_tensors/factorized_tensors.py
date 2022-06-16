@@ -59,14 +59,14 @@ class CPTensor(FactorizedTensor, name='CP'):
         with torch.no_grad():
             weights, factors = parafac(tensor.to(torch.float64), rank, **kwargs)
         
-        return cls(nn.Parameter(weights.to(dtype)), [nn.Parameter(f.to(dtype)) for f in factors])
+        return cls(nn.Parameter(weights.to(dtype).contiguous()), [nn.Parameter(f.to(dtype).contiguous()) for f in factors])
 
     def init_from_tensor(self, tensor, l2_reg=1e-5, **kwargs):
         with torch.no_grad():
             weights, factors = parafac(tensor, self.rank, l2_reg=l2_reg, **kwargs)
         
-        self.weights = nn.Parameter(weights)
-        self.factors = FactorList([nn.Parameter(f) for f in factors])
+        self.weights = nn.Parameter(weights.contiguous())
+        self.factors = FactorList([nn.Parameter(f.contiguous()) for f in factors])
         return self
 
     @property
@@ -145,7 +145,7 @@ class CPTensor(FactorizedTensor, name='CP'):
         if new_factor is None:
             new_factor = torch.ones(new_dim, self.rank)#/new_dim
 
-        factors.insert(mode, nn.Parameter(new_factor.to(factors[0].device)))
+        factors.insert(mode, nn.Parameter(new_factor.to(factors[0].device).contiguous()))
         self.factors = FactorList(factors)
 
         return self
@@ -239,7 +239,7 @@ class TuckerTensor(FactorizedTensor, name='Tucker'):
                     core = core.unsqueeze(mode)
 
         self.core = nn.Parameter(core.contiguous())
-        self.factors = FactorList([nn.Parameter(f) for f in factors])
+        self.factors = FactorList([nn.Parameter(f.contiguous()) for f in factors])
         return self
 
     @property
@@ -335,14 +335,14 @@ class TTTensor(FactorizedTensor, name='TT'):
             # TODO: deal properly with wrong kwargs
             factors = tensor_train(tensor, rank)
         
-        return cls([nn.Parameter(f) for f in factors])
+        return cls([nn.Parameter(f.contiguous()) for f in factors])
 
     def init_from_tensor(self, tensor, **kwargs):
         with torch.no_grad():
             # TODO: deal properly with wrong kwargs
             factors = tensor_train(tensor, self.rank)
         
-        self.factors = FactorList([nn.Parameter(f) for f in factors])
+        self.factors = FactorList([nn.Parameter(f.contiguous()) for f in factors])
         self.rank = tuple([f.shape[0] for f in factors] + [1])
         return self
 
@@ -440,7 +440,7 @@ class TTTensor(FactorizedTensor, name='TT'):
             # Below: <=> static prediciton
             # new_factor[:, new_dim//2, :] = torch.eye(new_rank)
 
-        factors.insert(mode, nn.Parameter(new_factor.to(factors[0].device)))
+        factors.insert(mode, nn.Parameter(new_factor.to(factors[0].device).contiguous()))
         self.factors = FactorList(factors)
 
         return self
