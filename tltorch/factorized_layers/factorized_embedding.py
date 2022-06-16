@@ -10,9 +10,7 @@ from tltorch.utils import get_tensorized_shape
 class FactorizedEmbedding(nn.Module):
     """
     Tensorized Embedding Layers For Efficient Model Compression
-
     Tensorized drop-in replacement for torch.nn.Embedding
-
     Parameters
     ----------
     num_embeddings : int, number of entries in the lookup table
@@ -90,7 +88,7 @@ class FactorizedEmbedding(nn.Module):
         #to handle case where input is not 1-D
         output_shape = (*input.shape, self.embedding_dim)
 
-        flatenned_input = input.flatten()
+        flatenned_input = input.view(-1)
 
         if self.n_layers == 1:
             if indices == 0:
@@ -107,7 +105,7 @@ class FactorizedEmbedding(nn.Module):
         elif self.factorization.lower() == 'tucker':
             embeddings = embeddings.reshape(input.shape[0], -1)
 
-        return embeddings.reshape(output_shape)
+        return embeddings.view(output_shape)
 
     @classmethod
     def from_embedding(cls,
@@ -120,7 +118,6 @@ class FactorizedEmbedding(nn.Module):
                        **kwargs):
         """
         Create a tensorized embedding layer from a regular embedding layer
-
         Parameters
         ----------
         embedding_layer : torch.nn.Embedding
@@ -160,7 +157,6 @@ class FactorizedEmbedding(nn.Module):
                        **kwargs):
         """
         Create a tensorized embedding layer from a regular embedding layer
-
         Parameters
         ----------
         embedding_layer : torch.nn.Embedding
@@ -217,10 +213,8 @@ class FactorizedEmbedding(nn.Module):
 
 class SubFactorizedEmbedding(nn.Module):
     """Class representing one of the embeddings from the mother joint factorized embedding layer
-
     Parameters
     ----------
-
     Notes
     -----
     This relies on the fact that nn.Parameters are not duplicated:
