@@ -23,14 +23,23 @@ def factorized_linear(x, weight, bias=None, in_features=None):
         # Weights are in the form (out_features, in_features) 
         # PyTorch's linear returns dot(x, weight.T)!
         if isinstance(weight, TensorizedTensor):
-            x_shape = x.shape[:-1] + weight.tensorized_shape[0]
+            x_shape = x.shape[:-1] + weight.tensorized_shape[1]
             out_shape = x.shape[:-1] + (-1, )
             if isinstance(weight, CPTensorized):
-                return linear_cp(x.reshape(x_shape), weight).reshape(out_shape) + bias
+                if bias is None:
+                    return linear_cp(x.reshape(x_shape), weight).reshape(out_shape)
+                else:
+                    return linear_cp(x.reshape(x_shape), weight).reshape(out_shape) + bias
             elif isinstance(weight, TuckerTensorized):
-                return linear_tucker(x.reshape(x_shape), weight).reshape(out_shape) + bias
+                if bias is None:
+                    return linear_tucker(x.reshape(x_shape), weight).reshape(out_shape)
+                else:
+                    return linear_tucker(x.reshape(x_shape), weight).reshape(out_shape) + bias
             elif isinstance(weight, BlockTT):
-                return linear_blocktt(x.reshape(x_shape), weight).reshape(out_shape) + bias
+                if bias is None:
+                    return linear_blocktt(x.reshape(x_shape), weight).reshape(out_shape)
+                else:
+                    return linear_blocktt(x.reshape(x_shape), weight).reshape(out_shape) + bias
             # if no efficient implementation available: use reconstruction
             weight = weight.to_matrix()
         else:
