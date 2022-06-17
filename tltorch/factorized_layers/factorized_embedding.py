@@ -90,7 +90,7 @@ class FactorizedEmbedding(nn.Module):
         #to handle case where input is not 1-D
         output_shape = (*input.shape, self.embedding_dim)
 
-        flatenned_input = input.view(-1)
+        flatenned_input = input.flatten()
 
         if self.n_layers == 1:
             if indices == 0:
@@ -107,7 +107,7 @@ class FactorizedEmbedding(nn.Module):
         elif self.factorization.lower() == 'tucker':
             embeddings = embeddings.reshape(input.shape[0], -1)
 
-        return embeddings.view(output_shape)
+        return embeddings.reshape(output_shape)
 
     @classmethod
     def from_embedding(cls,

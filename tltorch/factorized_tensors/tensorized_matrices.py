@@ -1,10 +1,11 @@
 import math
 from collections import Iterable
+from typing import Iterable, List, Tuple, Union
 import warnings
 
 import numpy as np
 import torch
-from torch import nn
+from torch import nn, Tensor
 
 import tensorly as tl
 tl.set_backend('pytorch')
@@ -18,9 +19,28 @@ from ..utils.parameter_list import FactorList
 einsum_symbols = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 einsum_symbols_set = set(einsum_symbols)
 
+Shape = Union[List[int], Tuple[int, ...], torch.Size]
 
 # Author: Jean Kossaifi
 # License: BSD 3 clause
+
+
+def unravel_index(indices: Tensor, shape: Shape) -> Tuple[Tensor]:
+    r"""Converts a tensor of flat indices into a tensor of coordinate vectors.
+    This is a `torch` implementation of `numpy.unravel_index`.
+    Args:
+        indices: A tensor of flat indices, (*,).
+        shape: The target shape.
+    Returns:
+        The unraveled coordinates, ((*,), ..., (*,)).
+    """
+    shape = tuple(shape)
+    shape = indices.new_tensor(shape + (1,))
+    coefs = shape[1:].flipud().cumprod(dim=0).flipud()
+
+    index = torch.div(indices[..., None], coefs, rounding_mode="trunc") % shape[:-1]
+    return tuple(i.squeeze(-1) for i in index.chunk(index.shape[-1], dim=-1))
+
 
 def is_tensorized_shape(shape):
     """Checks if a given shape represents a tensorized tensor."""
@@ -107,7 +127,10 @@ class CPTensorized(CPTensor, TensorizedTensor, name='CP'):
                     if isinstance(index, Iterable):
                         output_shape.append(len(index))
 
-                    index = np.unravel_index(index, shape)
+                    if isinstance(index, torch.Tensor):
+                        index = unravel_index(index, shape)
+                    else:
+                        index = np.unravel_index(index, shape)
                     # Index the whole tensorized shape, resulting in a single factor
                     factor = 1
                     for idx, ff in zip(index, factors[:len(shape)]):
@@ -172,10 +195,10 @@ class TuckerTensorized(TensorizedTensor, TuckerTensor, name='Tucker'):
 
         core = self.core
         
-        for (index, shape) in zip(indices, self.tensorized_shape):
+        for j, (index, shape) in enumerate(zip(indices, self.tensorized_shape)):
             if isinstance(shape, int):
                 if index is Ellipsis:
-                    raise ValueError(f'Ellipsis is not yet supported, yet got indices={indices}, indices[{i}]={index}.')
+                    raise ValueError(f'Ellipsis is not yet supported, yet got indices={indices}, indices[{j}]={index}.')
                 factor = self.factors[counter]
                 if isinstance(index, int):
                     core = tenalg.mode_dot(core, factor[index, :], new_ndim)
@@ -205,7 +228,10 @@ class TuckerTensorized(TensorizedTensor, TuckerTensor, name='Tucker'):
                         max_index = math.prod(shape)
                         index = list(range(*index.indices(max_index)))
                     
-                    index = np.unravel_index(index, shape)
+                    if isinstance(index, torch.Tensor):
+                        index = unravel_index(index, shape)
+                    else:
+                        index = np.unravel_index(index, shape)
                     
                     contraction_factors = [f[idx, :] for idx, f in zip(index, self.factors[counter:counter+n_tensorized_modes])]
                     if contraction_factors[0].ndim > 1:
@@ -394,7 +420,10 @@ class BlockTT(TensorizedTensor, name='BlockTT'):
                         idx += 1
                         add_pad = True
 
-                    index = np.unravel_index(index, shape)
+                    if isinstance(index, torch.Tensor):
+                        index = unravel_index(index, shape)
+                    else:
+                        index = np.unravel_index(index, shape)
 
             # Index the whole tensorized shape, resulting in a single factor
             factors = [ff[pad + (idx,)] for (ff, idx) in zip(factors, index)]# + factors[indexed_ndim:]
