@@ -150,9 +150,7 @@
 <div class="viewcode-block" id="FactorizedEmbedding"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding">[docs]</a><span class="k">class</span> <span class="nc">FactorizedEmbedding</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Tensorized Embedding Layers For Efficient Model Compression</span>
-
 <span class="sd">    Tensorized drop-in replacement for torch.nn.Embedding</span>
-
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    num_embeddings : int, number of entries in the lookup table</span>
@@ -230,7 +228,7 @@
         <span class="c1">#to handle case where input is not 1-D</span>
         <span class="n">output_shape</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding_dim</span><span class="p">)</span>
 
-        <span class="n">flatenned_input</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        <span class="n">flatenned_input</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_layers</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">indices</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -247,7 +245,7 @@
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">factorization</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;tucker&#39;</span><span class="p">:</span>
             <span class="n">embeddings</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">output_shape</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">output_shape</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="FactorizedEmbedding.from_embedding"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding.from_embedding">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_embedding</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
@@ -260,7 +258,6 @@
                        <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a tensorized embedding layer from a regular embedding layer</span>
-
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        embedding_layer : torch.nn.Embedding</span>
@@ -300,7 +297,6 @@
                        <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create a tensorized embedding layer from a regular embedding layer</span>
-
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        embedding_layer : torch.nn.Embedding</span>
@@ -357,10 +353,8 @@
 
 <span class="k">class</span> <span class="nc">SubFactorizedEmbedding</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Class representing one of the embeddings from the mother joint factorized embedding layer</span>
-
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    This relies on the fact that nn.Parameters are not duplicated:</span>

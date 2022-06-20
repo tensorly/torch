@@ -219,22 +219,18 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="tltorch.factorized_layers.FactorizedEmbedding">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tltorch.factorized_layers.</span></span><span class="sig-name descname"><span class="pre">FactorizedEmbedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_embeddings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedding_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_reshape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensorized_num_embeddings</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensorized_embedding_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'blocktt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_embedding.html#FactorizedEmbedding"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Tensorized Embedding Layers For Efficient Model Compression</p>
-<p>Tensorized drop-in replacement for torch.nn.Embedding</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>num_embeddings</strong><span class="classifier">int, number of entries in the lookup table</span></dt><dd></dd>
-<dt><strong>embedding_dim</strong><span class="classifier">int, number of dimensions per entry</span></dt><dd></dd>
-<dt><strong>auto_reshape</strong><span class="classifier">bool, whether to use automatic reshaping for the embedding dimensions</span></dt><dd></dd>
-<dt><strong>d</strong><span class="classifier">int or int tuple, number of reshape dimensions for both embedding table dimension</span></dt><dd></dd>
-<dt><strong>tensorized_num_embeddings</strong><span class="classifier">int tuple, tensorized shape of the first embedding table dimension</span></dt><dd></dd>
-<dt><strong>tensorized_embedding_dim</strong><span class="classifier">int tuple, tensorized shape of the second embedding table dimension</span></dt><dd></dd>
-<dt><strong>factorization</strong><span class="classifier">str, tensor type</span></dt><dd></dd>
-<dt><strong>rank</strong><span class="classifier">int tuple or str, tensor rank</span></dt><dd></dd>
-</dl>
-</dd>
-</dl>
+<dd><p>Tensorized Embedding Layers For Efficient Model Compression
+Tensorized drop-in replacement for torch.nn.Embedding
+Parameters
+———-
+num_embeddings : int, number of entries in the lookup table
+embedding_dim : int, number of dimensions per entry
+auto_reshape : bool, whether to use automatic reshaping for the embedding dimensions
+d : int or int tuple, number of reshape dimensions for both embedding table dimension
+tensorized_num_embeddings : int tuple, tensorized shape of the first embedding table dimension
+tensorized_embedding_dim : int tuple, tensorized shape of the second embedding table dimension
+factorization : str, tensor type
+rank : int tuple or str, tensor rank</p>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -242,10 +238,10 @@
 <td><p>Defines the computation performed at every call.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#tltorch.factorized_layers.FactorizedEmbedding.from_embedding" title="tltorch.factorized_layers.FactorizedEmbedding.from_embedding"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_embedding</span></code></a>(embedding_layer[, rank, ...])</p></td>
-<td><p>Create a tensorized embedding layer from a regular embedding layer</p></td>
+<td><p>Create a tensorized embedding layer from a regular embedding layer Parameters ---------- embedding_layer : torch.nn.Embedding rank : int tuple or str, tensor rank factorization : str, tensor type decompose_weights: bool, decompose weights and use for initialization auto_reshape: bool, automatically reshape dimensions for TensorizedTensor decomposition_kwargs: dict, specify kwargs for the decomposition</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.factorized_layers.FactorizedEmbedding.from_embedding_list" title="tltorch.factorized_layers.FactorizedEmbedding.from_embedding_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_embedding_list</span></code></a>(embedding_layer_list[, ...])</p></td>
-<td><p>Create a tensorized embedding layer from a regular embedding layer</p></td>
+<td><p>Create a tensorized embedding layer from a regular embedding layer Parameters ---------- embedding_layer : torch.nn.Embedding rank : int tuple or str, tensor rank factorization : str, tensor type decompose_weights: bool, decompose weights and use for initialization auto_reshape: bool, automatically reshape dimensions for TensorizedTensor decomposition_kwargs: dict, specify kwargs for the decomposition</p></td>
 </tr>
 </tbody>
 </table>
@@ -276,37 +272,29 @@ registered hooks while the latter silently ignores them.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="tltorch.factorized_layers.FactorizedEmbedding.from_embedding">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_embedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embedding_layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'blocktt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decompose_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_reshape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_embedding.html#FactorizedEmbedding.from_embedding"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Create a tensorized embedding layer from a regular embedding layer</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>embedding_layer</strong><span class="classifier">torch.nn.Embedding</span></dt><dd></dd>
-<dt><strong>rank</strong><span class="classifier">int tuple or str, tensor rank</span></dt><dd></dd>
-<dt><strong>factorization</strong><span class="classifier">str, tensor type</span></dt><dd></dd>
-<dt><strong>decompose_weights: bool, decompose weights and use for initialization</strong></dt><dd></dd>
-<dt><strong>auto_reshape: bool, automatically reshape dimensions for TensorizedTensor</strong></dt><dd></dd>
-<dt><strong>decomposition_kwargs: dict, specify kwargs for the decomposition</strong></dt><dd></dd>
-</dl>
-</dd>
-</dl>
+<dd><p>Create a tensorized embedding layer from a regular embedding layer
+Parameters
+———-
+embedding_layer : torch.nn.Embedding
+rank : int tuple or str, tensor rank
+factorization : str, tensor type
+decompose_weights: bool, decompose weights and use for initialization
+auto_reshape: bool, automatically reshape dimensions for TensorizedTensor
+decomposition_kwargs: dict, specify kwargs for the decomposition</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tltorch.factorized_layers.FactorizedEmbedding.from_embedding_list">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_embedding_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">embedding_layer_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'blocktt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decompose_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_reshape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_embedding.html#FactorizedEmbedding.from_embedding_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Create a tensorized embedding layer from a regular embedding layer</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>embedding_layer</strong><span class="classifier">torch.nn.Embedding</span></dt><dd></dd>
-<dt><strong>rank</strong><span class="classifier">int tuple or str, tensor rank</span></dt><dd></dd>
-<dt><strong>factorization</strong><span class="classifier">str, tensor type</span></dt><dd></dd>
-<dt><strong>decompose_weights: bool, decompose weights and use for initialization</strong></dt><dd></dd>
-<dt><strong>auto_reshape: bool, automatically reshape dimensions for TensorizedTensor</strong></dt><dd></dd>
-<dt><strong>decomposition_kwargs: dict, specify kwargs for the decomposition</strong></dt><dd></dd>
-</dl>
-</dd>
-</dl>
+<dd><p>Create a tensorized embedding layer from a regular embedding layer
+Parameters
+———-
+embedding_layer : torch.nn.Embedding
+rank : int tuple or str, tensor rank
+factorization : str, tensor type
+decompose_weights: bool, decompose weights and use for initialization
+auto_reshape: bool, automatically reshape dimensions for TensorizedTensor
+decomposition_kwargs: dict, specify kwargs for the decomposition</p>
 </dd></dl>
 
 </dd></dl>
