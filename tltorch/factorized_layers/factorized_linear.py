@@ -2,7 +2,7 @@ import math
 import numpy as np
 from torch import nn
 import torch
-import torch.utils.checkpoint as cp
+from torch.utils import checkpoint
 
 from ..functional import factorized_linear
 from ..factorized_tensors import TensorizedTensor
@@ -30,8 +30,10 @@ class FactorizedLinear(nn.Module):
         shape to which the input_features dimension is tensorized to.
     factorization : str, default is 'cp'
     rank : int tuple or str
-    implementation : str
-        which implementation to use for forward function. support 'factorized' and 'reconstructed', default is 'factorized'
+    implementation : {'factorized', 'reconstructed'}, default is 'factorized'
+        which implementation to use for forward function:
+        - if 'factorized', will directly contract the input with the factors of the decomposition
+        - if 'reconstructed', the full weight matrix is reconstructed from the factorized version and used for a regular linear layer forward pass.
     n_layers : int, default is 1
         number of linear layers to be parametrized with a single factorized tensor
     bias : bool, default is True
