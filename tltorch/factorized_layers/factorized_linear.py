@@ -37,14 +37,14 @@ class FactorizedLinear(nn.Module):
     n_layers : int, default is 1
         number of linear layers to be parametrized with a single factorized tensor
     bias : bool, default is True
-    with_cp : bool
+    checkpointing : bool
         whether to enable gradient checkpointing to save memory during training-mode forward, default is False
     device : PyTorch device to use, default is None
     dtype : PyTorch dtype, default is None
     """
     def __init__(self, in_tensorized_features, out_tensorized_features, bias=True,
                  factorization='cp', rank='same', implementation='factorized', n_layers=1,
-                 with_cp=False, device=None, dtype=None):
+                 checkpointing=False, device=None, dtype=None):
         super().__init__()
         if factorization == 'TTM' and n_layers != 1:
             raise ValueError(f'TTM factorization only support single factorized layers but got n_layers={n_layers}.')
@@ -57,7 +57,7 @@ class FactorizedLinear(nn.Module):
         self.weight_shape = (self.out_features, self.in_features)
         self.input_rank = rank
         self.implementation = implementation
-        self.with_cp = with_cp
+        self.checkpointing = checkpointing
 
         if bias:
             if n_layers == 1:
@@ -93,34 +93,30 @@ class FactorizedLinear(nn.Module):
                 torch.nn.init.uniform_(self.bias, -bound, bound)
 
     def forward(self, x, indices=0):
-        def _inner_forward(x):
-            if self.n_layers == 1:
-                if indices == 0:
-                    return factorized_linear(x, self.weight(), bias=self.bias, in_features=self.in_features,
-                                            implementation=self.implementation)
-
-                else:
-                    raise ValueError(f'Only one convolution was parametrized (n_layers=1) but tried to access {indices}.')
-
-            elif isinstance(self.n_layers, int):
-                if not isinstance(indices, int):
-                    raise ValueError(f'Expected indices to be in int but got indices={indices}'
-                                    f', but this conv was created with n_layers={self.n_layers}.')
-                bias = self.bias[indices] if self.bias is not None else None
-                return factorized_linear(x, self.weight(indices), bias=bias, in_features=self.in_features,
-                                        implementation=self.implementation)
-
-            elif len(indices) != len(self.n_layers):
-                raise ValueError(f'Got indices={indices}, but this conv was created with n_layers={self.n_layers}.')
-
+        if self.n_layers == 1:
+            if indices == 0:
+                weight, bias = self.weight(), self.bias
             else:
+                raise ValueError(f'Only one convolution was parametrized (n_layers=1) but tried to access {indices}.')
 
-                bias = self.bias[indices] if self.bias is not None else None
-                return factorized_linear(x, self.weight(indices), bias=bias, in_features=self.in_features,
+        elif isinstance(self.n_layers, int):
+            if not isinstance(indices, int):
+                raise ValueError(f'Expected indices to be in int but got indices={indices}'
+                                f', but this conv was created with n_layers={self.n_layers}.')
+            weight = self.weight(indices)
+            bias = self.bias[indices] if self.bias is not None else None
+        elif len(indices) != len(self.n_layers):
+            raise ValueError(f'Got indices={indices}, but this conv was created with n_layers={self.n_layers}.')
+        else:
+            weight = self.weight(indices)
+            bias = self.bias[indices] if self.bias is not None else None
+            
+        def _inner_forward(x): # move weight() out to avoid register_hooks from being executed twice during recomputation
+            return factorized_linear(x, weight, bias=bias, in_features=self.in_features,
                                         implementation=self.implementation)
         
-        if self.with_cp and x.requires_grad:
-            x = cp.checkpoint(_inner_forward, x)
+        if self.checkpointing and x.requires_grad:
+            x = checkpoint.checkpoint(_inner_forward, x)
         else:
             x = _inner_forward(x)
         return x
@@ -136,7 +132,7 @@ class FactorizedLinear(nn.Module):
 
     @classmethod
     def from_linear(cls, linear, in_tensorized_features, out_tensorized_features, rank, bias=True,
-                    factorization='CP', implementation="reconstructed", with_cp=False, decomposition_kwargs=dict()):
+                    factorization='CP', implementation="reconstructed", checkpointing=False, decomposition_kwargs=dict()):
         """Class method to create an instance from an existing linear layer
         
         Parameters
@@ -149,7 +145,7 @@ class FactorizedLinear(nn.Module):
         factorization : str, default is 'cp'
         implementation : str
             which implementation to use for forward function. support 'factorized' and 'reconstructed', default is 'factorized'
-        with_cp : bool
+        checkpointing : bool
             whether to enable gradient checkpointing to save memory during training-mode forward, default is False
         rank :  {rank of the decomposition, 'same', float}
             if float, percentage of parameters of the original factorized_weights to use
@@ -162,7 +158,7 @@ class FactorizedLinear(nn.Module):
 
         instance = cls(in_tensorized_features, out_tensorized_features, bias=bias,
                        factorization=factorization, rank=rank, implementation=implementation, 
-                       n_layers=1, with_cp=with_cp, device=linear.weight.device, dtype=linear.weight.dtype)
+                       n_layers=1, checkpointing=checkpointing, device=linear.weight.device, dtype=linear.weight.dtype)
 
         instance.weight.init_from_matrix(linear.weight.data, **decomposition_kwargs)
 
@@ -173,7 +169,7 @@ class FactorizedLinear(nn.Module):
 
     @classmethod
     def from_linear_list(cls, linear_list, in_tensorized_features, out_tensorized_features, rank, bias=True,
-                         factorization='CP', implementation="reconstructed", with_cp=False, decomposition_kwargs=dict(init='random')):
+                         factorization='CP', implementation="reconstructed", checkpointing=False, decomposition_kwargs=dict(init='random')):
         """Class method to create an instance from an existing linear layer
 
         Parameters
@@ -186,7 +182,7 @@ class FactorizedLinear(nn.Module):
         factorization : str, default is 'cp'
         implementation : str
             which implementation to use for forward function. support 'factorized' and 'reconstructed', default is 'factorized'
-        with_cp : bool
+        checkpointing : bool
             whether to enable gradient checkpointing to save memory during training-mode forward, default is False
         rank :  {rank of the decomposition, 'same', float}
             if float, percentage of parameters of the original weights to use
@@ -203,7 +199,7 @@ class FactorizedLinear(nn.Module):
 
         instance = cls(in_tensorized_features, out_tensorized_features, bias=bias,
                        factorization=factorization, rank=rank, implementation=implementation, 
-                       n_layers=len(linear_list), with_cp=with_cp, device=linear.weight.device, dtype=linear.weight.dtype)
+                       n_layers=len(linear_list), checkpointing=checkpointing, device=linear.weight.device, dtype=linear.weight.dtype)
         weight_tensor = torch.stack([layer.weight.data for layer in linear_list])
         instance.weight.init_from_matrix(weight_tensor, **decomposition_kwargs)
 
