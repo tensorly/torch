@@ -157,7 +157,7 @@ def tucker_conv(x, tucker_tensor, bias=None, stride=1, padding=0, dilation=1):
 
     modes = list(range(2, n_dim+1))
     weight = tl.tenalg.multi_mode_dot(tucker_tensor.core, tucker_tensor.factors[2:], modes=modes)
-    x = convolve(x, weight, bias=None, stride=stride, padding=padding)
+    x = convolve(x, weight, bias=None, stride=stride, padding=padding, dilation=dilation)
 
     # Revert back number of channels from rank to output_channels
     x_shape = list(x.shape)
@@ -212,7 +212,7 @@ def tt_conv(x, tt_tensor, bias=None, stride=1, padding=0, dilation=1):
     for i in range(order):
         # From (in_rank, kernel_size, out_rank) to (out_rank, in_rank, kernel_size)
         kernel = tl.transpose(tt_tensor.factors[i+1], [2, 0, 1])
-        x = general_conv1d(x.contiguous(), kernel, i+2, stride=stride[i], padding=padding[i])
+        x = general_conv1d(x.contiguous(), kernel, i+2, stride=stride[i], padding=padding[i], dilation=dilation[i])
 
     # Revert back number of channels from rank to output_channels
     x_shape = list(x.shape)
@@ -267,7 +267,7 @@ def cp_conv(x, cp_tensor, bias=None, stride=1, padding=0, dilation=1):
     for i in range(order):
         # From (kernel_size, rank) to (rank, 1, kernel_size)
         kernel = tl.transpose(cp_tensor.factors[i+2]).unsqueeze(1)             
-        x = general_conv1d(x.contiguous(), kernel, i+2, stride=stride[i], padding=padding[i], groups=rank)
+        x = general_conv1d(x.contiguous(), kernel, i+2, stride=stride[i], padding=padding[i], dilation=dilation[i], groups=rank)
 
     # Revert back number of channels from rank to output_channels
     x_shape = list(x.shape)
