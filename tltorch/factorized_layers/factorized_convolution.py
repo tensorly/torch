@@ -61,10 +61,10 @@ def _ensure_array(layers_shape, order, value, one_per_order=True):
         return value
 
     if isinstance(value, int):
-        array = np.ones(target_shape, dtype=np.int)*value
+        array = np.ones(target_shape, dtype=np.int32)*value
     else:
         assert len(value) == order
-        array = np.ones(target_shape, dtype=np.int)
+        array = np.ones(target_shape, dtype=np.int32)
         array[..., :] = value
     return array
 

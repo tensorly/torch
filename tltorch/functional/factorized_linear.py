@@ -4,7 +4,7 @@ tl.set_backend('pytorch')
 
 # Author: Jean Kossaifi
 
-def linear_tucker(tensor, tucker_matrix, transpose=True):
+def linear_tucker(tensor, tucker_matrix, transpose=True, channels_first=True):
     if transpose:
         contraction_axis = 1
     else:

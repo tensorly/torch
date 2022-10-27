@@ -142,7 +142,8 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
             cls._factorizations[name.lower()] = cls
             cls._name = name
         else:
-            warnings.warn(f'Creating a subclass of FactorizedTensor {cls.__name__} with no name.')
+            if cls.__name__ != "TensorizedTensor": # Don't display warning when instantiating the TensorizedTensor class
+                warnings.warn(f'Creating a subclass of FactorizedTensor {cls.__name__} with no name.')
 
     def __new__(cls, *args, **kwargs):
         """Customize the creation of a factorized convolution
@@ -515,7 +516,7 @@ class TensorizedTensor(FactorizedTensor, metaclass=MetaFactorizedTensor, name=''
 
         If several matrices are parametrized, a batch of matrices is returned
         """ 
-        warnings.warn(f'{self} is being reconstructed into a matrix, consider operating on the decomposed form.')
+        # warnings.warn(f'{self} is being reconstructed into a matrix, consider operating on the decomposed form.')
 
         return self.to_tensor().reshape(self.shape)
     
