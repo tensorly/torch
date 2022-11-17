@@ -1,5 +1,4 @@
 import math
-from collections.abc import Iterable
 
 import numpy as np
 import torch
@@ -267,7 +266,7 @@ class TuckerTensor(FactorizedTensor, name='Tucker'):
             # Select one dimension of one mode
             mixing_factor, *factors = self.factors
             core = tenalg.mode_dot(self.core, mixing_factor[indices, :], 0)
-            return core, factors
+            return self.__class__(core, factors)
         
         elif isinstance(indices, slice):
             mixing_factor, *factors = self.factors
