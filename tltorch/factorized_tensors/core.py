@@ -124,9 +124,19 @@ class MetaFactorizedTensor(type):
         instance.__init__(*args, **kwargs)
         return instance
 
+def _format_factorization(factorization):
+    """Small utility function to make sure factorization names 
+    are dealt with the same whether using capital letters or not.
+    
+    factorization=None is remapped to 'Dense'.
+    """
+    if factorization is None:
+        factorization = 'Dense'
+    return factorization.lower()
+
 
 class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
-    """Tensor Factorization
+    """Tensor in Factorized form
 
     .. important::
 
@@ -139,7 +149,7 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
         super().__init_subclass__(**kwargs)
 
         if name != '':
-            cls._factorizations[name.lower()] = cls
+            cls._factorizations[_format_factorization(name)] = cls
             cls._name = name
         else:
             if cls.__name__ != "TensorizedTensor": # Don't display warning when instantiating the TensorizedTensor class
@@ -152,13 +162,13 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
 
         Returns
         -------
-        FactorizedTensor._factorizations[factorization.lower()]
+        FactorizedTensor._factorizations[_format_factorization(factorization)]
             subclass implementing the specified tensor factorization
         """
         if cls is FactorizedTensor:
             factorization = kwargs.get('factorization')
             try:
-                cls = cls._factorizations[factorization.lower()]
+                cls = cls._factorizations[_format_factorization(factorization)]
             except KeyError:
                 raise ValueError(f'Got factorization={factorization} but expected'
                                  f'one of {cls._factorizations.keys()}')
@@ -167,34 +177,39 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
 
         return instance
     
-    def __getitem__(indices, shape):
+    def __getitem__(indices):
         """Returns raw indexed factorization, not class
         
         Parameters
         ----------
-        indices
-        shape : tuple
-            shape of the tensor to index
+        indices : int or tuple
         """
         raise NotImplementedError
 
     @classmethod
-    def new(cls, shape, rank, factorization='CP', **kwargs):
+    def new(cls, shape, rank='same', factorization='Tucker', **kwargs):
         """Main way to create a factorized tensor
 
         Parameters
         ----------
         shape : tuple[int]
             shape of the factorized tensor to create
-        rank : int, 'same' or float
+        rank : int, 'same' or float, default is 'same'
             rank of the decomposition
         factorization : {'CP', 'TT', 'Tucker'}, optional
-            Tensor factorization to use to decompose the tensor, by default 'CP'
+            Tensor factorization to use to decompose the tensor, by default 'Tucker'
 
         Returns
         -------
         TensorFactorization
             Tensor in Factorized form.
+
+        Examples
+        --------
+        Create a Tucker tensor of shape `(3, 4, 2)`
+        with half the parameters as a dense tensor would:
+
+        >>> tucker_tensor = FactorizedTensor.new((3, 4, 2)), rank=0.5, factorization='tucker')
 
         Raises
         ------
@@ -202,7 +217,7 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
             If the factorization given does not exist. 
         """
         try:
-            cls = cls._factorizations[factorization.lower()]
+            cls = cls._factorizations[_format_factorization(factorization)]
         except KeyError:
             raise ValueError(f'Got factorization={factorization} but expected'
                              f'one of {cls._factorizations.keys()}')
@@ -211,8 +226,7 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
 
     @classmethod
     def from_tensor(cls, tensor, rank, factorization='CP', **kwargs):
-        """Create a factorized tensor by decomposing a full tensor
-
+        """Create a factorized tensor by decomposing a dense tensor
 
         Parameters
         ----------
@@ -234,7 +248,7 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
             If the factorization given does not exist. 
         """
         try:
-            cls = cls._factorizations[factorization.lower()]
+            cls = cls._factorizations[_format_factorization(factorization)]
         except KeyError:
             raise ValueError(f'Got factorization={factorization} but expected'
                              f'one of {cls._factorizations.keys()}')
@@ -371,6 +385,7 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
     def tensor_shape(self):
         return self.shape
 
+
 class TensorizedTensor(FactorizedTensor, metaclass=MetaFactorizedTensor, name=''):
     """Matrix in Tensorized Format
 
@@ -385,7 +400,7 @@ class TensorizedTensor(FactorizedTensor, metaclass=MetaFactorizedTensor, name=''
     
     def __init_subclass__(cls, name, **kwargs):
         """When a subclass is created, register it in _factorizations"""
-        cls._factorizations[name.lower()] = cls
+        cls._factorizations[_format_factorization(name)] = cls
         cls._name = name
 
     def __new__(cls, *args, **kwargs):
@@ -393,13 +408,13 @@ class TensorizedTensor(FactorizedTensor, metaclass=MetaFactorizedTensor, name=''
 
         Returns
         -------
-        TensorizedMatrix._factorizations[factorization.lower()]
+        TensorizedMatrix._factorizations[_format_factorization(factorization)]
             subclass implementing the specified tensorized matrix
         """
         if cls is TensorizedTensor:
             factorization = kwargs.get('factorization')
             try:
-                cls = cls._factorizations[factorization.lower()]
+                cls = cls._factorizations[_format_factorization(factorization)]
             except KeyError:
                 raise ValueError(f'Got factorization={factorization} but expected'
                                  f'one of {cls._factorizations.keys()}')
@@ -433,7 +448,7 @@ class TensorizedTensor(FactorizedTensor, metaclass=MetaFactorizedTensor, name=''
             If the factorization given does not exist. 
         """
         try:
-            cls = cls._factorizations[factorization.lower()]
+            cls = cls._factorizations[_format_factorization(factorization)]
         except KeyError:
             raise ValueError(f'Got factorization={factorization} but expected'
                              f'one of {cls._factorizations.keys()}')
@@ -467,7 +482,7 @@ class TensorizedTensor(FactorizedTensor, metaclass=MetaFactorizedTensor, name=''
             If the factorization given does not exist. 
         """
         try:
-            cls = cls._factorizations[factorization.lower()]
+            cls = cls._factorizations[_format_factorization(factorization)]
         except KeyError:
             raise ValueError(f'Got factorization={factorization} but expected'
                              f'one of {cls._factorizations.keys()}')

@@ -12,7 +12,7 @@ from tensorly import tenalg
 from tensorly.decomposition import tensor_train_matrix, parafac, tucker
 
 from .core import TensorizedTensor, _ensure_tuple
-from .factorized_tensors import CPTensor, TuckerTensor
+from .factorized_tensors import CPTensor, TuckerTensor, DenseTensor
 from ..utils.parameter_list import FactorList
 
 einsum_symbols = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -30,6 +30,68 @@ def is_tensorized_shape(shape):
 
 def tensorized_shape_to_shape(tensorized_shape):
     return [s if isinstance(s, int) else np.prod(s) for s in tensorized_shape]
+
+class DenseTensorized(DenseTensor, TensorizedTensor, name='Dense'):
+    
+    def __init__(self, weights, factors, tensorized_shape, rank=None):
+        tensor_shape = sum([(e,) if isinstance(e, int) else tuple(e) for e in tensorized_shape], ())
+
+        super().__init__(weights, factors, tensor_shape, rank)
+
+        # Modify only what varies from the Tensor case
+        self.shape = tensorized_shape_to_shape(tensorized_shape)
+        # self.tensor_shape = tensor_shape
+        self.order = len(tensor_shape)
+        self.tensorized_shape = tensorized_shape
+
+    @classmethod
+    def new(cls, tensorized_shape, rank, device=None, dtype=None, **kwargs):
+        flattened_tensorized_shape = sum([[e] if isinstance(e, int) else list(e) for e in tensorized_shape], [])
+        tensor = nn.Parameter(torch.empty(flattened_tensorized_shape, device=device, dtype=dtype))
+
+        return cls(tensor, tensorized_shape, rank=rank)
+
+    @classmethod
+    def from_tensor(cls, tensor, tensorized_shape, rank='same', **kwargs):        
+        return cls(nn.Parameter(tl.copy(tensor), tensorized_shape, rank=rank))
+
+    def __getitem__(self, indices):
+        if not isinstance(indices, Iterable):
+            indices = [indices]
+
+        processed_indices = []
+        output_shape = []
+        for (index, shape) in zip(indices, self.tensorized_shape):
+            if isinstance(shape, int):
+                # We are indexing a "regular" mode             
+                processed_indices.append(index)   
+                if not isinstance(index, (np.integer, int)):
+                    output_shape.append(factor.shape[0])
+
+            else: 
+                # We are indexing a tensorized mode
+                if index == slice(None) or index == ():
+                    # Keeping all indices (:)
+                    processed_indices.append(index)   
+                    output_shape.append(shape)
+
+                else:
+                    if isinstance(index, slice):
+                        # Since we've already filtered out :, this is a partial slice
+                        # Convert into list
+                        max_index = math.prod(shape)
+                        index = list(range(*index.indices(max_index)))
+
+                    if isinstance(index, Iterable):
+                        output_shape.append(len(index))
+
+                    index = np.unravel_index(index, shape)
+                    processed_indices += index 
+        
+        output_shape.extend(self.tensorized_shape[len(indices):])
+        
+        return self.__class__(self.tensor[processed_indices], tensorized_shape=output_shape)
+
 
 class CPTensorized(CPTensor, TensorizedTensor, name='CP'):
     

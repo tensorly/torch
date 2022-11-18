@@ -16,6 +16,50 @@ from ..utils import FactorList
 # Author: Jean Kossaifi
 # License: BSD 3 clause
 
+class DenseTensor(FactorizedTensor, name='Dense'):
+    """Dense tensor
+    """
+    def __init__(self, tensor, shape=None, rank=None):
+        super().__init__()
+        if shape is not None and rank is not None:
+            self.shape, self.rank = shape, rank
+        else:
+            self.shape = tensor.shape
+            self.rank = None
+        self.order = len(self.shape)
+
+        self.tensor = tensor
+    
+    @classmethod
+    def new(cls, shape, rank=None, device=None, dtype=None, **kwargs):
+        # Register the parameters
+        tensor = nn.Parameter(torch.empty(shape, device=device, dtype=dtype))
+
+        return cls(tensor)
+
+    @classmethod
+    def from_tensor(cls, tensor, rank='same', **kwargs):
+        return cls(nn.Parameter(tl.copy(tensor)))
+
+    def init_from_tensor(self, tensor, l2_reg=1e-5, **kwargs):
+        with torch.no_grad():        
+            self.tensor = nn.Parameter(tl.copy(tensor))
+        return self
+
+    @property
+    def decomposition(self):
+        return self.tensor
+
+    def to_tensor(self):
+        return self.tensor
+
+    def normal_(self, mean=0, std=1):
+        with torch.no_grad():
+            self.tensor.data.normal_(mean, std)
+        return self
+
+    def __getitem__(self, indices):
+        return self.__class__(self.tensor[indices])
 
 class CPTensor(FactorizedTensor, name='CP'):
     """CP Factorization
