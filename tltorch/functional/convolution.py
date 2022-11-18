@@ -5,7 +5,7 @@ import tensorly as tl
 tl.set_backend('pytorch')
 from tensorly import tenalg
 
-from ..factorized_tensors import CPTensor, TTTensor, TuckerTensor
+from ..factorized_tensors import CPTensor, TTTensor, TuckerTensor, DenseTensor
 
 # Author: Jean Kossaifi
 # License: BSD 3 clause
@@ -345,7 +345,7 @@ def cp_conv_mobilenet(x, cp_tensor, bias=None, stride=1, padding=0, dilation=1):
 
 
 def _get_factorized_conv(factorization, implementation='factorized'):
-    if implementation == 'reconstructed':
+    if implementation == 'reconstructed' or factorization == 'Dense':
         return convolve
     if isinstance(factorization, CPTensor):
         if implementation == 'factorized':
@@ -362,6 +362,9 @@ def _get_factorized_conv(factorization, implementation='factorized'):
 def convNd(x, weight, bias=None, stride=1, padding=0, dilation=1, implementation='factorized'):
     if implementation=='reconstructed':
         weight = weight.to_tensor()
+    if isinstance(weight, DenseTensor):
+        return convolve(x, weight.tensor, bias=bias, stride=stride, padding=padding, dilation=dilation)
+
     if torch.is_tensor(weight):
         return convolve(x, weight, bias=bias, stride=stride, padding=padding, dilation=dilation)
     
