@@ -95,6 +95,7 @@ def general_conv1d_(x, kernel, mode, bias=None, stride=1, padding=0, groups=1, d
     
     return x
 
+
 def general_conv1d(x, kernel, mode, bias=None, stride=1, padding=0, groups=1, dilation=1, verbose=False):
     """General 1D convolution along the mode-th dimension
 
@@ -362,6 +363,7 @@ def _get_factorized_conv(factorization, implementation='factorized'):
 def convNd(x, weight, bias=None, stride=1, padding=0, dilation=1, implementation='factorized'):
     if implementation=='reconstructed':
         weight = weight.to_tensor()
+
     if isinstance(weight, DenseTensor):
         return convolve(x, weight.tensor, bias=bias, stride=stride, padding=padding, dilation=dilation)
 

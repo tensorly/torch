@@ -61,6 +61,7 @@ class DenseTensor(FactorizedTensor, name='Dense'):
     def __getitem__(self, indices):
         return self.__class__(self.tensor[indices])
 
+
 class CPTensor(FactorizedTensor, name='CP'):
     """CP Factorization
 
@@ -212,7 +213,7 @@ class TuckerTensor(FactorizedTensor, name='Tucker'):
             self.shape, self.rank = tl.tucker_tensor._validate_tucker_tensor((core, factors))
         
         self.order = len(self.shape)
-        setattr(self, 'core', core)
+        self.core = core
         self.factors = FactorList(factors)
     
     @classmethod
