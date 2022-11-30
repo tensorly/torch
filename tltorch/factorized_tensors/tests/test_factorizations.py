@@ -122,3 +122,16 @@ def test_tucker_init_unsqueezed_modes(unsqueezed_init):
 
     for i in range(4):
         testing.assert_allclose(rec[:, i], mat*coef)
+
+
+@pytest.mark.parametrize('factorization', ['ComplexCP', 'ComplexTucker', 'ComplexTT', 'ComplexDense'])
+def test_ComplexFactorizedTensor(factorization):
+    """Test for ComplexFactorizedTensor"""
+    shape = (4, 3, 2, 5)
+    fact_tensor = FactorizedTensor.new(shape=shape, rank='same', factorization=factorization)
+    fact_tensor.normal_()
+
+    assert fact_tensor.to_tensor().shape == shape
+    assert fact_tensor.to_tensor().dtype == torch.cfloat
+    for param in fact_tensor.parameters():
+        assert param.dtype == torch.float32
