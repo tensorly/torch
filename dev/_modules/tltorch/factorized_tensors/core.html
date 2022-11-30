@@ -265,9 +265,19 @@
         <span class="n">instance</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">instance</span>
 
+<span class="k">def</span> <span class="nf">_format_factorization</span><span class="p">(</span><span class="n">factorization</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Small utility function to make sure factorization names </span>
+<span class="sd">    are dealt with the same whether using capital letters or not.</span>
+<span class="sd">    </span>
+<span class="sd">    factorization=None is remapped to &#39;Dense&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">factorization</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">factorization</span> <span class="o">=</span> <span class="s1">&#39;Dense&#39;</span>
+    <span class="k">return</span> <span class="n">factorization</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
 
 <div class="viewcode-block" id="FactorizedTensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor">[docs]</a><span class="k">class</span> <span class="nc">FactorizedTensor</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">MetaFactorizedTensor</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Tensor Factorization</span>
+    <span class="sd">&quot;&quot;&quot;Tensor in Factorized form</span>
 
 <span class="sd">    .. important::</span>
 
@@ -280,7 +290,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init_subclass__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-            <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="bp">cls</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">_format_factorization</span><span class="p">(</span><span class="n">name</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">cls</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">!=</span> <span class="s2">&quot;TensorizedTensor&quot;</span><span class="p">:</span> <span class="c1"># Don&#39;t display warning when instantiating the TensorizedTensor class</span>
@@ -293,13 +303,13 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        FactorizedTensor._factorizations[factorization.lower()]</span>
+<span class="sd">        FactorizedTensor._factorizations[_format_factorization(factorization)]</span>
 <span class="sd">            subclass implementing the specified tensor factorization</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="n">FactorizedTensor</span><span class="p">:</span>
             <span class="n">factorization</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;factorization&#39;</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="bp">cls</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">factorization</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+                <span class="bp">cls</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">_format_factorization</span><span class="p">(</span><span class="n">factorization</span><span class="p">)]</span>
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Got factorization=</span><span class="si">{</span><span class="n">factorization</span><span class="si">}</span><span class="s1"> but expected&#39;</span>
                                  <span class="sa">f</span><span class="s1">&#39;one of </span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -308,34 +318,39 @@
 
         <span class="k">return</span> <span class="n">instance</span>
     
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="n">indices</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Returns raw indexed factorization, not class</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        indices</span>
-<span class="sd">        shape : tuple</span>
-<span class="sd">            shape of the tensor to index</span>
+<span class="sd">        indices : int or tuple</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
 <div class="viewcode-block" id="FactorizedTensor.new"><a class="viewcode-back" href="../../../modules/generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor.new">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;Tucker&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Main way to create a factorized tensor</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        shape : tuple[int]</span>
 <span class="sd">            shape of the factorized tensor to create</span>
-<span class="sd">        rank : int, &#39;same&#39; or float</span>
+<span class="sd">        rank : int, &#39;same&#39; or float, default is &#39;same&#39;</span>
 <span class="sd">            rank of the decomposition</span>
 <span class="sd">        factorization : {&#39;CP&#39;, &#39;TT&#39;, &#39;Tucker&#39;}, optional</span>
-<span class="sd">            Tensor factorization to use to decompose the tensor, by default &#39;CP&#39;</span>
+<span class="sd">            Tensor factorization to use to decompose the tensor, by default &#39;Tucker&#39;</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        TensorFactorization</span>
 <span class="sd">            Tensor in Factorized form.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Create a Tucker tensor of shape `(3, 4, 2)`</span>
+<span class="sd">        with half the parameters as a dense tensor would:</span>
+
+<span class="sd">        &gt;&gt;&gt; tucker_tensor = FactorizedTensor.new((3, 4, 2)), rank=0.5, factorization=&#39;tucker&#39;)</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -343,7 +358,7 @@
 <span class="sd">            If the factorization given does not exist. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">cls</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">factorization</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+            <span class="bp">cls</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">_format_factorization</span><span class="p">(</span><span class="n">factorization</span><span class="p">)]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Got factorization=</span><span class="si">{</span><span class="n">factorization</span><span class="si">}</span><span class="s1"> but expected&#39;</span>
                              <span class="sa">f</span><span class="s1">&#39;one of </span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -352,8 +367,7 @@
 
 <div class="viewcode-block" id="FactorizedTensor.from_tensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor.from_tensor">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_tensor</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a factorized tensor by decomposing a full tensor</span>
-
+        <span class="sd">&quot;&quot;&quot;Create a factorized tensor by decomposing a dense tensor</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -375,7 +389,7 @@
 <span class="sd">            If the factorization given does not exist. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">cls</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">factorization</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+            <span class="bp">cls</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">_format_factorization</span><span class="p">(</span><span class="n">factorization</span><span class="p">)]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Got factorization=</span><span class="si">{</span><span class="n">factorization</span><span class="si">}</span><span class="s1"> but expected&#39;</span>
                              <span class="sa">f</span><span class="s1">&#39;one of </span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -512,6 +526,7 @@
     <span class="k">def</span> <span class="nf">tensor_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span></div>
 
+
 <div class="viewcode-block" id="TensorizedTensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.TensorizedTensor.html#tltorch.TensorizedTensor">[docs]</a><span class="k">class</span> <span class="nc">TensorizedTensor</span><span class="p">(</span><span class="n">FactorizedTensor</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">MetaFactorizedTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Matrix in Tensorized Format</span>
 
@@ -526,7 +541,7 @@
     
     <span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;When a subclass is created, register it in _factorizations&quot;&quot;&quot;</span>
-        <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="bp">cls</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">_format_factorization</span><span class="p">(</span><span class="n">name</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">cls</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
 
     <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -534,13 +549,13 @@
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        TensorizedMatrix._factorizations[factorization.lower()]</span>
+<span class="sd">        TensorizedMatrix._factorizations[_format_factorization(factorization)]</span>
 <span class="sd">            subclass implementing the specified tensorized matrix</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="n">TensorizedTensor</span><span class="p">:</span>
             <span class="n">factorization</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;factorization&#39;</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="bp">cls</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">factorization</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+                <span class="bp">cls</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">_format_factorization</span><span class="p">(</span><span class="n">factorization</span><span class="p">)]</span>
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Got factorization=</span><span class="si">{</span><span class="n">factorization</span><span class="si">}</span><span class="s1"> but expected&#39;</span>
                                  <span class="sa">f</span><span class="s1">&#39;one of </span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -574,7 +589,7 @@
 <span class="sd">            If the factorization given does not exist. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">cls</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">factorization</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+            <span class="bp">cls</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">_format_factorization</span><span class="p">(</span><span class="n">factorization</span><span class="p">)]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Got factorization=</span><span class="si">{</span><span class="n">factorization</span><span class="si">}</span><span class="s1"> but expected&#39;</span>
                              <span class="sa">f</span><span class="s1">&#39;one of </span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -608,7 +623,7 @@
 <span class="sd">            If the factorization given does not exist. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">cls</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">factorization</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+            <span class="bp">cls</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">_format_factorization</span><span class="p">(</span><span class="n">factorization</span><span class="p">)]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Got factorization=</span><span class="si">{</span><span class="n">factorization</span><span class="si">}</span><span class="s1"> but expected&#39;</span>
                              <span class="sa">f</span><span class="s1">&#39;one of </span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
