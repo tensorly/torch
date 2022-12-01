@@ -33,14 +33,18 @@ def tensorized_shape_to_shape(tensorized_shape):
 
 class DenseTensorized(DenseTensor, TensorizedTensor, name='Dense'):
     
-    def __init__(self, weights, factors, tensorized_shape, rank=None):
+    def __init__(self, tensor, tensorized_shape, rank=None):
         tensor_shape = sum([(e,) if isinstance(e, int) else tuple(e) for e in tensorized_shape], ())
-
-        super().__init__(weights, factors, tensor_shape, rank)
 
         # Modify only what varies from the Tensor case
         self.shape = tensorized_shape_to_shape(tensorized_shape)
-        # self.tensor_shape = tensor_shape
+
+        # For easier indexing
+        # We actually store the tensor in the non-tensorized form
+        tensor = tl.reshape(tensor, self.shape) 
+
+        super().__init__(tensor, tensor_shape, rank)
+
         self.order = len(tensor_shape)
         self.tensorized_shape = tensorized_shape
 
@@ -59,20 +63,20 @@ class DenseTensorized(DenseTensor, TensorizedTensor, name='Dense'):
         if not isinstance(indices, Iterable):
             indices = [indices]
 
-        processed_indices = []
-        output_shape = []
+        output_shape = [] #number of dimensions to combine
         for (index, shape) in zip(indices, self.tensorized_shape):
             if isinstance(shape, int):
                 # We are indexing a "regular" mode             
-                processed_indices.append(index)   
-                if not isinstance(index, (np.integer, int)):
-                    output_shape.append(factor.shape[0])
-
+                if isinstance(index, (np.integer, int)):
+                    pass
+                elif index == slice(None) or index == ():
+                    output_shape.append(shape)
+                elif isinstance(index, Iterable):
+                    output_shape.append(len(index))
             else: 
                 # We are indexing a tensorized mode
                 if index == slice(None) or index == ():
                     # Keeping all indices (:)
-                    processed_indices.append(index)   
                     output_shape.append(shape)
 
                 else:
@@ -82,15 +86,14 @@ class DenseTensorized(DenseTensor, TensorizedTensor, name='Dense'):
                         max_index = math.prod(shape)
                         index = list(range(*index.indices(max_index)))
 
-                    if isinstance(index, Iterable):
-                        output_shape.append(len(index))
-
                     index = np.unravel_index(index, shape)
-                    processed_indices += index 
-        
-        output_shape.extend(self.tensorized_shape[len(indices):])
-        
-        return self.__class__(self.tensor[processed_indices], tensorized_shape=output_shape)
+                    output_shape.append(len(index[0])) # We loose the tensorization if indexing a tensorized dim
+
+        output_shape += self.tensorized_shape[len(indices):]
+        indexed_tensor = self.tensor[indices]
+        shape = tl.shape(indexed_tensor)
+
+        return self.__class__(indexed_tensor, tensorized_shape=output_shape)
 
 
 class CPTensorized(CPTensor, TensorizedTensor, name='CP'):
