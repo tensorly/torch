@@ -18,6 +18,7 @@ from tltorch.utils import FactorList
 # Author: Jean Kossaifi
 # License: BSD 3 clause
 
+
 class ComplexHandler():
     _complex_params = []
     def __setattr__(self, key, value):
@@ -25,12 +26,13 @@ class ComplexHandler():
             if isinstance(value, FactorList):
                 value = FactorList([nn.Parameter(torch.view_as_real(f)) if isinstance(f, nn.Parameter) else torch.view_as_real(f)\
                                      for f in value])
+                super().__setattr__('_' + key, value)
             elif isinstance(value, nn.Parameter):
-                value = nn.Parameter(torch.view_as_real(value))
+                self.register_parameter(key, value)
             else:
-                value = torch.view_as_real(value)
-            key = '_' + key
-        super().__setattr__(key, value)
+                self.register_buffer(key, value)
+        else:
+            super().__setattr__(key, value)
     
     def __getattr__(self, key):
         if key in self._complex_params:
@@ -42,6 +44,18 @@ class ComplexHandler():
         else:
             return super().__getattr__(key)
 
+    def register_parameter(self, key, value):
+        if key in self._complex_params:
+            key = '_' + key
+            value = nn.Parameter(torch.view_as_real(value))
+        super().register_parameter(key, value)
+
+    def register_buffer(self, key, value):
+        if key in self._complex_params:
+            key = '_' + key
+            value = torch.view_as_real(value)
+        super().register_buffer(key, value)
+
 
 class ComplexDenseTensor(ComplexHandler, DenseTensor, name='ComplexDense'):
     """Complex Dense Factorization
@@ -51,7 +65,6 @@ class ComplexDenseTensor(ComplexHandler, DenseTensor, name='ComplexDense'):
     @classmethod
     def new(cls, shape, rank=None, device=None, dtype=torch.cfloat, **kwargs):
         return super().new(shape, rank, device=device, dtype=dtype, **kwargs)
-
 
 class ComplexTuckerTensor(ComplexHandler, TuckerTensor, name='ComplexTucker'):
     """Complex Tucker Factorization
@@ -63,7 +76,6 @@ class ComplexTuckerTensor(ComplexHandler, TuckerTensor, name='ComplexTucker'):
             device=None, dtype=torch.cfloat, **kwargs):
         return super().new(shape, rank, fixed_rank_modes=fixed_rank_modes,
             device=device, dtype=dtype, **kwargs)
-
 
 class ComplexTTTensor(ComplexHandler, TTTensor, name='ComplexTT'):
     """Complex TT Factorization

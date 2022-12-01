@@ -16,6 +16,7 @@ from ..utils import FactorList
 # Author: Jean Kossaifi
 # License: BSD 3 clause
 
+
 class DenseTensor(FactorizedTensor, name='Dense'):
     """Dense tensor
     """
@@ -28,7 +29,10 @@ class DenseTensor(FactorizedTensor, name='Dense'):
             self.rank = None
         self.order = len(self.shape)
 
-        self.tensor = tensor
+        if isinstance(tensor, nn.Parameter):
+            self.register_parameter('tensor', tensor)
+        else:
+            self.register_buffer('tensor', tensor)
     
     @classmethod
     def new(cls, shape, rank=None, device=None, dtype=None, **kwargs):
@@ -80,7 +84,12 @@ class CPTensor(FactorizedTensor, name='CP'):
             self.shape, self.rank = tl.cp_tensor._validate_cp_tensor((weights, factors))
         self.order = len(self.shape)
 
-        self.weights = weights
+        # self.weights = weights
+        if isinstance(weights, nn.Parameter):
+            self.register_parameter('weights', weights)
+        else:
+            self.register_buffer('weights', weights)
+
         self.factors = FactorList(factors)
     
     @classmethod
@@ -213,7 +222,12 @@ class TuckerTensor(FactorizedTensor, name='Tucker'):
             self.shape, self.rank = tl.tucker_tensor._validate_tucker_tensor((core, factors))
         
         self.order = len(self.shape)
-        self.core = core
+        # self.core = core
+        if isinstance(core, nn.Parameter):
+            self.register_parameter('core', core)
+        else:
+            self.register_buffer('core', core)
+
         self.factors = FactorList(factors)
     
     @classmethod

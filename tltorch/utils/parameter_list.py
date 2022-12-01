@@ -17,7 +17,11 @@ class FactorList(nn.Module):
         
     def append(self, element):
         key = self._unique_key()
-        setattr(self, key, element)
+        # setattr(self, key, element)
+        if isinstance(element, nn.Parameter):
+            self.register_parameter(key, element)
+        else:
+            self.register_buffer(key, element)
         self.keys.append(key)
         
     def insert(self, index, element):
