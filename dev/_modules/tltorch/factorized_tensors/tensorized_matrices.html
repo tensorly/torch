@@ -174,14 +174,18 @@
 
 <span class="k">class</span> <span class="nc">DenseTensorized</span><span class="p">(</span><span class="n">DenseTensor</span><span class="p">,</span> <span class="n">TensorizedTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Dense&#39;</span><span class="p">):</span>
     
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">factors</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">tensor_shape</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([(</span><span class="n">e</span><span class="p">,)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">tensorized_shape</span><span class="p">],</span> <span class="p">())</span>
-
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">factors</span><span class="p">,</span> <span class="n">tensor_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
 
         <span class="c1"># Modify only what varies from the Tensor case</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">tensorized_shape_to_shape</span><span class="p">(</span><span class="n">tensorized_shape</span><span class="p">)</span>
-        <span class="c1"># self.tensor_shape = tensor_shape</span>
+
+        <span class="c1"># For easier indexing</span>
+        <span class="c1"># We actually store the tensor in the non-tensorized form</span>
+        <span class="n">tensor</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> 
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">tensor_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensor_shape</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span> <span class="o">=</span> <span class="n">tensorized_shape</span>
 
@@ -200,20 +204,20 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">indices</span><span class="p">]</span>
 
-        <span class="n">processed_indices</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">output_shape</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">output_shape</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1">#number of dimensions to combine</span>
         <span class="k">for</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                 <span class="c1"># We are indexing a &quot;regular&quot; mode             </span>
-                <span class="n">processed_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>   
-                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
-                    <span class="n">output_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">factor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
+                    <span class="k">pass</span>
+                <span class="k">elif</span> <span class="n">index</span> <span class="o">==</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">index</span> <span class="o">==</span> <span class="p">():</span>
+                    <span class="n">output_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
+                    <span class="n">output_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span> 
                 <span class="c1"># We are indexing a tensorized mode</span>
                 <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">index</span> <span class="o">==</span> <span class="p">():</span>
                     <span class="c1"># Keeping all indices (:)</span>
-                    <span class="n">processed_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>   
                     <span class="n">output_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
 
                 <span class="k">else</span><span class="p">:</span>
@@ -223,15 +227,14 @@
                         <span class="n">max_index</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
                         <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">*</span><span class="n">index</span><span class="o">.</span><span class="n">indices</span><span class="p">(</span><span class="n">max_index</span><span class="p">)))</span>
 
-                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
-                        <span class="n">output_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
-
                     <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
-                    <span class="n">processed_indices</span> <span class="o">+=</span> <span class="n">index</span> 
-        
-        <span class="n">output_shape</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">):])</span>
-        
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tensor</span><span class="p">[</span><span class="n">processed_indices</span><span class="p">],</span> <span class="n">tensorized_shape</span><span class="o">=</span><span class="n">output_shape</span><span class="p">)</span>
+                    <span class="n">output_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="c1"># We loose the tensorization if indexing a tensorized dim</span>
+
+        <span class="n">output_shape</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tensorized_shape</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">):]</span>
+        <span class="n">indexed_tensor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tensor</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">indexed_tensor</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">indexed_tensor</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="o">=</span><span class="n">output_shape</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="CPTensorized"><a class="viewcode-back" href="../../../modules/generated/tltorch.CPTensorized.html#tltorch.CPTensorized">[docs]</a><span class="k">class</span> <span class="nc">CPTensorized</span><span class="p">(</span><span class="n">CPTensor</span><span class="p">,</span> <span class="n">TensorizedTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">):</span>
