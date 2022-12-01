@@ -1,16 +1,9 @@
 
-import math
-
-import numpy as np
 import torch
 from torch import nn
 
 import tensorly as tl
 tl.set_backend('pytorch')
-from tensorly import tenalg
-from tensorly.decomposition import tucker, tensor_train
-
-from tltorch.factorized_tensors.core import FactorizedTensor
 from tltorch.factorized_tensors.factorized_tensors import TuckerTensor, CPTensor, TTTensor, DenseTensor
 from tltorch.utils import FactorList
 

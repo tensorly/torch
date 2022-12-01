@@ -9,6 +9,7 @@ from tltorch.factorized_tensors.core import TensorizedTensor
 
 from ..factorized_tensors import FactorizedTensor, CPTensor, TuckerTensor, TTTensor
 
+
 @pytest.mark.parametrize('factorization', ['CP', 'Tucker', 'TT'])
 def test_FactorizedTensor(factorization):
     """Test for FactorizedTensor"""

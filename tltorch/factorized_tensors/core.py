@@ -6,6 +6,7 @@ tl.set_backend('pytorch')
 from torch import nn
 import numpy as np
 
+
 # Author: Jean Kossaifi
 # License: BSD 3 clause
 
