@@ -287,11 +287,16 @@ registered hooks while the latter silently ignores them.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>embedding_layer</strong><span class="classifier">torch.nn.Embedding</span></dt><dd></dd>
-<dt><strong>rank</strong><span class="classifier">int tuple or str, tensor rank</span></dt><dd></dd>
-<dt><strong>factorization</strong><span class="classifier">str, tensor type</span></dt><dd></dd>
-<dt><strong>decompose_weights: bool, decompose weights and use for initialization</strong></dt><dd></dd>
-<dt><strong>auto_reshape: bool, automatically reshape dimensions for TensorizedTensor</strong></dt><dd></dd>
-<dt><strong>decomposition_kwargs: dict, specify kwargs for the decomposition</strong></dt><dd></dd>
+<dt><strong>rank</strong><span class="classifier">int tuple or str</span></dt><dd><p>rank of the tensor decomposition</p>
+</dd>
+<dt><strong>factorization</strong><span class="classifier">str</span></dt><dd><p>tensor type</p>
+</dd>
+<dt><strong>decompose_weights: bool</strong></dt><dd><p>whether to decompose weights and use for initialization</p>
+</dd>
+<dt><strong>auto_reshape: bool</strong></dt><dd><p>if True, automatically reshape dimensions for TensorizedTensor</p>
+</dd>
+<dt><strong>decomposition_kwargs: dict</strong></dt><dd><p>specify kwargs for the decomposition</p>
+</dd>
 </dl>
 </dd>
 </dl>

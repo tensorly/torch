@@ -269,11 +269,16 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        embedding_layer : torch.nn.Embedding</span>
-<span class="sd">        rank : int tuple or str, tensor rank</span>
-<span class="sd">        factorization : str, tensor type</span>
-<span class="sd">        decompose_weights: bool, decompose weights and use for initialization</span>
-<span class="sd">        auto_reshape: bool, automatically reshape dimensions for TensorizedTensor</span>
-<span class="sd">        decomposition_kwargs: dict, specify kwargs for the decomposition</span>
+<span class="sd">        rank : int tuple or str</span>
+<span class="sd">            rank of the tensor decomposition</span>
+<span class="sd">        factorization : str</span>
+<span class="sd">            tensor type</span>
+<span class="sd">        decompose_weights: bool</span>
+<span class="sd">            whether to decompose weights and use for initialization</span>
+<span class="sd">        auto_reshape: bool</span>
+<span class="sd">            if True, automatically reshape dimensions for TensorizedTensor</span>
+<span class="sd">        decomposition_kwargs: dict</span>
+<span class="sd">            specify kwargs for the decomposition</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">num_embeddings</span><span class="p">,</span> <span class="n">embedding_dim</span> <span class="o">=</span> <span class="n">embedding_layer</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">shape</span>
 
