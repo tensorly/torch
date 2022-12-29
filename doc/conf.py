@@ -107,11 +107,15 @@ html_static_path = ['_static']
 html_theme_options = {
     'github_url': 'https://github.com/tensorly/torch',
     'google_analytics' : 'G-QSPLEF75VT',
+    'searchbar_text': 'Search TensorLy-Torch',
     'nav_links' : [('Install', 'install'),
                    ('User Guide', 'user_guide/index'),
                    ('API', 'modules/api'),
                    ('About Us', 'about')],
-    'external_nav_links' : [('TensorLy', 'http://tensorly.org/dev')]
+    'external_nav_links_dropdown_title': 'Ecosystem',
+    'external_nav_links_dropdown' : [('TensorLy', 'http://tensorly.org/dev'),
+                                     ('TensorLy-Viz', 'http://tensorly.org/viz'),
+                                     ('TensorLy-Quantum', 'http://tensorly.org/quantum')],
 }
 
 # -- Options for LaTeX output ---------------------------------------------
