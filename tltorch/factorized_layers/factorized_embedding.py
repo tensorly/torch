@@ -10,17 +10,26 @@ from tltorch.utils import get_tensorized_shape
 class FactorizedEmbedding(nn.Module):
     """
     Tensorized Embedding Layers For Efficient Model Compression
-    Tensorized drop-in replacement for torch.nn.Embedding
+    Tensorized drop-in replacement for `torch.nn.Embedding`
+
     Parameters
     ----------
-    num_embeddings : int, number of entries in the lookup table
-    embedding_dim : int, number of dimensions per entry
-    auto_reshape : bool, whether to use automatic reshaping for the embedding dimensions
-    d : int or int tuple, number of reshape dimensions for both embedding table dimension
-    tensorized_num_embeddings : int tuple, tensorized shape of the first embedding table dimension
-    tensorized_embedding_dim : int tuple, tensorized shape of the second embedding table dimension
-    factorization : str, tensor type
-    rank : int tuple or str, tensor rank
+    num_embeddings : int
+        number of entries in the lookup table
+    embedding_dim : int
+        number of dimensions per entry
+    auto_reshape : bool
+        whether to use automatic reshaping for the embedding dimensions
+    d : int or int tuple
+        number of reshape dimensions for both embedding table dimension
+    tensorized_num_embeddings : int tuple
+        tensorized shape of the first embedding table dimension
+    tensorized_embedding_dim : int tuple
+        tensorized shape of the second embedding table dimension
+    factorization : str
+        tensor type
+    rank : int tuple or str
+        rank of the tensor factorization
     """
     def __init__(self,
                  num_embeddings,
@@ -118,6 +127,7 @@ class FactorizedEmbedding(nn.Module):
                        **kwargs):
         """
         Create a tensorized embedding layer from a regular embedding layer
+
         Parameters
         ----------
         embedding_layer : torch.nn.Embedding
@@ -157,14 +167,20 @@ class FactorizedEmbedding(nn.Module):
                        **kwargs):
         """
         Create a tensorized embedding layer from a regular embedding layer
+
         Parameters
         ----------
         embedding_layer : torch.nn.Embedding
-        rank : int tuple or str, tensor rank
-        factorization : str, tensor type
-        decompose_weights: bool, decompose weights and use for initialization
-        auto_reshape: bool, automatically reshape dimensions for TensorizedTensor
-        decomposition_kwargs: dict, specify kwargs for the decomposition
+        rank : int tuple or str
+            tensor rank
+        factorization : str
+            tensor decomposition to use
+        decompose_weights: bool
+            decompose weights and use for initialization
+        auto_reshape: bool
+            automatically reshape dimensions for TensorizedTensor
+        decomposition_kwargs: dict
+            specify kwargs for the decomposition
         """
         n_layers = len(embedding_layer_list)
         num_embeddings, embedding_dim = embedding_layer_list[0].weight.shape
@@ -213,8 +229,10 @@ class FactorizedEmbedding(nn.Module):
 
 class SubFactorizedEmbedding(nn.Module):
     """Class representing one of the embeddings from the mother joint factorized embedding layer
+
     Parameters
     ----------
+
     Notes
     -----
     This relies on the fact that nn.Parameters are not duplicated:
