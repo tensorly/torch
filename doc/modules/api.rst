@@ -16,13 +16,25 @@ Factorized Tensors
 TensorLy-Torch builds on top of TensorLy and provides out of the box PyTorch layers for tensor based operations.
 The core of this is the concept of factorized tensors, which factorize our layers, instead of regular, dense PyTorch tensors.
 
-You can create any factorized tensor through the main class, or directly create a specific subclass:
+You can create any factorized tensor through the main class using:
 
 .. autosummary::
     :toctree: generated
     :template: class.rst
 
     FactorizedTensor
+
+You can create a tensor of any form using ``FactorizedTensor.new(shape, rank, factorization)``, where factorization can be `Dense`, `CP`, `Tucker` or `TT`.
+Note that if you use ``factorization = 'dense'`` you are just creating a regular, unfactorized tensor. 
+This allows to manipulate any tensor, factorized or not, with a simple, unified interface.
+
+Alternatively, you can also directly create a specific subclass:
+
+.. autosummary::
+    :toctree: generated
+    :template: class.rst
+
+    DenseTensor
     CPTensor
     TuckerTensor
     TTTensor
@@ -32,12 +44,24 @@ You can create any factorized tensor through the main class, or directly create 
 Tensorized Matrices
 ===================
 
-In TensorLy-Torch , you can also represent matrices in *tensorized* form, as low-rank tensors . 
+In TensorLy-Torch , you can also represent matrices in *tensorized* form, as low-rank tensors.
+ Just as for factorized tensor, you can create a tensorized matrix through the main class using:
 
 .. autosummary::
     :toctree: generated
     :template: class.rst
 
+    TensorizedTensor
+
+You can create a tensor of any form using ``TensorizedTensor.new(tensorized_shape, rank, factorization)``, where factorization can be `Dense`, `CP`, `Tucker` or `BlockTT`.
+
+You can also explicitly create the type of tensor you want using the following classes:
+
+.. autosummary::
+    :toctree: generated
+    :template: class.rst
+
+    DenseTensorized
     TensorizedTensor
     CPTensorized
     BlockTT
@@ -47,11 +71,11 @@ In TensorLy-Torch , you can also represent matrices in *tensorized* form, as low
 Initialization
 ==============
 
-.. automodule:: tltorch.init
+.. automodule:: tltorch.factorized_tensors
     :no-members:
     :no-inherited-members:
 
-.. currentmodule:: tltorch.init
+.. currentmodule:: tltorch.factorized_tensors.init
 
 .. autosummary::
     :toctree: generated
@@ -61,7 +85,7 @@ Initialization
     cp_init
     tucker_init
     tt_init
-
+    block_tt_init
 
 .. _trl_ref:
 
