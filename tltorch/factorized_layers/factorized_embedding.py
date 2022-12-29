@@ -131,11 +131,16 @@ class FactorizedEmbedding(nn.Module):
         Parameters
         ----------
         embedding_layer : torch.nn.Embedding
-        rank : int tuple or str, tensor rank
-        factorization : str, tensor type
-        decompose_weights: bool, decompose weights and use for initialization
-        auto_reshape: bool, automatically reshape dimensions for TensorizedTensor
-        decomposition_kwargs: dict, specify kwargs for the decomposition
+        rank : int tuple or str
+            rank of the tensor decomposition
+        factorization : str
+            tensor type
+        decompose_weights: bool
+            whether to decompose weights and use for initialization
+        auto_reshape: bool
+            if True, automatically reshape dimensions for TensorizedTensor
+        decomposition_kwargs: dict
+            specify kwargs for the decomposition
         """
         num_embeddings, embedding_dim = embedding_layer.weight.shape
 
