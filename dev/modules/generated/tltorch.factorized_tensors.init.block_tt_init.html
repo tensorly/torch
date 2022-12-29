@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>tltorch.init.tt_init &#8212; TensorLy-Torch 0.3.0 documentation</title> 
+    <title>tltorch.factorized_tensors.init.block_tt_init &#8212; TensorLy-Torch 0.3.0 documentation</title> 
 <link rel="stylesheet" href="../../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../../_static/favicon/favicon-32x32.png">
@@ -41,7 +41,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="tltorch.factorized_layers.TRL" href="tltorch.factorized_layers.TRL.html" />
-    <link rel="prev" title="tltorch.init.tucker_init" href="tltorch.init.tucker_init.html" />
+    <link rel="prev" title="tltorch.factorized_tensors.init.tt_init" href="tltorch.factorized_tensors.init.tt_init.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   </head>
@@ -89,9 +89,6 @@
             <a class="navbar-item" href="../../about.html">
               About Us
             </a>
-            <a class="navbar-item" href="http://tensorly.org/dev" target="_blank">
-              TensorLy
-            </a>
 
           </div>
         
@@ -138,7 +135,7 @@
     <!-- <label class="label" id="searchlabel">Quick search</label> -->
     <div class="field has-addons">
       <div class="control is-expanded">
-        <input class="input" type="text" placeholder="Search the doc" name="q" aria-labelledby="searchlabel">
+        <input class="input" type="text" placeholder="Search TensorLy-Torch" name="q" aria-labelledby="searchlabel">
       </div>
       <div class="control">
         <input class="button is-info" type="submit" value="Go" />
@@ -178,7 +175,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-tensors">Factorized Tensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#tensorized-matrices">Tensorized Matrices</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-tltorch.init">Initialization</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#module-tltorch.factorized_tensors">Initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.factorized_layers">Tensor Regression Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-contraction-layers">Tensor Contraction Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-linear-layers">Factorized Linear Layers</a></li>
@@ -215,8 +212,25 @@
 
         <div class="content main-content">
           
-  <section id="tltorch-init-tt-init">
-<h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.init.tt_init</h1>
+  <section id="tltorch-factorized-tensors-init-block-tt-init">
+<h1><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_tensors.init</span></code>.block_tt_init</h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="tltorch.factorized_tensors.init.block_tt_init">
+<span class="sig-prename descclassname"><span class="pre">tltorch.factorized_tensors.init.</span></span><span class="sig-name descname"><span class="pre">block_tt_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block_tt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.02</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/init.html#block_tt_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Initializes directly the weights and factors of a BlockTT decomposition so the reconstruction has the specified std and 0 mean</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>block_tt</strong><span class="classifier">Matrix in the tensor-train format</span></dt><dd></dd>
+<dt><strong>std</strong><span class="classifier">float, default is 0.02</span></dt><dd><p>the desired standard deviation of the full (reconstructed) tensor</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>We assume the given factors form a correct Block-TT decomposition, no checks are done here.</p>
+</dd></dl>
+
 <div class="clearer"></div></section>
 
 
@@ -225,11 +239,11 @@
 		
         <nav class="pagination" role="navigation" aria-label="pagination">
     
-    <a class="button is-medium pagination-previous" href="tltorch.init.tucker_init.html" title="previous page" accesskey="p">
+    <a class="button is-medium pagination-previous" href="tltorch.factorized_tensors.init.tt_init.html" title="previous page" accesskey="p">
         <span class="icon">
             <i class="fa fa-arrow-circle-left"></i>
         </span>
-        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.init.tucker_init</span>
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_tensors.init</span></code>.tt_init</span>
     </a>
     
     
@@ -261,6 +275,21 @@
 
 	
     
+    <div class="column is-hidden-touch is-2-desktop is-one-fifth-widescreen" id="localtoc-column">
+
+    <aside class="sticky-nav localtoc">  
+        <div class="menu menu-list">
+        <p class="menu-label">On this page</p>
+        <ul>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_tensors.init</span></code>.block_tt_init</a><ul>
+<li><a class="reference internal" href="#tltorch.factorized_tensors.init.block_tt_init"><code class="docutils literal notranslate"><span class="pre">block_tt_init()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+    </aside>
+    </div>
 
     
 

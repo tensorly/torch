@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>tltorch.factorized_layers.TCL &#8212; TensorLy-Torch 0.3.0 documentation</title> 
+    <title>tltorch.DenseTensorized &#8212; TensorLy-Torch 0.3.0 documentation</title> 
 <link rel="stylesheet" href="../../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../../_static/favicon/favicon-32x32.png">
@@ -40,8 +40,8 @@
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="tltorch.factorized_layers.FactorizedLinear" href="tltorch.factorized_layers.FactorizedLinear.html" />
-    <link rel="prev" title="tltorch.factorized_layers.TRL" href="tltorch.factorized_layers.TRL.html" />
+    <link rel="next" title="tltorch.CPTensorized" href="tltorch.CPTensorized.html" />
+    <link rel="prev" title="tltorch.TensorizedTensor" href="tltorch.TensorizedTensor.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   </head>
@@ -174,10 +174,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing tensorly-Torch</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-tensors">Factorized Tensors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#tensorized-matrices">Tensorized Matrices</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#tensorized-matrices">Tensorized Matrices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.factorized_tensors">Initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.factorized_layers">Tensor Regression Layers</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#tensor-contraction-layers">Tensor Contraction Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-contraction-layers">Tensor Contraction Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-linear-layers">Factorized Linear Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-convolutions">Factorized Convolutions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-embeddings">Factorized Embeddings</a></li>
@@ -212,62 +212,83 @@
 
         <div class="content main-content">
           
-  <section id="tltorch-factorized-layers-tcl">
-<h1><a class="reference internal" href="../api.html#module-tltorch.factorized_layers" title="tltorch.factorized_layers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_layers</span></code></a>.TCL</h1>
+  <section id="tltorch-densetensorized">
+<h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.DenseTensorized</h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="tltorch.factorized_layers.TCL">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tltorch.factorized_layers.</span></span><span class="sig-name descname"><span class="pre">TCL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/tensor_contraction_layers.html#TCL"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Tensor Contraction Layer <a class="reference internal" href="#r4c5b93526459-1" id="id1">[1]</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>input_size</strong><span class="classifier">int iterable</span></dt><dd><p>shape of the input, excluding batch size</p>
-</dd>
-<dt><strong>rank</strong><span class="classifier">int list or int</span></dt><dd><p>rank of the TCL, will also be the output-shape (excluding batch-size)
-if int, the same rank will be used for all dimensions</p>
-</dd>
-<dt><strong>verbose</strong><span class="classifier">int, default is 1</span></dt><dd><p>level of verbosity</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">References</p>
-<div role="list" class="citation-list">
-<div class="citation" id="r4c5b93526459-1" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>J. Kossaifi, A. Khanna, Z. Lipton, T. Furlanello and A. Anandkumar, 
-“Tensor Contraction Layers for Parsimonious Deep Nets,” 2017 IEEE Conference on Computer Vision and Pattern Recognition Workshops (CVPRW),
-Honolulu, HI, 2017, pp. 1940-1946, doi: 10.1109/CVPRW.2017.243.</p>
-</div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>factors</strong></dt><dd></dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Methods</p>
+<dt class="sig sig-object py" id="tltorch.DenseTensorized">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tltorch.</span></span><span class="sig-name descname"><span class="pre">DenseTensorized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/tensorized_matrices.html#DenseTensorized"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.factorized_layers.TCL.forward" title="tltorch.factorized_layers.TCL.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x)</p></td>
-<td><p>Performs a forward pass</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.DenseTensorized.from_tensor" title="tltorch.DenseTensorized.from_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_tensor</span></code></a>(tensor, tensorized_shape[, rank])</p></td>
+<td><p>Create a factorized tensor by decomposing a full tensor</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.factorized_layers.TCL.reset_parameters" title="tltorch.factorized_layers.TCL.reset_parameters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_parameters</span></code></a>()</p></td>
-<td><p>Sets the parameters' values randomly</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.DenseTensorized.new" title="tltorch.DenseTensorized.new"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new</span></code></a>(tensorized_shape, rank[, device, dtype])</p></td>
+<td><p>Main way to create a Tensorized Matrix</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py method">
-<dt class="sig sig-object py" id="tltorch.factorized_layers.TCL.forward">
-<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/tensor_contraction_layers.html#TCL.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Performs a forward pass</p>
+<dt class="sig sig-object py" id="tltorch.DenseTensorized.new">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensorized_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/tensorized_matrices.html#DenseTensorized.new"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Main way to create a Tensorized Matrix</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>tensorized_shape</strong><span class="classifier">tuple[int]</span></dt><dd></dd>
+<dt><strong>rank</strong><span class="classifier">int, ‘same’ or float</span></dt><dd><p>rank of the decomposition</p>
+</dd>
+<dt><strong>n_matrices</strong><span class="classifier">tuple or int, default is ()</span></dt><dd><p>if not (), indicates how many matrices have to be jointly factorized</p>
+</dd>
+<dt><strong>factorization</strong><span class="classifier">{‘CP’, ‘TT’, ‘Tucker’}, optional</span></dt><dd><p>Tensor factorization to use to decompose the tensor, by default ‘CP’</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>TensorizedTensor</dt><dd><p>Tensor in Tensorized and Factorized form.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If the factorization given does not exist.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tltorch.factorized_layers.TCL.reset_parameters">
-<span class="sig-name descname"><span class="pre">reset_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/tensor_contraction_layers.html#TCL.reset_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Sets the parameters’ values randomly</p>
+<dt class="sig sig-object py" id="tltorch.DenseTensorized.from_tensor">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensorized_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'same'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/tensorized_matrices.html#DenseTensorized.from_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Create a factorized tensor by decomposing a full tensor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>tensor</strong><span class="classifier">torch.tensor</span></dt><dd><p>tensor to factorize</p>
+</dd>
+<dt><strong>shape</strong><span class="classifier">tuple[int]</span></dt><dd><p>shape of the factorized tensor to create</p>
+</dd>
+<dt><strong>rank</strong><span class="classifier">int, ‘same’ or float</span></dt><dd><p>rank of the decomposition</p>
+</dd>
+<dt><strong>factorization</strong><span class="classifier">{‘CP’, ‘TT’, ‘Tucker’}, optional</span></dt><dd><p>Tensor factorization to use to decompose the tensor, by default ‘CP’</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>TensorFactorization</dt><dd><p>Tensor in Factorized form.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If the factorization given does not exist.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -280,16 +301,16 @@ Honolulu, HI, 2017, pp. 1940-1946, doi: 10.1109/CVPRW.2017.243.</p>
 		
         <nav class="pagination" role="navigation" aria-label="pagination">
     
-    <a class="button is-medium pagination-previous" href="tltorch.factorized_layers.TRL.html" title="previous page" accesskey="p">
+    <a class="button is-medium pagination-previous" href="tltorch.TensorizedTensor.html" title="previous page" accesskey="p">
         <span class="icon">
             <i class="fa fa-arrow-circle-left"></i>
         </span>
-        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_layers</span></code>.TRL</span>
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.TensorizedTensor</span>
     </a>
     
     
-    <a class="button is-medium pagination-next" href="tltorch.factorized_layers.FactorizedLinear.html" title="next page" accesskey="n">
-        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_layers</span></code>.FactorizedLinear </span>
+    <a class="button is-medium pagination-next" href="tltorch.CPTensorized.html" title="next page" accesskey="n">
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.CPTensorized </span>
         <span class="icon">
             <i class="fa fa-arrow-circle-right"></i>
         </span>
@@ -322,10 +343,10 @@ Honolulu, HI, 2017, pp. 1940-1946, doi: 10.1109/CVPRW.2017.243.</p>
         <div class="menu menu-list">
         <p class="menu-label">On this page</p>
         <ul>
-<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_layers</span></code>.TCL</a><ul>
-<li><a class="reference internal" href="#tltorch.factorized_layers.TCL"><code class="docutils literal notranslate"><span class="pre">TCL</span></code></a><ul>
-<li><a class="reference internal" href="#tltorch.factorized_layers.TCL.forward"><code class="docutils literal notranslate"><span class="pre">TCL.forward()</span></code></a></li>
-<li><a class="reference internal" href="#tltorch.factorized_layers.TCL.reset_parameters"><code class="docutils literal notranslate"><span class="pre">TCL.reset_parameters()</span></code></a></li>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.DenseTensorized</a><ul>
+<li><a class="reference internal" href="#tltorch.DenseTensorized"><code class="docutils literal notranslate"><span class="pre">DenseTensorized</span></code></a><ul>
+<li><a class="reference internal" href="#tltorch.DenseTensorized.new"><code class="docutils literal notranslate"><span class="pre">DenseTensorized.new()</span></code></a></li>
+<li><a class="reference internal" href="#tltorch.DenseTensorized.from_tensor"><code class="docutils literal notranslate"><span class="pre">DenseTensorized.from_tensor()</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>tltorch.CPTensor &#8212; TensorLy-Torch 0.3.0 documentation</title> 
+    <title>tltorch.DenseTensor &#8212; TensorLy-Torch 0.3.0 documentation</title> 
 <link rel="stylesheet" href="../../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../../_static/favicon/favicon-32x32.png">
@@ -40,8 +40,8 @@
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="tltorch.TuckerTensor" href="tltorch.TuckerTensor.html" />
-    <link rel="prev" title="tltorch.DenseTensor" href="tltorch.DenseTensor.html" />
+    <link rel="next" title="tltorch.CPTensor" href="tltorch.CPTensor.html" />
+    <link rel="prev" title="tltorch.FactorizedTensor" href="tltorch.FactorizedTensor.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   </head>
@@ -212,24 +212,16 @@
 
         <div class="content main-content">
           
-  <section id="tltorch-cptensor">
-<h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.CPTensor</h1>
+  <section id="tltorch-densetensor">
+<h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.DenseTensor</h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="tltorch.CPTensor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tltorch.</span></span><span class="sig-name descname"><span class="pre">CPTensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#CPTensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>CP Factorization</p>
+<dt class="sig sig-object py" id="tltorch.DenseTensor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tltorch.</span></span><span class="sig-name descname"><span class="pre">DenseTensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#DenseTensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Dense tensor</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>weights</strong></dt><dd></dd>
-<dt><strong>factors</strong></dt><dd></dd>
-<dt><strong>shape</strong></dt><dd></dd>
-<dt><strong>rank</strong></dt><dd></dd>
-</dl>
-</dd>
-<dt class="field-even">Attributes<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><a class="reference internal" href="#tltorch.CPTensor.decomposition" title="tltorch.CPTensor.decomposition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decomposition</span></code></a></dt><dd><p>Returns the factors and parameters composing the tensor in factorized form</p>
+<dt><a class="reference internal" href="#tltorch.DenseTensor.decomposition" title="tltorch.DenseTensor.decomposition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decomposition</span></code></a></dt><dd><p>Returns the factors and parameters composing the tensor in factorized form</p>
 </dd>
 </dl>
 </dd>
@@ -237,20 +229,17 @@
 <p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.CPTensor.from_tensor" title="tltorch.CPTensor.from_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_tensor</span></code></a>(tensor[, rank])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.DenseTensor.from_tensor" title="tltorch.DenseTensor.from_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_tensor</span></code></a>(tensor[, rank])</p></td>
 <td><p>Create a factorized tensor by decomposing a dense tensor</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.CPTensor.new" title="tltorch.CPTensor.new"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new</span></code></a>(shape, rank[, device, dtype])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.DenseTensor.new" title="tltorch.DenseTensor.new"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new</span></code></a>(shape[, rank, device, dtype])</p></td>
 <td><p>Main way to create a factorized tensor</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.CPTensor.normal_" title="tltorch.CPTensor.normal_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normal_</span></code></a>([mean, std])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.DenseTensor.normal_" title="tltorch.DenseTensor.normal_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normal_</span></code></a>([mean, std])</p></td>
 <td><p>Inialize the factors of the factorization such that the <strong>reconstruction</strong> follows a Gaussian distribution</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.CPTensor.to_tensor" title="tltorch.CPTensor.to_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_tensor</span></code></a>()</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.DenseTensor.to_tensor" title="tltorch.DenseTensor.to_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_tensor</span></code></a>()</p></td>
 <td><p>Reconstruct the full tensor from its factorized form</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.CPTensor.transduct" title="tltorch.CPTensor.transduct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">transduct</span></code></a>(new_dim[, mode, new_factor])</p></td>
-<td><p>Transduction adds a new dimension to the existing factorization</p></td>
 </tr>
 </tbody>
 </table>
@@ -262,8 +251,8 @@
 </tbody>
 </table>
 <dl class="py method">
-<dt class="sig sig-object py" id="tltorch.CPTensor.new">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#CPTensor.new"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py" id="tltorch.DenseTensor.new">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#DenseTensor.new"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Main way to create a factorized tensor</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -298,8 +287,8 @@ with half the parameters as a dense tensor would:</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tltorch.CPTensor.from_tensor">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'same'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#CPTensor.from_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py" id="tltorch.DenseTensor.from_tensor">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'same'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#DenseTensor.from_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Create a factorized tensor by decomposing a dense tensor</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -328,48 +317,26 @@ with half the parameters as a dense tensor would:</p>
 </dd></dl>
 
 <dl class="py property">
-<dt class="sig sig-object py" id="tltorch.CPTensor.decomposition">
+<dt class="sig sig-object py" id="tltorch.DenseTensor.decomposition">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">decomposition</span></span></dt>
 <dd><p>Returns the factors and parameters composing the tensor in factorized form</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tltorch.CPTensor.to_tensor">
-<span class="sig-name descname"><span class="pre">to_tensor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#CPTensor.to_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py" id="tltorch.DenseTensor.to_tensor">
+<span class="sig-name descname"><span class="pre">to_tensor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#DenseTensor.to_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Reconstruct the full tensor from its factorized form</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="tltorch.CPTensor.normal_">
-<span class="sig-name descname"><span class="pre">normal_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#CPTensor.normal_"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py" id="tltorch.DenseTensor.normal_">
+<span class="sig-name descname"><span class="pre">normal_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#DenseTensor.normal_"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Inialize the factors of the factorization such that the <strong>reconstruction</strong> follows a Gaussian distribution</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>mean</strong><span class="classifier">float, currently only 0 is supported</span></dt><dd></dd>
 <dt><strong>std</strong><span class="classifier">float</span></dt><dd><p>standard deviation</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>self</dt><dd></dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="tltorch.CPTensor.transduct">
-<span class="sig-name descname"><span class="pre">transduct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/factorized_tensors.html#CPTensor.transduct"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Transduction adds a new dimension to the existing factorization</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>new_dim</strong><span class="classifier">int</span></dt><dd><p>dimension of the new mode to add</p>
-</dd>
-<dt><strong>mode</strong><span class="classifier">where to insert the new dimension, after the channels, default is 0</span></dt><dd><p>by default, insert the new dimensions before the existing ones
-(e.g. add time before height and width)</p>
 </dd>
 </dl>
 </dd>
@@ -391,16 +358,16 @@ with half the parameters as a dense tensor would:</p>
 		
         <nav class="pagination" role="navigation" aria-label="pagination">
     
-    <a class="button is-medium pagination-previous" href="tltorch.DenseTensor.html" title="previous page" accesskey="p">
+    <a class="button is-medium pagination-previous" href="tltorch.FactorizedTensor.html" title="previous page" accesskey="p">
         <span class="icon">
             <i class="fa fa-arrow-circle-left"></i>
         </span>
-        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.DenseTensor</span>
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.FactorizedTensor</span>
     </a>
     
     
-    <a class="button is-medium pagination-next" href="tltorch.TuckerTensor.html" title="next page" accesskey="n">
-        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.TuckerTensor </span>
+    <a class="button is-medium pagination-next" href="tltorch.CPTensor.html" title="next page" accesskey="n">
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.CPTensor </span>
         <span class="icon">
             <i class="fa fa-arrow-circle-right"></i>
         </span>
@@ -433,14 +400,13 @@ with half the parameters as a dense tensor would:</p>
         <div class="menu menu-list">
         <p class="menu-label">On this page</p>
         <ul>
-<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.CPTensor</a><ul>
-<li><a class="reference internal" href="#tltorch.CPTensor"><code class="docutils literal notranslate"><span class="pre">CPTensor</span></code></a><ul>
-<li><a class="reference internal" href="#tltorch.CPTensor.new"><code class="docutils literal notranslate"><span class="pre">CPTensor.new()</span></code></a></li>
-<li><a class="reference internal" href="#tltorch.CPTensor.from_tensor"><code class="docutils literal notranslate"><span class="pre">CPTensor.from_tensor()</span></code></a></li>
-<li><a class="reference internal" href="#tltorch.CPTensor.decomposition"><code class="docutils literal notranslate"><span class="pre">CPTensor.decomposition</span></code></a></li>
-<li><a class="reference internal" href="#tltorch.CPTensor.to_tensor"><code class="docutils literal notranslate"><span class="pre">CPTensor.to_tensor()</span></code></a></li>
-<li><a class="reference internal" href="#tltorch.CPTensor.normal_"><code class="docutils literal notranslate"><span class="pre">CPTensor.normal_()</span></code></a></li>
-<li><a class="reference internal" href="#tltorch.CPTensor.transduct"><code class="docutils literal notranslate"><span class="pre">CPTensor.transduct()</span></code></a></li>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.DenseTensor</a><ul>
+<li><a class="reference internal" href="#tltorch.DenseTensor"><code class="docutils literal notranslate"><span class="pre">DenseTensor</span></code></a><ul>
+<li><a class="reference internal" href="#tltorch.DenseTensor.new"><code class="docutils literal notranslate"><span class="pre">DenseTensor.new()</span></code></a></li>
+<li><a class="reference internal" href="#tltorch.DenseTensor.from_tensor"><code class="docutils literal notranslate"><span class="pre">DenseTensor.from_tensor()</span></code></a></li>
+<li><a class="reference internal" href="#tltorch.DenseTensor.decomposition"><code class="docutils literal notranslate"><span class="pre">DenseTensor.decomposition</span></code></a></li>
+<li><a class="reference internal" href="#tltorch.DenseTensor.to_tensor"><code class="docutils literal notranslate"><span class="pre">DenseTensor.to_tensor()</span></code></a></li>
+<li><a class="reference internal" href="#tltorch.DenseTensor.normal_"><code class="docutils literal notranslate"><span class="pre">DenseTensor.normal_()</span></code></a></li>
 </ul>
 </li>
 </ul>

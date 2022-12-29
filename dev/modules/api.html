@@ -89,9 +89,6 @@
             <a class="navbar-item" href="../about.html">
               About Us
             </a>
-            <a class="navbar-item" href="http://tensorly.org/dev" target="_blank">
-              TensorLy
-            </a>
 
           </div>
         
@@ -138,7 +135,7 @@
     <!-- <label class="label" id="searchlabel">Quick search</label> -->
     <div class="field has-addons">
       <div class="control is-expanded">
-        <input class="input" type="text" placeholder="Search the doc" name="q" aria-labelledby="searchlabel">
+        <input class="input" type="text" placeholder="Search TensorLy-Torch" name="q" aria-labelledby="searchlabel">
       </div>
       <div class="control">
         <input class="button is-info" type="submit" value="Go" />
@@ -178,7 +175,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#factorized-tensors">Factorized Tensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tensorized-matrices">Tensorized Matrices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-tltorch.init">Initialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-tltorch.factorized_tensors">Initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-tltorch.factorized_layers">Tensor Regression Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tensor-contraction-layers">Tensor Contraction Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#factorized-linear-layers">Factorized Linear Layers</a></li>
@@ -222,11 +219,22 @@
 <span id="factorized-tensor-ref"></span><h2>Factorized Tensors</h2>
 <p>TensorLy-Torch builds on top of TensorLy and provides out of the box PyTorch layers for tensor based operations.
 The core of this is the concept of factorized tensors, which factorize our layers, instead of regular, dense PyTorch tensors.</p>
-<p>You can create any factorized tensor through the main class, or directly create a specific subclass:</p>
+<p>You can create any factorized tensor through the main class using:</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor" title="tltorch.FactorizedTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FactorizedTensor</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Tensor in Factorized form</p></td>
+</tr>
+</tbody>
+</table>
+<p>You can create a tensor of any form using <code class="docutils literal notranslate"><span class="pre">FactorizedTensor.new(shape,</span> <span class="pre">rank,</span> <span class="pre">factorization)</span></code>, where factorization can be <cite>Dense</cite>, <cite>CP</cite>, <cite>Tucker</cite> or <cite>TT</cite>.
+Note that if you use <code class="docutils literal notranslate"><span class="pre">factorization</span> <span class="pre">=</span> <span class="pre">'dense'</span></code> you are just creating a regular, unfactorized tensor.
+This allows to manipulate any tensor, factorized or not, with a simple, unified interface.</p>
+<p>Alternatively, you can also directly create a specific subclass:</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.DenseTensor.html#tltorch.DenseTensor" title="tltorch.DenseTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DenseTensor</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Dense tensor</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.CPTensor.html#tltorch.CPTensor" title="tltorch.CPTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPTensor</span></code></a>(*args, **kwargs)</p></td>
 <td><p>CP Factorization</p></td>
@@ -242,17 +250,33 @@ The core of this is the concept of factorized tensors, which factorize our layer
 </section>
 <section id="tensorized-matrices">
 <span id="factorized-matrix-ref"></span><h2>Tensorized Matrices</h2>
-<p>In TensorLy-Torch , you can also represent matrices in <em>tensorized</em> form, as low-rank tensors .</p>
+<dl class="simple">
+<dt>In TensorLy-Torch , you can also represent matrices in <em>tensorized</em> form, as low-rank tensors.</dt><dd><p>Just as for factorized tensor, you can create a tensorized matrix through the main class using:</p>
+</dd>
+</dl>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.TensorizedTensor.html#tltorch.TensorizedTensor" title="tltorch.TensorizedTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorizedTensor</span></code></a>(*args, **kwargs)</p></td>
 <td><p>Matrix in Tensorized Format</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.CPTensorized.html#tltorch.CPTensorized" title="tltorch.CPTensorized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPTensorized</span></code></a>(*args, **kwargs)</p></td>
+</tbody>
+</table>
+<p>You can create a tensor of any form using <code class="docutils literal notranslate"><span class="pre">TensorizedTensor.new(tensorized_shape,</span> <span class="pre">rank,</span> <span class="pre">factorization)</span></code>, where factorization can be <cite>Dense</cite>, <cite>CP</cite>, <cite>Tucker</cite> or <cite>BlockTT</cite>.</p>
+<p>You can also explicitly create the type of tensor you want using the following classes:</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.DenseTensorized.html#tltorch.DenseTensorized" title="tltorch.DenseTensorized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DenseTensorized</span></code></a>(*args, **kwargs)</p></td>
 <td><p><p class="rubric">Methods</p>
 </p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.BlockTT.html#tltorch.BlockTT" title="tltorch.BlockTT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BlockTT</span></code></a>(*args, **kwargs)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.TensorizedTensor.html#tltorch.TensorizedTensor" title="tltorch.TensorizedTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorizedTensor</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Matrix in Tensorized Format</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.CPTensorized.html#tltorch.CPTensorized" title="tltorch.CPTensorized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CPTensorized</span></code></a>(*args, **kwargs)</p></td>
+<td><p><p class="rubric">Methods</p>
+</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.BlockTT.html#tltorch.BlockTT" title="tltorch.BlockTT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BlockTT</span></code></a>(*args, **kwargs)</p></td>
 <td><p><dl class="field-list simple">
 <dt class="field-odd">Attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><p></p></dd>
@@ -262,22 +286,24 @@ The core of this is the concept of factorized tensors, which factorize our layer
 </tbody>
 </table>
 </section>
-<section id="module-tltorch.init">
+<section id="module-tltorch.factorized_tensors">
 <span id="initialization"></span><span id="init-ref"></span><h2>Initialization</h2>
-<p>Module for initializing tensor decompositions</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor_init</span></code>(tensor[, std])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_tensors.init.tensor_init.html#tltorch.factorized_tensors.init.tensor_init" title="tltorch.factorized_tensors.init.tensor_init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor_init</span></code></a>(tensor[, std])</p></td>
 <td><p>Initializes directly the parameters of a factorized tensor so the reconstruction has the specified standard deviation and 0 mean</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">cp_init</span></code>(cp_tensor[, std])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.factorized_tensors.init.cp_init.html#tltorch.factorized_tensors.init.cp_init" title="tltorch.factorized_tensors.init.cp_init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cp_init</span></code></a>(cp_tensor[, std])</p></td>
 <td><p>Initializes directly the weights and factors of a CP decomposition so the reconstruction has the specified std and 0 mean</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tucker_init</span></code>(tucker_tensor[, std])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_tensors.init.tucker_init.html#tltorch.factorized_tensors.init.tucker_init" title="tltorch.factorized_tensors.init.tucker_init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tucker_init</span></code></a>(tucker_tensor[, std])</p></td>
 <td><p>Initializes directly the weights and factors of a Tucker decomposition so the reconstruction has the specified std and 0 mean</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">tt_init</span></code>(tt_tensor[, std])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.factorized_tensors.init.tt_init.html#tltorch.factorized_tensors.init.tt_init" title="tltorch.factorized_tensors.init.tt_init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tt_init</span></code></a>(tt_tensor[, std])</p></td>
 <td><p>Initializes directly the weights and factors of a TT decomposition so the reconstruction has the specified std and 0 mean</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_tensors.init.block_tt_init.html#tltorch.factorized_tensors.init.block_tt_init" title="tltorch.factorized_tensors.init.block_tt_init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_tt_init</span></code></a>(block_tt[, std])</p></td>
+<td><p>Initializes directly the weights and factors of a BlockTT decomposition so the reconstruction has the specified std and 0 mean</p></td>
 </tr>
 </tbody>
 </table>
@@ -421,9 +447,13 @@ The core of this is the concept of factorized tensors, which factorize our layer
         <p class="menu-label">On this page</p>
         <ul>
 <li><a class="reference internal" href="#">API reference</a><ul>
-<li><a class="reference internal" href="#factorized-tensors">Factorized Tensors</a></li>
-<li><a class="reference internal" href="#tensorized-matrices">Tensorized Matrices</a></li>
-<li><a class="reference internal" href="#module-tltorch.init">Initialization</a></li>
+<li><a class="reference internal" href="#factorized-tensors">Factorized Tensors</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#tensorized-matrices">Tensorized Matrices</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-tltorch.factorized_tensors">Initialization</a></li>
 <li><a class="reference internal" href="#module-tltorch.factorized_layers">Tensor Regression Layers</a></li>
 <li><a class="reference internal" href="#tensor-contraction-layers">Tensor Contraction Layers</a></li>
 <li><a class="reference internal" href="#factorized-linear-layers">Factorized Linear Layers</a></li>

@@ -1,0 +1,11 @@
+﻿:mod:`tltorch`.DenseTensor
+=================================
+
+.. currentmodule:: tltorch
+
+.. autoclass:: DenseTensor
+   :members:
+
+.. raw:: html
+
+    <div class="clearer"></div>

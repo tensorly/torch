@@ -1,0 +1,10 @@
+﻿:mod:`tltorch.factorized_tensors.init`.tensor_init
+===============================================================
+
+.. currentmodule:: tltorch.factorized_tensors.init
+
+.. autofunction:: tensor_init
+
+.. raw:: html
+
+    <div class="clearer"></div>
