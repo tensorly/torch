@@ -17,7 +17,7 @@ class TRL(nn.Module):
     """Tensor Regression Layers 
         
     Parameters
-    -----------
+    ----------
     input_shape : int iterable
         shape of the input, excluding batch size
     output_shape : int iterable
