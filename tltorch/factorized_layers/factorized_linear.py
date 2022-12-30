@@ -135,7 +135,7 @@ class FactorizedLinear(nn.Module):
     def from_linear(cls, linear, rank='same', auto_tensorize=True, n_tensorized_modes=3,
                     in_tensorized_features=None, out_tensorized_features=None, 
                     bias=True, factorization='CP', implementation="reconstructed", 
-                    checkpointing=False, decomposition_kwargs=dict()):
+                    checkpointing=False, decomposition_kwargs=dict(), verbose=False):
         """Class method to create an instance from an existing linear layer
         
         Parameters
@@ -158,6 +158,7 @@ class FactorizedLinear(nn.Module):
             if float, percentage of parameters of the original factorized_weights to use
             if 'same' use the same number of parameters
         bias : bool, default is True
+        verbose : bool, default is False
         """
         out_features, in_features = linear.weight.shape
 
@@ -169,7 +170,7 @@ class FactorizedLinear(nn.Module):
                 )
 
             in_tensorized_features, out_tensorized_features = get_tensorized_shape(
-                in_features=in_features, out_features=out_features, order=n_tensorized_modes, min_dim=2, verbose=False)
+                in_features=in_features, out_features=out_features, order=n_tensorized_modes, min_dim=2, verbose=verbose)
         else:
             assert(out_features == np.prod(out_tensorized_features))
             assert(in_features == np.prod(in_tensorized_features))
