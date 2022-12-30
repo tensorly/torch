@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>tltorch.CPTensorized &#8212; TensorLy-Torch 0.4.0 documentation</title> 
+    <title>tltorch.ComplexBlockTT &#8212; TensorLy-Torch 0.4.0 documentation</title> 
 <link rel="stylesheet" href="../../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../../_static/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../../_static/favicon/favicon-32x32.png">
@@ -40,8 +40,8 @@
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="tltorch.BlockTT" href="tltorch.BlockTT.html" />
-    <link rel="prev" title="tltorch.DenseTensorized" href="tltorch.DenseTensorized.html" />
+    <link rel="next" title="tltorch.factorized_tensors.init.tensor_init" href="tltorch.factorized_tensors.init.tensor_init.html" />
+    <link rel="prev" title="tltorch.ComplexCPTensorized" href="tltorch.ComplexCPTensorized.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   </head>
@@ -178,8 +178,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../install.html">Installing tensorly-Torch</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-tensors">Factorized Tensors</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#tensorized-matrices">Tensorized Matrices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#complex-tensors">Complex Tensors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#tensorized-matrices">Tensorized Matrices</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#complex-tensors">Complex Tensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.factorized_tensors">Initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.factorized_layers">Tensor Regression Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-contraction-layers">Tensor Contraction Layers</a></li>
@@ -218,25 +218,23 @@
 
       <div class="container content main-content">
         
-  <section id="tltorch-cptensorized">
-<h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.CPTensorized</h1>
+  <section id="tltorch-complexblocktt">
+<h1><a class="reference internal" href="../api.html#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>.ComplexBlockTT</h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="tltorch.CPTensorized">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tltorch.</span></span><span class="sig-name descname"><span class="pre">CPTensorized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/tensorized_matrices.html#CPTensorized"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p class="rubric">Methods</p>
+<dt class="sig sig-object py" id="tltorch.ComplexBlockTT">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tltorch.</span></span><span class="sig-name descname"><span class="pre">ComplexBlockTT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/complex_tensorized_matrices.html#ComplexBlockTT"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Complex BlockTT Factorization</p>
+<p class="rubric">Methods</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.CPTensorized.from_tensor" title="tltorch.CPTensorized.from_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_tensor</span></code></a>(tensor, tensorized_shape[, rank])</p></td>
-<td><p>Create a factorized tensor by decomposing a full tensor</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.CPTensorized.new" title="tltorch.CPTensorized.new"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new</span></code></a>(tensorized_shape, rank[, device, dtype])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.ComplexBlockTT.new" title="tltorch.ComplexBlockTT.new"><code class="xref py py-obj docutils literal notranslate"><span class="pre">new</span></code></a>(tensorized_shape[, rank, device, dtype])</p></td>
 <td><p>Main way to create a Tensorized Matrix</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py method">
-<dt class="sig sig-object py" id="tltorch.CPTensorized.new">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensorized_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/tensorized_matrices.html#CPTensorized.new"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dt class="sig sig-object py" id="tltorch.ComplexBlockTT.new">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensorized_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">torch.complex64</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/complex_tensorized_matrices.html#ComplexBlockTT.new"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Main way to create a Tensorized Matrix</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -265,38 +263,6 @@
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="tltorch.CPTensorized.from_tensor">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_tensor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tensorized_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'same'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_tensors/tensorized_matrices.html#CPTensorized.from_tensor"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Create a factorized tensor by decomposing a full tensor</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>tensor</strong><span class="classifier">torch.tensor</span></dt><dd><p>tensor to factorize</p>
-</dd>
-<dt><strong>shape</strong><span class="classifier">tuple[int]</span></dt><dd><p>shape of the factorized tensor to create</p>
-</dd>
-<dt><strong>rank</strong><span class="classifier">int, ‘same’ or float</span></dt><dd><p>rank of the decomposition</p>
-</dd>
-<dt><strong>factorization</strong><span class="classifier">{‘CP’, ‘TT’, ‘Tucker’}, optional</span></dt><dd><p>Tensor factorization to use to decompose the tensor, by default ‘CP’</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>TensorFactorization</dt><dd><p>Tensor in Factorized form.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt>ValueError</dt><dd><p>If the factorization given does not exist.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <div class="clearer"></div></section>
@@ -307,16 +273,16 @@
       
         <nav class="pagination" role="navigation" aria-label="pagination">
     
-    <a class="button pagination-previous" href="tltorch.DenseTensorized.html" title="previous page" accesskey="p">
+    <a class="button pagination-previous" href="tltorch.ComplexCPTensorized.html" title="previous page" accesskey="p">
         <span class="icon">
             <i class="fa fa-arrow-circle-left"></i>
         </span>
-        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.DenseTensorized</span>
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.ComplexCPTensorized</span>
     </a>
     
     
-    <a class="button pagination-next" href="tltorch.BlockTT.html" title="next page" accesskey="n">
-        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.BlockTT </span>
+    <a class="button pagination-next" href="tltorch.factorized_tensors.init.tensor_init.html" title="next page" accesskey="n">
+        <span><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch.factorized_tensors.init</span></code>.tensor_init </span>
         <span class="icon">
             <i class="fa fa-arrow-circle-right"></i>
         </span>
@@ -355,10 +321,9 @@
 
         <div class="menu menu-list localtoc-list">
         <ul>
-<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.CPTensorized</a><ul>
-<li><a class="reference internal" href="#tltorch.CPTensorized"><code class="docutils literal notranslate"><span class="pre">CPTensorized</span></code></a><ul>
-<li><a class="reference internal" href="#tltorch.CPTensorized.new"><code class="docutils literal notranslate"><span class="pre">CPTensorized.new()</span></code></a></li>
-<li><a class="reference internal" href="#tltorch.CPTensorized.from_tensor"><code class="docutils literal notranslate"><span class="pre">CPTensorized.from_tensor()</span></code></a></li>
+<li><a class="reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code>.ComplexBlockTT</a><ul>
+<li><a class="reference internal" href="#tltorch.ComplexBlockTT"><code class="docutils literal notranslate"><span class="pre">ComplexBlockTT</span></code></a><ul>
+<li><a class="reference internal" href="#tltorch.ComplexBlockTT.new"><code class="docutils literal notranslate"><span class="pre">ComplexBlockTT.new()</span></code></a></li>
 </ul>
 </li>
 </ul>

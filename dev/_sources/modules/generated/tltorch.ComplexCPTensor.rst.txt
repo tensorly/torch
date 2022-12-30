@@ -1,0 +1,11 @@
+﻿:mod:`tltorch`.ComplexCPTensor
+=====================================
+
+.. currentmodule:: tltorch
+
+.. autoclass:: ComplexCPTensor
+   :members:
+
+.. raw:: html
+
+    <div class="clearer"></div>

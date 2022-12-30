@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tltorch.utils.tensorize_shape &#8212; TensorLy-Torch 0.4.0 documentation</title> 
+<link rel="stylesheet" href="../../../_static/tensorly_style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="../../../_static/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../../_static/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../../_static/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../../_static/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../../_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="../../../_static/favicon/favicon.ico">
+<meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tensorly_style.css" />
+
+  
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+ <script src="../../../_static/navbar_burger.js"></script>
+ <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+ 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3V91QCZR03"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QSPLEF75VT');
+</script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  </head>
+<body  class="has-navbar-fixed-top">
+
+  <header>
+    <navbar>
+      <nav class="navbar top-navbar is-fixed-top has-shadow is-flex-wrap-wrap" role="navigation" aria-label="main top navigation">
+        <div class="navbar-brand">
+        
+
+          <a class="navbar-item" href="../../../index.html">
+			      
+            <img src="../../../_static/tensorly-torch-logo.png" height="28">
+            
+          </a>
+          <a class="navbar-item is-hidden-desktop" href="https://github.com/tensorly/torch" target="_blank">
+              <span class="icon"><i class="fab fa-github"></i></span>
+          </a>
+
+          <a role="button" class="navbar-burger" data-target="top-nav-menu" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+
+        </div>
+        
+        <div class="navbar-menu" id="top-nav-menu">
+        
+
+          <div class="navbar-start">
+            
+              <a class="navbar-item" href="../../../install.html">
+              Install
+            </a>
+              <a class="navbar-item" href="../../../user_guide/index.html">
+              User Guide
+            </a>
+              <a class="navbar-item" href="../../../modules/api.html">
+              API
+            </a>
+              <a class="navbar-item" href="../../../about.html">
+              About Us
+            </a>
+            <div class="navbar-item has-dropdown is-hoverable is-boxed">
+              <a class="navbar-link">
+                Ecosystem
+              </a>
+              <div class="navbar-dropdown top-navbar">
+                <a class="navbar-item" href="http://tensorly.org/dev" target="_blank">
+                  TensorLy
+                </a>
+                <a class="navbar-item" href="http://tensorly.org/viz" target="_blank">
+                  TensorLy-Viz
+                </a>
+                <a class="navbar-item" href="http://tensorly.org/quantum" target="_blank">
+                  TensorLy-Quantum
+                </a>
+              </div>
+            </div>
+          </div>
+        
+          <div class="navbar-end">
+            <div class="navbar-item">
+            
+            <a class="button is-hidden-touch is-dark" href="https://github.com/tensorly/torch" target="_blank">
+              <span class="icon-text">
+                <span class="icon is-large">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Github</span>
+              </span>
+            </a>
+
+            </div> 
+          </div> 
+        </div> 
+
+      </nav>
+      
+    </navbar>
+  </header>
+
+
+  <div id="column-container">
+  <div class="columns is-mobile is-centered">
+	
+  
+
+  <div class="column main-column">
+
+    
+    <div class="main-section">
+
+      
+      
+
+      <div class="container content main-content">
+        
+  <h1>Source code for tltorch.utils.tensorize_shape</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">bisect</span> <span class="kn">import</span> <span class="n">insort_left</span>
+
+<span class="c1"># Author : Jean Kossaifi</span>
+
+<span class="k">def</span> <span class="nf">factorize</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">remaining</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="n">min_value</span> <span class="ow">or</span> <span class="n">remaining</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">)</span>
+    <span class="n">lim</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">isqrt</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_value</span><span class="p">,</span> <span class="n">lim</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">value</span> <span class="o">%</span> <span class="n">i</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="o">*</span><span class="n">factorize</span><span class="p">(</span><span class="n">value</span><span class="o">//</span><span class="n">i</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="n">min_value</span><span class="p">,</span> <span class="n">remaining</span><span class="o">=</span><span class="n">remaining</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">merge_ints</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">values</span>
+
+    <span class="n">values</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">size</span><span class="p">):</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span>
+        <span class="n">insort_left</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="get_tensorized_shape"><a class="viewcode-back" href="../../../modules/generated/tltorch.utils.get_tensorized_shape.html#tltorch.utils.get_tensorized_shape">[docs]</a><span class="k">def</span> <span class="nf">get_tensorized_shape</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Factorizes in_features and out_features such that:</span>
+<span class="sd">    * they both are factorized into the same number of integers</span>
+<span class="sd">    * they should both be factorized into `order` integers</span>
+<span class="sd">    * each of the factors should be at least min_dim</span>
+<span class="sd">    </span>
+<span class="sd">    This is used to tensorize a matrix of size (in_features, out_features) into a higher order tensor</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    in_features, out_features : int</span>
+<span class="sd">    order : int</span>
+<span class="sd">        the number of integers that each input should be factorized into</span>
+<span class="sd">    min_dim : int</span>
+<span class="sd">        smallest acceptable integer value for the factors</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    in_tensorized, out_tensorized : tuple[int]</span>
+<span class="sd">        tuples of ints used to tensorize each dimension</span>
+<span class="sd">        </span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This is a bruteforce solution but is enough for the dimensions we encounter in DNNs</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">in_ten</span> <span class="o">=</span> <span class="n">factorize</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="n">min_dim</span><span class="p">)</span>
+    <span class="n">out_ten</span> <span class="o">=</span> <span class="n">factorize</span><span class="p">(</span><span class="n">out_features</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="n">min_dim</span><span class="p">,</span> <span class="n">remaining</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">in_ten</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">merge_size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">in_ten</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">out_ten</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">merge_size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">in_ten</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">out_ten</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">in_ten</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">merge_size</span><span class="p">:</span>
+        <span class="n">in_ten</span> <span class="o">=</span> <span class="n">merge_ints</span><span class="p">(</span><span class="n">in_ten</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">merge_size</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">out_ten</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">merge_size</span><span class="p">:</span>
+        <span class="n">out_ten</span> <span class="o">=</span> <span class="n">merge_ints</span><span class="p">(</span><span class="n">out_ten</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">merge_size</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Tensorizing (in, out)=(</span><span class="si">{</span><span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="si">}</span><span class="s1">) -&gt; (</span><span class="si">{</span><span class="n">in_ten</span><span class="p">,</span> <span class="n">out_ten</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">in_ten</span><span class="p">,</span> <span class="n">out_ten</span></div>
+</pre></div>
+
+      </div>
+
+      
+
+        <footer class="footer">
+    <div class="content has-text-centered">
+        <div class="block">
+          &copy; Copyright 2022, Jean Kossaifi.<br/>
+        </div>
+      <div class="block">
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.
+      </div>
+    </div>
+  </footer>
+
+    </div>
+
+  </div>  
+
+	
+
+  </div>  
+  </div> 
+
+  
+  <script>
+    function toggle_sidebar() {
+        var element = document.getElementById("sidebar");
+        var container = document.getElementById("column-container");
+        var localtoccolumn = document.getElementById("localtoc-column");
+        element.classList.toggle("hide-tablet");
+        element.classList.toggle("is-hidden-mobile");
+        container.classList.toggle("sidemenu-hidden");
+        localtoccolumn.classList.toggle("is-one-fifth-widescreen");
+        localtoccolumn.classList.toggle("is-2-desktop");
+        localtoccolumn.classList.toggle("is-3-desktop");
+    }
+  </script> 
+
+
+
+  </body>
+</html>

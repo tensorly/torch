@@ -148,6 +148,7 @@
 
 <span class="kn">from</span> <span class="nn">..functional</span> <span class="kn">import</span> <span class="n">factorized_linear</span>
 <span class="kn">from</span> <span class="nn">..factorized_tensors</span> <span class="kn">import</span> <span class="n">TensorizedTensor</span>
+<span class="kn">from</span> <span class="nn">tltorch.utils</span> <span class="kn">import</span> <span class="n">get_tensorized_shape</span>
 
 <span class="c1"># Author: Jean Kossaifi</span>
 <span class="c1"># License: BSD 3 clause</span>
@@ -273,15 +274,21 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_linear</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
 
 <div class="viewcode-block" id="FactorizedLinear.from_linear"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear.from_linear">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_linear</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">linear</span><span class="p">,</span> <span class="n">in_tensorized_features</span><span class="p">,</span> <span class="n">out_tensorized_features</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                    <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="s2">&quot;reconstructed&quot;</span><span class="p">,</span> <span class="n">checkpointing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">decomposition_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">()):</span>
+    <span class="k">def</span> <span class="nf">from_linear</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">linear</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">auto_tensorize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_tensorized_modes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                    <span class="n">in_tensorized_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out_tensorized_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+                    <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="s2">&quot;reconstructed&quot;</span><span class="p">,</span> 
+                    <span class="n">checkpointing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">decomposition_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(),</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Class method to create an instance from an existing linear layer</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        linear : torch.nn.Linear</span>
 <span class="sd">            layer to tensorize</span>
-<span class="sd">        tensorized_shape : tuple</span>
+<span class="sd">        auto_tensorize : bool, default is True</span>
+<span class="sd">            if True, automatically find values for the tensorized_shapes</span>
+<span class="sd">        n_tensorized_modes : int, default is 3</span>
+<span class="sd">            Order (number of dims) of the tensorized weights if auto_tensorize is True</span>
+<span class="sd">        in_tensorized_features, out_tensorized_features : tuple</span>
 <span class="sd">            shape to tensorized the factorized_weight matrix to.</span>
 <span class="sd">            Must verify np.prod(tensorized_shape) == np.prod(linear.factorized_weight.shape)</span>
 <span class="sd">        factorization : str, default is &#39;cp&#39;</span>
@@ -293,10 +300,22 @@
 <span class="sd">            if float, percentage of parameters of the original factorized_weights to use</span>
 <span class="sd">            if &#39;same&#39; use the same number of parameters</span>
 <span class="sd">        bias : bool, default is True</span>
+<span class="sd">        verbose : bool, default is False</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">out_features</span><span class="p">,</span> <span class="n">in_features</span> <span class="o">=</span> <span class="n">linear</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">shape</span>
-        <span class="k">assert</span><span class="p">(</span><span class="n">out_features</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">out_tensorized_features</span><span class="p">))</span>
-        <span class="k">assert</span><span class="p">(</span><span class="n">in_features</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">in_tensorized_features</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">auto_tensorize</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">out_tensorized_features</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">in_tensorized_features</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Either use auto_reshape or specify out_tensorized_features and in_tensorized_features.&quot;</span>
+                <span class="p">)</span>
+
+            <span class="n">in_tensorized_features</span><span class="p">,</span> <span class="n">out_tensorized_features</span> <span class="o">=</span> <span class="n">get_tensorized_shape</span><span class="p">(</span>
+                <span class="n">in_features</span><span class="o">=</span><span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="n">out_features</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">n_tensorized_modes</span><span class="p">,</span> <span class="n">min_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span><span class="p">(</span><span class="n">out_features</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">out_tensorized_features</span><span class="p">))</span>
+            <span class="k">assert</span><span class="p">(</span><span class="n">in_features</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">in_tensorized_features</span><span class="p">))</span>
 
         <span class="n">instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">in_tensorized_features</span><span class="p">,</span> <span class="n">out_tensorized_features</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span>
                        <span class="n">factorization</span><span class="o">=</span><span class="n">factorization</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="n">implementation</span><span class="p">,</span> 

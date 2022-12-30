@@ -179,6 +179,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">API reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#factorized-tensors">Factorized Tensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tensorized-matrices">Tensorized Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#complex-tensors">Complex Tensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-tltorch.factorized_tensors">Initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-tltorch.factorized_layers">Tensor Regression Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tensor-contraction-layers">Tensor Contraction Layers</a></li>
@@ -187,6 +188,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#factorized-embeddings">Factorized Embeddings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-tltorch.tensor_hooks">Tensor Dropout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#l1-regularization">L1 Regularization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#utilities">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User guide</a></li>
@@ -289,6 +291,44 @@ This allows to manipulate any tensor, factorized or not, with a simple, unified 
 </tr>
 </tbody>
 </table>
+</section>
+<section id="complex-tensors">
+<span id="complex-ref"></span><h2>Complex Tensors</h2>
+<p>In theory, you can simply specify <code class="docutils literal notranslate"><span class="pre">dtype=torch.cfloat</span></code> in the creation of any of the tensors of tensorized matrices above, to automatically create a complex valued tensor.
+However, in practice, there are many issues in complex support. Distributed Data Parallelism in particular, is not supported.</p>
+<p>In TensorLy-Torch, we propose a convenient and transparent way around this: simply use <code class="docutils literal notranslate"><span class="pre">ComplexTensor</span></code> instead.
+This will store the factors of the decomposition in real form (by explicitly storing the real and imaginary parts)
+but will transparently return you a complex valued tensor or reconstruction.</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.ComplexDenseTensor.html#tltorch.ComplexDenseTensor" title="tltorch.ComplexDenseTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComplexDenseTensor</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Complex Dense Factorization</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.ComplexCPTensor.html#tltorch.ComplexCPTensor" title="tltorch.ComplexCPTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComplexCPTensor</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Complex CP Factorization</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.ComplexTuckerTensor.html#tltorch.ComplexTuckerTensor" title="tltorch.ComplexTuckerTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComplexTuckerTensor</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Complex Tucker Factorization</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.ComplexTTTensor.html#tltorch.ComplexTTTensor" title="tltorch.ComplexTTTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComplexTTTensor</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Complex TT Factorization</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.ComplexDenseTensorized.html#tltorch.ComplexDenseTensorized" title="tltorch.ComplexDenseTensorized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComplexDenseTensorized</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Complex DenseTensorized Factorization</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.ComplexTuckerTensorized.html#tltorch.ComplexTuckerTensorized" title="tltorch.ComplexTuckerTensorized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComplexTuckerTensorized</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Complex TuckerTensorized Factorization</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.ComplexCPTensorized.html#tltorch.ComplexCPTensorized" title="tltorch.ComplexCPTensorized"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComplexCPTensorized</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Complex Tensorized CP Factorization</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/tltorch.ComplexBlockTT.html#tltorch.ComplexBlockTT" title="tltorch.ComplexBlockTT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComplexBlockTT</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Complex BlockTT Factorization</p></td>
+</tr>
+</tbody>
+</table>
+<p>You can also transparently instanciate any of these using directly the main classes, <code class="docutils literal notranslate"><span class="pre">TensorizedTensor</span></code> or <code class="docutils literal notranslate"><span class="pre">FactorizedTensor</span></code> and specifying
+<code class="docutils literal notranslate"><span class="pre">factorization=&quot;ComplexCP&quot;</span></code> or in general <code class="docutils literal notranslate"><span class="pre">ComplexFactorization</span></code> with <cite>Factorization</cite> any of the supported decompositions.</p>
 </section>
 <section id="module-tltorch.factorized_tensors">
 <span id="initialization"></span><span id="init-ref"></span><h2>Initialization</h2>
@@ -400,6 +440,17 @@ This allows to manipulate any tensor, factorized or not, with a simple, unified 
 </tbody>
 </table>
 </section>
+<section id="utilities">
+<h2>Utilities</h2>
+<p>Utility functions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.utils.get_tensorized_shape.html#tltorch.utils.get_tensorized_shape" title="tltorch.utils.get_tensorized_shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tensorized_shape</span></code></a>(in_features, out_features)</p></td>
+<td><p>Factorizes in_features and out_features such that: * they both are factorized into the same number of integers * they should both be factorized into <cite>order</cite> integers * each of the factors should be at least min_dim</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 
 
@@ -463,6 +514,7 @@ This allows to manipulate any tensor, factorized or not, with a simple, unified 
 <li><a class="reference internal" href="#tensorized-matrices">Tensorized Matrices</a><ul>
 </ul>
 </li>
+<li><a class="reference internal" href="#complex-tensors">Complex Tensors</a></li>
 <li><a class="reference internal" href="#module-tltorch.factorized_tensors">Initialization</a></li>
 <li><a class="reference internal" href="#module-tltorch.factorized_layers">Tensor Regression Layers</a></li>
 <li><a class="reference internal" href="#tensor-contraction-layers">Tensor Contraction Layers</a></li>
@@ -473,6 +525,7 @@ This allows to manipulate any tensor, factorized or not, with a simple, unified 
 </ul>
 </li>
 <li><a class="reference internal" href="#l1-regularization">L1 Regularization</a></li>
+<li><a class="reference internal" href="#utilities">Utilities</a></li>
 </ul>
 </li>
 </ul>

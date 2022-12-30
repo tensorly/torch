@@ -179,6 +179,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../api.html">API reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-tensors">Factorized Tensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#tensorized-matrices">Tensorized Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#complex-tensors">Complex Tensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.factorized_tensors">Initialization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.factorized_layers">Tensor Regression Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#tensor-contraction-layers">Tensor Contraction Layers</a></li>
@@ -187,6 +188,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api.html#factorized-embeddings">Factorized Embeddings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#module-tltorch.tensor_hooks">Tensor Dropout</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#l1-regularization">L1 Regularization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#utilities">Utilities</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User guide</a></li>
@@ -257,7 +259,7 @@ should verify prod(in_tensorized_features) = in_features</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.factorized_layers.FactorizedLinear.forward" title="tltorch.factorized_layers.FactorizedLinear.forward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">forward</span></code></a>(x[, indices])</p></td>
 <td><p>Defines the computation performed at every call.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.factorized_layers.FactorizedLinear.from_linear" title="tltorch.factorized_layers.FactorizedLinear.from_linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_linear</span></code></a>(linear, in_tensorized_features, ...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#tltorch.factorized_layers.FactorizedLinear.from_linear" title="tltorch.factorized_layers.FactorizedLinear.from_linear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_linear</span></code></a>(linear[, rank, auto_tensorize, ...])</p></td>
 <td><p>Class method to create an instance from an existing linear layer</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#tltorch.factorized_layers.FactorizedLinear.from_linear_list" title="tltorch.factorized_layers.FactorizedLinear.from_linear_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_linear_list</span></code></a>(linear_list, ...[, bias, ...])</p></td>
@@ -291,14 +293,18 @@ registered hooks while the latter silently ignores them.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tltorch.factorized_layers.FactorizedLinear.from_linear">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_linear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linear</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_tensorized_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CP'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">implementation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'reconstructed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkpointing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_linear.html#FactorizedLinear.from_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_linear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linear</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rank</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'same'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_tensorize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_tensorized_modes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_tensorized_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_tensorized_features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factorization</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CP'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">implementation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'reconstructed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkpointing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decomposition_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/tltorch/factorized_layers/factorized_linear.html#FactorizedLinear.from_linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Class method to create an instance from an existing linear layer</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>linear</strong><span class="classifier">torch.nn.Linear</span></dt><dd><p>layer to tensorize</p>
 </dd>
-<dt><strong>tensorized_shape</strong><span class="classifier">tuple</span></dt><dd><p>shape to tensorized the factorized_weight matrix to.
+<dt><strong>auto_tensorize</strong><span class="classifier">bool, default is True</span></dt><dd><p>if True, automatically find values for the tensorized_shapes</p>
+</dd>
+<dt><strong>n_tensorized_modes</strong><span class="classifier">int, default is 3</span></dt><dd><p>Order (number of dims) of the tensorized weights if auto_tensorize is True</p>
+</dd>
+<dt><strong>in_tensorized_features, out_tensorized_features</strong><span class="classifier">tuple</span></dt><dd><p>shape to tensorized the factorized_weight matrix to.
 Must verify np.prod(tensorized_shape) == np.prod(linear.factorized_weight.shape)</p>
 </dd>
 <dt><strong>factorization</strong><span class="classifier">str, default is ‘cp’</span></dt><dd></dd>
@@ -310,6 +316,7 @@ Must verify np.prod(tensorized_shape) == np.prod(linear.factorized_weight.shape)
 if ‘same’ use the same number of parameters</p>
 </dd>
 <dt><strong>bias</strong><span class="classifier">bool, default is True</span></dt><dd></dd>
+<dt><strong>verbose</strong><span class="classifier">bool, default is False</span></dt><dd></dd>
 </dl>
 </dd>
 </dl>

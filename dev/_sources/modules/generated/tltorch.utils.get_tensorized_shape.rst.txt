@@ -1,0 +1,10 @@
+﻿:mod:`tltorch.utils`.get_tensorized_shape
+======================================================
+
+.. currentmodule:: tltorch.utils
+
+.. autofunction:: get_tensorized_shape
+
+.. raw:: html
+
+    <div class="clearer"></div>
