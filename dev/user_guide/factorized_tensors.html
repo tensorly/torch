@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Factorized tensors &#8212; TensorLy-Torch 0.4.0 documentation</title> 
+<link rel="stylesheet" href="../_static/tensorly_style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../_static/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../_static/favicon/favicon-16x16.png">
+<link rel="manifest" href="../_static/favicon/site.webmanifest">
+<link rel="mask-icon" href="../_static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="../_static/favicon/favicon.ico">
+<meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tensorly_style.css" />
+
+  
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+ <script src="../_static/navbar_burger.js"></script>
+ <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+ 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3V91QCZR03"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QSPLEF75VT');
+</script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tensor Regression Layers" href="trl.html" />
+    <link rel="prev" title="User guide" href="index.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  </head>
+<body  class="has-navbar-fixed-top">
+
+  <header>
+    <navbar>
+      <nav class="navbar top-navbar is-fixed-top has-shadow is-flex-wrap-wrap" role="navigation" aria-label="main top navigation">
+        <div class="navbar-brand">
+        
+
+          <a class="navbar-item" href="../index.html">
+			      
+            <img src="../_static/tensorly-torch-logo.png" height="28">
+            
+          </a>
+          <a class="navbar-item is-hidden-desktop" href="https://github.com/tensorly/torch" target="_blank">
+              <span class="icon"><i class="fab fa-github"></i></span>
+          </a>
+
+          <a role="button" class="navbar-burger" data-target="top-nav-menu" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+
+        </div>
+        
+        <div class="navbar-menu" id="top-nav-menu">
+        
+
+          <div class="navbar-start">
+            
+              <a class="navbar-item" href="../install.html">
+              Install
+            </a>
+              <a class="navbar-item" href="index.html">
+              User Guide
+            </a>
+              <a class="navbar-item" href="../modules/api.html">
+              API
+            </a>
+              <a class="navbar-item" href="../about.html">
+              About Us
+            </a>
+            <div class="navbar-item has-dropdown is-hoverable is-boxed">
+              <a class="navbar-link">
+                Ecosystem
+              </a>
+              <div class="navbar-dropdown top-navbar">
+                <a class="navbar-item" href="http://tensorly.org/dev" target="_blank">
+                  TensorLy
+                </a>
+                <a class="navbar-item" href="http://tensorly.org/viz" target="_blank">
+                  TensorLy-Viz
+                </a>
+                <a class="navbar-item" href="http://tensorly.org/quantum" target="_blank">
+                  TensorLy-Quantum
+                </a>
+              </div>
+            </div>
+          </div>
+        
+          <div class="navbar-end">
+            <div class="navbar-item">
+            
+            <a class="button is-hidden-touch is-dark" href="https://github.com/tensorly/torch" target="_blank">
+              <span class="icon-text">
+                <span class="icon is-large">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Github</span>
+              </span>
+            </a>
+
+            </div> 
+          </div> 
+        </div> 
+
+      </nav>
+      
+    </navbar>
+  </header>
+
+
+  <div id="column-container">
+  <div class="columns is-mobile is-centered">
+	
+  
+      <div class="column is-10-mobile is-one-third-tablet is-3-desktop is-hidden-mobile" id="sidebar">
+    
+    <aside class="sticky-nav sidebar-menu">
+<div class="sidebar-search">
+  <form class="field" id="searchbox" role="search" action="../search.html" method="get">
+    <!-- <label class="label" id="searchlabel">Quick search</label> -->
+    <div class="field has-addons">
+      <div class="control is-expanded">
+        <input class="input" type="text" placeholder="Search TensorLy-Torch" name="q" aria-labelledby="searchlabel">
+      </div>
+      <div class="control">
+        <input class="button is-info" type="submit" value="Go" />
+      </div>
+    </div>
+  </form>
+  <script>$('#searchbox').show(0);</script>
+  <script>
+  $(document).ready(function() {
+    Document.highlightSearchWords = function() {
+      var params = $.getQueryParameters();
+      var terms = (params.highlight) ? params.highlight[0].split(/\s+/) : [];
+      if (terms.length) {
+        var body = $('div.body');
+        if (!body.length) {
+          body = $('body');
+        }
+        window.setTimeout(function() {
+          $.each(terms, function() {
+            body.highlightText(this.toLowerCase(), 'highlighted');
+          });
+        }, 10);
+        $('<p class="highlight-link"><a href="javascript:Documentation.' +
+          'hideSearchWords()">' + _('Hide All')
+          + '<span class="tag is-delete"></span>'
+          + '</a></p>')
+            .appendTo($('#searchbox'));
+      }
+    };
+  });
+  </script>
+</div>
+      
+      <div class="sidebar-menu-toc">
+      <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installing tensorly-Torch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/api.html">API reference</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Factorized tensors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tensorized-tensors">Tensorized tensors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="trl.html">Tensor Regression Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="factorized_conv.html">Factorized Convolutional Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensorized_linear.html">Tensorized Linear Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="factorized_embeddings.html">Factorized embedding layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tensor_hooks.html">Tensor Hooks</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Development guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
+</ul>
+ 
+      </div>
+    </aside>
+  </div>
+  
+
+  <div class="column main-column">
+
+    
+    <div class="main-section">
+
+      
+      
+      <div class="side-menu-toggle">
+        <button class="button" id="toggle-sidebar" onclick="toggle_sidebar()">
+          <span class="icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
+          <span>menu</span> 
+        </button>
+      </div>
+      
+
+      <div class="container content main-content">
+        
+  <section id="factorized-tensors">
+<h1>Factorized tensors</h1>
+<p>The core concept in TensorLy-Torch is that of <em>factorized tensors</em>.
+We provide a <a class="reference internal" href="../modules/generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor" title="tltorch.FactorizedTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">FactorizedTensor</span></code></a> class that can be used just like any <cite>PyTorch.Tensor</cite> but
+provides all tensor factorization through one, simple API.</p>
+<section id="creating-factorized-tensors">
+<h2>Creating factorized tensors</h2>
+<p>You can create a new factorized tensor easily:</p>
+<p>The signature is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">factorized_tensor</span> <span class="o">=</span> <span class="n">FactorizedTensor</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">factorization</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For instance, to create a tensor in Tucker form, that has half the parameters of a dense (non-factorized) tensor of the same shape, you would simply write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tucker_tensor</span> <span class="o">=</span> <span class="n">FactorizedTensor</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;tucker&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Since TensorLy-Torch builds on top of TensorLy, it also comes with tensor decomposition out-of-the-box.
+To initialize a factorized tensor in CP (Canonical-Polyadic) form, also known as Parafac, or Kruskal tensor,
+with 1/10th of the parameters, you can simply write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cp_tensor</span> <span class="o">=</span> <span class="n">FactorizedTensor</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">dense_tensor</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="manipulating-factorized-tensors">
+<h2>Manipulating factorized tensors</h2>
+<p>The first thing you want to do, if you created a new tensor from scratch (by using the <code class="docutils literal notranslate"><span class="pre">new</span></code> method), is to initialize it,
+e.g. so that the element of the reconstruction approximately follow a Gaussian distribution:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cp_tensor</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can even use PyTorch’s functions! This works:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">init</span>
+
+<span class="n">init</span><span class="o">.</span><span class="n">kaiming_normal</span><span class="p">(</span><span class="n">cp_tensor</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, you can index tensors directly in factorized form, which will return another factorized tensor, whenever possible!</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cp_tensor</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">CPTensor(shape=(2, 2, 2), rank=2)</span>
+</pre></div>
+</div>
+<p>If not possible, a dense tensor will be returned:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cp_tensor</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="go">tensor(0.0250, grad_fn=&lt;SumBackward0&gt;)</span>
+</pre></div>
+</div>
+<p>Note how, above, indexing tracks gradients as well!</p>
+</section>
+</section>
+<section id="tensorized-tensors">
+<h1>Tensorized tensors</h1>
+<p>In addition to tensor in factorized forms, TensorLy-Torch provides out-of-the-box for <strong>Tensorized</strong> tensors.
+The most common case is that of tensorized matrices, where a matrix is first <em>tensorized</em>, i.e. reshaped into
+a higher-order tensor which is then decomposed and stored in factorized form.</p>
+<p>A commonly used tensorized tensor is the tensor-train matrix (also known as Matrix-Product Operator in quantum physics),
+or, in general, Block-TT.</p>
+<section id="creation">
+<h2>Creation</h2>
+<p>You can create one in TensorLy-Torch, from a matrix, just as easily as a regular tensor, using the <a class="reference internal" href="../modules/generated/tltorch.TensorizedTensor.html#tltorch.TensorizedTensor" title="tltorch.TensorizedTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">tltorch.TensorizedTensor</span></code></a> class,
+with the following signature:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TensorizedTensor</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">tensorized_row_shape</span><span class="p">,</span> <span class="n">tensorized_column_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where tensorized_row_shape and tensorized_column_shape indicate the shape to which to tensorize the row and column size of the given matrix.
+For instance, if you have a matrix of size 16x21, you could use tensorized_row_shape=(4, 4) and tensorized_column_shape=(3, 7).</p>
+<p>In general, you can tensorize any tensor, not just matrices, even with batched modes (dimensions)!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tensorized_tensor</span> <span class="o">=</span> <span class="n">TensorizedTensor</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">factorization</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">tensorized_shape</span></code> is a nested tuple, in which an int represents a batched mode, and a tuple a tensorized mode.</p>
+<p>For instance, a batch of 5 matrices of size 16x21 could be tensorized into
+a batch of 5 tensorized matrices of size (4x4)x(3x7), in the BlockTT form. In code, you would do this using</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tensorized_tensor</span> <span class="o">=</span> <span class="n">TensorizedTensor</span><span class="o">.</span><span class="n">from_tensor</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">)),</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;BlockTT&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can of course tensorize any size tensors, e.g. a batch of 5 matrices of size 8x27 can be tensorized into:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ftt</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">TensorizedTensor</span><span class="o">.</span><span class="n">new</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)),</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;BlockTT&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This returns a tensorized tensor, stored in decomposed form:
+&gt;&gt;&gt; ftt
+BlockTT(shape=[5, 8, 27], tensorized_shape=(5, (2, 2, 2), (3, 3, 3)), rank=[1, 20, 20, 1])</p>
+</section>
+<section id="manipulation">
+<h2>Manipulation</h2>
+<p>As for factorized tensors, you can directly index them:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ftt</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">BlockTT(shape=[8, 27], tensorized_shape=[(2, 2, 2), (3, 3, 3)], rank=[1, 20, 20, 1])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ftt</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">tensor([[-0.0009,  0.0004],</span>
+<span class="go">        [ 0.0007,  0.0003]], grad_fn=&lt;SqueezeBackward0&gt;)</span>
+</pre></div>
+</div>
+<p>Again, notice that gradients are tracked and all operations on factorized and tensorized tensors are back-propagatable!</p>
+</section>
+</section>
+
+
+      </div>
+
+      
+        <nav class="pagination" role="navigation" aria-label="pagination">
+    
+    <a class="button pagination-previous" href="index.html" title="previous page" accesskey="p">
+        <span class="icon">
+            <i class="fa fa-arrow-circle-left"></i>
+        </span>
+        <span>User guide</span>
+    </a>
+    
+    
+    <a class="button pagination-next" href="trl.html" title="next page" accesskey="n">
+        <span>Tensor Regression Layers </span>
+        <span class="icon">
+            <i class="fa fa-arrow-circle-right"></i>
+        </span>
+    </a>
+    
+</nav>
+
+      
+
+        <footer class="footer">
+    <div class="content has-text-centered">
+        <div class="block">
+          &copy; Copyright 2022, Jean Kossaifi.<br/>
+        </div>
+      <div class="block">
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.
+      </div>
+    </div>
+  </footer>
+
+    </div>
+
+  </div>  
+
+	
+    
+    <div class="column is-hidden-touch is-2-desktop is-one-fifth-widescreen" id="localtoc-column">
+
+    <aside class="sticky-nav localtoc"> 
+        <p class="menu-label"> 
+            <span class="icon-text">
+                <span class="icon"><i class="fas fa-duotone fa-list"></i></span>
+                <span> On this page </span>
+            </span>
+        </p>
+
+        <div class="menu menu-list localtoc-list">
+        <ul>
+<li><a class="reference internal" href="#">Factorized tensors</a><ul>
+<li><a class="reference internal" href="#creating-factorized-tensors">Creating factorized tensors</a></li>
+<li><a class="reference internal" href="#manipulating-factorized-tensors">Manipulating factorized tensors</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tensorized-tensors">Tensorized tensors</a><ul>
+<li><a class="reference internal" href="#creation">Creation</a></li>
+<li><a class="reference internal" href="#manipulation">Manipulation</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+    </aside>
+    </div>
+
+  
+
+  </div>  
+  </div> 
+
+  
+  <script>
+    function toggle_sidebar() {
+        var element = document.getElementById("sidebar");
+        var container = document.getElementById("column-container");
+        var localtoccolumn = document.getElementById("localtoc-column");
+        element.classList.toggle("hide-tablet");
+        element.classList.toggle("is-hidden-mobile");
+        container.classList.toggle("sidemenu-hidden");
+        localtoccolumn.classList.toggle("is-one-fifth-widescreen");
+        localtoccolumn.classList.toggle("is-2-desktop");
+        localtoccolumn.classList.toggle("is-3-desktop");
+    }
+  </script> 
+
+
+
+  </body>
+</html>

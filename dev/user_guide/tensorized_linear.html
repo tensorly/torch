@@ -178,6 +178,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing tensorly-Torch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules/api.html">API reference</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="factorized_tensors.html">Factorized tensors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="factorized_tensors.html#tensorized-tensors">Tensorized tensors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="trl.html">Tensor Regression Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="factorized_conv.html">Factorized Convolutional Layers</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Tensorized Linear Layers</a></li>
@@ -252,10 +254,8 @@ find <code class="docutils literal notranslate"><span class="pre">in_tensorized_
 </pre></div>
 </div>
 <p>Finally, during the forward pass, you can reconstruct the full weights (<code class="docutils literal notranslate"><span class="pre">implementation='reconstructed'</span></code>) and perform a regular linear layer forward pass.
-ALternatively, you can let TensorLy-Torch automatically direction contract the input tensor with the <em>factors of the decomposition</em>  (<code class="docutils literal notranslate"><span class="pre">implementation='factorized'</span></code>),</p>
-<blockquote>
-<div><p>which can be faster, particularly if you have a very small rank, e.g. very small factorization factors.</p>
-</div></blockquote>
+ALternatively, you can let TensorLy-Torch automatically direction contract the input tensor with the <em>factors of the decomposition</em>  (<code class="docutils literal notranslate"><span class="pre">implementation='factorized'</span></code>),
+which can be faster, particularly if you have a very small rank, e.g. very small factorization factors.</p>
 </section>
 
 
