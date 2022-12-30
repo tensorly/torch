@@ -59,4 +59,4 @@ You can also create tensorized layers from scratch:
 
 Finally, during the forward pass, you can reconstruct the full weights (``implementation='reconstructed'``) and perform a regular linear layer forward pass. 
 ALternatively, you can let TensorLy-Torch automatically direction contract the input tensor with the *factors of the decomposition*  (``implementation='factorized'``),
- which can be faster, particularly if you have a very small rank, e.g. very small factorization factors. 
+which can be faster, particularly if you have a very small rank, e.g. very small factorization factors. 

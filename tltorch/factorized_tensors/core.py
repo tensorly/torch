@@ -545,7 +545,7 @@ class TensorizedTensor(FactorizedTensor, metaclass=MetaFactorizedTensor, name=''
         return self.init_from_tensor(tensor, **kwargs)
     
     def __repr__(self):
-        msg = f'{self.__class__.__name__}, shape={self.shape}, tensorized_shape={self.tensorized_shape}, '
+        msg = f'{self.__class__.__name__}(shape={self.shape}, tensorized_shape={self.tensorized_shape}, '
         msg += f'rank={self.rank})'
         return msg
 
