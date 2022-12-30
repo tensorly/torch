@@ -66,6 +66,38 @@ You can also explicitly create the type of tensor you want using the following c
     CPTensorized
     BlockTT
 
+.. _complex_ref:
+
+Complex Tensors
+===============
+
+In theory, you can simply specify ``dtype=torch.cfloat`` in the creation of any of the tensors of tensorized matrices above, to automatically create a complex valued tensor.
+However, in practice, there are many issues in complex support. Distributed Data Parallelism in particular, is not supported.
+
+In TensorLy-Torch, we propose a convenient and transparent way around this: simply use ``ComplexTensor`` instead. 
+This will store the factors of the decomposition in real form (by explicitly storing the real and imaginary parts) 
+but will transparently return you a complex valued tensor or reconstruction.
+
+.. autosummary::
+    :toctree: generated
+    :template: class.rst
+
+    ComplexDenseTensor
+    ComplexCPTensor
+    ComplexTuckerTensor
+    ComplexTTTensor
+
+
+    ComplexDenseTensorized
+    ComplexTuckerTensorized
+    ComplexCPTensorized
+    ComplexBlockTT
+
+
+You can also transparently instanciate any of these using directly the main classes, ``TensorizedTensor`` or ``FactorizedTensor`` and specifying 
+``factorization="ComplexCP"`` or in general ``ComplexFactorization`` with `Factorization` any of the supported decompositions.
+
+
 .. _init_ref:
 
 Initialization
@@ -197,3 +229,16 @@ L1 Regularization on tensor modules.
 
     tensor_lasso
     remove_tensor_lasso
+
+Utilities
+=========
+
+Utility functions
+
+.. currentmodule:: tltorch.utils
+
+.. autosummary::
+    :toctree: generated
+    :template: function.rst
+
+    get_tensorized_shape
