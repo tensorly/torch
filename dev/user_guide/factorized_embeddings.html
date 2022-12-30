@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Tensorized Linear Layers &#8212; TensorLy-Torch 0.4.0 documentation</title> 
+    <title>Factorized embedding layers &#8212; TensorLy-Torch 0.4.0 documentation</title> 
 <link rel="stylesheet" href="../_static/tensorly_style.css">
 <link rel="apple-touch-icon" sizes="180x180" href="../_static/favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../_static/favicon/favicon-32x32.png">
@@ -40,8 +40,6 @@
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Tensor Hooks" href="tensor_hooks.html" />
-    <link rel="prev" title="Factorized Convolutional Layers" href="factorized_conv.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   </head>
@@ -174,16 +172,10 @@
 </div>
       
       <div class="sidebar-menu-toc">
-      <ul class="current">
+      <ul>
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Installing tensorly-Torch</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules/api.html">API reference</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">User guide</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="trl.html">Tensor Regression Layers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="factorized_conv.html">Factorized Convolutional Layers</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Tensorized Linear Layers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tensor_hooks.html">Tensor Hooks</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">User guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../dev_guide/index.html">Development guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../about.html">About Us</a></li>
 </ul>
@@ -210,50 +202,23 @@
 
       <div class="container content main-content">
         
-  <section id="tensorized-linear-layers">
-<h1>Tensorized Linear Layers</h1>
-<p>Linear layers are parametrized by matrices. However, it is possible to
-<em>tensorize</em> them, i.e. reshape them into higher-order tensors in order
-to compress them.</p>
-<p>You can do this easily in TensorLy-Torch:</p>
+  <section id="factorized-embedding-layers">
+<h1>Factorized embedding layers</h1>
+<p>In TensorLy-Torch, we also provide out-of-the-box tensorized embedding layers.</p>
+<p>Just as for the case of factorized linear, you can either create a factorized embedding from scratch, here automatically determine the
+input and output tensorized shapes, to have 3 dimensions each:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tltorch</span>
 <span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="n">from_embedding</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">FactorizedEmbedding</span><span class="p">(</span><span class="n">num_embeddings</span><span class="p">,</span> <span class="n">embedding_dim</span><span class="p">,</span> <span class="n">auto_reshape</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Let’s create a batch of 4 data points of size 16 each:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Now, imagine you already have a linear layer:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">linear</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>You can easily compress it into a tensorized linear layer: here we specify the shape to which to tensorize the weights,
-and use <cite>rank=0.5</cite>, which means automatically determine the rank so that the factorization uses approximately half the
-number of parameters.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fact_linear</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">FactorizedLinear</span><span class="o">.</span><span class="n">from_linear</span><span class="p">(</span><span class="n">linear</span><span class="p">,</span> <span class="n">auto_tensorize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                    <span class="n">in_tensorized_features</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">out_tensorized_features</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The tensorized weights will have the following shape:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-</pre></div>
-</div>
-<p>Note that you can also let TensorLy-Torch automatically determine the tensorization shape. In this case we just instruct it to
-find <code class="docutils literal notranslate"><span class="pre">in_tensorized_features</span></code> and <code class="docutils literal notranslate"><span class="pre">out_tensorized_features</span></code> to have length <cite>2</cite>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fact_linear</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">FactorizedLinear</span><span class="o">.</span><span class="n">from_linear</span><span class="p">(</span><span class="n">linear</span><span class="p">,</span> <span class="n">auto_tensorize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_tensorized_modes</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>You can also create tensorized layers from scratch:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fact_linear</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">FactorizedLinear</span><span class="p">(</span><span class="n">in_tensorized_features</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
-                                       <span class="n">out_tensorized_features</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
-                                       <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;tucker&#39;</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Finally, during the forward pass, you can reconstruct the full weights (<code class="docutils literal notranslate"><span class="pre">implementation='reconstructed'</span></code>) and perform a regular linear layer forward pass.
-ALternatively, you can let TensorLy-Torch automatically direction contract the input tensor with the <em>factors of the decomposition</em>  (<code class="docutils literal notranslate"><span class="pre">implementation='factorized'</span></code>),</p>
+<p>Or, you can create it by decomposing an existing embedding layer:</p>
 <blockquote>
-<div><p>which can be faster, particularly if you have a very small rank, e.g. very small factorization factors.</p>
+<div><dl class="simple">
+<dt>from_embedding = tltorch.FactorizedEmbedding.from_embedding(embedding_layer, auto_reshape=True,</dt><dd><p>factorization=’blocktt’, n_tensorized_modes=3, rank=0.4)</p>
+</dd>
+</dl>
 </div></blockquote>
 </section>
 
@@ -263,20 +228,6 @@ ALternatively, you can let TensorLy-Torch automatically direction contract the i
       
         <nav class="pagination" role="navigation" aria-label="pagination">
     
-    <a class="button pagination-previous" href="factorized_conv.html" title="previous page" accesskey="p">
-        <span class="icon">
-            <i class="fa fa-arrow-circle-left"></i>
-        </span>
-        <span>Factorized Convolutional Layers</span>
-    </a>
-    
-    
-    <a class="button pagination-next" href="tensor_hooks.html" title="next page" accesskey="n">
-        <span>Tensor Hooks </span>
-        <span class="icon">
-            <i class="fa fa-arrow-circle-right"></i>
-        </span>
-    </a>
     
 </nav>
 
