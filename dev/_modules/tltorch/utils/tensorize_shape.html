@@ -147,6 +147,22 @@
 <span class="c1"># Author : Jean Kossaifi</span>
 
 <span class="k">def</span> <span class="nf">factorize</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">min_value</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">remaining</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Factorize an integer input value into it&#39;s smallest divisors</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    value : int</span>
+<span class="sd">        integer to factorize</span>
+<span class="sd">    min_value : int, default is 2</span>
+<span class="sd">        smallest divisors to use</span>
+<span class="sd">    remaining : int, default is -1</span>
+<span class="sd">        DO NOT SPECIFY THIS VALUE, IT IS USED FOR TAIL RECURSION</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    factorization : int tuple</span>
+<span class="sd">        ints such that prod(factorization) == value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="n">min_value</span> <span class="ow">or</span> <span class="n">remaining</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">)</span>
     <span class="n">lim</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">isqrt</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -158,6 +174,20 @@
     <span class="k">return</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">merge_ints</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Utility function to merge the smallest values in a given tuple until it&#39;s length is the given size</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    values : int list</span>
+<span class="sd">        list of values to merge</span>
+<span class="sd">    size : int</span>
+<span class="sd">        target len of the list</span>
+<span class="sd">        stop merging when len(values) &lt;= size</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    merge_values : list of size ``size``</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">values</span>
 
