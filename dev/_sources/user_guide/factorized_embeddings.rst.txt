@@ -16,5 +16,7 @@ input and output tensorized shapes, to have 3 dimensions each:
 
 Or, you can create it by decomposing an existing embedding layer:
 
+.. code-block:: python
+
     from_embedding = tltorch.FactorizedEmbedding.from_embedding(embedding_layer, auto_reshape=True,
                 factorization='blocktt', n_tensorized_modes=3, rank=0.4)
