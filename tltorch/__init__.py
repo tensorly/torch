@@ -10,5 +10,9 @@ from .factorized_layers import FactorizedLinear, FactorizedConv, TRL, TCL, Facto
 from .factorized_tensors import FactorizedTensor, DenseTensor, CPTensor, TTTensor, TuckerTensor, tensor_init
 from .factorized_tensors import (TensorizedTensor, CPTensorized, BlockTT, 
                                  DenseTensorized, TuckerTensorized)
+from .factorized_tensors import (ComplexCPTensor, ComplexTuckerTensor, 
+                                 ComplexTTTensor, ComplexDenseTensor)
+from .factorized_tensors import (ComplexCPTensorized, ComplexBlockTT,
+                                 ComplexDenseTensorized, ComplexTuckerTensorized)
 from .tensor_hooks import (tensor_lasso, remove_tensor_lasso,
                            tensor_dropout, remove_tensor_dropout)

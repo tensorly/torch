@@ -6,6 +6,7 @@ from torch.utils import checkpoint
 
 from ..functional import factorized_linear
 from ..factorized_tensors import TensorizedTensor
+from tltorch.utils import get_tensorized_shape
 
 # Author: Jean Kossaifi
 # License: BSD 3 clause
@@ -131,15 +132,21 @@ class FactorizedLinear(nn.Module):
         return self.get_linear(indices)
 
     @classmethod
-    def from_linear(cls, linear, in_tensorized_features, out_tensorized_features, rank, bias=True,
-                    factorization='CP', implementation="reconstructed", checkpointing=False, decomposition_kwargs=dict()):
+    def from_linear(cls, linear, rank='same', auto_tensorize=True, n_tensorized_modes=3,
+                    in_tensorized_features=None, out_tensorized_features=None, 
+                    bias=True, factorization='CP', implementation="reconstructed", 
+                    checkpointing=False, decomposition_kwargs=dict()):
         """Class method to create an instance from an existing linear layer
         
         Parameters
         ----------
         linear : torch.nn.Linear
             layer to tensorize
-        tensorized_shape : tuple
+        auto_tensorize : bool, default is True
+            if True, automatically find values for the tensorized_shapes
+        n_tensorized_modes : int, default is 3
+            Order (number of dims) of the tensorized weights if auto_tensorize is True
+        in_tensorized_features, out_tensorized_features : tuple
             shape to tensorized the factorized_weight matrix to.
             Must verify np.prod(tensorized_shape) == np.prod(linear.factorized_weight.shape)
         factorization : str, default is 'cp'
@@ -153,8 +160,19 @@ class FactorizedLinear(nn.Module):
         bias : bool, default is True
         """
         out_features, in_features = linear.weight.shape
-        assert(out_features == np.prod(out_tensorized_features))
-        assert(in_features == np.prod(in_tensorized_features))
+
+        if auto_tensorize:
+
+            if out_tensorized_features is not None and in_tensorized_features is not None:
+                raise ValueError(
+                    "Either use auto_reshape or specify out_tensorized_features and in_tensorized_features."
+                )
+
+            in_tensorized_features, out_tensorized_features = get_tensorized_shape(
+                in_features=in_features, out_features=out_features, order=n_tensorized_modes, min_dim=2, verbose=False)
+        else:
+            assert(out_features == np.prod(out_tensorized_features))
+            assert(in_features == np.prod(in_tensorized_features))
 
         instance = cls(in_tensorized_features, out_tensorized_features, bias=bias,
                        factorization=factorization, rank=rank, implementation=implementation, 
