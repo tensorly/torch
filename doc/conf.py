@@ -112,10 +112,12 @@ html_theme_options = {
                    ('User Guide', 'user_guide/index'),
                    ('API', 'modules/api'),
                    ('About Us', 'about')],
-    'external_nav_links_dropdown_title': 'Ecosystem',
-    'external_nav_links_dropdown' : [('TensorLy', 'http://tensorly.org/dev'),
-                                     ('TensorLy-Viz', 'http://tensorly.org/viz'),
-                                     ('TensorLy-Quantum', 'http://tensorly.org/quantum')],
+    'nav_dropdowns' : [('Ecosystem', 
+                       [('TensorLy', 'http://tensorly.org/dev'),
+                        ('TensorLy-Viz', 'http://tensorly.org/viz'),
+                        ('TensorLy-Quantum', 'http://tensorly.org/quantum'),
+                        ]),
+                       ],
 }
 
 # -- Options for LaTeX output ---------------------------------------------
