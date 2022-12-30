@@ -11,17 +11,13 @@ from tensorly import testing
 @pytest.mark.parametrize('factorization', ['CP','Tucker', 'BlockTT'])
 @pytest.mark.parametrize('dims', [(256,16), (1000,32)])
 def test_FactorizedEmbedding(factorization,dims):
-
-    
-    
-    NUM_EMBEDDINGS,EMBEDDING_DIM=dims
-    BATCH_SIZE = 3
+    NUM_EMBEDDINGS, EMBEDDING_DIM = dims
 
     #create factorized embedding
-    factorized_embedding = FactorizedEmbedding(NUM_EMBEDDINGS,EMBEDDING_DIM,factorization=factorization)
+    factorized_embedding = FactorizedEmbedding(NUM_EMBEDDINGS, EMBEDDING_DIM, factorization=factorization)
 
     #make test embedding of same shape and same weight
-    test_embedding = torch.nn.Embedding(factorized_embedding.weight.shape[0],factorized_embedding.weight.shape[1]) 
+    test_embedding = torch.nn.Embedding(factorized_embedding.weight.shape[0], factorized_embedding.weight.shape[1]) 
     test_embedding.weight.data.copy_(factorized_embedding.weight.to_matrix().detach())
     
     #create batch and test using all entries (shuffled since entries may not be sorted)

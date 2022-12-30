@@ -18,9 +18,9 @@ class FactorizedEmbedding(nn.Module):
         number of entries in the lookup table
     embedding_dim : int
         number of dimensions per entry
-    auto_reshape : bool
+    auto_tensorize : bool
         whether to use automatic reshaping for the embedding dimensions
-    d : int or int tuple
+    n_tensorized_modes : int or int tuple
         number of reshape dimensions for both embedding table dimension
     tensorized_num_embeddings : int tuple
         tensorized shape of the first embedding table dimension
@@ -34,8 +34,8 @@ class FactorizedEmbedding(nn.Module):
     def __init__(self,
                  num_embeddings,
                  embedding_dim,
-                 auto_reshape=True,
-                 d=3,
+                 auto_tensorize=True,
+                 n_tensorized_modes=3,
                  tensorized_num_embeddings=None,
                  tensorized_embedding_dim=None,
                  factorization='blocktt',
@@ -45,14 +45,14 @@ class FactorizedEmbedding(nn.Module):
                  dtype=None):
         super().__init__()
 
-        if auto_reshape:
+        if auto_tensorize:
 
             if tensorized_num_embeddings is not None and tensorized_embedding_dim is not None:
                 raise ValueError(
-                    "Either use auto_reshape or specify tensorized_num_embeddings and tensorized_embedding_dim."
+                    "Either use auto_tensorize or specify tensorized_num_embeddings and tensorized_embedding_dim."
                 )
 
-            tensorized_num_embeddings, tensorized_embedding_dim = get_tensorized_shape(in_features=num_embeddings, out_features=embedding_dim, order=d, min_dim=2, verbose=False)
+            tensorized_num_embeddings, tensorized_embedding_dim = get_tensorized_shape(in_features=num_embeddings, out_features=embedding_dim, order=n_tensorized_modes, min_dim=2, verbose=False)
 
         else:
             #check that dimensions match factorization
@@ -121,8 +121,9 @@ class FactorizedEmbedding(nn.Module):
                        embedding_layer,
                        rank=8,
                        factorization='blocktt',
+                       n_tensorized_modes=2,
                        decompose_weights=True,
-                       auto_reshape=True,
+                       auto_tensorize=True,
                        decomposition_kwargs=dict(),
                        **kwargs):
         """
@@ -137,7 +138,7 @@ class FactorizedEmbedding(nn.Module):
             tensor type
         decompose_weights: bool
             whether to decompose weights and use for initialization
-        auto_reshape: bool
+        auto_tensorize: bool
             if True, automatically reshape dimensions for TensorizedTensor
         decomposition_kwargs: dict
             specify kwargs for the decomposition
@@ -146,8 +147,9 @@ class FactorizedEmbedding(nn.Module):
 
         instance = cls(num_embeddings,
                        embedding_dim,
-                       auto_reshape=auto_reshape,
+                       auto_tensorize=auto_tensorize,
                        factorization=factorization,
+                       n_tensorized_modes=n_tensorized_modes,
                        rank=rank,
                        **kwargs)
 
@@ -166,8 +168,9 @@ class FactorizedEmbedding(nn.Module):
                        embedding_layer_list,
                        rank=8,
                        factorization='blocktt',
+                       n_tensorized_modes=2,
                        decompose_weights=True,
-                       auto_reshape=True,
+                       auto_tensorize=True,
                        decomposition_kwargs=dict(),
                        **kwargs):
         """
@@ -182,7 +185,7 @@ class FactorizedEmbedding(nn.Module):
             tensor decomposition to use
         decompose_weights: bool
             decompose weights and use for initialization
-        auto_reshape: bool
+        auto_tensorize: bool
             automatically reshape dimensions for TensorizedTensor
         decomposition_kwargs: dict
             specify kwargs for the decomposition
@@ -207,7 +210,8 @@ class FactorizedEmbedding(nn.Module):
 
         instance = cls(num_embeddings,
                        embedding_dim,
-                       auto_reshape=auto_reshape,
+                       n_tensorized_modes=n_tensorized_modes,
+                       auto_tensorize=auto_tensorize,
                        factorization=factorization,
                        rank=rank,
                        n_layers=n_layers,
