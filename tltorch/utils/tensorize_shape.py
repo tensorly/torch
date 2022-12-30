@@ -5,6 +5,22 @@ from bisect import insort_left
 # Author : Jean Kossaifi
 
 def factorize(value, min_value=2, remaining=-1):
+    """Factorize an integer input value into it's smallest divisors
+    
+    Parameters
+    ----------
+    value : int
+        integer to factorize
+    min_value : int, default is 2
+        smallest divisors to use
+    remaining : int, default is -1
+        DO NOT SPECIFY THIS VALUE, IT IS USED FOR TAIL RECURSION
+
+    Returns
+    -------
+    factorization : int tuple
+        ints such that prod(factorization) == value
+    """
     if value <= min_value or remaining == 0:
         return (value, )
     lim = math.isqrt(value)
@@ -16,6 +32,20 @@ def factorize(value, min_value=2, remaining=-1):
     return (value, )
 
 def merge_ints(values, size):
+    """Utility function to merge the smallest values in a given tuple until it's length is the given size
+    
+    Parameters
+    ----------
+    values : int list
+        list of values to merge
+    size : int
+        target len of the list
+        stop merging when len(values) <= size
+    
+    Returns
+    -------
+    merge_values : list of size ``size``
+    """
     if len(values) <= 1:
         return values
 
