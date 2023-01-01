@@ -7,13 +7,52 @@ tl.set_backend('pytorch')
 einsum_symbols = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 
-def tensor_dot_tucker(tensor, tucker, modes):
-    modes_tensor, modes_tucker = _validate_contraction_modes(tl.shape(tensor), tucker.tensor_shape, modes)
+# def tensor_dot_tucker(tensor, tucker, modes):
+#     modes_tensor, modes_tucker = _validate_contraction_modes(tl.shape(tensor), tucker.tensor_shape, modes)
+#     input_order = tensor.ndim
+#     weight_order = tucker.order
+
+#     sorted_modes_tucker = sorted(modes_tucker, reverse=True)
+#     sorted_modes_tensor = sorted(modes_tensor, reverse=True)
+    
+#     # Symbol for dimensionality of the core
+#     rank_sym = [einsum_symbols[i] for i in range(weight_order)]
+    
+#     # Symbols for tucker weight size
+#     tucker_sym = [einsum_symbols[i+weight_order] for i in range(weight_order)]
+    
+#     # Symbolds for input tensor
+#     tensor_sym = [einsum_symbols[i+2*weight_order] for i in range(tensor.ndim)]
+    
+#     # Output: input + weights symbols after removing contraction symbols
+#     output_sym = tensor_sym + tucker_sym
+#     for m in sorted_modes_tucker:
+#         output_sym.pop(m+input_order)
+#     for m in sorted_modes_tensor:
+#         output_sym.pop(m)
+#     for i, e in enumerate(modes_tensor):
+#         tensor_sym[e] = tucker_sym[modes_tucker[i]]
+    
+#     # Form the actual equation: tensor, core, factors -> output
+#     eq = ''.join(tensor_sym)
+#     eq += ',' + ''.join(rank_sym)
+#     eq += ',' + ','.join(f'{s}{r}' for s,r in zip(tucker_sym,rank_sym))
+#     eq += '->' + ''.join(output_sym)
+    
+#     return tl.einsum(eq, tensor, tucker.core, *tucker.factors)
+
+
+def tensor_dot_tucker(tensor, tucker, modes, batched_modes):
+    modes_tensor, modes_tucker = _validate_contraction_modes(
+        tl.shape(tensor), tucker.tensor_shape, modes)
     input_order = tensor.ndim
     weight_order = tucker.order
+    
+    batched_modes_tensor, batched_modes_tucker = _validate_contraction_modes(
+        tl.shape(tensor), tucker.tensor_shape, batched_modes)
 
-    sorted_modes_tucker = sorted(modes_tucker, reverse=True)
-    sorted_modes_tensor = sorted(modes_tensor, reverse=True)
+    sorted_modes_tucker = sorted(modes_tucker+batched_modes_tucker, reverse=True)
+    sorted_modes_tensor = sorted(modes_tensor+batched_modes_tensor, reverse=True)
     
     # Symbol for dimensionality of the core
     rank_sym = [einsum_symbols[i] for i in range(weight_order)]
@@ -21,18 +60,24 @@ def tensor_dot_tucker(tensor, tucker, modes):
     # Symbols for tucker weight size
     tucker_sym = [einsum_symbols[i+weight_order] for i in range(weight_order)]
     
-    # Symbolds for input tensor
+    # Symbols for input tensor
     tensor_sym = [einsum_symbols[i+2*weight_order] for i in range(tensor.ndim)]
     
     # Output: input + weights symbols after removing contraction symbols
     output_sym = tensor_sym + tucker_sym
     for m in sorted_modes_tucker:
-        output_sym.pop(m+input_order)
+        if m in modes_tucker: #not batched
+            output_sym.pop(m+input_order)
     for m in sorted_modes_tensor:
+        # It's batched, always remove
         output_sym.pop(m)
+        
+    # print(tensor_sym, tucker_sym, modes_tensor, batched_modes_tensor)
     for i, e in enumerate(modes_tensor):
         tensor_sym[e] = tucker_sym[modes_tucker[i]]
-    
+    for i, e in enumerate(batched_modes_tensor):
+        tensor_sym[e] = tucker_sym[batched_modes_tucker[i]]
+
     # Form the actual equation: tensor, core, factors -> output
     eq = ''.join(tensor_sym)
     eq += ',' + ''.join(rank_sym)
@@ -40,6 +85,7 @@ def tensor_dot_tucker(tensor, tucker, modes):
     eq += '->' + ''.join(output_sym)
     
     return tl.einsum(eq, tensor, tucker.core, *tucker.factors)
+
 
 
 def tensor_dot_cp(tensor, cp, modes):
