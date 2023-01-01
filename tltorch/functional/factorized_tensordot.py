@@ -42,7 +42,7 @@ einsum_symbols = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 #     return tl.einsum(eq, tensor, tucker.core, *tucker.factors)
 
 
-def tensor_dot_tucker(tensor, tucker, modes, batched_modes):
+def tensor_dot_tucker(tensor, tucker, modes, batched_modes=()):
     modes_tensor, modes_tucker = _validate_contraction_modes(
         tl.shape(tensor), tucker.tensor_shape, modes)
     input_order = tensor.ndim
