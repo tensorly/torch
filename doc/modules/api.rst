@@ -107,6 +107,10 @@ Initialization
     :no-members:
     :no-inherited-members:
 
+Initialization is particularly important in the context of deep learning. 
+We provide convenient functions to directly initialize factorized tensor (i.e. their factors)
+such that their reconstruction follows approximately a centered Gaussian distribution. 
+
 .. currentmodule:: tltorch.factorized_tensors.init
 
 .. autosummary::
