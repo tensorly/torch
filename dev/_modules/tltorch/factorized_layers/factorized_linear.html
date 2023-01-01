@@ -153,7 +153,7 @@
 
 
 <div class="viewcode-block" id="FactorizedLinear"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear">[docs]</a><span class="k">class</span> <span class="nc">FactorizedLinear</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Tensorized Fully-Connected Layers</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tensorized Fully-Connected Layers</span>
 
 <span class="sd">    The weight matrice is tensorized to a tensor of size `(*in_tensorized_features, *out_tensorized_features)`.</span>
 <span class="sd">    That tensor is expressed as a low-rank tensor.</span>
@@ -276,7 +276,7 @@
                     <span class="n">in_tensorized_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out_tensorized_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
                     <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="s2">&quot;reconstructed&quot;</span><span class="p">,</span> 
                     <span class="n">checkpointing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">decomposition_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(),</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Class method to create an instance from an existing linear layer</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Class method to create an instance from an existing linear layer</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -329,7 +329,7 @@
 <div class="viewcode-block" id="FactorizedLinear.from_linear_list"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear.from_linear_list">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_linear_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">linear_list</span><span class="p">,</span> <span class="n">in_tensorized_features</span><span class="p">,</span> <span class="n">out_tensorized_features</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                          <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="s2">&quot;reconstructed&quot;</span><span class="p">,</span> <span class="n">checkpointing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">decomposition_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)):</span>
-        <span class="sd">&quot;&quot;&quot;Class method to create an instance from an existing linear layer</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Class method to create an instance from an existing linear layer</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -387,7 +387,7 @@
 
 
 <span class="k">class</span> <span class="nc">SubFactorizedLinear</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Class representing one of the convolutions from the mother joint factorized convolution</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Class representing one of the convolutions from the mother joint factorized convolution</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -427,7 +427,7 @@
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2022, Jean Kossaifi.<br/>
+          &copy; Copyright 2023, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.

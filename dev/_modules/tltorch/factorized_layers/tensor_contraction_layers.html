@@ -157,7 +157,7 @@
 
 
 <div class="viewcode-block" id="TCL"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.TCL.html#tltorch.factorized_layers.TCL">[docs]</a><span class="k">class</span> <span class="nc">TCL</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Tensor Contraction Layer [1]_</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tensor Contraction Layer [1]_</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -211,7 +211,7 @@
         <span class="k">return</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;factor_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">)]</span>
 
 <div class="viewcode-block" id="TCL.forward"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.TCL.html#tltorch.factorized_layers.TCL.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Performs a forward pass&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Performs a forward pass&quot;&quot;&quot;</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">tenalg</span><span class="o">.</span><span class="n">multi_mode_dot</span><span class="p">(</span>
             <span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">,</span> <span class="n">modes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">contraction_modes</span><span class="p">)</span>
 
@@ -221,7 +221,7 @@
             <span class="k">return</span> <span class="n">x</span></div>
 
 <div class="viewcode-block" id="TCL.reset_parameters"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.TCL.html#tltorch.factorized_layers.TCL.reset_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">reset_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Sets the parameters&#39; values randomly</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the parameters&#39; values randomly</span>
 
 <span class="sd">        Todo</span>
 <span class="sd">        ----</span>
@@ -241,7 +241,7 @@
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2022, Jean Kossaifi.<br/>
+          &copy; Copyright 2023, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.

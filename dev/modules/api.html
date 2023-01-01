@@ -330,6 +330,9 @@ but will transparently return you a complex valued tensor or reconstruction.</p>
 </section>
 <section id="module-tltorch.factorized_tensors">
 <span id="initialization"></span><span id="init-ref"></span><h2>Initialization</h2>
+<p>Initialization is particularly important in the context of deep learning.
+We provide convenient functions to directly initialize factorized tensor (i.e. their factors)
+such that their reconstruction follows approximately a centered Gaussian distribution.</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_tensors.init.tensor_init.html#tltorch.factorized_tensors.init.tensor_init" title="tltorch.factorized_tensors.init.tensor_init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tensor_init</span></code></a>(tensor[, std])</p></td>
@@ -479,7 +482,7 @@ but will transparently return you a complex valued tensor or reconstruction.</p>
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2022, Jean Kossaifi.<br/>
+          &copy; Copyright 2023, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.

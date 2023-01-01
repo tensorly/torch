@@ -150,7 +150,7 @@
 
 
 <div class="viewcode-block" id="TensorDropout"><a class="viewcode-back" href="../../../modules/generated/tltorch.tensor_hooks.TensorDropout.html#tltorch.tensor_hooks.TensorDropout">[docs]</a><span class="k">class</span> <span class="nc">TensorDropout</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Decomposition Hook for Tensor Dropout on FactorizedTensor</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decomposition Hook for Tensor Dropout on FactorizedTensor</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -164,7 +164,7 @@
     <span class="n">_factorizations</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">factorization</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;When a subclass is created, register it in _factorizations&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;When a subclass is created, register it in _factorizations&quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">factorization</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">proba</span><span class="p">,</span> <span class="n">min_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_values</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">drop_test</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -283,7 +283,7 @@
 
 
 <div class="viewcode-block" id="tensor_dropout"><a class="viewcode-back" href="../../../modules/generated/tltorch.tensor_hooks.tensor_dropout.html#tltorch.tensor_hooks.tensor_dropout">[docs]</a><span class="k">def</span> <span class="nf">tensor_dropout</span><span class="p">(</span><span class="n">factorized_tensor</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">min_dim</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_values</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">drop_test</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Tensor Dropout</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tensor Dropout</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -315,7 +315,7 @@
 
 
 <div class="viewcode-block" id="remove_tensor_dropout"><a class="viewcode-back" href="../../../modules/generated/tltorch.tensor_hooks.remove_tensor_dropout.html#tltorch.tensor_hooks.remove_tensor_dropout">[docs]</a><span class="k">def</span> <span class="nf">remove_tensor_dropout</span><span class="p">(</span><span class="n">factorized_tensor</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Removes the tensor dropout from a TensorModule </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Removes the tensor dropout from a TensorModule </span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -343,7 +343,7 @@
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2022, Jean Kossaifi.<br/>
+          &copy; Copyright 2023, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.

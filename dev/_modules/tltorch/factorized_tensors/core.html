@@ -151,7 +151,7 @@
 <span class="c1"># License: BSD 3 clause</span>
 
 <span class="k">def</span> <span class="nf">_ensure_tuple</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns a tuple if `value` isn&#39;t one already&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns a tuple if `value` isn&#39;t one already&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">()</span>
@@ -166,7 +166,7 @@
 
 
 <span class="k">class</span> <span class="nc">MetaFactorizedTensor</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Meta class for tensor factorizations</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Meta class for tensor factorizations</span>
 <span class="sd">    </span>
 <span class="sd">    .. info::</span>
 <span class="sd">    </span>
@@ -266,7 +266,7 @@
         <span class="k">return</span> <span class="n">instance</span>
 
 <span class="k">def</span> <span class="nf">_format_factorization</span><span class="p">(</span><span class="n">factorization</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Small utility function to make sure factorization names </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Small utility function to make sure factorization names </span>
 <span class="sd">    are dealt with the same whether using capital letters or not.</span>
 <span class="sd">    </span>
 <span class="sd">    factorization=None is remapped to &#39;Dense&#39;.</span>
@@ -277,7 +277,7 @@
 
 
 <div class="viewcode-block" id="FactorizedTensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor">[docs]</a><span class="k">class</span> <span class="nc">FactorizedTensor</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">MetaFactorizedTensor</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Tensor in Factorized form</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tensor in Factorized form</span>
 
 <span class="sd">    .. important::</span>
 
@@ -286,7 +286,7 @@
     <span class="n">_factorizations</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
     
     <span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;When a subclass is created, register it in _factorizations&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;When a subclass is created, register it in _factorizations&quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init_subclass__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
@@ -297,7 +297,7 @@
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Creating a subclass of FactorizedTensor </span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> with no name.&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Customize the creation of a factorized convolution</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Customize the creation of a factorized convolution</span>
 
 <span class="sd">        Takes a parameter `factorization`, a string that specifies with subclass to use</span>
 
@@ -319,7 +319,7 @@
         <span class="k">return</span> <span class="n">instance</span>
     
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="n">indices</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns raw indexed factorization, not class</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns raw indexed factorization, not class</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -329,7 +329,7 @@
 
 <div class="viewcode-block" id="FactorizedTensor.new"><a class="viewcode-back" href="../../../modules/generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor.new">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;Tucker&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Main way to create a factorized tensor</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Main way to create a factorized tensor</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -367,7 +367,7 @@
 
 <div class="viewcode-block" id="FactorizedTensor.from_tensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor.from_tensor">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_tensor</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a factorized tensor by decomposing a dense tensor</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a factorized tensor by decomposing a dense tensor</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -397,7 +397,7 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_tensor</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="FactorizedTensor.forward"><a class="viewcode-back" href="../../../modules/generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;To use a tensor factorization within a network, use ``tensor.forward``, or, equivalently, ``tensor()``</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;To use a tensor factorization within a network, use ``tensor.forward``, or, equivalently, ``tensor()``</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -416,12 +416,12 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">decomposition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns the factors and parameters composing the tensor in factorized form&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the factors and parameters composing the tensor in factorized form&quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">_factorization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns the raw, unprocessed indexed tensor, same as `forward` but without forward hooks</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the raw, unprocessed indexed tensor, same as `forward` but without forward hooks</span>
 <span class="sd">        </span>
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -439,12 +439,12 @@
             <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
 
 <div class="viewcode-block" id="FactorizedTensor.to_tensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor.to_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Reconstruct the full tensor from its factorized form</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reconstruct the full tensor from its factorized form</span>
 <span class="sd">        &quot;&quot;&quot;</span> 
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
 
 <div class="viewcode-block" id="FactorizedTensor.dim"><a class="viewcode-back" href="../../../modules/generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor.dim">[docs]</a>    <span class="k">def</span> <span class="nf">dim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Order of the tensor</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Order of the tensor</span>
 <span class="sd">        </span>
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
@@ -461,7 +461,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ndim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Order of the tensor</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Order of the tensor</span>
 <span class="sd">        </span>
 <span class="sd">        Notes</span>
 <span class="sd">        -----</span>
@@ -474,7 +474,7 @@
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
 <div class="viewcode-block" id="FactorizedTensor.size"><a class="viewcode-back" href="../../../modules/generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor.size">[docs]</a>    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;shape of the tensor</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;shape of the tensor</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -491,7 +491,7 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">index</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="FactorizedTensor.normal_"><a class="viewcode-back" href="../../../modules/generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor.normal_">[docs]</a>    <span class="k">def</span> <span class="nf">normal_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Inialize the factors of the factorization such that the **reconstruction** follows a Gaussian distribution</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Inialize the factors of the factorization such that the **reconstruction** follows a Gaussian distribution</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -518,7 +518,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Factorization name (&#39;tucker&#39;, &#39;tt&#39;, &#39;cp&#39;, ...)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Factorization name (&#39;tucker&#39;, &#39;tt&#39;, &#39;cp&#39;, ...)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
 
@@ -528,7 +528,7 @@
 
 
 <div class="viewcode-block" id="TensorizedTensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.TensorizedTensor.html#tltorch.TensorizedTensor">[docs]</a><span class="k">class</span> <span class="nc">TensorizedTensor</span><span class="p">(</span><span class="n">FactorizedTensor</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">MetaFactorizedTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Matrix in Tensorized Format</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Matrix in Tensorized Format</span>
 
 <span class="sd">    .. important::</span>
 <span class="sd">       </span>
@@ -540,12 +540,12 @@
     <span class="n">_factorizations</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
     
     <span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;When a subclass is created, register it in _factorizations&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;When a subclass is created, register it in _factorizations&quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">_format_factorization</span><span class="p">(</span><span class="n">name</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">cls</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
 
     <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Customize the creation of a matrix in tensorized form</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Customize the creation of a matrix in tensorized form</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -566,7 +566,7 @@
 
 <div class="viewcode-block" id="TensorizedTensor.new"><a class="viewcode-back" href="../../../modules/generated/tltorch.TensorizedTensor.html#tltorch.TensorizedTensor.new">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tensorized_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Main way to create a Tensorized Matrix</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Main way to create a Tensorized Matrix</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -598,7 +598,7 @@
 
 <div class="viewcode-block" id="TensorizedTensor.from_tensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.TensorizedTensor.html#tltorch.TensorizedTensor.from_tensor">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_tensor</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a factorized tensor by decomposing a full tensor</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a factorized tensor by decomposing a full tensor</span>
 
 
 <span class="sd">        Parameters</span>
@@ -632,7 +632,7 @@
 
 <div class="viewcode-block" id="TensorizedTensor.from_matrix"><a class="viewcode-back" href="../../../modules/generated/tltorch.TensorizedTensor.html#tltorch.TensorizedTensor.from_matrix">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_matrix</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">tensorized_row_shape</span><span class="p">,</span> <span class="n">tensorized_column_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Create a Tensorized Matrix by tensorizing and decomposing an existing matrix</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a Tensorized Matrix by tensorizing and decomposing an existing matrix</span>
 
 
 <span class="sd">        Parameters</span>
@@ -668,7 +668,7 @@
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_tensor</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">batch_dims</span> <span class="o">+</span> <span class="p">(</span><span class="n">tensorized_row_shape</span><span class="p">,</span> <span class="n">tensorized_column_shape</span><span class="p">),</span> <span class="n">rank</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="n">factorization</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="TensorizedTensor.to_matrix"><a class="viewcode-back" href="../../../modules/generated/tltorch.TensorizedTensor.html#tltorch.TensorizedTensor.to_matrix">[docs]</a>    <span class="k">def</span> <span class="nf">to_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Reconstruct the full matrix from the factorized tensorization</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reconstruct the full matrix from the factorized tensorization</span>
 
 <span class="sd">        If several matrices are parametrized, a batch of matrices is returned</span>
 <span class="sd">        &quot;&quot;&quot;</span> 
@@ -697,7 +697,7 @@
         <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Outer indexing of a factorized tensor</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Outer indexing of a factorized tensor</span>
 <span class="sd">        </span>
 <span class="sd">        .. important::</span>
 
@@ -715,7 +715,7 @@
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2022, Jean Kossaifi.<br/>
+          &copy; Copyright 2023, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.
