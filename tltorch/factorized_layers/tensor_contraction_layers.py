@@ -88,7 +88,7 @@ class TCL(nn.Module):
         This may be renamed to init_from_random for consistency with TensorModules
         """
         for i in range(self.order):
-            init.kaiming_uniform_(self.factors[i], a=math.sqrt(5))
+            init.kaiming_uniform_(getattr(self, f'factor_{i}'), a=math.sqrt(5))
         if self.bias is not None:
             bound = 1 / math.sqrt(self.input_shape[0])
             init.uniform_(self.bias, -bound, bound)
