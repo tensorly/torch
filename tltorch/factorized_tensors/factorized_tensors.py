@@ -427,12 +427,12 @@ class TTTensor(FactorizedTensor, name='TT'):
             # Select one dimension of one mode
             factor, next_factor, *factors = self.factors
             next_factor = tenalg.mode_dot(next_factor, factor[:, indices, :].squeeze(1), 0)
-            return TTTensor([next_factor, *factors])
+            return self.__class__([next_factor, *factors])
 
         elif isinstance(indices, slice):
             mixing_factor, *factors = self.factors
             factors = [mixing_factor[:, indices], *factors]
-            return TTTensor(factors)
+            return self.__class__(factors)
 
         else:
             factors = []
@@ -463,9 +463,9 @@ class TTTensor(FactorizedTensor, name='TT'):
                 else:
                     next_factor, *factors = self.factors[i+1:]
                     factor = tenalg.mode_dot(next_factor, factor, 0)
-                    return TTTensor([factor, *factors])
+                    return self.__class__([factor, *factors])
             else:
-                return TTTensor([*factors, factor, *self.factors[i+1:]])
+                return self.__class__([*factors, factor, *self.factors[i+1:]])
 
     def transduct(self, new_dim, mode=0, new_factor=None):
         """Transduction adds a new dimension to the existing factorization
