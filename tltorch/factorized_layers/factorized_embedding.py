@@ -97,20 +97,20 @@ class FactorizedEmbedding(nn.Module):
         #to handle case where input is not 1-D
         output_shape = (*input.shape, self.embedding_dim)
 
-        flatenned_input = input.view(-1)
+        flattened_input = input.reshape(-1)
 
         if self.n_layers == 1:
             if indices == 0:
-                embeddings = self.weight[flatenned_input, :]
+                embeddings = self.weight[flattened_input, :]
         else:
-            embeddings = self.weight[indices, flatenned_input, :]
+            embeddings = self.weight[indices, flattened_input, :]
 
         #CPTensorized returns CPTensorized when indexing
         if self.factorization.lower() == 'cp':
             embeddings = embeddings.to_matrix()
 
         #TuckerTensorized returns tensor not matrix,
-        #and requires reshape not view for contiguous
+        # and requires reshape not view for contiguous
         elif self.factorization.lower() == 'tucker':
             embeddings = embeddings.reshape(input.shape[0], -1)
 
