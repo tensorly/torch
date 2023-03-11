@@ -346,7 +346,10 @@ class TuckerTensor(FactorizedTensor, name='Tucker'):
                 else:
                     factors.append(factor[index, :])
 
-            core = tenalg.multi_mode_dot(self.core, factors_contract, modes=modes)
+            if modes:
+                core = tenalg.multi_mode_dot(self.core, factors_contract, modes=modes)
+            else:
+                core = self.core
             factors = factors + self.factors[i+1:]
 
             if factors:
