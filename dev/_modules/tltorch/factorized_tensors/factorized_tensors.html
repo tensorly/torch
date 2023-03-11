@@ -486,7 +486,10 @@
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">factor</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:])</span>
 
-            <span class="n">core</span> <span class="o">=</span> <span class="n">tenalg</span><span class="o">.</span><span class="n">multi_mode_dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="p">,</span> <span class="n">factors_contract</span><span class="p">,</span> <span class="n">modes</span><span class="o">=</span><span class="n">modes</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">modes</span><span class="p">:</span>
+                <span class="n">core</span> <span class="o">=</span> <span class="n">tenalg</span><span class="o">.</span><span class="n">multi_mode_dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="p">,</span> <span class="n">factors_contract</span><span class="p">,</span> <span class="n">modes</span><span class="o">=</span><span class="n">modes</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">core</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">core</span>
             <span class="n">factors</span> <span class="o">=</span> <span class="n">factors</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
 
             <span class="k">if</span> <span class="n">factors</span><span class="p">:</span>
