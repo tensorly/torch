@@ -6,6 +6,7 @@ tl.set_backend('pytorch')
 from torch import nn
 import numpy as np
 
+import torch
 
 # Author: Jean Kossaifi
 # License: BSD 3 clause
@@ -368,12 +369,14 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
 
     def __repr__(self):
         return f'{self.__class__.__name__}(shape={self.shape}, rank={self.rank})'
-
-    def __torch_function__(self, func, types, args=(), kwargs=None):
+    
+    @classmethod
+    def __torch_function__(cls, func, types, args=(), kwargs=None):
         if kwargs is None:
             kwargs = {}
 
         args = [t.to_tensor() if hasattr(t, 'to_tensor') else t for t in args]
+        # return super().__torch_function__(func, types, args, kwargs)
         return func(*args, **kwargs)
 
     @property
@@ -549,7 +552,8 @@ class TensorizedTensor(FactorizedTensor, metaclass=MetaFactorizedTensor, name=''
         msg += f'rank={self.rank})'
         return msg
 
-    def __torch_function__(self, func, types, args=(), kwargs=None):
+    @classmethod
+    def __torch_function__(cls, func, types, args=(), kwargs=None):
         if kwargs is None:
             kwargs = {}
 

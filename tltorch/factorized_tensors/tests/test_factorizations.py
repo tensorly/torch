@@ -39,7 +39,7 @@ def test_FactorizedTensor(factorization):
         res = fact_tensor[idx]
         if not torch.is_tensor(res):
             res = res.to_tensor()
-        testing.assert_allclose(reconstruction[idx], res)
+        testing.assert_close(reconstruction[idx], res)
 
 
 @pytest.mark.parametrize('factorization', ['BlockTT', 'CP']) #['CP', 'Tucker', 'BlockTT'])
@@ -85,7 +85,7 @@ def test_TensorizedMatrix(factorization, batch_size):
         res = fact_tensor[idx]
         if not torch.is_tensor(res):
             res = res.to_matrix()
-        testing.assert_allclose(reconstruction[idx], res)
+        testing.assert_close(reconstruction[idx], res)
 
 
 @pytest.mark.parametrize('factorization', ['CP', 'TT'])
@@ -104,7 +104,7 @@ def test_transduction(factorization):
 
         indices = [slice(None)]*mode
         for i in range(new_dim):
-            testing.assert_allclose(original_rec, rec[tuple(indices + [i])])
+            testing.assert_close(original_rec, rec[tuple(indices + [i])])
 
 @pytest.mark.parametrize('unsqueezed_init', ['average', 1.2])
 def test_tucker_init_unsqueezed_modes(unsqueezed_init):
@@ -122,7 +122,7 @@ def test_tucker_init_unsqueezed_modes(unsqueezed_init):
         coef = unsqueezed_init
 
     for i in range(4):
-        testing.assert_allclose(rec[:, i], mat*coef)
+        testing.assert_close(rec[:, i], mat*coef)
 
 
 @pytest.mark.parametrize('factorization', ['ComplexCP', 'ComplexTucker', 'ComplexTT', 'ComplexDense'])
