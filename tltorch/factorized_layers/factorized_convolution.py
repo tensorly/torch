@@ -258,7 +258,7 @@ class FactorizedConv(nn.Module):
         order = len(kernel_size)
 
         instance = cls(in_channels, out_channels, kernel_size, order=order, implementation=implementation, 
-                       padding=padding, stride=stride, bias=(bias is not None), n_layers=n_layers,
+                       padding=padding, stride=stride, bias=(bias is not None), n_layers=n_layers, dilation=dilation,
                        factorization=factorization, rank=factorization.rank)
         
         instance.weight = factorization
@@ -296,10 +296,12 @@ class FactorizedConv(nn.Module):
         out_channels, in_channels, *kernel_size = conv_layer.weight.shape
         stride = conv_layer.stride[0]
         bias = conv_layer.bias is not None
+        dilation = conv_layer.dilation
 
         instance = cls(in_channels, out_channels, kernel_size, 
                        factorization=factorization, implementation=implementation, rank=rank, 
-                       padding=padding, stride=stride, fixed_rank_modes=fixed_rank_modes, bias=bias, **kwargs)
+                       dilation=dilation, padding=padding, stride=stride, bias=bias, 
+                       fixed_rank_modes=fixed_rank_modes, **kwargs)
 
         if decompose_weights:
             if conv_layer.bias is not None:
@@ -321,9 +323,10 @@ class FactorizedConv(nn.Module):
         out_channels, in_channels, *kernel_size = conv_layer.weight.shape
         stride = conv_layer.stride[0]
         bias = True
+        dilation = conv_layer.dilation
 
         instance = cls(in_channels, out_channels, kernel_size, implementation=implementation, rank=rank, factorization=factorization,
-                       padding=padding, stride=stride, bias=bias, n_layers=len(conv_list), fixed_rank_modes=None, **kwargs)
+                       padding=padding, stride=stride, bias=bias, dilation=dilation, n_layers=len(conv_list), fixed_rank_modes=None, **kwargs)
 
         if decompose_weights:
             with torch.no_grad():
