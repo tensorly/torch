@@ -9,16 +9,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python 3.8
+    - name: Set up Python 3.12
       uses: actions/setup-python@v4
       with:
-        python-version: 3.8
+        python-version: 3.12
     - name: Install dependencies
       run: |
+        echo "* Updating pip"
         python -m pip install --upgrade pip
+        echo "* Installing requirements"
         python -m pip install -r requirements.txt
+        echo "* Installing documentation requirements"
         python -m pip install -r doc/requirements_doc.txt
-        python -m pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu
+        echo "* Installing PyTorch"
+        python -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
     - name: Install TensorLy dev
       run: |
         CWD=`pwd`
