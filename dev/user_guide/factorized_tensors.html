@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Factorized tensors &#8212; TensorLy-Torch 0.4.0 documentation</title> 
 <link rel="stylesheet" href="../_static/tensorly_style.css">
@@ -16,16 +15,13 @@
 <link rel="shortcut icon" href="../_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/tensorly_style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/tensorly_style.css?v=a02e9698" />
 
   
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/documentation_options.js?v=6c02275b"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
  <script src="../_static/navbar_burger.js"></script>
  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
  
@@ -189,12 +185,12 @@
       <div class="container content main-content">
         
   <section id="factorized-tensors">
-<h1>Factorized tensors</h1>
+<h1>Factorized tensors<a class="headerlink" href="#factorized-tensors" title="Link to this heading">¶</a></h1>
 <p>The core concept in TensorLy-Torch is that of <em>factorized tensors</em>.
 We provide a <a class="reference internal" href="../modules/generated/tltorch.FactorizedTensor.html#tltorch.FactorizedTensor" title="tltorch.FactorizedTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">FactorizedTensor</span></code></a> class that can be used just like any <cite>PyTorch.Tensor</cite> but
 provides all tensor factorization through one, simple API.</p>
 <section id="creating-factorized-tensors">
-<h2>Creating factorized tensors</h2>
+<h2>Creating factorized tensors<a class="headerlink" href="#creating-factorized-tensors" title="Link to this heading">¶</a></h2>
 <p>You can create a new factorized tensor easily:</p>
 <p>The signature is:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">factorized_tensor</span> <span class="o">=</span> <span class="n">FactorizedTensor</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">factorization</span><span class="p">)</span>
@@ -212,7 +208,7 @@ with 1/10th of the parameters, you can simply write:</p>
 </div>
 </section>
 <section id="manipulating-factorized-tensors">
-<h2>Manipulating factorized tensors</h2>
+<h2>Manipulating factorized tensors<a class="headerlink" href="#manipulating-factorized-tensors" title="Link to this heading">¶</a></h2>
 <p>The first thing you want to do, if you created a new tensor from scratch (by using the <code class="docutils literal notranslate"><span class="pre">new</span></code> method), is to initialize it,
 e.g. so that the element of the reconstruction approximately follow a Gaussian distribution:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cp_tensor</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
@@ -238,14 +234,14 @@ e.g. so that the element of the reconstruction approximately follow a Gaussian d
 </section>
 </section>
 <section id="tensorized-tensors">
-<h1>Tensorized tensors</h1>
+<h1>Tensorized tensors<a class="headerlink" href="#tensorized-tensors" title="Link to this heading">¶</a></h1>
 <p>In addition to tensor in factorized forms, TensorLy-Torch provides out-of-the-box for <strong>Tensorized</strong> tensors.
 The most common case is that of tensorized matrices, where a matrix is first <em>tensorized</em>, i.e. reshaped into
 a higher-order tensor which is then decomposed and stored in factorized form.</p>
 <p>A commonly used tensorized tensor is the tensor-train matrix (also known as Matrix-Product Operator in quantum physics),
 or, in general, Block-TT.</p>
 <section id="creation">
-<h2>Creation</h2>
+<h2>Creation<a class="headerlink" href="#creation" title="Link to this heading">¶</a></h2>
 <p>You can create one in TensorLy-Torch, from a matrix, just as easily as a regular tensor, using the <a class="reference internal" href="../modules/generated/tltorch.TensorizedTensor.html#tltorch.TensorizedTensor" title="tltorch.TensorizedTensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">tltorch.TensorizedTensor</span></code></a> class,
 with the following signature:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">TensorizedTensor</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">tensorized_row_shape</span><span class="p">,</span> <span class="n">tensorized_column_shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
@@ -272,7 +268,7 @@ a batch of 5 tensorized matrices of size (4x4)x(3x7), in the BlockTT form. In co
 BlockTT(shape=[5, 8, 27], tensorized_shape=(5, (2, 2, 2), (3, 3, 3)), rank=[1, 20, 20, 1])</p>
 </section>
 <section id="manipulation">
-<h2>Manipulation</h2>
+<h2>Manipulation<a class="headerlink" href="#manipulation" title="Link to this heading">¶</a></h2>
 <p>As for factorized tensors, you can directly index them:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ftt</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 <span class="go">BlockTT(shape=[8, 27], tensorized_shape=[(2, 2, 2), (3, 3, 3)], rank=[1, 20, 20, 1])</span>
@@ -315,7 +311,7 @@ BlockTT(shape=[5, 8, 27], tensorized_shape=(5, (2, 2, 2), (3, 3, 3)), rank=[1, 2
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2023, Jean Kossaifi.<br/>
+          &copy; Copyright 2024, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.

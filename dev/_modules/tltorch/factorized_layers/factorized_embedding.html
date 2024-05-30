@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,16 +14,13 @@
 <link rel="shortcut icon" href="../../../_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/tensorly_style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tensorly_style.css?v=a02e9698" />
 
   
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/documentation_options.js?v=6c02275b"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
  <script src="../../../_static/navbar_burger.js"></script>
  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
  
@@ -147,7 +143,9 @@
 <span class="c1"># Authors: Cole Hawkins </span>
 <span class="c1">#          Jean Kossaifi</span>
 
-<div class="viewcode-block" id="FactorizedEmbedding"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding">[docs]</a><span class="k">class</span> <span class="nc">FactorizedEmbedding</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<div class="viewcode-block" id="FactorizedEmbedding">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding">[docs]</a>
+<span class="k">class</span> <span class="nc">FactorizedEmbedding</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Tensorized Embedding Layers For Efficient Model Compression</span>
 <span class="sd">    Tensorized drop-in replacement for `torch.nn.Embedding`</span>
@@ -233,7 +231,9 @@
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
             <span class="n">tensor_init</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span><span class="n">std</span><span class="o">=</span><span class="n">target_stddev</span><span class="p">)</span>
 
-<div class="viewcode-block" id="FactorizedEmbedding.forward"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="FactorizedEmbedding.forward">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="c1">#to handle case where input is not 1-D</span>
         <span class="n">output_shape</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding_dim</span><span class="p">)</span>
 
@@ -256,7 +256,10 @@
 
         <span class="k">return</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">output_shape</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FactorizedEmbedding.from_embedding"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding.from_embedding">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="FactorizedEmbedding.from_embedding">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding.from_embedding">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_embedding</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
                        <span class="n">embedding_layer</span><span class="p">,</span>
                        <span class="n">rank</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
@@ -303,7 +306,10 @@
 
         <span class="k">return</span> <span class="n">instance</span></div>
 
-<div class="viewcode-block" id="FactorizedEmbedding.from_embedding_list"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding.from_embedding_list">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="FactorizedEmbedding.from_embedding_list">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding.from_embedding_list">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_embedding_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
                        <span class="n">embedding_layer_list</span><span class="p">,</span>
                        <span class="n">rank</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
@@ -369,11 +375,13 @@
         <span class="k">return</span> <span class="n">instance</span></div>
 
 
+
     <span class="k">def</span> <span class="nf">get_embedding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_layers</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;A single linear is parametrized, directly use the main class.&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">SubFactorizedEmbedding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span></div>
+
 
 
 <span class="k">class</span> <span class="nc">SubFactorizedEmbedding</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -414,7 +422,7 @@
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2023, Jean Kossaifi.<br/>
+          &copy; Copyright 2024, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.

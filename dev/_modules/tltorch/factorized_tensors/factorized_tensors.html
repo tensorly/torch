@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,16 +14,13 @@
 <link rel="shortcut icon" href="../../../_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/tensorly_style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tensorly_style.css?v=a02e9698" />
 
   
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/documentation_options.js?v=6c02275b"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
  <script src="../../../_static/navbar_burger.js"></script>
  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
  
@@ -157,7 +153,9 @@
 <span class="c1"># License: BSD 3 clause</span>
 
 
-<div class="viewcode-block" id="DenseTensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.DenseTensor.html#tltorch.DenseTensor">[docs]</a><span class="k">class</span> <span class="nc">DenseTensor</span><span class="p">(</span><span class="n">FactorizedTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Dense&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="DenseTensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.DenseTensor.html#tltorch.DenseTensor">[docs]</a>
+<span class="k">class</span> <span class="nc">DenseTensor</span><span class="p">(</span><span class="n">FactorizedTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Dense&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Dense tensor</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -174,16 +172,22 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="s1">&#39;tensor&#39;</span><span class="p">,</span> <span class="n">tensor</span><span class="p">)</span>
     
-<div class="viewcode-block" id="DenseTensor.new"><a class="viewcode-back" href="../../../modules/generated/tltorch.DenseTensor.html#tltorch.DenseTensor.new">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DenseTensor.new">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.DenseTensor.html#tltorch.DenseTensor.new">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="c1"># Register the parameters</span>
         <span class="n">tensor</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DenseTensor.from_tensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.DenseTensor.html#tltorch.DenseTensor.from_tensor">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="DenseTensor.from_tensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.DenseTensor.html#tltorch.DenseTensor.from_tensor">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_tensor</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">tl</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">tensor</span><span class="p">)))</span></div>
+
 
     <span class="k">def</span> <span class="nf">init_from_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">l2_reg</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>        
@@ -194,19 +198,28 @@
     <span class="k">def</span> <span class="nf">decomposition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tensor</span>
 
-<div class="viewcode-block" id="DenseTensor.to_tensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.DenseTensor.html#tltorch.DenseTensor.to_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DenseTensor.to_tensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.DenseTensor.html#tltorch.DenseTensor.to_tensor">[docs]</a>
+    <span class="k">def</span> <span class="nf">to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tensor</span></div>
 
-<div class="viewcode-block" id="DenseTensor.normal_"><a class="viewcode-back" href="../../../modules/generated/tltorch.DenseTensor.html#tltorch.DenseTensor.normal_">[docs]</a>    <span class="k">def</span> <span class="nf">normal_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DenseTensor.normal_">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.DenseTensor.html#tltorch.DenseTensor.normal_">[docs]</a>
+    <span class="k">def</span> <span class="nf">normal_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
+
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tensor</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span></div>
 
 
-<div class="viewcode-block" id="CPTensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.CPTensor.html#tltorch.CPTensor">[docs]</a><span class="k">class</span> <span class="nc">CPTensor</span><span class="p">(</span><span class="n">FactorizedTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CPTensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.CPTensor.html#tltorch.CPTensor">[docs]</a>
+<span class="k">class</span> <span class="nc">CPTensor</span><span class="p">(</span><span class="n">FactorizedTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;CP Factorization</span>
 
 <span class="sd">    Parameters</span>
@@ -232,7 +245,9 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">factors</span> <span class="o">=</span> <span class="n">FactorList</span><span class="p">(</span><span class="n">factors</span><span class="p">)</span>
     
-<div class="viewcode-block" id="CPTensor.new"><a class="viewcode-back" href="../../../modules/generated/tltorch.CPTensor.html#tltorch.CPTensor.new">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="CPTensor.new">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.CPTensor.html#tltorch.CPTensor.new">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">rank</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">cp_tensor</span><span class="o">.</span><span class="n">validate_cp_rank</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
 
@@ -243,7 +258,10 @@
 
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">factors</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CPTensor.from_tensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.CPTensor.html#tltorch.CPTensor.from_tensor">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="CPTensor.from_tensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.CPTensor.html#tltorch.CPTensor.from_tensor">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_tensor</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">rank</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">cp_tensor</span><span class="o">.</span><span class="n">validate_cp_rank</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
@@ -253,6 +271,7 @@
             <span class="n">weights</span><span class="p">,</span> <span class="n">factors</span> <span class="o">=</span> <span class="n">parafac</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="n">rank</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()),</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">())</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">factors</span><span class="p">])</span></div>
+
 
     <span class="k">def</span> <span class="nf">init_from_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">l2_reg</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
@@ -266,10 +285,15 @@
     <span class="k">def</span> <span class="nf">decomposition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span>
 
-<div class="viewcode-block" id="CPTensor.to_tensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.CPTensor.html#tltorch.CPTensor.to_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CPTensor.to_tensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.CPTensor.html#tltorch.CPTensor.to_tensor">[docs]</a>
+    <span class="k">def</span> <span class="nf">to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">tl</span><span class="o">.</span><span class="n">cp_to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">decomposition</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CPTensor.normal_"><a class="viewcode-back" href="../../../modules/generated/tltorch.CPTensor.html#tltorch.CPTensor.normal_">[docs]</a>    <span class="k">def</span> <span class="nf">normal_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CPTensor.normal_">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.CPTensor.html#tltorch.CPTensor.normal_">[docs]</a>
+    <span class="k">def</span> <span class="nf">normal_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
         <span class="n">std_factors</span> <span class="o">=</span> <span class="p">(</span><span class="n">std</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
 
@@ -278,6 +302,7 @@
             <span class="k">for</span> <span class="n">factor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">:</span>
                 <span class="n">factor</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">std_factors</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
+
     
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
@@ -315,7 +340,9 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">index_factors</span> <span class="o">+</span> <span class="n">factors</span><span class="p">)</span>
         <span class="c1"># return self.__class__(*tl.cp_indexing(self.weights, self.factors, indices))</span>
 
-<div class="viewcode-block" id="CPTensor.transduct"><a class="viewcode-back" href="../../../modules/generated/tltorch.CPTensor.html#tltorch.CPTensor.transduct">[docs]</a>    <span class="k">def</span> <span class="nf">transduct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_dim</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">new_factor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CPTensor.transduct">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.CPTensor.html#tltorch.CPTensor.transduct">[docs]</a>
+    <span class="k">def</span> <span class="nf">transduct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_dim</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">new_factor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Transduction adds a new dimension to the existing factorization</span>
 
 <span class="sd">        Parameters</span>
@@ -341,10 +368,14 @@
         <span class="n">factors</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">new_factor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">factors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">factors</span> <span class="o">=</span> <span class="n">FactorList</span><span class="p">(</span><span class="n">factors</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span></div>
+</div>
 
 
-<div class="viewcode-block" id="TuckerTensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.TuckerTensor.html#tltorch.TuckerTensor">[docs]</a><span class="k">class</span> <span class="nc">TuckerTensor</span><span class="p">(</span><span class="n">FactorizedTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Tucker&#39;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TuckerTensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.TuckerTensor.html#tltorch.TuckerTensor">[docs]</a>
+<span class="k">class</span> <span class="nc">TuckerTensor</span><span class="p">(</span><span class="n">FactorizedTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Tucker&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Tucker Factorization</span>
 
 <span class="sd">    Parameters</span>
@@ -370,7 +401,9 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">factors</span> <span class="o">=</span> <span class="n">FactorList</span><span class="p">(</span><span class="n">factors</span><span class="p">)</span>
     
-<div class="viewcode-block" id="TuckerTensor.new"><a class="viewcode-back" href="../../../modules/generated/tltorch.TuckerTensor.html#tltorch.TuckerTensor.new">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TuckerTensor.new">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.TuckerTensor.html#tltorch.TuckerTensor.new">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">fixed_rank_modes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">rank</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">tucker_tensor</span><span class="o">.</span><span class="n">validate_tucker_rank</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">fixed_modes</span><span class="o">=</span><span class="n">fixed_rank_modes</span><span class="p">)</span>
@@ -382,7 +415,10 @@
 
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">core</span><span class="p">,</span> <span class="n">factors</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TuckerTensor.from_tensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.TuckerTensor.html#tltorch.TuckerTensor.from_tensor">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="TuckerTensor.from_tensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.TuckerTensor.html#tltorch.TuckerTensor.from_tensor">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_tensor</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">fixed_rank_modes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">rank</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">tucker_tensor</span><span class="o">.</span><span class="n">validate_tucker_rank</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">fixed_modes</span><span class="o">=</span><span class="n">fixed_rank_modes</span><span class="p">)</span>
@@ -392,7 +428,10 @@
         
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">core</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()),</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">contiguous</span><span class="p">())</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">factors</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="TuckerTensor.init_from_tensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.TuckerTensor.html#tltorch.TuckerTensor.init_from_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">init_from_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">unsqueezed_modes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unsqueezed_init</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TuckerTensor.init_from_tensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.TuckerTensor.html#tltorch.TuckerTensor.init_from_tensor">[docs]</a>
+    <span class="k">def</span> <span class="nf">init_from_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">unsqueezed_modes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unsqueezed_init</span><span class="o">=</span><span class="s1">&#39;average&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the tensor factorization from a tensor</span>
 
 <span class="sd">        Parameters</span>
@@ -440,14 +479,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">factors</span> <span class="o">=</span> <span class="n">FactorList</span><span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">contiguous</span><span class="p">())</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">factors</span><span class="p">])</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">decomposition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">core</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span>
 
-<div class="viewcode-block" id="TuckerTensor.to_tensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.TuckerTensor.html#tltorch.TuckerTensor.to_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TuckerTensor.to_tensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.TuckerTensor.html#tltorch.TuckerTensor.to_tensor">[docs]</a>
+    <span class="k">def</span> <span class="nf">to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">tl</span><span class="o">.</span><span class="n">tucker_to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">decomposition</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TuckerTensor.normal_"><a class="viewcode-back" href="../../../modules/generated/tltorch.TuckerTensor.html#tltorch.TuckerTensor.normal_">[docs]</a>    <span class="k">def</span> <span class="nf">normal_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TuckerTensor.normal_">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.TuckerTensor.html#tltorch.TuckerTensor.normal_">[docs]</a>
+    <span class="k">def</span> <span class="nf">normal_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">mean</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Currently only mean=0 is supported, but got mean=</span><span class="si">{</span><span class="n">mean</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
             
@@ -459,6 +504,7 @@
             <span class="k">for</span> <span class="n">factor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">:</span>
                 <span class="n">factor</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">std_factors</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
+
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
@@ -499,7 +545,10 @@
             <span class="k">return</span> <span class="n">core</span></div>
 
 
-<div class="viewcode-block" id="TTTensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.TTTensor.html#tltorch.TTTensor">[docs]</a><span class="k">class</span> <span class="nc">TTTensor</span><span class="p">(</span><span class="n">FactorizedTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;TT&#39;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TTTensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.TTTensor.html#tltorch.TTTensor">[docs]</a>
+<span class="k">class</span> <span class="nc">TTTensor</span><span class="p">(</span><span class="n">FactorizedTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;TT&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Tensor-Train (Matrix-Product-State) Factorization</span>
 
 <span class="sd">    Parameters</span>
@@ -518,7 +567,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">factors</span> <span class="o">=</span> <span class="n">FactorList</span><span class="p">(</span><span class="n">factors</span><span class="p">)</span>
     
-<div class="viewcode-block" id="TTTensor.new"><a class="viewcode-back" href="../../../modules/generated/tltorch.TTTensor.html#tltorch.TTTensor.new">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="TTTensor.new">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.TTTensor.html#tltorch.TTTensor.new">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">rank</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">tt_tensor</span><span class="o">.</span><span class="n">validate_tt_rank</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
 
@@ -527,7 +578,10 @@
 
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">factors</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TTTensor.from_tensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.TTTensor.html#tltorch.TTTensor.from_tensor">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="TTTensor.from_tensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.TTTensor.html#tltorch.TTTensor.from_tensor">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_tensor</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">rank</span> <span class="o">=</span> <span class="n">tl</span><span class="o">.</span><span class="n">tt_tensor</span><span class="o">.</span><span class="n">validate_tt_rank</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
@@ -537,6 +591,7 @@
             <span class="n">factors</span> <span class="o">=</span> <span class="n">tensor_train</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
         
         <span class="k">return</span> <span class="bp">cls</span><span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">contiguous</span><span class="p">())</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">factors</span><span class="p">])</span></div>
+
 
     <span class="k">def</span> <span class="nf">init_from_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
@@ -551,10 +606,15 @@
     <span class="k">def</span> <span class="nf">decomposition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span>
 
-<div class="viewcode-block" id="TTTensor.to_tensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.TTTensor.html#tltorch.TTTensor.to_tensor">[docs]</a>    <span class="k">def</span> <span class="nf">to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TTTensor.to_tensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.TTTensor.html#tltorch.TTTensor.to_tensor">[docs]</a>
+    <span class="k">def</span> <span class="nf">to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">tl</span><span class="o">.</span><span class="n">tt_to_tensor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">decomposition</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TTTensor.normal_"><a class="viewcode-back" href="../../../modules/generated/tltorch.TTTensor.html#tltorch.TTTensor.normal_">[docs]</a>    <span class="k">def</span> <span class="nf">normal_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TTTensor.normal_">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.TTTensor.html#tltorch.TTTensor.normal_">[docs]</a>
+    <span class="k">def</span> <span class="nf">normal_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>  <span class="n">mean</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">mean</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Currently only mean=0 is supported, but got mean=</span><span class="si">{</span><span class="n">mean</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
@@ -564,6 +624,7 @@
             <span class="k">for</span> <span class="n">factor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">:</span>
                 <span class="n">factor</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">std_factors</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
+
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">indices</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
@@ -610,7 +671,9 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">([</span><span class="o">*</span><span class="n">factors</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">factors</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]])</span>
 
-<div class="viewcode-block" id="TTTensor.transduct"><a class="viewcode-back" href="../../../modules/generated/tltorch.TTTensor.html#tltorch.TTTensor.transduct">[docs]</a>    <span class="k">def</span> <span class="nf">transduct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_dim</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">new_factor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="TTTensor.transduct">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.TTTensor.html#tltorch.TTTensor.transduct">[docs]</a>
+    <span class="k">def</span> <span class="nf">transduct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_dim</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">new_factor</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Transduction adds a new dimension to the existing factorization</span>
 
 <span class="sd">        Parameters</span>
@@ -644,7 +707,9 @@
         <span class="n">factors</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">new_factor</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">factors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">device</span><span class="p">)</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">factors</span> <span class="o">=</span> <span class="n">FactorList</span><span class="p">(</span><span class="n">factors</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span></div>
+</div>
+
 </pre></div>
 
       </div>
@@ -654,7 +719,7 @@
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2023, Jean Kossaifi.<br/>
+          &copy; Copyright 2024, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.

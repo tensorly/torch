@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>API reference &#8212; TensorLy-Torch 0.4.0 documentation</title> 
 <link rel="stylesheet" href="../_static/tensorly_style.css">
@@ -16,16 +15,13 @@
 <link rel="shortcut icon" href="../_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/tensorly_style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/tensorly_style.css?v=a02e9698" />
 
   
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/documentation_options.js?v=6c02275b"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
  <script src="../_static/navbar_burger.js"></script>
  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
  
@@ -194,10 +190,10 @@
       <div class="container content main-content">
         
   <section id="api-reference">
-<h1>API reference</h1>
+<h1>API reference<a class="headerlink" href="#api-reference" title="Link to this heading">¶</a></h1>
 <p><a class="reference internal" href="#module-tltorch" title="tltorch"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tltorch</span></code></a>: Tensorized Deep Neural Networks</p>
 <span class="target" id="module-tltorch"></span><section id="factorized-tensors">
-<span id="factorized-tensor-ref"></span><h2>Factorized Tensors</h2>
+<span id="factorized-tensor-ref"></span><h2>Factorized Tensors<a class="headerlink" href="#factorized-tensors" title="Link to this heading">¶</a></h2>
 <p>TensorLy-Torch builds on top of TensorLy and provides out of the box PyTorch layers for tensor based operations.
 The core of this is the concept of factorized tensors, which factorize our layers, instead of regular, dense PyTorch tensors.</p>
 <p>You can create any factorized tensor through the main class using:</p>
@@ -230,7 +226,7 @@ This allows to manipulate any tensor, factorized or not, with a simple, unified 
 </table>
 </section>
 <section id="tensorized-matrices">
-<span id="factorized-matrix-ref"></span><h2>Tensorized Matrices</h2>
+<span id="factorized-matrix-ref"></span><h2>Tensorized Matrices<a class="headerlink" href="#tensorized-matrices" title="Link to this heading">¶</a></h2>
 <dl class="simple">
 <dt>In TensorLy-Torch , you can also represent matrices in <em>tensorized</em> form, as low-rank tensors.</dt><dd><p>Just as for factorized tensor, you can create a tensorized matrix through the main class using:</p>
 </dd>
@@ -268,7 +264,7 @@ This allows to manipulate any tensor, factorized or not, with a simple, unified 
 </table>
 </section>
 <section id="complex-tensors">
-<span id="complex-ref"></span><h2>Complex Tensors</h2>
+<span id="complex-ref"></span><h2>Complex Tensors<a class="headerlink" href="#complex-tensors" title="Link to this heading">¶</a></h2>
 <p>In theory, you can simply specify <code class="docutils literal notranslate"><span class="pre">dtype=torch.cfloat</span></code> in the creation of any of the tensors of tensorized matrices above, to automatically create a complex valued tensor.
 However, in practice, there are many issues in complex support. Distributed Data Parallelism in particular, is not supported.</p>
 <p>In TensorLy-Torch, we propose a convenient and transparent way around this: simply use <code class="docutils literal notranslate"><span class="pre">ComplexTensor</span></code> instead.
@@ -306,7 +302,7 @@ but will transparently return you a complex valued tensor or reconstruction.</p>
 <code class="docutils literal notranslate"><span class="pre">factorization=&quot;ComplexCP&quot;</span></code> or in general <code class="docutils literal notranslate"><span class="pre">ComplexFactorization</span></code> with <cite>Factorization</cite> any of the supported decompositions.</p>
 </section>
 <section id="module-tltorch.factorized_tensors">
-<span id="initialization"></span><span id="init-ref"></span><h2>Initialization</h2>
+<span id="initialization"></span><span id="init-ref"></span><h2>Initialization<a class="headerlink" href="#module-tltorch.factorized_tensors" title="Link to this heading">¶</a></h2>
 <p>Initialization is particularly important in the context of deep learning.
 We provide convenient functions to directly initialize factorized tensor (i.e. their factors)
 such that their reconstruction follows approximately a centered Gaussian distribution.</p>
@@ -331,7 +327,7 @@ such that their reconstruction follows approximately a centered Gaussian distrib
 </table>
 </section>
 <section id="module-tltorch.factorized_layers">
-<span id="tensor-regression-layers"></span><span id="trl-ref"></span><h2>Tensor Regression Layers</h2>
+<span id="tensor-regression-layers"></span><span id="trl-ref"></span><h2>Tensor Regression Layers<a class="headerlink" href="#module-tltorch.factorized_layers" title="Link to this heading">¶</a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_layers.TRL.html#tltorch.factorized_layers.TRL" title="tltorch.factorized_layers.TRL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TRL</span></code></a>(input_shape, output_shape[, bias, ...])</p></td>
@@ -341,7 +337,7 @@ such that their reconstruction follows approximately a centered Gaussian distrib
 </table>
 </section>
 <section id="tensor-contraction-layers">
-<span id="tcl-ref"></span><h2>Tensor Contraction Layers</h2>
+<span id="tcl-ref"></span><h2>Tensor Contraction Layers<a class="headerlink" href="#tensor-contraction-layers" title="Link to this heading">¶</a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_layers.TCL.html#tltorch.factorized_layers.TCL" title="tltorch.factorized_layers.TCL"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TCL</span></code></a>(input_shape, rank[, verbose, bias, ...])</p></td>
@@ -351,7 +347,7 @@ such that their reconstruction follows approximately a centered Gaussian distrib
 </table>
 </section>
 <section id="factorized-linear-layers">
-<span id="factorized-linear-ref"></span><h2>Factorized Linear Layers</h2>
+<span id="factorized-linear-ref"></span><h2>Factorized Linear Layers<a class="headerlink" href="#factorized-linear-layers" title="Link to this heading">¶</a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear" title="tltorch.factorized_layers.FactorizedLinear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FactorizedLinear</span></code></a>(in_tensorized_features, ...)</p></td>
@@ -361,7 +357,7 @@ such that their reconstruction follows approximately a centered Gaussian distrib
 </table>
 </section>
 <section id="factorized-convolutions">
-<span id="factorized-conv-ref"></span><h2>Factorized Convolutions</h2>
+<span id="factorized-conv-ref"></span><h2>Factorized Convolutions<a class="headerlink" href="#factorized-convolutions" title="Link to this heading">¶</a></h2>
 <p>General N-Dimensional convolutions in Factorized forms</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -372,7 +368,7 @@ such that their reconstruction follows approximately a centered Gaussian distrib
 </table>
 </section>
 <section id="factorized-embeddings">
-<span id="tensor-dropout-ref"></span><h2>Factorized Embeddings</h2>
+<span id="tensor-dropout-ref"></span><h2>Factorized Embeddings<a class="headerlink" href="#factorized-embeddings" title="Link to this heading">¶</a></h2>
 <p>A drop-in replacement for PyTorch’s embeddings but using an efficient tensor parametrization that never reconstructs the full table.</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -383,7 +379,7 @@ such that their reconstruction follows approximately a centered Gaussian distrib
 </table>
 </section>
 <section id="module-tltorch.tensor_hooks">
-<span id="tensor-dropout"></span><span id="id2"></span><h2>Tensor Dropout</h2>
+<span id="tensor-dropout"></span><span id="id2"></span><h2>Tensor Dropout<a class="headerlink" href="#module-tltorch.tensor_hooks" title="Link to this heading">¶</a></h2>
 <p>These functions allow you to easily add or remove tensor dropout from tensor layers.</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -405,7 +401,7 @@ such that their reconstruction follows approximately a centered Gaussian distrib
 </table>
 </section>
 <section id="l1-regularization">
-<span id="tensor-lasso-ref"></span><h2>L1 Regularization</h2>
+<span id="tensor-lasso-ref"></span><h2>L1 Regularization<a class="headerlink" href="#l1-regularization" title="Link to this heading">¶</a></h2>
 <p>L1 Regularization on tensor modules.</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -419,7 +415,7 @@ such that their reconstruction follows approximately a centered Gaussian distrib
 </table>
 </section>
 <section id="utilities">
-<h2>Utilities</h2>
+<h2>Utilities<a class="headerlink" href="#utilities" title="Link to this heading">¶</a></h2>
 <p>Utility functions</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -459,7 +455,7 @@ such that their reconstruction follows approximately a centered Gaussian distrib
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2023, Jean Kossaifi.<br/>
+          &copy; Copyright 2024, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.

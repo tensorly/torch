@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,16 +14,13 @@
 <link rel="shortcut icon" href="../../../_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/tensorly_style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tensorly_style.css?v=a02e9698" />
 
   
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/documentation_options.js?v=6c02275b"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
  <script src="../../../_static/navbar_burger.js"></script>
  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
  
@@ -179,39 +175,63 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">register_buffer</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="ComplexDenseTensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexDenseTensor.html#tltorch.ComplexDenseTensor">[docs]</a><span class="k">class</span> <span class="nc">ComplexDenseTensor</span><span class="p">(</span><span class="n">ComplexHandler</span><span class="p">,</span> <span class="n">DenseTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ComplexDense&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="ComplexDenseTensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexDenseTensor.html#tltorch.ComplexDenseTensor">[docs]</a>
+<span class="k">class</span> <span class="nc">ComplexDenseTensor</span><span class="p">(</span><span class="n">ComplexHandler</span><span class="p">,</span> <span class="n">DenseTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ComplexDense&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Complex Dense Factorization</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="ComplexDenseTensor.new"><a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexDenseTensor.html#tltorch.ComplexDenseTensor.new">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ComplexDenseTensor.new">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexDenseTensor.html#tltorch.ComplexDenseTensor.new">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">cfloat</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
 
-<div class="viewcode-block" id="ComplexTuckerTensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexTuckerTensor.html#tltorch.ComplexTuckerTensor">[docs]</a><span class="k">class</span> <span class="nc">ComplexTuckerTensor</span><span class="p">(</span><span class="n">ComplexHandler</span><span class="p">,</span> <span class="n">TuckerTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ComplexTucker&#39;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ComplexTuckerTensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexTuckerTensor.html#tltorch.ComplexTuckerTensor">[docs]</a>
+<span class="k">class</span> <span class="nc">ComplexTuckerTensor</span><span class="p">(</span><span class="n">ComplexHandler</span><span class="p">,</span> <span class="n">TuckerTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ComplexTucker&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Complex Tucker Factorization</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="ComplexTuckerTensor.new"><a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexTuckerTensor.html#tltorch.ComplexTuckerTensor.new">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ComplexTuckerTensor.new">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexTuckerTensor.html#tltorch.ComplexTuckerTensor.new">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">fixed_rank_modes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">cfloat</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">fixed_rank_modes</span><span class="o">=</span><span class="n">fixed_rank_modes</span><span class="p">,</span>
-            <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+            <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
 
-<div class="viewcode-block" id="ComplexTTTensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexTTTensor.html#tltorch.ComplexTTTensor">[docs]</a><span class="k">class</span> <span class="nc">ComplexTTTensor</span><span class="p">(</span><span class="n">ComplexHandler</span><span class="p">,</span> <span class="n">TTTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ComplexTT&#39;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ComplexTTTensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexTTTensor.html#tltorch.ComplexTTTensor">[docs]</a>
+<span class="k">class</span> <span class="nc">ComplexTTTensor</span><span class="p">(</span><span class="n">ComplexHandler</span><span class="p">,</span> <span class="n">TTTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ComplexTT&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Complex TT Factorization</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="ComplexTTTensor.new"><a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexTTTensor.html#tltorch.ComplexTTTensor.new">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ComplexTTTensor.new">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexTTTensor.html#tltorch.ComplexTTTensor.new">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">fixed_rank_modes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">cfloat</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span>
-            <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+            <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
 
-<div class="viewcode-block" id="ComplexCPTensor"><a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexCPTensor.html#tltorch.ComplexCPTensor">[docs]</a><span class="k">class</span> <span class="nc">ComplexCPTensor</span><span class="p">(</span><span class="n">ComplexHandler</span><span class="p">,</span> <span class="n">CPTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ComplexCP&#39;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ComplexCPTensor">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexCPTensor.html#tltorch.ComplexCPTensor">[docs]</a>
+<span class="k">class</span> <span class="nc">ComplexCPTensor</span><span class="p">(</span><span class="n">ComplexHandler</span><span class="p">,</span> <span class="n">CPTensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ComplexCP&#39;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Complex CP Factorization</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="ComplexCPTensor.new"><a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexCPTensor.html#tltorch.ComplexCPTensor.new">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ComplexCPTensor.new">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.ComplexCPTensor.html#tltorch.ComplexCPTensor.new">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">fixed_rank_modes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
             <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">cfloat</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span>
-            <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+            <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
+
 </pre></div>
 
       </div>
@@ -221,7 +241,7 @@
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2023, Jean Kossaifi.<br/>
+          &copy; Copyright 2024, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.

@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,16 +14,13 @@
 <link rel="shortcut icon" href="../../../_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/tensorly_style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tensorly_style.css?v=a02e9698" />
 
   
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/documentation_options.js?v=6c02275b"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
  <script src="../../../_static/navbar_burger.js"></script>
  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
  
@@ -152,7 +148,9 @@
 <span class="c1"># License: BSD 3 clause</span>
 
 
-<div class="viewcode-block" id="FactorizedLinear"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear">[docs]</a><span class="k">class</span> <span class="nc">FactorizedLinear</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<div class="viewcode-block" id="FactorizedLinear">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear">[docs]</a>
+<span class="k">class</span> <span class="nc">FactorizedLinear</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Tensorized Fully-Connected Layers</span>
 
 <span class="sd">    The weight matrice is tensorized to a tensor of size `(*in_tensorized_features, *out_tensorized_features)`.</span>
@@ -233,7 +231,9 @@
                 <span class="n">bound</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">fan_in</span><span class="p">)</span>
                 <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">uniform_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">,</span> <span class="o">-</span><span class="n">bound</span><span class="p">,</span> <span class="n">bound</span><span class="p">)</span>
 
-<div class="viewcode-block" id="FactorizedLinear.forward"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="FactorizedLinear.forward">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_layers</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">indices</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span>
@@ -262,6 +262,7 @@
             <span class="n">x</span> <span class="o">=</span> <span class="n">_inner_forward</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">x</span></div>
 
+
     <span class="k">def</span> <span class="nf">get_linear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_layers</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;A single linear is parametrized, directly use the main class.&#39;</span><span class="p">)</span>
@@ -271,7 +272,9 @@
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_linear</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
 
-<div class="viewcode-block" id="FactorizedLinear.from_linear"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear.from_linear">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="FactorizedLinear.from_linear">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear.from_linear">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_linear</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">linear</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">auto_tensorize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_tensorized_modes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                     <span class="n">in_tensorized_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out_tensorized_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
                     <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="s2">&quot;reconstructed&quot;</span><span class="p">,</span> 
@@ -326,7 +329,10 @@
 
         <span class="k">return</span> <span class="n">instance</span></div>
 
-<div class="viewcode-block" id="FactorizedLinear.from_linear_list"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear.from_linear_list">[docs]</a>    <span class="nd">@classmethod</span>
+
+<div class="viewcode-block" id="FactorizedLinear.from_linear_list">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear.from_linear_list">[docs]</a>
+    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_linear_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">linear_list</span><span class="p">,</span> <span class="n">in_tensorized_features</span><span class="p">,</span> <span class="n">out_tensorized_features</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                          <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="s2">&quot;reconstructed&quot;</span><span class="p">,</span> <span class="n">checkpointing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">decomposition_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Class method to create an instance from an existing linear layer</span>
@@ -370,6 +376,7 @@
 
         <span class="k">return</span> <span class="n">instance</span></div>
 
+
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(in_features=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">in_features</span><span class="si">}</span><span class="s1">, out_features=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_features</span><span class="si">}</span><span class="s1">,&#39;</span>
                <span class="sa">f</span><span class="s1">&#39; weight of size (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_features</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">in_features</span><span class="si">}</span><span class="s1">) tensorized to (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_tensorized_features</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">in_tensorized_features</span><span class="si">}</span><span class="s1">),&#39;</span>
@@ -384,6 +391,7 @@
         <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39; with </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_layers</span><span class="si">}</span><span class="s1"> layers jointly parametrized.&#39;</span>
 
         <span class="k">return</span> <span class="n">msg</span></div>
+
 
 
 <span class="k">class</span> <span class="nc">SubFactorizedLinear</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -427,7 +435,7 @@
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2023, Jean Kossaifi.<br/>
+          &copy; Copyright 2024, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.

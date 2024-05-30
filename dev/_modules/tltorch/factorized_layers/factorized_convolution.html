@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,16 +14,13 @@
 <link rel="shortcut icon" href="../../../_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/tensorly_style.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/tensorly_style.css?v=a02e9698" />
 
   
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/documentation_options.js?v=6c02275b"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
  <script src="../../../_static/navbar_burger.js"></script>
  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
  
@@ -246,7 +242,9 @@
     <span class="k">return</span> <span class="n">tensor</span>
 
 
-<div class="viewcode-block" id="FactorizedConv"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv">[docs]</a><span class="k">class</span> <span class="nc">FactorizedConv</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<div class="viewcode-block" id="FactorizedConv">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv">[docs]</a>
+<span class="k">class</span> <span class="nc">FactorizedConv</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a factorized convolution of arbitrary order</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_version</span> <span class="o">=</span> <span class="mi">1</span>
@@ -326,7 +324,9 @@
         <span class="c1"># We pre-select the forward function to not waste time doing the check at each forward pass</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">forward_fun</span> <span class="o">=</span> <span class="n">_get_factorized_conv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">implementation</span><span class="p">)</span>
 
-<div class="viewcode-block" id="FactorizedConv.forward"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="FactorizedConv.forward">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv.forward">[docs]</a>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="c1"># Single layer parametrized</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_layers</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">indices</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -347,12 +347,15 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">(</span><span class="n">indices</span><span class="p">),</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> 
                                 <span class="n">padding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">dilation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span></div>
 
+
     <span class="k">def</span> <span class="nf">reset_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="mf">0.02</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
 
-<div class="viewcode-block" id="FactorizedConv.set"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="FactorizedConv.set">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv.set">[docs]</a>
+    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the parameters of the conv self[indices]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">_ensure_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">,</span> <span class="n">padding</span><span class="p">)</span>
@@ -362,7 +365,10 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="n">bias</span><span class="o">.</span><span class="n">data</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">has_bias</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span></div>
 
-<div class="viewcode-block" id="FactorizedConv.get_conv"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv.get_conv">[docs]</a>    <span class="k">def</span> <span class="nf">get_conv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FactorizedConv.get_conv">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv.get_conv">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_conv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a sub-convolutional layer from the joint parametrize main-convolution</span>
 
 <span class="sd">        The parametrization of sub-convolutional layers is shared with the main one.</span>
@@ -376,6 +382,7 @@
             <span class="n">bias</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">return</span> <span class="n">SubFactorizedConv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span></div>
+
         <span class="c1"># return SubFactorizedConv(self, indices, self.weight, bias)</span>
     
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
@@ -398,7 +405,7 @@
         <span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
 
         <span class="n">instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="n">implementation</span><span class="p">,</span> 
-                       <span class="n">padding</span><span class="o">=</span><span class="n">padding</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="p">(</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span> <span class="n">n_layers</span><span class="o">=</span><span class="n">n_layers</span><span class="p">,</span>
+                       <span class="n">padding</span><span class="o">=</span><span class="n">padding</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="p">(</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">),</span> <span class="n">n_layers</span><span class="o">=</span><span class="n">n_layers</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="n">dilation</span><span class="p">,</span>
                        <span class="n">factorization</span><span class="o">=</span><span class="n">factorization</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">factorization</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span>
         
         <span class="n">instance</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">factorization</span>
@@ -408,7 +415,9 @@
 
         <span class="k">return</span> <span class="n">instance</span>
 
-<div class="viewcode-block" id="FactorizedConv.from_conv"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv.from_conv">[docs]</a>    <span class="nd">@classmethod</span> 
+<div class="viewcode-block" id="FactorizedConv.from_conv">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv.from_conv">[docs]</a>
+    <span class="nd">@classmethod</span> 
     <span class="k">def</span> <span class="nf">from_conv</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">conv_layer</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="s1">&#39;reconstructed&#39;</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> 
                   <span class="n">decompose_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">decomposition_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(),</span> <span class="n">fixed_rank_modes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a Factorized convolution from a regular convolutional layer</span>
@@ -436,10 +445,12 @@
         <span class="n">out_channels</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">,</span> <span class="o">*</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">conv_layer</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">stride</span> <span class="o">=</span> <span class="n">conv_layer</span><span class="o">.</span><span class="n">stride</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">bias</span> <span class="o">=</span> <span class="n">conv_layer</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">dilation</span> <span class="o">=</span> <span class="n">conv_layer</span><span class="o">.</span><span class="n">dilation</span>
 
         <span class="n">instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> 
                        <span class="n">factorization</span><span class="o">=</span><span class="n">factorization</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="n">implementation</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">,</span> 
-                       <span class="n">padding</span><span class="o">=</span><span class="n">padding</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">,</span> <span class="n">fixed_rank_modes</span><span class="o">=</span><span class="n">fixed_rank_modes</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                       <span class="n">dilation</span><span class="o">=</span><span class="n">dilation</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">padding</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> 
+                       <span class="n">fixed_rank_modes</span><span class="o">=</span><span class="n">fixed_rank_modes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">decompose_weights</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">conv_layer</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -453,6 +464,7 @@
 
         <span class="k">return</span> <span class="n">instance</span></div>
 
+
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_conv_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">conv_list</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="s1">&#39;reconstructed&#39;</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;cp&#39;</span><span class="p">,</span>
                        <span class="n">decompose_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">decomposition_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -461,9 +473,10 @@
         <span class="n">out_channels</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">,</span> <span class="o">*</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">conv_layer</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">shape</span>
         <span class="n">stride</span> <span class="o">=</span> <span class="n">conv_layer</span><span class="o">.</span><span class="n">stride</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">bias</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">dilation</span> <span class="o">=</span> <span class="n">conv_layer</span><span class="o">.</span><span class="n">dilation</span>
 
         <span class="n">instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="n">implementation</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">rank</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="n">factorization</span><span class="p">,</span>
-                       <span class="n">padding</span><span class="o">=</span><span class="n">padding</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="n">n_layers</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">conv_list</span><span class="p">),</span> <span class="n">fixed_rank_modes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                       <span class="n">padding</span><span class="o">=</span><span class="n">padding</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="n">dilation</span><span class="p">,</span> <span class="n">n_layers</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">conv_list</span><span class="p">),</span> <span class="n">fixed_rank_modes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">decompose_weights</span><span class="p">:</span>
             <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
@@ -480,7 +493,9 @@
 
         <span class="k">return</span> <span class="n">instance</span>
 
-<div class="viewcode-block" id="FactorizedConv.transduct"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv.transduct">[docs]</a>    <span class="k">def</span> <span class="nf">transduct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fine_tune_transduction_only</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="FactorizedConv.transduct">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv.transduct">[docs]</a>
+    <span class="k">def</span> <span class="nf">transduct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fine_tune_transduction_only</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Transduction of the factorized convolution to add a new dimension</span>
 
 <span class="sd">        Parameters</span>
@@ -530,7 +545,10 @@
 
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="FactorizedConv.extra_repr"><a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv.extra_repr">[docs]</a>    <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FactorizedConv.extra_repr">
+<a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedConv.html#tltorch.factorized_layers.FactorizedConv.extra_repr">[docs]</a>
+    <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;in_channels=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">in_channels</span><span class="si">}</span><span class="s1">, out_channels=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_channels</span><span class="si">}</span><span class="s1">, kernel_size=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="si">}</span><span class="s1">&#39;</span>
              <span class="sa">f</span><span class="s1">&#39;, rank=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="si">}</span><span class="s1">, order=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_layers</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -555,7 +573,9 @@
                 <span class="n">s</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;dilation=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s1">, &#39;</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">s</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;bias=False&#39;</span>
-        <span class="k">return</span> <span class="n">s</span></div></div>
+        <span class="k">return</span> <span class="n">s</span></div>
+</div>
+
 
 
 <span class="k">class</span> <span class="nc">SubFactorizedConv</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -601,7 +621,7 @@
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2023, Jean Kossaifi.<br/>
+          &copy; Copyright 2024, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.

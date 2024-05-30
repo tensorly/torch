@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Factorized Convolutional Layers &#8212; TensorLy-Torch 0.4.0 documentation</title> 
 <link rel="stylesheet" href="../_static/tensorly_style.css">
@@ -16,16 +15,13 @@
 <link rel="shortcut icon" href="../_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/tensorly_style.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/tensorly_style.css?v=a02e9698" />
 
   
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/documentation_options.js?v=6c02275b"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
  <script src="../_static/navbar_burger.js"></script>
  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
  
@@ -189,7 +185,7 @@
       <div class="container content main-content">
         
   <section id="factorized-convolutional-layers">
-<h1>Factorized Convolutional Layers</h1>
+<h1>Factorized Convolutional Layers<a class="headerlink" href="#factorized-convolutional-layers" title="Link to this heading">¶</a></h1>
 <p>It is possible to apply low-rank tensor factorization to convolution
 kernels to compress the network and reduce the number of parameters.</p>
 <p>In TensorLy-Torch, you can easily try factorized convolutions: first, let’s
@@ -217,9 +213,9 @@ size of the convolutions.</p>
 </pre></div>
 </div>
 <section id="creating-factorized-convolutions">
-<h2>Creating Factorized Convolutions</h2>
+<h2>Creating Factorized Convolutions<a class="headerlink" href="#creating-factorized-convolutions" title="Link to this heading">¶</a></h2>
 <section id="from-random">
-<h3>From Random</h3>
+<h3>From Random<a class="headerlink" href="#from-random" title="Link to this heading">¶</a></h3>
 <p>In PyTorch, you would create a convolution as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">conv</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">input_channels</span><span class="p">,</span> <span class="n">output_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">)</span>
 </pre></div>
@@ -246,7 +242,7 @@ through the class name, e.g. Conv2d or Conv3d):</p>
 </div>
 </section>
 <section id="from-an-existing-convolution">
-<h3>From an existing Convolution</h3>
+<h3>From an existing Convolution<a class="headerlink" href="#from-an-existing-convolution" title="Link to this heading">¶</a></h3>
 <p>You can create a Factorized convolution from an existing (PyTorch)
 convolution:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fact_conv</span> <span class="o">=</span> <span class="n">tltorch</span><span class="o">.</span><span class="n">FactorizedConv</span><span class="o">.</span><span class="n">from_conv</span><span class="p">(</span><span class="n">conv</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">decompose_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;tucker&#39;</span><span class="p">)</span>
@@ -255,7 +251,7 @@ convolution:</p>
 </section>
 </section>
 <section id="efficient-convolutional-blocks">
-<h2>Efficient Convolutional Blocks</h2>
+<h2>Efficient Convolutional Blocks<a class="headerlink" href="#efficient-convolutional-blocks" title="Link to this heading">¶</a></h2>
 <p>If you compress a convolutional kernel, you can get efficient
 convolutional blocks by applying tensor factorization. For instance, if
 you apply CP decomposition, you can get a MobileNet-v2 block:</p>
@@ -298,7 +294,7 @@ BottleNeck block:</p>
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2023, Jean Kossaifi.<br/>
+          &copy; Copyright 2024, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.
