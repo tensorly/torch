@@ -5,7 +5,7 @@ import torch
 import tensorly as tl
 tl.set_backend('pytorch')
 from tensorly import testing
-from tensorly.utils import prod
+from math import prod
 
 import pytest
 
