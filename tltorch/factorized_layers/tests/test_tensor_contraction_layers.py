@@ -10,7 +10,7 @@ def test_tcl():
     batch_size = 2
     in_shape = (4, 5, 6)
     out_shape = (2, 3, 5)
-    data = tl.tensor(rng.random_sample((batch_size, ) + in_shape))
+    data = tl.tensor(rng.random_sample((batch_size, ) + in_shape), dtype=tl.float32)
 
     expected_shape = (batch_size, ) + out_shape
     tcl = TCL(input_shape=in_shape, rank=out_shape, bias=False)

@@ -76,8 +76,8 @@ def test_trl(factorization, true_rank, rank):
     tol = 0.08
 
     # Generate a random tensor
-    samples = tl.tensor(rng.normal(size=(batch_size, *input_shape), loc=0, scale=1))
-    true_bias = tl.tensor(rng.uniform(size=output_shape))
+    samples = tl.tensor(rng.normal(size=(batch_size, *input_shape), loc=0, scale=1), dtype=tl.float32)
+    true_bias = tl.tensor(rng.uniform(size=output_shape), dtype=tl.float32)
 
     with torch.no_grad():
         true_weight = FactorizedTensor.new(shape=input_shape+output_shape, 
@@ -130,7 +130,7 @@ def test_TuckerTRL(order, project_input, learn_pool):
     # fix the random seed for reproducibility and create random input
     random_state = 12345
     rng = tl.check_random_state(random_state)
-    data = tl.tensor(rng.random_sample((batch_size, in_features) + (spatial_size, )*order))
+    data = tl.tensor(rng.random_sample((batch_size, in_features) + (spatial_size, )*order), dtype=tl.float32)
 
     # Build a simple net with avg-pool, flatten + fully-connected
     if order == 2:
@@ -182,7 +182,7 @@ def test_TRL_from_linear(factorization, bias):
     # fix the random seed for reproducibility and create random input
     random_state = 12345
     rng = tl.check_random_state(random_state)
-    data = tl.tensor(rng.random_sample((batch_size, in_features)))
+    data = tl.tensor(rng.random_sample((batch_size, in_features)), dtype=tl.float32)
     fc = nn.Linear(in_features, out_features, bias=bias)
     res_fc = fc(tl.copy(data))
     trl = TRL((in_features, ), (out_features, ), rank=10, bias=bias, factorization=factorization)

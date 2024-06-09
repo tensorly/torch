@@ -21,7 +21,7 @@ def test_linear_tensor_dot_tucker(factorization, factorized_linear):
     rank = 3
     batch_size = 2
 
-    tensor = tl.randn((batch_size, in_dim))
+    tensor = tl.randn((batch_size, in_dim), dtype=tl.float32)
     fact_weight = TensorizedTensor.new((out_shape, in_shape), rank=rank,
                                        factorization=factorization)
     fact_weight.normal_()

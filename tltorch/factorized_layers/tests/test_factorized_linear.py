@@ -16,7 +16,7 @@ def test_FactorizedLinear(factorization):
     in_shape = (3, 3)
     out_features = 16
     out_shape = (4, 4)
-    data = tl.tensor(rng.random_sample((batch_size, in_features)))
+    data = tl.tensor(rng.random_sample((batch_size, in_features)), dtype=tl.float32)
 
     # Creat from a tensor factorization
     tensor = TensorizedTensor.new((out_shape, in_shape), rank='same', factorization=factorization)
