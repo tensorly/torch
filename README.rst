@@ -1,3 +1,7 @@
+.. image:: https://badge.fury.io/py/tensorly-torch.svg
+    :target: https://badge.fury.io/py/tensorly-torch
+
+
 ==============
 TensorLy-Torch
 ==============
