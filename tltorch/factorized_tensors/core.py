@@ -155,7 +155,10 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
             cls._name = name
         else:
             if cls.__name__ != "TensorizedTensor": # Don't display warning when instantiating the TensorizedTensor class
-                warnings.warn(f'Creating a subclass of FactorizedTensor {cls.__name__} with no name.')
+                name = cls.__name__
+                warnings.warn(f'Creating a subclass of FactorizedTensor {cls.__name__} with no name, using class name {name}.')
+                super().__init_subclass__(name=name, **kwargs)
+
 
     def __new__(cls, *args, **kwargs):
         """Customize the creation of a factorized convolution
