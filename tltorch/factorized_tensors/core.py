@@ -146,7 +146,7 @@ class FactorizedTensor(nn.Module, metaclass=MetaFactorizedTensor):
     """
     _factorizations = dict()
     
-    def __init_subclass__(cls, name, **kwargs):
+    def __init_subclass__(cls, name='', **kwargs):
         """When a subclass is created, register it in _factorizations"""
         super().__init_subclass__(**kwargs)
 

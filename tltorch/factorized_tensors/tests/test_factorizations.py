@@ -3,6 +3,7 @@ import pytest
 import math
 import torch
 from torch import testing
+import tltorch
 
 from tltorch.factorized_tensors.tensorized_matrices import CPTensorized, TuckerTensorized, BlockTT
 from tltorch.factorized_tensors.core import TensorizedTensor
@@ -136,3 +137,28 @@ def test_ComplexFactorizedTensor(factorization):
     assert fact_tensor.to_tensor().dtype == torch.cfloat
     for param in fact_tensor.parameters():
         assert param.dtype == torch.float32
+
+
+@pytest.mark.parametrize('factorization, param_name', [
+    ('Tucker', 'core'),
+    ('CP', 'weights'),
+    ('Dense', 'tensor'),
+    ('ComplexTucker', 'core'),
+    ('ComplexCP', 'weights'),
+    ('ComplexDense', 'tensor'),
+])
+def test_parametrize_without_name_does_not_crash(factorization, param_name):
+    """torch.nn.utils.parametrize dynamically subclasses tensor types
+    without passing `name`; this used to crash. Regression test for #614."""
+    factorized = FactorizedTensor.new(shape=(4, 4, 4), rank=0.5,
+                                      factorization=factorization)
+
+    class Identity(torch.nn.Module):
+        def forward(self, x):
+            return x
+
+    torch.nn.utils.parametrize.register_parametrization(factorized, param_name, Identity())
+
+    # The factorization name should still be inherited from the parent class,
+    # not overwritten by the dynamically-generated subclass name.
+    assert factorized.name == factorization
