@@ -14,7 +14,7 @@
 <link rel="shortcut icon" href="../../../_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/tensorly_style.css?v=a02e9698" />
 
   
@@ -134,15 +134,15 @@
       <div class="container content main-content">
         
   <h1>Source code for tltorch.factorized_layers.factorized_linear</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch.utils</span> <span class="kn">import</span> <span class="n">checkpoint</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">checkpoint</span>
 
-<span class="kn">from</span> <span class="nn">..functional</span> <span class="kn">import</span> <span class="n">factorized_linear</span>
-<span class="kn">from</span> <span class="nn">..factorized_tensors</span> <span class="kn">import</span> <span class="n">TensorizedTensor</span>
-<span class="kn">from</span> <span class="nn">tltorch.utils</span> <span class="kn">import</span> <span class="n">get_tensorized_shape</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..functional</span><span class="w"> </span><span class="kn">import</span> <span class="n">factorized_linear</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..factorized_tensors</span><span class="w"> </span><span class="kn">import</span> <span class="n">TensorizedTensor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tltorch.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_tensorized_shape</span>
 
 <span class="c1"># Author: Jean Kossaifi</span>
 <span class="c1"># License: BSD 3 clause</span>
@@ -150,7 +150,7 @@
 
 <div class="viewcode-block" id="FactorizedLinear">
 <a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear">[docs]</a>
-<span class="k">class</span> <span class="nc">FactorizedLinear</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FactorizedLinear</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Tensorized Fully-Connected Layers</span>
 
 <span class="sd">    The weight matrice is tensorized to a tensor of size `(*in_tensorized_features, *out_tensorized_features)`.</span>
@@ -181,7 +181,7 @@
 <span class="sd">    device : PyTorch device to use, default is None</span>
 <span class="sd">    dtype : PyTorch dtype, default is None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_tensorized_features</span><span class="p">,</span> <span class="n">out_tensorized_features</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">in_tensorized_features</span><span class="p">,</span> <span class="n">out_tensorized_features</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                  <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;cp&#39;</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="s1">&#39;factorized&#39;</span><span class="p">,</span> <span class="n">n_layers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                  <span class="n">checkpointing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
@@ -223,7 +223,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">rank</span>
 
-    <span class="k">def</span> <span class="nf">reset_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">normal_</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">in_features</span><span class="p">))</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -233,7 +233,7 @@
 
 <div class="viewcode-block" id="FactorizedLinear.forward">
 <a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear.forward">[docs]</a>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_layers</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">indices</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span>
@@ -252,7 +252,7 @@
             <span class="n">weight</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
             <span class="n">bias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bias</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
             
-        <span class="k">def</span> <span class="nf">_inner_forward</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="c1"># move weight() out to avoid register_hooks from being executed twice during recomputation</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">_inner_forward</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="c1"># move weight() out to avoid register_hooks from being executed twice during recomputation</span>
             <span class="k">return</span> <span class="n">factorized_linear</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="n">bias</span><span class="p">,</span> <span class="n">in_features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">in_features</span><span class="p">,</span>
                                         <span class="n">implementation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">implementation</span><span class="p">)</span>
         
@@ -263,19 +263,19 @@
         <span class="k">return</span> <span class="n">x</span></div>
 
 
-    <span class="k">def</span> <span class="nf">get_linear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_linear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_layers</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;A single linear is parametrized, directly use the main class.&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">SubFactorizedLinear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_linear</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
 
 <div class="viewcode-block" id="FactorizedLinear.from_linear">
 <a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear.from_linear">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_linear</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">linear</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">auto_tensorize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_tensorized_modes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_linear</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">linear</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">auto_tensorize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_tensorized_modes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                     <span class="n">in_tensorized_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out_tensorized_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
                     <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="s2">&quot;reconstructed&quot;</span><span class="p">,</span> 
                     <span class="n">checkpointing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">decomposition_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(),</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -333,7 +333,7 @@
 <div class="viewcode-block" id="FactorizedLinear.from_linear_list">
 <a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedLinear.html#tltorch.factorized_layers.FactorizedLinear.from_linear_list">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_linear_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">linear_list</span><span class="p">,</span> <span class="n">in_tensorized_features</span><span class="p">,</span> <span class="n">out_tensorized_features</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_linear_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">linear_list</span><span class="p">,</span> <span class="n">in_tensorized_features</span><span class="p">,</span> <span class="n">out_tensorized_features</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                          <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="n">implementation</span><span class="o">=</span><span class="s2">&quot;reconstructed&quot;</span><span class="p">,</span> <span class="n">checkpointing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">decomposition_kwargs</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="s1">&#39;random&#39;</span><span class="p">)):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Class method to create an instance from an existing linear layer</span>
 
@@ -377,7 +377,7 @@
         <span class="k">return</span> <span class="n">instance</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(in_features=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">in_features</span><span class="si">}</span><span class="s1">, out_features=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_features</span><span class="si">}</span><span class="s1">,&#39;</span>
                <span class="sa">f</span><span class="s1">&#39; weight of size (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_features</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">in_features</span><span class="si">}</span><span class="s1">) tensorized to (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">out_tensorized_features</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">in_tensorized_features</span><span class="si">}</span><span class="s1">),&#39;</span>
                <span class="sa">f</span><span class="s1">&#39;factorization=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">_name</span><span class="si">}</span><span class="s1">, rank=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="si">}</span><span class="s1">, implementation=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">implementation</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -394,7 +394,7 @@
 
 
 
-<span class="k">class</span> <span class="nc">SubFactorizedLinear</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SubFactorizedLinear</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class representing one of the convolutions from the mother joint factorized convolution</span>
 
 <span class="sd">    Parameters</span>
@@ -406,21 +406,21 @@
 <span class="sd">    if the same nn.Parameter is assigned to multiple modules, they all point to the same data, </span>
 <span class="sd">    which is shared.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_linear</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_linear</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_linear</span> <span class="o">=</span> <span class="n">main_linear</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">indices</span> <span class="o">=</span> <span class="n">indices</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_linear</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;in_features=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">main_linear</span><span class="o">.</span><span class="n">in_features</span><span class="si">}</span><span class="s1">, out_features=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">main_linear</span><span class="o">.</span><span class="n">out_features</span><span class="si">}</span><span class="s1">&#39;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_linear</span><span class="o">.</span><span class="n">has_bias</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="p">]:</span>
             <span class="n">msg</span> <span class="o">+=</span> <span class="s1">&#39;, bias=True&#39;</span>
         <span class="k">return</span> <span class="n">msg</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="si">}</span><span class="s1"> from main factorized layer.&#39;</span>
         <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(&#39;</span>
         <span class="n">msg</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extra_repr</span><span class="p">()</span>
@@ -435,7 +435,7 @@
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2024, Jean Kossaifi.<br/>
+          &copy; Copyright 2026, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.

@@ -14,7 +14,7 @@
 <link rel="shortcut icon" href="../../../_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/tensorly_style.css?v=a02e9698" />
 
   
@@ -134,18 +134,18 @@
       <div class="container content main-content">
         
   <h1>Source code for tltorch.factorized_layers.factorized_embedding</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
-<span class="kn">from</span> <span class="nn">tltorch.factorized_tensors</span> <span class="kn">import</span> <span class="n">TensorizedTensor</span><span class="p">,</span><span class="n">tensor_init</span>
-<span class="kn">from</span> <span class="nn">tltorch.utils</span> <span class="kn">import</span> <span class="n">get_tensorized_shape</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tltorch.factorized_tensors</span><span class="w"> </span><span class="kn">import</span> <span class="n">TensorizedTensor</span><span class="p">,</span><span class="n">tensor_init</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tltorch.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_tensorized_shape</span>
 
 <span class="c1"># Authors: Cole Hawkins </span>
 <span class="c1">#          Jean Kossaifi</span>
 
 <div class="viewcode-block" id="FactorizedEmbedding">
 <a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding">[docs]</a>
-<span class="k">class</span> <span class="nc">FactorizedEmbedding</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FactorizedEmbedding</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Tensorized Embedding Layers For Efficient Model Compression</span>
 <span class="sd">    Tensorized drop-in replacement for `torch.nn.Embedding`</span>
@@ -169,7 +169,7 @@
 <span class="sd">    rank : int tuple or str</span>
 <span class="sd">        rank of the tensor factorization</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">num_embeddings</span><span class="p">,</span>
                  <span class="n">embedding_dim</span><span class="p">,</span>
                  <span class="n">auto_tensorize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -224,7 +224,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">rank</span>
 
-    <span class="k">def</span> <span class="nf">reset_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1">#Parameter initialization from Yin et al.</span>
         <span class="c1">#TT-Rec: Tensor Train Compression for Deep Learning Recommendation Model Embeddings</span>
         <span class="n">target_stddev</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_embeddings</span><span class="p">)</span>
@@ -233,7 +233,7 @@
 
 <div class="viewcode-block" id="FactorizedEmbedding.forward">
 <a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding.forward">[docs]</a>
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="c1">#to handle case where input is not 1-D</span>
         <span class="n">output_shape</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding_dim</span><span class="p">)</span>
 
@@ -260,7 +260,7 @@
 <div class="viewcode-block" id="FactorizedEmbedding.from_embedding">
 <a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding.from_embedding">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_embedding</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_embedding</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
                        <span class="n">embedding_layer</span><span class="p">,</span>
                        <span class="n">rank</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
                        <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;blocktt&#39;</span><span class="p">,</span>
@@ -310,7 +310,7 @@
 <div class="viewcode-block" id="FactorizedEmbedding.from_embedding_list">
 <a class="viewcode-back" href="../../../modules/generated/tltorch.factorized_layers.FactorizedEmbedding.html#tltorch.factorized_layers.FactorizedEmbedding.from_embedding_list">[docs]</a>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_embedding_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_embedding_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
                        <span class="n">embedding_layer_list</span><span class="p">,</span>
                        <span class="n">rank</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
                        <span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;blocktt&#39;</span><span class="p">,</span>
@@ -376,7 +376,7 @@
 
 
 
-    <span class="k">def</span> <span class="nf">get_embedding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_embedding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_layers</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;A single linear is parametrized, directly use the main class.&#39;</span><span class="p">)</span>
 
@@ -384,7 +384,7 @@
 
 
 
-<span class="k">class</span> <span class="nc">SubFactorizedEmbedding</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SubFactorizedEmbedding</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Class representing one of the embeddings from the mother joint factorized embedding layer</span>
 
 <span class="sd">    Parameters</span>
@@ -396,18 +396,18 @@
 <span class="sd">    if the same nn.Parameter is assigned to multiple modules, they all point to the same data, </span>
 <span class="sd">    which is shared.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_layer</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_layer</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_layer</span> <span class="o">=</span> <span class="n">main_layer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">indices</span> <span class="o">=</span> <span class="n">indices</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_layer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">extra_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;&#39;</span>
 
-    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">indices</span><span class="si">}</span><span class="s1"> from main factorized layer.&#39;</span>
         <span class="n">msg</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">(&#39;</span>
         <span class="n">msg</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">extra_repr</span><span class="p">()</span>
@@ -422,7 +422,7 @@
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2024, Jean Kossaifi.<br/>
+          &copy; Copyright 2026, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.

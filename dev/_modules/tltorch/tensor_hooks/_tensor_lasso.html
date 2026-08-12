@@ -14,7 +14,7 @@
 <link rel="shortcut icon" href="../../../_static/favicon/favicon.ico">
 <meta name="theme-color" content="#ffffff">
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../../../_static/tensorly_style.css?v=a02e9698" />
 
   
@@ -134,21 +134,21 @@
       <div class="container content main-content">
         
   <h1>Source code for tltorch.tensor_hooks._tensor_lasso</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">tensorly</span> <span class="k">as</span> <span class="nn">tl</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tensorly</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tl</span>
 <span class="n">tl</span><span class="o">.</span><span class="n">set_backend</span><span class="p">(</span><span class="s1">&#39;pytorch&#39;</span><span class="p">)</span>
 
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
-<span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">F</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="kn">import</span> <span class="n">functional</span> <span class="k">as</span> <span class="n">F</span>
 
-<span class="kn">from</span> <span class="nn">..factorized_tensors</span> <span class="kn">import</span> <span class="n">TuckerTensor</span><span class="p">,</span> <span class="n">TTTensor</span><span class="p">,</span> <span class="n">CPTensor</span>
-<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">ParameterList</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..factorized_tensors</span><span class="w"> </span><span class="kn">import</span> <span class="n">TuckerTensor</span><span class="p">,</span> <span class="n">TTTensor</span><span class="p">,</span> <span class="n">CPTensor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParameterList</span>
 
 <span class="c1"># Author: Jean Kossaifi</span>
 <span class="c1"># License: BSD 3 clause</span>
 
-<span class="k">class</span> <span class="nc">TensorLasso</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TensorLasso</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generalized Tensor Lasso on factorized tensors</span>
 
 <span class="sd">        Applies a generalized Lasso (l1 regularization) on a factorized tensor.</span>
@@ -206,11 +206,11 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_factorizations</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">factorization</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__init_subclass__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">factorization</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;When a subclass is created, register it in _factorizations&quot;&quot;&quot;</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">factorization</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span>
     
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">clamp_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">normalize_loss</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">clamp_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">normalize_loss</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">penalty</span> <span class="o">=</span> <span class="n">penalty</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">clamp_weights</span> <span class="o">=</span> <span class="n">clamp_weights</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span> <span class="o">=</span> <span class="n">threshold</span>
@@ -219,14 +219,14 @@
         <span class="c1"># Initialize the counters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
         
-    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Reset the loss, should be called at the end of each iteration.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_loss</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_element</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">loss</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the current Lasso (l1) loss for the layers that have been called so far.</span>
 
 <span class="sd">        Returns</span>
@@ -242,30 +242,30 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">penalty</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_loss</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">tucker_tensor</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">tucker_tensor</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-    <span class="k">def</span> <span class="nf">apply_lasso</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tucker_tensor</span><span class="p">,</span> <span class="n">lasso_weights</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_lasso</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tucker_tensor</span><span class="p">,</span> <span class="n">lasso_weights</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Applies the lasso to a decomposed tensor</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_factorization</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">factorization</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">clamp_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">normalize_loss</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_factorization</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">factorization</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">clamp_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">normalize_loss</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_factorization_name</span><span class="p">(</span><span class="n">factorization</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="n">penalty</span><span class="p">,</span>
                                            <span class="n">clamp_weights</span><span class="o">=</span><span class="n">clamp_weights</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span> <span class="n">normalize_loss</span><span class="o">=</span><span class="n">normalize_loss</span><span class="p">)</span>
     
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_factorization_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">factorization_name</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">clamp_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">normalize_loss</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_factorization_name</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">factorization_name</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">clamp_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">normalize_loss</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="bp">cls</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_factorizations</span><span class="p">[</span><span class="n">factorization_name</span><span class="p">]</span>
         <span class="n">lasso</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="n">penalty</span><span class="p">,</span> <span class="n">clamp_weights</span><span class="o">=</span><span class="n">clamp_weights</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span> <span class="n">normalize_loss</span><span class="o">=</span><span class="n">normalize_loss</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">lasso</span>
 
-    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
 
-<span class="k">class</span> <span class="nc">CPLasso</span><span class="p">(</span><span class="n">TensorLasso</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="n">CPTensor</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CPLasso</span><span class="p">(</span><span class="n">TensorLasso</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="n">CPTensor</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Decomposition Hook for Tensor Lasso on CP tensors</span>
 
 <span class="sd">    Parameters</span>
@@ -283,7 +283,7 @@
 <span class="sd">        If True, the loss will be between 0 and 1.</span>
 <span class="sd">        Otherwise, the raw sum of absolute weights will be returned.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">cp_tensor</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">cp_tensor</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;CP already includes weights, we&#39;ll just take their l1 norm</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">weights</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;lasso_weights&#39;</span><span class="p">)</span>
@@ -301,7 +301,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loss</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">penalty</span><span class="o">*</span><span class="n">torch</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">cp_tensor</span>
 
-    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply an instance of the L1Regularizer to a tensor module</span>
 
 <span class="sd">        Parameters</span>
@@ -320,15 +320,15 @@
         <span class="n">module</span><span class="o">.</span><span class="n">register_forward_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">module</span>
     
-    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
         <span class="nb">delattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;lasso_weights&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">set_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
             <span class="n">module</span><span class="o">.</span><span class="n">lasso_weights</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">fill_</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">TuckerLasso</span><span class="p">(</span><span class="n">TensorLasso</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="n">TuckerTensor</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TuckerLasso</span><span class="p">(</span><span class="n">TensorLasso</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="n">TuckerTensor</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Decomposition Hook for Tensor Lasso on Tucker tensors</span>
 
 <span class="sd">        Applies a generalized Lasso (l1 regularization) on the tensor layers the regularization it is applied to.</span>
@@ -351,7 +351,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_log</span> <span class="o">=</span> <span class="p">[]</span>
     
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">tucker_tensor</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">tucker_tensor</span><span class="p">):</span>
         <span class="n">lasso_weights</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;lasso_weights&#39;</span><span class="p">)</span>
         <span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lasso_weights</span><span class="p">)</span>
 
@@ -371,14 +371,14 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_lasso</span><span class="p">(</span><span class="n">tucker_tensor</span><span class="p">,</span> <span class="n">lasso_weights</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">apply_lasso</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tucker_tensor</span><span class="p">,</span> <span class="n">lasso_weights</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_lasso</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tucker_tensor</span><span class="p">,</span> <span class="n">lasso_weights</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Applies the lasso to a decomposed tensor</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">factors</span> <span class="o">=</span> <span class="n">tucker_tensor</span><span class="o">.</span><span class="n">factors</span>
         <span class="n">factors</span> <span class="o">=</span> <span class="p">[</span><span class="n">factor</span><span class="o">*</span><span class="n">w</span>  <span class="k">for</span> <span class="p">(</span><span class="n">factor</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">factors</span><span class="p">,</span> <span class="n">lasso_weights</span><span class="p">)]</span>
         <span class="k">return</span> <span class="n">TuckerTensor</span><span class="p">(</span><span class="n">tucker_tensor</span><span class="o">.</span><span class="n">core</span><span class="p">,</span> <span class="n">factors</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply an instance of the L1Regularizer to a tensor module</span>
 
 <span class="sd">        Parameters</span>
@@ -398,16 +398,16 @@
 
         <span class="k">return</span> <span class="n">module</span>
 
-    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
         <span class="nb">delattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;lasso_weights&#39;</span><span class="p">)</span>
     
-    <span class="k">def</span> <span class="nf">set_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">lasso_weights</span><span class="p">:</span>
                 <span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">fill_</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="nc">TTLasso</span><span class="p">(</span><span class="n">TensorLasso</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="n">TTTensor</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TTLasso</span><span class="p">(</span><span class="n">TensorLasso</span><span class="p">,</span> <span class="n">factorization</span><span class="o">=</span><span class="n">TTTensor</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Decomposition Hook for Tensor Lasso on TT tensors</span>
 
 <span class="sd">    Parameters</span>
@@ -425,7 +425,7 @@
 <span class="sd">        If True, the loss will be between 0 and 1.</span>
 <span class="sd">        Otherwise, the raw sum of absolute weights will be returned.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">tt_tensor</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="nb">input</span><span class="p">,</span> <span class="n">tt_tensor</span><span class="p">):</span>
         <span class="n">lasso_weights</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;lasso_weights&#39;</span><span class="p">)</span>
         <span class="n">order</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lasso_weights</span><span class="p">)</span>
 
@@ -445,14 +445,14 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">apply_lasso</span><span class="p">(</span><span class="n">tt_tensor</span><span class="p">,</span> <span class="n">lasso_weights</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">apply_lasso</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tt_tensor</span><span class="p">,</span> <span class="n">lasso_weights</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply_lasso</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tt_tensor</span><span class="p">,</span> <span class="n">lasso_weights</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Applies the lasso to a decomposed tensor</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">factors</span> <span class="o">=</span> <span class="n">tt_tensor</span><span class="o">.</span><span class="n">factors</span>
         <span class="n">factors</span> <span class="o">=</span> <span class="p">[</span><span class="n">factor</span><span class="o">*</span><span class="n">w</span>  <span class="k">for</span> <span class="p">(</span><span class="n">factor</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">factors</span><span class="p">,</span> <span class="n">lasso_weights</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="n">factors</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
         <span class="k">return</span> <span class="n">TTTensor</span><span class="p">(</span><span class="n">factors</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply an instance of the L1Regularizer to a tensor module</span>
 
 <span class="sd">        Parameters</span>
@@ -470,12 +470,12 @@
         <span class="n">handle</span> <span class="o">=</span> <span class="n">module</span><span class="o">.</span><span class="n">register_forward_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">module</span>
 
-    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove the Regularization from a module.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">delattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;lasso_weights&#39;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">set_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
             <span class="k">for</span> <span class="n">weight</span> <span class="ow">in</span> <span class="n">module</span><span class="o">.</span><span class="n">lasso_weights</span><span class="p">:</span>
                 <span class="n">weight</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">fill_</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -483,7 +483,7 @@
 
 <div class="viewcode-block" id="tensor_lasso">
 <a class="viewcode-back" href="../../../modules/generated/tltorch.tensor_hooks.tensor_lasso.html#tltorch.tensor_hooks.tensor_lasso">[docs]</a>
-<span class="k">def</span> <span class="nf">tensor_lasso</span><span class="p">(</span><span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">clamp_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">normalize_loss</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">tensor_lasso</span><span class="p">(</span><span class="n">factorization</span><span class="o">=</span><span class="s1">&#39;CP&#39;</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">clamp_weights</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">normalize_loss</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generalized Tensor Lasso from a factorized tensors</span>
 
 <span class="sd">        Applies a generalized Lasso (l1 regularization) on a factorized tensor.</span>
@@ -549,7 +549,7 @@
 
 <div class="viewcode-block" id="remove_tensor_lasso">
 <a class="viewcode-back" href="../../../modules/generated/tltorch.tensor_hooks.remove_tensor_lasso.html#tltorch.tensor_hooks.remove_tensor_lasso">[docs]</a>
-<span class="k">def</span> <span class="nf">remove_tensor_lasso</span><span class="p">(</span><span class="n">factorized_tensor</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">remove_tensor_lasso</span><span class="p">(</span><span class="n">factorized_tensor</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Removes the tensor lasso from a TensorModule </span>
 
 <span class="sd">    Parameters</span>
@@ -580,7 +580,7 @@
         <footer class="footer">
     <div class="content has-text-centered">
         <div class="block">
-          &copy; Copyright 2024, Jean Kossaifi.<br/>
+          &copy; Copyright 2026, Jean Kossaifi.<br/>
         </div>
       <div class="block">
         Created using <a href="http://sphinx-doc.org/">Sphinx</a> and the <a href="http://tensorly.org"><strong>TensorLy</strong></a> theme by <a href="http://jeankossaifi.com">Jean Kossaifi</a>.
