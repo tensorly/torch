@@ -495,7 +495,7 @@ class TTTensor(FactorizedTensor, name='TT'):
 
         # Init so the reconstruction is equivalent to concatenating the previous self new_dim times
         if new_factor is None:
-            new_factor = torch.zeros(new_rank, new_dim, new_rank)
+            new_factor = factors[0].new_zeros((new_rank, new_dim, new_rank))
             for i in range(new_dim):
                 new_factor[:, i, :] = torch.eye(new_rank)#/new_dim
             # Below: <=> static prediciton
